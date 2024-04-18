@@ -419,6 +419,8 @@ Sub totalPeriodRawMaterialsUsedReport()
     
     On Error GoTo ErrorMsg
     
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
 
     Dim totalClassifiedDict As Object
     Set totalClassifiedDict = CreateObject("Scripting.Dictionary") ' raw materials classification on report
@@ -583,7 +585,7 @@ Sub totalPeriodRawMaterialsUsedReport()
 
         Dim isColumn8CurrentFormat As Boolean
 
-        isColumn8CurrentFormat = Application.Run("utilityFunction.DoesStringExistInWorksheets", "‡gvU e¨eüZ c‡Y¨i", mergedUpWs)
+        isColumn8CurrentFormat = Application.Run("utilityFunction.DoesStringExistInWorksheets", vsCodeNotSupportedOrBengaliTxtDictionary("totalUsedRawMetarialsBengaliTxt"), mergedUpWs)
 
         'take UP no.
         Dim upNo As Variant
@@ -656,6 +658,9 @@ Sub totalPeriodBillOfEntryOrMushkUsedCalculationAndPutToImportPerformance()
   
   
   On Error GoTo ErrorMsg
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
   
   Dim mergedUpWb As Workbook
   Dim mergedUpWs As Worksheet
@@ -692,7 +697,7 @@ Sub totalPeriodBillOfEntryOrMushkUsedCalculationAndPutToImportPerformance()
   
       Dim isColumn8CurrentFormat As Boolean
   
-      isColumn8CurrentFormat = Application.Run("utilityFunction.DoesStringExistInWorksheets", "‡gvU e¨eüZ c‡Y¨i", mergedUpWs)
+      isColumn8CurrentFormat = Application.Run("utilityFunction.DoesStringExistInWorksheets", vsCodeNotSupportedOrBengaliTxtDictionary("totalUsedRawMetarialsBengaliTxt"), mergedUpWs)
   
       'take UP no.
       Dim upNo As Variant
