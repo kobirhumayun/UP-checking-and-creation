@@ -5,10 +5,14 @@ Option Explicit
 
 Private Function upClause6BuyerinformationRangeObject() As Variant
 'this function give buyer information Range Object from active sheet
+
+Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
 Dim topRow, bottomRow As Variant
 
 topRow = ActiveSheet.Cells.Find("6|", LookAt:=xlWhole).Row
-bottomRow = Range("N" & Cells.Find("7| ‡jvKvj e¨vK Uz e¨vK Gj wm Gi weeiY", LookAt:=xlPart).Row).End(xlUp).Row
+bottomRow = Range("N" & Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxt"), LookAt:=xlPart).Row).End(xlUp).Row
 
 Dim workingRange As Range
 Set workingRange = Range("N" & topRow & ":" & "N" & bottomRow)
@@ -21,10 +25,14 @@ End Function
 
 Private Function upClause6BuyerinformationRangeObjectFromProvidedWs(ws As Worksheet) As Variant
     'this function give buyer information Range Object from provided sheet
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
     Dim topRow, bottomRow As Variant
 
     topRow = ws.Cells.Find("6|", LookAt:=xlWhole).Row
-    bottomRow = ws.Range("N" & ws.Cells.Find("7| ‡jvKvj e¨vK Uz e¨vK Gj wm Gi weeiY", LookAt:=xlPart).Row).End(xlUp).Row
+    bottomRow = ws.Range("N" & ws.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxt"), LookAt:=xlPart).Row).End(xlUp).Row
 
     Dim workingRange As Range
     Set workingRange = ws.Range("A" & topRow & ":" & "AI" & bottomRow)
@@ -36,9 +44,13 @@ End Function
 
 Private Function upClause7LcinformationRangeObject() As Variant
 'this function give LC information Range Object from active sheet
+
+Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
 Dim topRow, bottomRow As Variant
 
-topRow = ActiveSheet.Cells.Find("7| ‡jvKvj e¨vK Uz e¨vK Gj wm Gi weeiY", LookAt:=xlPart).Row + 2
+topRow = ActiveSheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxt"), LookAt:=xlPart).Row + 2
 bottomRow = Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row - 1
 
 Dim workingRange As Range
@@ -50,9 +62,13 @@ End Function
 
 Private Function upClause7LcinformationRangeObjectFromProvidedWs(ws As Worksheet) As Variant
     'this function give buyer lc information Range Object from provided sheet
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
     Dim topRow, bottomRow As Variant
 
-    topRow = ws.Cells.Find("7| ‡jvKvj e¨vK Uz e¨vK Gj wm Gi weeiY", LookAt:=xlPart).Row + 1
+    topRow = ws.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxt"), LookAt:=xlPart).Row + 1
     bottomRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row - 1
 
     Dim workingRange As Range
@@ -107,9 +123,13 @@ End Function
 
 Private Function upClause9StockinformationRangeObject() As Variant
 'this function give stock information Range Object from active sheet
+
+Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
 Dim topRow, bottomRow As Variant
 
-topRow = ActiveSheet.Cells.Find("9| gRy` m¤úwK©Z Z_¨vw`", LookAt:=xlPart).Row + 3
+topRow = ActiveSheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("infoAboutStockBengaliTxt"), LookAt:=xlPart).Row + 3
 bottomRow = Range("T" & topRow).End(xlDown).Row
 
 Dim workingRange As Range
