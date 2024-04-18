@@ -217,9 +217,12 @@ End Function
 Private Function putProductValueFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDataAsDicUpIssuingStatus As Object, lcKey As Variant)
     'this function fill-up product value field as lc information
 
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
     lcRangObj(1, 20).Resize(2, 2).Style = "Comma"
 
-    If Left(sourceDataAsDicUpIssuingStatus(lcKey)("currencyNumberFormat"), 8) = "_([$€-2]" Then
+    If Left(sourceDataAsDicUpIssuingStatus(lcKey)("currencyNumberFormat"), 8) = vsCodeNotSupportedOrBengaliTxtDictionary("sourceDataAsDicUpIssuingStatusCurrencyNumberFormat") Then
 
 '        lcRangObj(1, 20).NumberFormat = "@"
         lcRangObj(1, 20).value = "Euro  " & WorksheetFunction.Text(sourceDataAsDicUpIssuingStatus(lcKey)("LCAmount"), "#,##0.00")
@@ -321,6 +324,9 @@ End Function
 Private Function putHeaderFieldAsFirstLcInfoUpClause7(headerRangObj As Range, sourceDataAsDicUpIssuingStatus As Object, lcKey As Variant)
     'this function fill-up header row field as first lc information
 
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
     headerRangObj(1, 22).Resize(1, 6).ClearContents
     headerRangObj(1, 22).Resize(1, 6).UnMerge
 
@@ -329,7 +335,7 @@ Private Function putHeaderFieldAsFirstLcInfoUpClause7(headerRangObj As Range, so
         If Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(lcKey)("UDNoIPNo"), "^IP", True, True, True) Then
             ' non Garments EPZ
 
-            headerRangObj(1, 22).value = "BGK&ªwc bs I ZvwiL" 'EXP
+            headerRangObj(1, 22).value = vsCodeNotSupportedOrBengaliTxtDictionary("expNoAndDtBengaliTxt") 'EXP
             headerRangObj(1, 22).Resize(1, 3).Merge
 
             headerRangObj(1, 25).value = "AvBwc bs I ZvwiL" 'IP
@@ -338,13 +344,13 @@ Private Function putHeaderFieldAsFirstLcInfoUpClause7(headerRangObj As Range, so
         ElseIf Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(lcKey)("UDNoIPNo"), "^EXP", True, True, True) Then
             ' non Garments direct
 
-            headerRangObj(1, 22).value = "BGK&ªwc bs I ZvwiL" 'EXP
+            headerRangObj(1, 22).value = vsCodeNotSupportedOrBengaliTxtDictionary("expNoAndDtBengaliTxt") 'EXP
             headerRangObj(1, 22).Resize(1, 6).Merge
 
         Else
             ' non Garments Deem
 
-            headerRangObj(1, 22).value = "gvóvi Gj wm bs I ZvwiL" 'MLc
+            headerRangObj(1, 22).value = vsCodeNotSupportedOrBengaliTxtDictionary("mlcNoAndDtBengaliTxt") 'MLc
             headerRangObj(1, 22).Resize(1, 6).Merge
 
         End If
@@ -352,7 +358,7 @@ Private Function putHeaderFieldAsFirstLcInfoUpClause7(headerRangObj As Range, so
     Else
         ' Garments
 
-        headerRangObj(1, 22).value = "gvóvi Gj wm bs I ZvwiL" 'MLc
+        headerRangObj(1, 22).value = vsCodeNotSupportedOrBengaliTxtDictionary("mlcNoAndDtBengaliTxt") 'MLc
         headerRangObj(1, 22).Resize(1, 6).Merge
 
     End If
