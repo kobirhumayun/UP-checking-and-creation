@@ -413,6 +413,9 @@ End Function
 Private Function replaceRegExSpecialCharacterWithEscapeCharacter(regExString As Variant) As Variant  ' provide String
 'this function replace regEx special character with escape character
 
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
     regExString = Trim(regExString)
     
     regExString = Replace(regExString, "\", "\\") ' must this character at first line, otherwise replace twice
@@ -430,7 +433,7 @@ Private Function replaceRegExSpecialCharacterWithEscapeCharacter(regExString As 
     regExString = Replace(regExString, "{", "\{")
     regExString = Replace(regExString, "}", "\}")
     regExString = Replace(regExString, "|", "\|")
-    regExString = Replace(regExString, "—", "\—")
+    regExString = Replace(regExString, vsCodeNotSupportedOrBengaliTxtDictionary("charCode151"), vsCodeNotSupportedOrBengaliTxtDictionary("charCode151WithSlash"))
     regExString = Replace(regExString, "/", "\/")
     
     
