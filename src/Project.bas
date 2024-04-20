@@ -98,13 +98,13 @@ Private Function getVBComponentFilename(ByRef component As VBComponent) As Strin
 End Function
 
 ' Check to see if component exits in this current Project
-Private Function componentExists(ByVal filename As String) As Boolean
+Private Function componentExists(ByVal fileName As String) As Boolean
     Dim index As Long
-    For index = 1 To thisProjectsVBComponents.count
+    For index = 1 To thisProjectsVBComponents.Count
         Dim component As VBComponent
         Set component = thisProjectsVBComponents(index)
         
-        If getVBComponentFilename(component) = filename Then
+        If getVBComponentFilename(component) = fileName Then
             componentExists = True
             Exit Function
         End If
@@ -126,7 +126,7 @@ Public Sub ExportComponentsToSourceFolder()
     
     ' Loop each component within this project and export to source directory.
     Dim index As Long
-    For index = 1 To thisProjectsVBComponents.count
+    For index = 1 To thisProjectsVBComponents.Count
         Dim component As VBComponent
         Set component = thisProjectsVBComponents(index)
         
@@ -156,7 +156,7 @@ Public Sub DangerouslyImportComponentsFromSourceFolder()
         ' import the file, otherwise an error is thrown.
         If componentExists(file.Name) And file.Name <> "Project.bas" Then
             Dim component As VBComponent
-            Set component = thisProjectsVBComponents.item(fso.GetBaseName(file.Name))
+            Set component = thisProjectsVBComponents.Item(fso.GetBaseName(file.Name))
             
             ' Unable to remove document type components (Sheets, workbook)
             If component.Type <> vbext_ct_Document Then
@@ -217,7 +217,7 @@ End Function
 ' @status Production
 Public Property Get ComponentsDetails() As String
     Dim index As Long
-    For index = 1 To thisProjectsVBComponents.count
+    For index = 1 To thisProjectsVBComponents.Count
         Dim component As VBComponent
         Set component = thisProjectsVBComponents(index)
         
@@ -229,7 +229,7 @@ End Property
 ' @status Development
 Private Sub printDiffFromSourceFolder()
     Dim index As Long
-    For index = 1 To thisProjectsVBComponents.count
+    For index = 1 To thisProjectsVBComponents.Count
         Dim component As VBComponent
         Set component = thisProjectsVBComponents(index)
         
