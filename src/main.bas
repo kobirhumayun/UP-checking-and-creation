@@ -94,42 +94,42 @@ upYarnConsumptionInformation = Application.Run("helperFunctionGetData.upYarnCons
 
 'take source data from UP Issuing Status
 Dim sourceDataUpIssuingStatus As Variant
-sourceDataUpIssuingStatus = Application.Run("helperFunctionGetData.SourceDataUPIssuingStatus", upNo, "UP Issuing Status for the Period # 01-03-2023 to 28-02-2024.xlsx", "UP Issuing Status # 2023-2024")
+sourceDataUpIssuingStatus = Application.Run("helperFunctionGetData.SourceDataUPIssuingStatus", upNo, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
 
 
 'take source data from Import Performance Yarn Import
 Dim sourceDataImportPerformanceYarnImport As Variant
-sourceDataImportPerformanceYarnImport = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2023-2024.xlsx", "Yarn (Import)", True, False)
+sourceDataImportPerformanceYarnImport = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "Yarn (Import)", True, False)
 
 
 'take source data from Import Performance Yarn Local
 Dim sourceDataImportPerformanceYarnLocal As Variant
-sourceDataImportPerformanceYarnLocal = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2023-2024.xlsx", "Yarn (Local)", False, False)
+sourceDataImportPerformanceYarnLocal = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "Yarn (Local)", False, False)
 
 
 'take source data from Import Performance Dyes
 Dim sourceDataImportPerformanceDyes As Variant
-sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2023-2024.xlsx", "Dyes", False, False)
+sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "Dyes", False, False)
 
 
 'take source data from Import Performance Chemicals Import
 Dim sourceDataImportPerformanceChemicalsImport As Variant
-sourceDataImportPerformanceChemicalsImport = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2023-2024.xlsx", "Chemicals (Import)", False, False)
+sourceDataImportPerformanceChemicalsImport = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "Chemicals (Import)", False, False)
 
 
 'take source data from Import Performance Chemicals Local
 Dim sourceDataImportPerformanceChemicalsLocal As Variant
-sourceDataImportPerformanceChemicalsLocal = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2023-2024.xlsx", "Chemicals (Local)", False, False)
+sourceDataImportPerformanceChemicalsLocal = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "Chemicals (Local)", False, False)
 
 
 'take source data from Import Performance Stretch Wrapping Film
 Dim sourceDataImportPerformanceStretchWrappingFilm As Variant
-sourceDataImportPerformanceStretchWrappingFilm = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2023-2024.xlsx", "St.Wrap.Film (Import)", False, False)
+sourceDataImportPerformanceStretchWrappingFilm = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "St.Wrap.Film (Import)", False, False)
 
 
 'take source data from Import Performance Total Summary
 Dim sourceDataImportPerformanceTotalSummary As Variant
-sourceDataImportPerformanceTotalSummary = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2023-2024.xlsx", "Summary of Grand Total", False, True)
+sourceDataImportPerformanceTotalSummary = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "Summary of Grand Total", False, True)
 
 
 
@@ -279,7 +279,7 @@ End Sub
 'For i = 1 To Sheets.Count
 '
 '
-'Workbooks.Open fileName:=ActiveWorkbook.path & Application.PathSeparator & "Audit Period # 2022-2023 All UP File Merged.xlsx", ReadOnly:=False
+'Workbooks.Open fileName:=ActiveWorkbook.path & Application.PathSeparator & "Audit Period # 2024-2025 All UP File Merged.xlsx", ReadOnly:=False
 '
 '
 'Worksheets(i).Select
@@ -322,7 +322,7 @@ End Sub
 '
 ''take source data from Import Performance Dyes
 'Dim sourceDataImportPerformanceDyes As Variant
-'sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2022-2023.xlsx", "Dyes", True, True)
+'sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "Dyes", True, True)
 '
 'Dim i As Integer
 '
@@ -373,7 +373,7 @@ End Sub
 '
 '    'take source data from Import Performance Dyes
 '    Dim sourceDataImportPerformanceAll As Variant
-'    sourceDataImportPerformanceAll = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2022-2023.xlsx", "All", True, True)
+'    sourceDataImportPerformanceAll = Application.Run("helperFunctionGetData.sourceDataImportPerformance", "Import Performance Statement of PDL-2024-2025.xlsx", "All", True, True)
 '
 '    Dim i As Integer
 '
@@ -557,7 +557,7 @@ Sub totalPeriodRawMaterialsUsedReport()
     Array("Stretch Wrapping Film"))
     
     Dim importPerformanceFilePath As String
-    importPerformanceFilePath = ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2023-2024.xlsx" ' file name will be change after change period
+    importPerformanceFilePath = ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2024-2025.xlsx" ' file name will be change after change period
     
     Dim impBillAndMushakDb As Object
     Set impBillAndMushakDb = Application.Run("utilityFunction.CombinedAllSheetsMushakOrBillOfEntryDbDict", importPerformanceFilePath)
@@ -732,7 +732,7 @@ Sub totalPeriodBillOfEntryOrMushkUsedCalculationAndPutToImportPerformance()
     
     Dim importPerformanceFileWb As Workbook
     Dim importPerformanceFilePath As String
-    importPerformanceFilePath = ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2023-2024 for Bond Audit.xlsx" ' file name will be change after change period
+    importPerformanceFilePath = ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2024-2025 for Bond Audit.xlsx" ' file name will be change after change period
     Set importPerformanceFileWb = Workbooks.Open(importPerformanceFilePath)
         
     Dim importPerformanceFileYarnImportWs As Worksheet
@@ -782,7 +782,7 @@ Sub createNewUp()
     'take UP file path
 
     Dim currentUpFilePathArr, currentUpFilePath As Variant
-    currentUpFilePathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2023")  ' UP file path
+    currentUpFilePathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024")  ' UP file path
     If UBound(currentUpFilePathArr) = 1 Then
         currentUpFilePath = currentUpFilePathArr(1)
     Else
@@ -838,7 +838,7 @@ Sub createNewUp()
     
     'take source data as dictionary from UP Issuing Status
     Dim sourceDataAsDicUpIssuingStatus As Variant
-    Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2023 to 28-02-2024.xlsx", "UP Issuing Status # 2023-2024")
+    Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
     
     Dim upNoWithWordForPutToWs, upNoInWord, yearInWord As String
     upNoInWord = Application.Run("NumToBanglaWord.numberToBanglaWord", extractedUpAndUpYear(1) + 1)
@@ -893,7 +893,7 @@ Sub afterYarnConsumption()
     
     'take source data as dictionary from UP Issuing Status
     Dim sourceDataAsDicUpIssuingStatus As Variant
-    Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2023 to 28-02-2024.xlsx", "UP Issuing Status # 2023-2024")
+    Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
 
     
     'take yarn consumption info from "Consumption" sheet
@@ -921,7 +921,7 @@ Sub afterYarnConsumption()
     Dim impPerformanceDataDic As Object
     
     Set impPerformanceDataDic = Application.Run("data_from_imp_performance.classifiedDbDicFromImpPerformance", _
-    ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2023-2024.xlsx") ' path change after changed the period
+    ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2024-2025.xlsx") ' path change after changed the period
     
     'take source data as dictionary from Import Yarn Use Details For UD File
     Dim importYarnUseDetailsForUd As Object
@@ -980,7 +980,7 @@ End Sub
 '        Next i
 '
 
-'        Set test1 = Application.Run("utilityFunction.CombinedAllSheetsMushakOrBillOfEntryDbDict", "D:\Temp\UP Draft\Draft 2023\Import Performance Statement of PDL-2023-2024.xlsx")
+'        Set test1 = Application.Run("utilityFunction.CombinedAllSheetsMushakOrBillOfEntryDbDict", "D:\Temp\UP Draft\Draft 2024\Import Performance Statement of PDL-2024-2025.xlsx")
 '
 '        Set ws = ActiveSheet
 '        ws.Cells.Clear
@@ -1001,14 +1001,14 @@ End Sub
     
 '    Application.Run "utility_formating_fun.borderInsideHairlineAroundThin", Selection
 
-'    Set dict = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "ip", "date", Array("IP1 &_"), Array("10/12/2023"))
+'    Set dict = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "ip", "date", Array("IP1 &_"), Array("10/12/2024"))
     
 '    test1 = Application.Run("general_utility_functions.isStrPatternExist", "abc", ".", True, True, True)
 
 '    Set test1 = Application.Run("general_utility_functions.regExReturnedObj", "a58b6c", "\d+", True, True, True)
     
-    test1 = Application.Run("general_utility_functions.extractAndFormatUdNo", "BGMEA/DHK/UD/2023/3578/020")
-    test1 = Application.Run("general_utility_functions.extractAndFormatUdNo", "BGMEA/DHK/AM/2023/3016/002-003")
+    test1 = Application.Run("general_utility_functions.extractAndFormatUdNo", "BGMEA/DHK/UD/2024/3578/020")
+    test1 = Application.Run("general_utility_functions.extractAndFormatUdNo", "BGMEA/DHK/AM/2024/3016/002-003")
 
 '    Set test1 = Application.Run("dedo_consumption.ropeDyingBlackPretreatmentAndDying")
 
