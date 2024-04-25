@@ -15,6 +15,13 @@ Application.ScreenUpdating = False
 
 On Error GoTo ErrorMsg
 
+Dim upWorkBook As Workbook
+Dim upWorksheet As Worksheet
+Dim consumptionWorksheet As Worksheet
+
+Set upWorkBook = ActiveWorkbook
+Set upWorksheet = upWorkBook.Worksheets(2)
+Set consumptionWorksheet = upWorkBook.Worksheets("Consumption")
 
 'take UP no.
 Dim upNo As Variant
@@ -90,11 +97,18 @@ Dim upYarnConsumptionInformation As Variant
 upYarnConsumptionInformation = Application.Run("helperFunctionGetData.upYarnConsumptionInformation")
 
 
+'take yarn consumption info from "Consumption" sheet
+Dim yarnConsumptionInfoDic As Variant
+Set yarnConsumptionInfoDic = Application.Run("afterConsumption.upYarnConsumptionInformationFromProvidedWs", consumptionWorksheet)
 
 
 'take source data from UP Issuing Status
 Dim sourceDataUpIssuingStatus As Variant
 sourceDataUpIssuingStatus = Application.Run("helperFunctionGetData.SourceDataUPIssuingStatus", upNo, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
+
+'take source data as dictionary from UP Issuing Status
+Dim sourceDataAsDicUpIssuingStatus As Variant
+Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", upNo, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
 
 
 'take source data from Import Performance Yarn Import
@@ -155,7 +169,7 @@ upClause6And7CompareWithSourceResultArr = Application.Run("helperFunctionCompare
 
 
 Dim upClause8CompareWithSourceResultArr As Variant
-upClause8CompareWithSourceResultArr = Application.Run("helperFunctionCompareData.upClause8CompareWithSource", upClause8BtbLcinformationRangeObject, sourceDataUpIssuingStatus, sourceDataImportPerformanceYarnImport, sourceDataImportPerformanceYarnLocal, sourceDataImportPerformanceDyes, sourceDataImportPerformanceChemicalsImport, sourceDataImportPerformanceChemicalsLocal, sourceDataImportPerformanceStretchWrappingFilm, sourceDataPreviousUpClause8)
+upClause8CompareWithSourceResultArr = Application.Run("helperFunctionCompareData.upClause8CompareWithSource", upClause8BtbLcinformationRangeObject, sourceDataUpIssuingStatus, sourceDataImportPerformanceYarnImport, sourceDataImportPerformanceYarnLocal, sourceDataImportPerformanceDyes, sourceDataImportPerformanceChemicalsImport, sourceDataImportPerformanceChemicalsLocal, sourceDataImportPerformanceStretchWrappingFilm, sourceDataPreviousUpClause8, yarnConsumptionInfoDic, sourceDataAsDicUpIssuingStatus)
 
 
 Dim upClause9CompareWithSourceResultArr As Variant
