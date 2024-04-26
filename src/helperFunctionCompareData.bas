@@ -1402,31 +1402,6 @@ Next b2bLcIterator
 '    Local yarn B2B LC's value Qty. & date compare with UP issuing status by LC end
 
 
-    'chemical consumption as group compare with as "dedo" consumption as group start
-
-    Dim finalRawMaterialsQtyDicAsGroup As Object 
-    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dedo_consumption.finalRawMaterialsQtyCalculatedAsGroup", _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Black")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Black)")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Indigo")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Indigo)")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Topping/ Bottoming")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Topping/ Bottoming)")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Over Dying")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Over Dying)")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Coating")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "PFD")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "ECRU")), _
-    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL")), _
-    Application.Run("utilityFunction.sumQtyFromDictFormat", sourceDataAsDicUpIssuingStatus))
-    
-    Dim clause8UsedThisUpChemicalQtySumBySameGroup As Object
-    Set clause8UsedThisUpChemicalQtySumBySameGroup = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
-    arrUpClause8, 13, 21)
-
-    'chemical consumption as group compare with as "dedo" consumption as group end
-
-
 '   Local yarn mushak information compare whith import performance start
 
     If IsArray(upClause8localYarn) Then
@@ -1501,6 +1476,30 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
 
 '   Stretch Wrapping Film bill of entry information compare whith import performance end
 
+
+    'chemical consumption as group compare with as "dedo" consumption as group start
+
+    Dim finalRawMaterialsQtyDicAsGroup As Object 
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dedo_consumption.finalRawMaterialsQtyCalculatedAsGroup", _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Black")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Black)")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Indigo")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Indigo)")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Topping/ Bottoming")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Topping/ Bottoming)")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Over Dying")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Over Dying)")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Coating")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "PFD")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "ECRU")), _
+    yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL")), _
+    Application.Run("utilityFunction.sumQtyFromDictFormat", sourceDataAsDicUpIssuingStatus))
+    
+    Dim clause8UsedThisUpChemicalQtySumBySameGroup As Object
+    Set clause8UsedThisUpChemicalQtySumBySameGroup = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
+    arrUpClause8, 13, 21)
+
+    'chemical consumption as group compare with as "dedo" consumption as group end
 
     
 Dim intialReturnArrCropIndex As Integer
