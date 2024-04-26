@@ -1499,6 +1499,42 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
     Set clause8UsedThisUpChemicalQtySumBySameGroup = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
     arrUpClause8, 13, 21)
 
+    Dim dictKey As Variant
+
+    For Each dictKey In clause8UsedThisUpChemicalQtySumBySameGroup.Keys
+
+        If finalRawMaterialsQtyDicAsGroup.Exists(dictKey) Then
+             
+            Result = Application.Run("utilityFunction.isCompareValuesLessThanProvidedValue", clause8UsedThisUpChemicalQtySumBySameGroup(dictKey), finalRawMaterialsQtyDicAsGroup(dictKey), 0.2)
+            
+            If Result Then
+                Result = "OK"
+            Else
+                Result = "Used in UP " & Round(clause8UsedThisUpChemicalQtySumBySameGroup(dictKey) / finalRawMaterialsQtyDicAsGroup(dictKey), 2) * 100 & "%"
+            End If
+            
+            emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1))        ' find empty string pattern = "^$"
+            
+            intialReturnArr(emptyIndex, 1) = "Raw materials group (" & dictKey & ")"
+            intialReturnArr(emptyIndex, 2) = "Qty. used in UP = " & Round(clause8UsedThisUpChemicalQtySumBySameGroup(dictKey), 2)
+            intialReturnArr(emptyIndex, 3) = "Qty. as Dedo = " & Round(finalRawMaterialsQtyDicAsGroup(dictKey), 2)
+            intialReturnArr(emptyIndex, 4) = Result
+
+        Else
+
+            Result = "Not found"
+
+            emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1))        ' find empty string pattern = "^$"
+            
+            intialReturnArr(emptyIndex, 1) = "Raw materials group (" & dictKey & ")"
+            intialReturnArr(emptyIndex, 2) = "Qty. used in UP = " & Round(clause8UsedThisUpChemicalQtySumBySameGroup(dictKey), 2)
+            intialReturnArr(emptyIndex, 3) = "Not found in Dedo group"
+            intialReturnArr(emptyIndex, 4) = Result
+
+        End If
+
+    Next dictKey
+
     'chemical consumption as group compare with as "dedo" consumption as group end
 
     
