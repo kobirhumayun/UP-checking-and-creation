@@ -262,3 +262,23 @@ Private Function sumOfProvidedKeys(dict As Object, arrOfKeys As Variant) As Vari
     sumOfProvidedKeys = sum
 
 End Function
+
+Private Function arrSpecificColumnGroupAndSpecificColumnSumAsGroup(srcArr As Variant, columnOfGroup As Integer, columnOfSum As Integer) As Object
+        
+    Dim removedAllInvalidChrFromKeys As Variant
+
+    Dim dictionary As Object
+    Set dictionary = CreateObject("Scripting.Dictionary")
+
+    Dim i As Long
+    ' Group as same keys
+    For i = LBound(srcArr) To UBound(srcArr)
+        removedAllInvalidChrFromKeys = Application.Run("general_utility_functions.RemoveInvalidChars", srcArr(i, columnOfGroup))   'remove all invalid characters for use dic keys
+        ' sum as group
+        dictionary(removedAllInvalidChrFromKeys) = dictionary(removedAllInvalidChrFromKeys) + srcArr(i, columnOfSum)
+    Next i
+
+    ' Return the dictionary
+    Set arrSpecificColumnGroupAndSpecificColumnSumAsGroup = dictionary
+
+End Function

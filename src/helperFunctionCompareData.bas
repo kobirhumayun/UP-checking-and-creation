@@ -1420,7 +1420,9 @@ Next b2bLcIterator
     yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL")), _
     Application.Run("utilityFunction.sumQtyFromDictFormat", sourceDataAsDicUpIssuingStatus))
     
-
+    Dim clause8UsedThisUpChemicalQtySumBySameGroup As Object
+    Set clause8UsedThisUpChemicalQtySumBySameGroup = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
+    arrUpClause8, 13, 21)
 
     'chemical consumption as group compare with as "dedo" consumption as group end
 
