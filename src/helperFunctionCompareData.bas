@@ -1499,6 +1499,12 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
     Set clause8UsedThisUpChemicalQtySumBySameGroup = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
     arrUpClause8, 13, 21)
 
+    arrUpClause8 = arrUpClause8Range.Resize(, 34).value
+
+    Dim upChemicalQtySumBySameGroupByCellRefAsDedo As Object
+    Set upChemicalQtySumBySameGroupByCellRefAsDedo = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
+    arrUpClause8, 13, 34)
+
     Dim dictKey As Variant
 
     For Each dictKey In clause8UsedThisUpChemicalQtySumBySameGroup.Keys
