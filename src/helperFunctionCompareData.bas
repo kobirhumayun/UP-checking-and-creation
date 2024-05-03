@@ -1507,7 +1507,42 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
 
     Dim dictKey As Variant
 
-    For Each dictKey In clause8UsedThisUpChemicalQtySumBySameGroup.Keys
+    For Each dictKey In upChemicalQtySumBySameGroupByCellRefAsDedo.Keys ' total consumption Qty. compare as group
+
+        If finalRawMaterialsQtyDicAsGroup.Exists(dictKey) Then
+             
+            Result = Application.Run("utilityFunction.isCompareValuesLessThanProvidedValue", upChemicalQtySumBySameGroupByCellRefAsDedo(dictKey), finalRawMaterialsQtyDicAsGroup(dictKey), 0.2)
+            
+            If Result Then
+                Result = "OK"
+            Else
+                Result = "Mismatch = " & Round(upChemicalQtySumBySameGroupByCellRefAsDedo(dictKey) - finalRawMaterialsQtyDicAsGroup(dictKey), 2)
+            End If
+            
+            emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1))        ' find empty string pattern = "^$"
+            
+            intialReturnArr(emptyIndex, 1) = "Raw materials group (" & dictKey & ")"
+            intialReturnArr(emptyIndex, 2) = "Qty. sum by cell ref. in UP as Dedo = " & Round(upChemicalQtySumBySameGroupByCellRefAsDedo(dictKey), 2)
+            intialReturnArr(emptyIndex, 3) = "Qty. sum programmatically as Dedo = " & Round(finalRawMaterialsQtyDicAsGroup(dictKey), 2)
+            intialReturnArr(emptyIndex, 4) = Result
+
+        Else
+
+            Result = "Not found"
+
+            emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1))        ' find empty string pattern = "^$"
+            
+            intialReturnArr(emptyIndex, 1) = "Raw materials group (" & dictKey & ")"
+            intialReturnArr(emptyIndex, 2) = "Qty. sum by cell ref. in UP as Dedo = " & Round(upChemicalQtySumBySameGroupByCellRefAsDedo(dictKey), 2)
+            intialReturnArr(emptyIndex, 3) = "Not found in Dedo group"
+            intialReturnArr(emptyIndex, 4) = Result
+
+        End If
+
+    Next dictKey
+
+
+    For Each dictKey In clause8UsedThisUpChemicalQtySumBySameGroup.Keys ' total used Qty. compare with total consumption as group
 
         If finalRawMaterialsQtyDicAsGroup.Exists(dictKey) Then
              
