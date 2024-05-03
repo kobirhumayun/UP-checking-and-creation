@@ -1495,15 +1495,33 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
     yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL")), _
     Application.Run("utilityFunction.sumQtyFromDictFormat", sourceDataAsDicUpIssuingStatus))
     
+        ' total yarn Qty. add from consumption sheet for compare at the same time
+    finalRawMaterialsQtyDicAsGroup("Yarn") = yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL"))
+
     Dim clause8UsedThisUpChemicalQtySumBySameGroup As Object
     Set clause8UsedThisUpChemicalQtySumBySameGroup = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
     arrUpClause8, 13, 21)
+
+    If clause8UsedThisUpChemicalQtySumBySameGroup.Exists("") Then
+
+        clause8UsedThisUpChemicalQtySumBySameGroup.Remove "" ' remove empty group
+
+    End If
 
     arrUpClause8 = arrUpClause8Range.Resize(, 34).value
 
     Dim upChemicalQtySumBySameGroupByCellRefAsDedo As Object
     Set upChemicalQtySumBySameGroupByCellRefAsDedo = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
     arrUpClause8, 13, 34)
+
+    If upChemicalQtySumBySameGroupByCellRefAsDedo.Exists("") Then
+
+        upChemicalQtySumBySameGroupByCellRefAsDedo.Remove "" ' remove empty group
+
+    End If
+    
+        ' total used yarn Qty. add for compare at the same time
+    upChemicalQtySumBySameGroupByCellRefAsDedo("Yarn") = clause8UsedThisUpChemicalQtySumBySameGroup("Yarn")
 
     Dim dictKey As Variant
 
@@ -1528,7 +1546,7 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
 
         Else
 
-            Result = "Not found"
+            Result = "Not found in programmatically group need to add"
 
             emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1))        ' find empty string pattern = "^$"
             
@@ -1563,7 +1581,7 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
 
         Else
 
-            Result = "Not found"
+            Result = "Not found in programmatically group need to add"
 
             emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1))        ' find empty string pattern = "^$"
             
