@@ -2567,7 +2567,7 @@ Private Function putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformance
     Dim regex As New RegExp
     regex.Global = True
     regex.MultiLine = True
-    regex.pattern = "\d+$"
+    regex.pattern = ".+"
     Dim mushakOrBillOfEntry As Variant
 
     Dim workingRange As Range
