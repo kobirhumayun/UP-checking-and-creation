@@ -307,6 +307,20 @@ Private Function dictKeyGeneratorWithMushakOrBillOfEntryQtyAndValue(mushakOrBill
     
 End Function
 
+Private Function dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue(lc As Variant, mushakOrBillOfEntry As Variant, qty As Variant, value As Variant) As Variant
+    
+    lc = Application.Run("general_utility_functions.ExtractFirstLineWithRegex", lc)  'take first line only for use dic keys
+    
+    mushakOrBillOfEntry = Application.Run("general_utility_functions.ExtractRightDigitOfMuOrBillWithRegex", mushakOrBillOfEntry)  'take right digits only for use dic keys
+    
+    qty = Application.Run("general_utility_functions.ExtractLeftDigitWithRegex", qty)
+    
+    value = Application.Run("general_utility_functions.ExtractLeftDigitWithRegex", value)
+
+    dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue = lc & "_" & mushakOrBillOfEntry & "_" & qty & "_" & value
+    
+End Function
+
 Private Function upNoAndYearExtrac(upNo As Variant) As Variant
   'this function extract up and year of up
       
