@@ -1058,6 +1058,8 @@ End Sub
 
 '    test2 = Application.Run("general_utility_functions.ExtractFirstLineWithRegex", "sampleStr654")
 
+'    test2 = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", "654654-L", "c-654", 654.87, 598.657)
+
     
     End Sub
     
