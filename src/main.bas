@@ -963,6 +963,8 @@ End Sub
    
     Sub test()
         Dim test1, test2 As Variant
+        Dim dict As Object
+        Set dict = CreateObject("Scripting.Dictionary")
         
 '        test1 = Worksheets("Chemicals (Import)").Range("a1").CurrentRegion.value
 '        test2 = ActiveSheet.Range("a2:d2").value
@@ -985,8 +987,6 @@ End Sub
 '        ActiveSheet.Range("a10:i14").value = testReturn
 
 '        Dim ws As Worksheet
-        Dim dict As Object
-        Set dict = CreateObject("Scripting.Dictionary")
 '
 '        Dim i As LongLong
 '        For i = 1 To 10
@@ -1021,8 +1021,8 @@ End Sub
 
 '    Set test1 = Application.Run("general_utility_functions.regExReturnedObj", "a58b6c", "\d+", True, True, True)
     
-    test1 = Application.Run("general_utility_functions.extractAndFormatUdNo", "BGMEA/DHK/UD/2024/3578/020")
-    test1 = Application.Run("general_utility_functions.extractAndFormatUdNo", "BGMEA/DHK/AM/2024/3016/002-003")
+    ' test1 = Application.Run("general_utility_functions.extractAndFormatUdNo", "BGMEA/DHK/UD/2024/3578/020")
+    ' test1 = Application.Run("general_utility_functions.extractAndFormatUdNo", "BGMEA/DHK/AM/2024/3016/002-003")
 
 '    Set test1 = Application.Run("dedo_consumption.ropeDyingBlackPretreatmentAndDying")
 
@@ -1040,7 +1040,7 @@ End Sub
 '    "Sulphur Black (Powder)  or_Sl_46", _
 '    "Paper Tube_Sl_85" _
 '    )
-    Set dict = Application.Run("dedo_consumption.combineAllDedoConDicAfterCalculateActualQty", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100)
+    ' Set dict = Application.Run("dedo_consumption.combineAllDedoConDicAfterCalculateActualQty", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100)
 '
 '    test2 = Application.Run("dictionary_utility_functions.sumOfProvidedKeys", dict, test1)
 '
@@ -1049,12 +1049,15 @@ End Sub
 '
 '    test2 = Application.Run("dictionary_utility_functions.sumOfProvidedKeys", dict, test1)
 '
-    Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", Range("a1"), dict, 1, 1, 1
+    ' Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", Range("a1"), dict, 1, 1, 1
 
-    Set dict = Application.Run("dedo_consumption.finalRawMaterialsQtyCalculatedAsGroup", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100)
+    ' Set dict = Application.Run("dedo_consumption.finalRawMaterialsQtyCalculatedAsGroup", 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100)
 
     
 '    Application.Run "afterConsumption.upClause8MakeUniqueRowsFromProvidedWs", ActiveSheet
+
+'    test2 = Application.Run("general_utility_functions.ExtractFirstLineWithRegex", "sampleStr654")
+
     
     End Sub
     
