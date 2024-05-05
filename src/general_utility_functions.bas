@@ -189,6 +189,29 @@ Private Function ExtractLeftDigitWithRegex(number As Variant) As Variant
     
 End Function
 
+Private Function ExtractFirstLineWithRegex(str As Variant) As Variant
+
+    Dim matches As Object
+    Dim firstLine As Variant
+    
+    ' Get the matches
+    Set matches = Application.Run("general_utility_functions.regExReturnedObj", str, ".+", True, True, True) ' extract first line
+    
+    ' Check if there's a match
+    If matches.Count > 0 Then
+        
+        firstLine = matches(0)
+        
+    Else
+        ' Default to 0 if no match found
+        firstLine = 0
+    End If
+    
+    ' Return the extracted first line
+    ExtractFirstLineWithRegex = firstLine
+    
+End Function
+
 Private Function ExtractRightDigitFromEnd(str As Variant) As Variant
     Dim regex As Object
     Dim matches As Object
