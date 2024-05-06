@@ -70,7 +70,7 @@ End Function
 
 
 
-Private Function upClause8InformationFromProvidedWs(ws As Worksheet, impPerformanceDataDic As Object) As Object
+Private Function upClause8InformationForCreateUpFromProvidedWs(ws As Worksheet, impPerformanceDataDic As Object) As Object
     'this function give source data as dictionary from UP clause8
 
     Dim topRow, bottomRow As Variant
@@ -216,7 +216,7 @@ Private Function upClause8InformationFromProvidedWs(ws As Worksheet, impPerforma
 
     Next dicKey
 
-    Set upClause8InformationFromProvidedWs = upClause8DicGroupByGoods
+    Set upClause8InformationForCreateUpFromProvidedWs = upClause8DicGroupByGoods
 
 End Function
 
@@ -866,7 +866,7 @@ Private Function convertImpPerformanceMushakOrBillOfEntryToUpClause8(mushakOrBil
     ReDim propertiesValArr(1 To 17)
 
 
-    ' properties take from "upClause8InformationFromProvidedWs" Function, if properties mismatch than arises conflict
+    ' properties take from "upClause8InformationForCreateUpFromProvidedWs" Function, if properties mismatch than arises conflict
 
     propertiesArr(1) = "lcNoAndDt"
     propertiesArr(2) = "mushakOrBillOfEntryNoAndDt"

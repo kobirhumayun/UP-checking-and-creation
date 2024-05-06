@@ -943,7 +943,7 @@ Sub afterYarnConsumption()
 
     'take UP clause 8 info from "UP" sheet
     Dim upClause8InfoDic As Object
-    Set upClause8InfoDic = Application.Run("afterConsumption.upClause8InformationFromProvidedWs", upWorksheet, impPerformanceDataDic)
+    Set upClause8InfoDic = Application.Run("afterConsumption.upClause8InformationForCreateUpFromProvidedWs", upWorksheet, impPerformanceDataDic)
     
     'create new UP clause 8 info
     Dim newUpClause8InfoDic As Object
