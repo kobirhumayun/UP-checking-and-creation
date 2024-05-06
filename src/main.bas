@@ -1060,6 +1060,8 @@ End Sub
 
 '    test2 = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", "654654-L", "c-654", 654.87, 598.657)
 
+        ' Set test2 = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", ActiveSheet)
+
     
     End Sub
     
