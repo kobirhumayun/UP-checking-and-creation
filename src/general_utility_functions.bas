@@ -525,3 +525,92 @@ Private Function upClause8InformationFromProvidedWs(ws As Worksheet) As Object
     Set upClause8InformationFromProvidedWs = upClause8Dic
 
 End Function
+
+
+Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As Object
+    ' this function give sum of used Qty. & value as mushak or bill of entry
+    ' data as dictionary from selected previous calculated json text file & selected UP file.
+    ' also merged dictionary save as json text file.
+
+    Application.ScreenUpdating = False
+
+    Dim allUpClause8UseAsMushakOrBillOfEntryDic As Object
+    Set allUpClause8UseAsMushakOrBillOfEntryDic = CreateObject("Scripting.Dictionary")
+
+    Dim curentUpClause8Dict As Object
+
+    Dim jsonPath As String
+    jsonPath = "D:\Temp\UP Draft\Draft 2024\json-used-up-clause8" ' hard coded, it's should be dynamic
+
+    Dim upPathArr As Variant
+
+    Dim currentUpWb As Workbook
+    Dim currentUpWs As Worksheet
+
+    Dim answer As VbMsgBoxResult
+
+    Dim i As Long
+
+    ' Display the message box with Yes and No buttons
+    answer = MsgBox("Do you want to use previous calculated JSON text file", vbYesNo + vbQuestion, "JSON text file")
+
+    ' Check which button the user clicked
+    If answer = vbYes Then
+        ' Code to execute if user clicks Yes
+        MsgBox "User clicked Yes for JSON"
+
+        ' Display the message box with Yes and No buttons
+        answer = MsgBox("Do you want to use UP file with previous calculated JSON text file", vbYesNo + vbQuestion, "UP file")
+
+        ' Check which button the user clicked
+        If answer = vbYes Then
+            ' Code to execute if user clicks Yes
+            MsgBox "User clicked Yes for UP file"
+
+            upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024")  ' UP file path should be dynamic
+
+            For i = 1 To UBound(upPathArr) ' create dictionary as mushak or bill of entry
+
+                Set currentUpWb = Workbooks.Open(upPathArr(1))
+                Set currentUpWs = currentUpWb.Worksheets(2)
+
+                Set curentUpClause8Dict = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", currentUpWs)
+
+                Application.DisplayAlerts = False
+                currentUpWb.Close SaveChanges:=False
+                Application.DisplayAlerts = True
+        
+                Dim dictKey As Variant
+
+                For Each dictKey In curentUpClause8Dict.keys
+
+                    If Not allUpClause8UseAsMushakOrBillOfEntryDic.Exists(dictKey) Then ' create mushak or bill of entry dictionary
+
+                        allUpClause8UseAsMushakOrBillOfEntryDic.Add dictKey, CreateObject("Scripting.Dictionary")
+
+                    End If
+
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("totalUsedQty") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("totalUsedQty") + curentUpClause8Dict(dictKey)("inThisUpUsedQtyOfGoods")
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("totalUsedValue") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("totalUsedValue") + curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
+
+                Next dictKey
+
+            Next i
+
+            Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", allUpClause8UseAsMushakOrBillOfEntryDic, jsonPath & Application.PathSeparator & "file.json" ' file name should be dynamic
+
+        ElseIf answer = vbNo Then
+            ' Code to execute if user clicks No
+            MsgBox "User clicked No for UP file"
+        End If
+
+    ElseIf answer = vbNo Then
+        ' Code to execute if user clicks No
+        MsgBox "User clicked No for JSON"
+    End If
+
+    Application.ScreenUpdating = True
+
+    Set sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile = allUpClause8UseAsMushakOrBillOfEntryDic
+
+End Function

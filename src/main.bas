@@ -1062,6 +1062,8 @@ End Sub
 
         ' Set test2 = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", ActiveSheet)
 
+        Set test2 = Application.Run("general_utility_functions.sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile")
+
     
     End Sub
     
