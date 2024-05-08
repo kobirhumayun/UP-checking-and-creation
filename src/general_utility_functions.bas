@@ -547,6 +547,8 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     Dim currentUpWb As Workbook
     Dim currentUpWs As Worksheet
 
+    Dim curentUpNo As Variant
+
     Dim answer As VbMsgBoxResult
 
     Dim i As Long
@@ -569,14 +571,15 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
 
             upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024")  ' UP file path should be dynamic
 
-            For i = 1 To UBound(upPathArr) ' create dictionary as mushak or bill of entry
-
-                Set currentUpWb = Workbooks.Open(upPathArr(1))
-                Set currentUpWs = currentUpWb.Worksheets(2)
-
-                Set curentUpClause8Dict = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", currentUpWs)
+            For i = LBound(upPathArr) To UBound(upPathArr) ' create dictionary as mushak or bill of entry
 
                 Application.DisplayAlerts = False
+                Set currentUpWb = Workbooks.Open(upPathArr(i))
+                Set currentUpWs = currentUpWb.Worksheets(2)
+
+                curentUpNo = Application.Run("helperFunctionGetData.upNoFromProvidedWs", currentUpWs)
+                Set curentUpClause8Dict = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", currentUpWs)
+
                 currentUpWb.Close SaveChanges:=False
                 Application.DisplayAlerts = True
         
@@ -590,8 +593,21 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
 
                     End If
 
-                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("totalUsedQty") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("totalUsedQty") + curentUpClause8Dict(dictKey)("inThisUpUsedQtyOfGoods")
-                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("totalUsedValue") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("totalUsedValue") + curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
+                    If Not allUpClause8UseAsMushakOrBillOfEntryDic(dictKey).Exists(curentUpNo) Then ' create current UP dictionary as inner dictionary of mushak or bill of entry dictionary
+
+                        allUpClause8UseAsMushakOrBillOfEntryDic(dictKey).Add curentUpNo, CreateObject("Scripting.Dictionary")
+
+                            ' Individual used Qty. and value keep in inner UP dictionary
+                        allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)(curentUpNo)("inThisUpUsedQtyOfGoods") = curentUpClause8Dict(dictKey)("inThisUpUsedQtyOfGoods")
+                        allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)(curentUpNo)("inThisUpUsedValueOfGoods") = curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
+
+                            ' Sum of all UP used Qty. and value keep at mushak or bill of entry dictionary only first time. There is no chance to repeat sum, if any UP select again.
+                        allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedQty") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedQty") + curentUpClause8Dict(dictKey)("inThisUpUsedQtyOfGoods")
+                        allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") + curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
+                            ' Concate all UP 
+                        allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") & vbNewLine & curentUpNo
+
+                    End If
 
                 Next dictKey
 
