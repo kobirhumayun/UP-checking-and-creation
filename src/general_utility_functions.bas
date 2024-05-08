@@ -542,6 +542,9 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     Dim jsonPath As String
     jsonPath = "D:\Temp\UP Draft\Draft 2024\json-used-up-clause8" ' hard coded, it's should be dynamic
 
+    Dim initialUpPath As String
+    initialUpPath = "D:\Temp\UP Draft\Draft 2024" ' hard coded, it's should be dynamic
+
     Dim upPathArr As Variant
 
     Dim currentUpWb As Workbook
@@ -569,7 +572,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
             ' Code to execute if user clicks Yes
             MsgBox "User clicked Yes for UP file"
 
-            upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024")  ' UP file path should be dynamic
+            upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", initialUpPath)  ' UP file path should be dynamic
 
             For i = LBound(upPathArr) To UBound(upPathArr) ' create dictionary as mushak or bill of entry
 
@@ -613,7 +616,6 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
 
             Next i
 
-            Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", allUpClause8UseAsMushakOrBillOfEntryDic, jsonPath & Application.PathSeparator & "file.json" ' file name should be dynamic
 
         ElseIf answer = vbNo Then
             ' Code to execute if user clicks No
@@ -624,6 +626,8 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
         ' Code to execute if user clicks No
         MsgBox "User clicked No for JSON"
     End If
+
+    Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", allUpClause8UseAsMushakOrBillOfEntryDic, jsonPath & Application.PathSeparator & "file.json" ' file name should be dynamic
 
     Application.ScreenUpdating = True
 
