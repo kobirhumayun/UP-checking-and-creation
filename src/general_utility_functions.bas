@@ -564,6 +564,8 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
         ' Code to execute if user clicks Yes
         MsgBox "User clicked Yes for JSON"
 
+        Set allUpClause8UseAsMushakOrBillOfEntryDic = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPath & Application.PathSeparator & "file.json") 'file name should be dynamic
+
         ' Display the message box with Yes and No buttons
         answer = MsgBox("Do you want to use UP file with previous calculated JSON text file", vbYesNo + vbQuestion, "UP file")
 
@@ -620,6 +622,10 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
         ElseIf answer = vbNo Then
             ' Code to execute if user clicks No
             MsgBox "User clicked No for UP file"
+
+            Set sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile = allUpClause8UseAsMushakOrBillOfEntryDic
+            Exit Function
+
         End If
 
     ElseIf answer = vbNo Then
