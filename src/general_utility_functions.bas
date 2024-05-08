@@ -611,6 +611,9 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
                             ' Concate all UP 
                         allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") & Chr(10) & curentUpNo
 
+                            ' Same UP no. multiple time reassign but include all calculated UP
+                        allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList")(curentUpNo) = curentUpNo
+
                     End If
 
                 Next dictKey
@@ -632,6 +635,9 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
         MsgBox "User clicked No for JSON"
 
         upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", initialUpPath)  ' UP file path should be dynamic
+
+            ' This inner dictionary create one time only when create brand new JSON test file, next time populate only
+        allUpClause8UseAsMushakOrBillOfEntryDic.Add "allCalculatedUpList", CreateObject("Scripting.Dictionary")
 
         For i = LBound(upPathArr) To UBound(upPathArr) ' create dictionary as mushak or bill of entry
 
@@ -666,6 +672,10 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
                     allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") + curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
                         ' Concate all UP 
                     allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") & Chr(10) & curentUpNo
+
+                        ' Same UP no. multiple time reassign but include all calculated UP
+                    allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList")(curentUpNo) = curentUpNo
+
 
                 End If
 
