@@ -1064,6 +1064,8 @@ End Sub
 
         Set test2 = Application.Run("general_utility_functions.sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile")
 
+        ' Set dict = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", "D:\Temp\UP Draft\Draft 2024\json-used-up-clause8\file.json")
+
     
     End Sub
     
