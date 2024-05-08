@@ -555,6 +555,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     Dim answer As VbMsgBoxResult
 
     Dim i As Long
+    Dim dictKey As Variant
 
     ' Display the message box with Yes and No buttons
     answer = MsgBox("Do you want to use previous calculated JSON text file", vbYesNo + vbQuestion, "JSON text file")
@@ -587,8 +588,6 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
 
                 currentUpWb.Close SaveChanges:=False
                 Application.DisplayAlerts = True
-        
-                Dim dictKey As Variant
 
                 For Each dictKey In curentUpClause8Dict.keys
 
@@ -631,6 +630,49 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     ElseIf answer = vbNo Then
         ' Code to execute if user clicks No
         MsgBox "User clicked No for JSON"
+
+        upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", initialUpPath)  ' UP file path should be dynamic
+
+        For i = LBound(upPathArr) To UBound(upPathArr) ' create dictionary as mushak or bill of entry
+
+            Application.DisplayAlerts = False
+            Set currentUpWb = Workbooks.Open(upPathArr(i))
+            Set currentUpWs = currentUpWb.Worksheets(2)
+
+            curentUpNo = Application.Run("helperFunctionGetData.upNoFromProvidedWs", currentUpWs)
+            Set curentUpClause8Dict = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", currentUpWs)
+
+            currentUpWb.Close SaveChanges:=False
+            Application.DisplayAlerts = True
+    
+            For Each dictKey In curentUpClause8Dict.keys
+
+                If Not allUpClause8UseAsMushakOrBillOfEntryDic.Exists(dictKey) Then ' create mushak or bill of entry dictionary
+
+                    allUpClause8UseAsMushakOrBillOfEntryDic.Add dictKey, CreateObject("Scripting.Dictionary")
+
+                End If
+
+                If Not allUpClause8UseAsMushakOrBillOfEntryDic(dictKey).Exists(curentUpNo) Then ' create current UP dictionary as inner dictionary of mushak or bill of entry dictionary
+
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey).Add curentUpNo, CreateObject("Scripting.Dictionary")
+
+                        ' Individual used Qty. and value keep in inner UP dictionary
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)(curentUpNo)("inThisUpUsedQtyOfGoods") = curentUpClause8Dict(dictKey)("inThisUpUsedQtyOfGoods")
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)(curentUpNo)("inThisUpUsedValueOfGoods") = curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
+
+                        ' Sum of all UP used Qty. and value keep at mushak or bill of entry dictionary only first time. There is no chance to repeat sum, if any UP select again.
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedQty") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedQty") + curentUpClause8Dict(dictKey)("inThisUpUsedQtyOfGoods")
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") + curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
+                        ' Concate all UP 
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") & Chr(10) & curentUpNo
+
+                End If
+
+            Next dictKey
+
+        Next i
+
     End If
 
     Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", allUpClause8UseAsMushakOrBillOfEntryDic, jsonPath & Application.PathSeparator & "file.json" ' file name should be dynamic
