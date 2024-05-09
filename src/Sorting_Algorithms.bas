@@ -33,3 +33,38 @@ Private Function BubbleSort(arr As Variant) As Variant
   BubbleSort = arr ' Return the sorted array
 
 End Function
+
+Private Function upSort(upArr As Variant) As Variant
+  ' This function sort UP array
+
+  Dim yearMultiplyKeyDict As Object
+  Set yearMultiplyKeyDict = CreateObject("Scripting.Dictionary")
+
+  Dim sortedKeys As Variant
+  Dim sortedUp As Variant
+
+  Dim yearMultiplyKey As Variant
+  Dim extractedUpAndUpYear As Object
+  Dim i, j As Long
+
+  For i = LBound(upArr) To UBound(upArr)
+
+    Set extractedUpAndUpYear = Application.Run("general_utility_functions.upNoAndYearExtracAsDict", upArr(i))
+    yearMultiplyKey = extractedUpAndUpYear("only_up_year") * extractedUpAndUpYear("only_up_year") * extractedUpAndUpYear("only_up_year")
+    yearMultiplyKeyDict(extractedUpAndUpYear("only_up_no") + yearMultiplyKey) = upArr(i)
+
+  Next i
+
+  sortedKeys = Application.Run("Sorting_Algorithms.BubbleSort", yearMultiplyKeyDict.Keys)
+
+  ReDim sortedUp(LBound(sortedKeys) To UBound(sortedKeys))
+
+  For j = LBound(sortedKeys) To UBound(sortedKeys)
+
+    sortedUp(j) = yearMultiplyKeyDict(sortedKeys(j))
+
+  Next j
+
+  upSort = sortedUp
+
+End Function
