@@ -346,6 +346,25 @@ Private Function upNoAndYearExtrac(upNo As Variant) As Variant
       upNoAndYearExtrac = temp
   
 End Function
+
+Private Function upNoAndYearExtracAsDict(upNo As Variant) As Variant
+    'this function extract up and year of up
+      
+    Dim onlyUpNo, onlyUpYear As Variant
+
+    Set onlyUpNo = Application.Run("general_utility_functions.regExReturnedObj", upNo, "\d+", True, True, True)
+
+    Set onlyUpYear = Application.Run("general_utility_functions.regExReturnedObj", upNo, "\d+$", True, True, True)
+
+    Dim tempDict As Object
+    Set tempDict = CreateObject("Scripting.Dictionary")
+    
+    tempDict("only_up_no") = onlyUpNo.Item(0)
+    tempDict("only_up_year") = onlyUpYear.Item(0)
+
+    Set upNoAndYearExtracAsDict = tempDict
+  
+End Function
   
 Private Function returnSelectedFilesFullPathArr(ByVal initialPath As String) As Variant
   Dim fileDialog As Object
