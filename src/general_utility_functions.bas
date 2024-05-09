@@ -704,7 +704,11 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
 
     End If
 
-    Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", allUpClause8UseAsMushakOrBillOfEntryDic, jsonPath & Application.PathSeparator & "file.json" ' file name should be dynamic
+    Dim sortedAllCalculatedUp As Variant
+    sortedAllCalculatedUp = Application.Run("Sorting_Algorithms.upSort", allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList").Keys)
+
+    Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", allUpClause8UseAsMushakOrBillOfEntryDic, jsonPath & Application.PathSeparator & _
+    "UP-" & Replace(sortedAllCalculatedUp(LBound(sortedAllCalculatedUp)), "/", "-") & "-to-" & Replace(sortedAllCalculatedUp(UBound(sortedAllCalculatedUp)), "/", "-") & ".json"
 
     Application.ScreenUpdating = True
 
