@@ -565,6 +565,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     initialUpPath = "D:\Temp\UP Draft\Draft 2024" ' hard coded, it's should be dynamic
 
     Dim upPathArr As Variant
+    Dim jsonPathArr As Variant
 
     Dim currentUpWb As Workbook
     Dim currentUpWs As Worksheet
@@ -584,7 +585,13 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
         ' Code to execute if user clicks Yes
         MsgBox "User clicked Yes for JSON"
 
-        Set allUpClause8UseAsMushakOrBillOfEntryDic = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPath & Application.PathSeparator & "file.json") 'file name should be dynamic
+        jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", jsonPath)  ' JSON file path
+        If Not UBound(jsonPathArr) = 1 Then
+            MsgBox "Please select only one JSON file"
+            Exit Function
+        End If
+
+        Set allUpClause8UseAsMushakOrBillOfEntryDic = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
 
         ' Display the message box with Yes and No buttons
         answer = MsgBox("Do you want to use UP file with previous calculated JSON text file", vbYesNo + vbQuestion, "UP file")
