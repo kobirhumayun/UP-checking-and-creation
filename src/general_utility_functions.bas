@@ -559,10 +559,10 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     Dim curentUpClause8Dict As Object
 
     Dim jsonPath As String
-    jsonPath = "D:\Temp\UP Draft\Draft 2024\json-used-up-clause8" ' hard coded, it's should be dynamic
+    jsonPath = ActiveWorkbook.path & Application.PathSeparator & "json-used-up-clause8"
 
     Dim initialUpPath As String
-    initialUpPath = "D:\Temp\UP Draft\Draft 2024" ' hard coded, it's should be dynamic
+    initialUpPath = ActiveWorkbook.path & Application.PathSeparator & "UP-period-2024-2025"
 
     Dim upPathArr As Variant
     Dim jsonPathArr As Variant
@@ -601,7 +601,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
             ' Code to execute if user clicks Yes
             MsgBox "User clicked Yes for UP file"
 
-            upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", initialUpPath)  ' UP file path should be dynamic
+            upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", initialUpPath)
 
             For i = LBound(upPathArr) To UBound(upPathArr) ' create dictionary as mushak or bill of entry
 
@@ -715,7 +715,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     sortedAllCalculatedUp = Application.Run("Sorting_Algorithms.upSort", allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList").Keys)
 
     Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", allUpClause8UseAsMushakOrBillOfEntryDic, jsonPath & Application.PathSeparator & _
-    "UP-" & Replace(sortedAllCalculatedUp(LBound(sortedAllCalculatedUp)), "/", "-") & "-to-" & Replace(sortedAllCalculatedUp(UBound(sortedAllCalculatedUp)), "/", "-") & ".json"
+    "UP-" & Replace(sortedAllCalculatedUp(LBound(sortedAllCalculatedUp)), "/", "-") & "-to-" & Replace(sortedAllCalculatedUp(UBound(sortedAllCalculatedUp)), "/", "-") & "-used-details-as-mushak-or-bill-of-entry" & ".json"
 
     Application.ScreenUpdating = True
 
