@@ -583,7 +583,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     ' Check which button the user clicked
     If answer = vbYes Then
         ' Code to execute if user clicks Yes
-        MsgBox "User clicked Yes for JSON"
+        ' MsgBox "User clicked Yes for JSON"
 
         jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", jsonPath)  ' JSON file path
         If Not UBound(jsonPathArr) = 1 Then
@@ -599,7 +599,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
         ' Check which button the user clicked
         If answer = vbYes Then
             ' Code to execute if user clicks Yes
-            MsgBox "User clicked Yes for UP file"
+            ' MsgBox "User clicked Yes for UP file"
 
             upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", initialUpPath)
 
@@ -649,7 +649,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
 
         ElseIf answer = vbNo Then
             ' Code to execute if user clicks No
-            MsgBox "User clicked No for UP file"
+            ' MsgBox "User clicked No for UP file"
 
             Set sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile = allUpClause8UseAsMushakOrBillOfEntryDic
             Exit Function
@@ -658,7 +658,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
 
     ElseIf answer = vbNo Then
         ' Code to execute if user clicks No
-        MsgBox "User clicked No for JSON"
+        ' MsgBox "User clicked No for JSON"
 
         upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", initialUpPath)  ' UP file path should be dynamic
 
