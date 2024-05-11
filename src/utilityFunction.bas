@@ -2642,6 +2642,88 @@ Private Function putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformance
 
 End Function
 
+Private Function putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformanceFileWithJson(workingWs As Worksheet, billOfEntryOrMushakColumn As Integer, lcColumn As Integer, qtyColumn As Integer, valueColumn As Integer, usedQtyColumn As Integer, usedValueColumn As Integer, remarkColumn As Integer, allUpClause8UseAsMushakOrBillOfEntryDic As Variant) As Variant
+    'Used Qty & Value put to import performance file
+
+    Dim workingRange As Range
+
+    workingWs.AutoFilterMode = False
+
+    If IsEmpty(workingWs.Range("C7").Value) Then
+
+        Set workingRange = workingWs.Range("A6:AB6")
+
+    Else
+
+        Set workingRange = workingWs.Range("A6:" & "AB" & workingWs.Range("C6").End(xlDown).Row)
+
+    End If
+
+    Dim workingRangeValueArr As Variant
+
+    workingRangeValueArr = workingRange.value
+
+    Dim totalUsedQtyArr, totalUsedValueArr, remarkArr As Variant
+
+    ReDim totalUsedQtyArr(1 To UBound(workingRangeValueArr, 1), 1 To 1)
+
+    ReDim totalUsedValueArr(1 To UBound(workingRangeValueArr, 1), 1 To 1)
+
+    ReDim remarkArr(1 To UBound(workingRangeValueArr, 1), 1 To 1)
+
+    Dim tempQty, tempValue, tempRemark As Variant
+
+    Dim qtyFromImportPerformance, valueFromImportPerformance As Variant
+
+    Dim tempMuOrBillKey As String
+
+    Dim i As Long
+
+    For i = 1 To UBound(workingRangeValueArr, 1)
+
+        qtyFromImportPerformance = workingRangeValueArr(i, qtyColumn)
+        valueFromImportPerformance = workingRangeValueArr(i, valueColumn)
+
+        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", workingRangeValueArr(i, lcColumn), workingRangeValueArr(i, billOfEntryOrMushakColumn), workingRangeValueArr(i, qtyColumn), workingRangeValueArr(i, valueColumn))
+
+        If allUpClause8UseAsMushakOrBillOfEntryDic.Exists(tempMuOrBillKey) Then
+
+            tempQty = allUpClause8UseAsMushakOrBillOfEntryDic(tempMuOrBillKey)("sumOfAllUpUsedQty")
+            tempValue = allUpClause8UseAsMushakOrBillOfEntryDic(tempMuOrBillKey)("sumOfAllUpUsedValue")
+            tempRemark = allUpClause8UseAsMushakOrBillOfEntryDic(tempMuOrBillKey)("usedUpList")
+
+            If Application.Run("utilityFunction.isCompareValuesLessThanProvidedValue", qtyFromImportPerformance, tempQty, 0.8) Then
+
+                tempQty = qtyFromImportPerformance
+
+            End If
+
+            If Application.Run("utilityFunction.isCompareValuesLessThanProvidedValue", valueFromImportPerformance, tempValue, 0.8) Then
+
+                tempValue = valueFromImportPerformance
+
+            End If
+
+        Else
+
+            tempQty = Null
+            tempValue = Null
+            tempRemark = Null
+
+        End If
+
+        totalUsedQtyArr(i, 1) = tempQty
+        totalUsedValueArr(i, 1) = tempValue
+        remarkArr(i, 1) = tempRemark
+
+    Next i
+
+    workingRange.Columns(usedQtyColumn) = totalUsedQtyArr
+    workingRange.Columns(usedValueColumn) = totalUsedValueArr
+    workingRange.Columns(remarkColumn) = remarkArr
+
+End Function
+
 
 Private Function CombinedAllSheetsMushakOrBillOfEntryDbDict(importPerformanceFilePath As String) As Object
 ' this function combined all import performance sheets for short cut one call. if import performance criteria or column changed this function should modified
