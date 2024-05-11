@@ -635,7 +635,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
                         allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedQty") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedQty") + curentUpClause8Dict(dictKey)("inThisUpUsedQtyOfGoods")
                         allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") + curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
                             ' Concate all UP 
-                        allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") & Chr(10) & curentUpNo
+                        allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") & "," & curentUpNo
 
                             ' Same UP no. multiple time reassign but include all calculated UP
                         allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList")(curentUpNo) = curentUpNo
@@ -697,7 +697,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
                     allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedQty") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedQty") + curentUpClause8Dict(dictKey)("inThisUpUsedQtyOfGoods")
                     allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("sumOfAllUpUsedValue") + curentUpClause8Dict(dictKey)("inThisUpUsedValueOfGoods")
                         ' Concate all UP 
-                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") & Chr(10) & curentUpNo
+                    allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") = allUpClause8UseAsMushakOrBillOfEntryDic(dictKey)("usedUpList") & "," & curentUpNo
 
                         ' Same UP no. multiple time reassign but include all calculated UP
                     allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList")(curentUpNo) = curentUpNo
