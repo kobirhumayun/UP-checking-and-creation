@@ -788,6 +788,58 @@ ErrorMsg:
   MsgBox "Operation not completed, may you get the wrong result."
   
 End Sub
+
+Sub totalPeriodBillOfEntryOrMushkUsedCalculationAndPutToImportPerformanceWithJson()
+
+  Application.ScreenUpdating = False
+  
+  On Error GoTo ErrorMsg
+
+    Dim importPerformanceFileWb As Workbook
+    Set importPerformanceFileWb = ActiveWorkbook
+        
+    Dim allUpClause8UseAsMushakOrBillOfEntryDic As Object
+    Set allUpClause8UseAsMushakOrBillOfEntryDic = Application.Run("general_utility_functions.sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile")
+
+    Dim importPerformanceFileYarnImportWs As Worksheet
+    Set importPerformanceFileYarnImportWs = importPerformanceFileWb.Worksheets("Yarn (Import)")
+
+    Application.Run "utilityFunction.putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformanceFileWithJson", importPerformanceFileYarnImportWs, 3, 4, 7, 8, 9, 10, 28, allUpClause8UseAsMushakOrBillOfEntryDic     'Used Qty & Value put to import performance file
+             
+    Dim importPerformanceFileYarnLocalWs As Worksheet
+    Set importPerformanceFileYarnLocalWs = importPerformanceFileWb.Worksheets("Yarn (Local)")
+    
+    Application.Run "utilityFunction.putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformanceFileWithJson", importPerformanceFileYarnLocalWs, 3, 4, 7, 8, 9, 10, 28, allUpClause8UseAsMushakOrBillOfEntryDic     'Used Qty & Value put to import performance file
+        
+    Dim importPerformanceFileDyesWs As Worksheet
+    Set importPerformanceFileDyesWs = importPerformanceFileWb.Worksheets("Dyes")
+    
+    Application.Run "utilityFunction.putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformanceFileWithJson", importPerformanceFileDyesWs, 3, 4, 7, 8, 9, 10, 28, allUpClause8UseAsMushakOrBillOfEntryDic     'Used Qty & Value put to import performance file
+        
+    Dim importPerformanceFileChemialsImportWs As Worksheet
+    Set importPerformanceFileChemialsImportWs = importPerformanceFileWb.Worksheets("Chemicals (Import)")
+    
+    Application.Run "utilityFunction.putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformanceFileWithJson", importPerformanceFileChemialsImportWs, 3, 4, 8, 9, 10, 11, 28, allUpClause8UseAsMushakOrBillOfEntryDic     'Used Qty & Value put to import performance file
+        
+    Dim importPerformanceFileChemialsLocalWs As Worksheet
+    Set importPerformanceFileChemialsLocalWs = importPerformanceFileWb.Worksheets("Chemicals (Local)")
+    
+    Application.Run "utilityFunction.putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformanceFileWithJson", importPerformanceFileChemialsLocalWs, 3, 4, 8, 9, 10, 11, 28, allUpClause8UseAsMushakOrBillOfEntryDic     'Used Qty & Value put to import performance file
+        
+    Dim importPerformanceFileWrappingFilmWs As Worksheet
+    Set importPerformanceFileWrappingFilmWs = importPerformanceFileWb.Worksheets("St.Wrap.Film (Import)")
+    
+    Application.Run "utilityFunction.putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformanceFileWithJson", importPerformanceFileWrappingFilmWs, 3, 4, 8, 9, 10, 11, 28, allUpClause8UseAsMushakOrBillOfEntryDic     'Used Qty & Value put to import performance file
+
+   
+  Application.ScreenUpdating = True
+  
+  Exit Sub
+  
+ErrorMsg:
+  MsgBox "Operation not completed, may you get the wrong result."
+  
+End Sub
     
     
 Sub createNewUp()
