@@ -2690,7 +2690,7 @@ Private Function putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformance
 
             tempQty = allUpClause8UseAsMushakOrBillOfEntryDic(tempMuOrBillKey)("sumOfAllUpUsedQty")
             tempValue = allUpClause8UseAsMushakOrBillOfEntryDic(tempMuOrBillKey)("sumOfAllUpUsedValue")
-            tempRemark = allUpClause8UseAsMushakOrBillOfEntryDic(tempMuOrBillKey)("usedUpList")
+            tempRemark = Replace(Replace(allUpClause8UseAsMushakOrBillOfEntryDic(tempMuOrBillKey)("usedUpList"), ",", "", 1, 1), ",", Chr(10))
 
             If Application.Run("utilityFunction.isCompareValuesLessThanProvidedValue", qtyFromImportPerformance, tempQty, 0.8) Then
 
