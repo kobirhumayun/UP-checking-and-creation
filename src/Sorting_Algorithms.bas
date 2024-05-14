@@ -68,3 +68,54 @@ Private Function upSort(upArr As Variant) As Variant
   upSort = sortedUp
 
 End Function
+
+Function SplitSequence(arr As Variant) As Object
+    'this function received an numbers array. And return a dictionary
+    'split every sequence and add to inner dictionary
+    'every inner dictionary have "sequenceStart" and "sequenceEnd" keys
+    'if have any single sequence "sequenceStart" and "sequenceEnd" keys hold the same number
+    
+    Dim resultDict As Object
+    Set resultDict = CreateObject("Scripting.Dictionary")
+
+    Dim sequenceStart As Variant
+    Dim sequenceEnd As Variant
+    Dim i As Long
+    
+    ' Initialize the start of the sequence
+    sequenceStart = arr(LBound(arr))
+    sequenceEnd = sequenceStart
+
+    ' Loop through the array
+    For i = LBound(arr) + 1 To UBound(arr)
+      ' Check if the current number is sequential
+      If arr(i) = sequenceEnd + 1 Then
+        ' Update the end of the sequence
+        sequenceEnd = arr(i)
+      Else
+      ' Add the current sequence to the result dictionary
+      If Not resultDict.Exists(resultDict.Count + 1) Then ' create inner sequence dictionary
+        resultDict.Add resultDict.Count + 1, CreateObject("Scripting.Dictionary")
+      End If
+        'already add inner dictionary so, resultDict.Count point to same inner dictionary
+        resultDict(resultDict.Count)("sequenceStart") = sequenceStart
+        resultDict(resultDict.Count)("sequenceEnd") = sequenceEnd
+
+        ' Start a new sequence
+        sequenceStart = arr(i)
+        sequenceEnd = sequenceStart
+      End If
+    Next i
+
+    ' Add the last sequence to the result dictionary
+    If Not resultDict.Exists(resultDict.Count + 1) Then ' create sequence dictionary
+        resultDict.Add resultDict.Count + 1, CreateObject("Scripting.Dictionary")
+    End If
+
+    'already add inner dictionary so, resultDict.Count point to same inner dictionary
+    resultDict(resultDict.Count)("sequenceStart") = sequenceStart
+    resultDict(resultDict.Count)("sequenceEnd") = sequenceEnd
+
+  Set SplitSequence = resultDict
+    
+End Function
