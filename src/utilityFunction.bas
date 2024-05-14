@@ -2785,3 +2785,35 @@ Private Function CombinedAllSheetsMushakOrBillOfEntryDbDict(importPerformanceFil
     Set CombinedAllSheetsMushakOrBillOfEntryDbDict = importPerformanceDbDict
     
 End Function
+
+Private Function upSequenceStrGenerator(upArr As Variant) As String
+    'this function received an UP No. array and return UP sequence string
+    Dim uPSequenceObj As Object
+    Dim uPSequenceStr As String
+    Dim tempStr As String
+
+    uPSequenceStr = ""
+
+    Set uPSequenceObj = Application.Run("Sorting_Algorithms.SplituPSequence", upArr)
+
+    Dim dictKey As Variant
+
+    For Each dictKey In uPSequenceObj.keys
+
+        If uPSequenceObj(dictKey)("sequenceStart") = uPSequenceObj(dictKey)("sequenceEnd") Then
+
+            tempStr = uPSequenceObj(dictKey)("sequenceStart")
+
+        Else
+                
+            tempStr = uPSequenceObj(dictKey)("sequenceStart") & "-to-" & uPSequenceObj(dictKey)("sequenceEnd")
+            
+        End If
+
+        uPSequenceStr = uPSequenceStr & tempStr & Chr(10)
+
+    Next dictKey
+
+    upSequenceStrGenerator = uPSequenceStr
+    
+End Function
