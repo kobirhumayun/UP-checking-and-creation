@@ -119,3 +119,46 @@ Function SplitSequence(arr As Variant) As Object
   Set SplitSequence = resultDict
     
 End Function
+
+Function SplituPSequence(upArr As Variant) As Object
+
+  'this function received an UP-Numbers array. And return a dictionary
+  'sort every UP ascending order
+  'split every UP sequence and add to inner dictionary
+  'every inner dictionary have "sequenceStart" and "sequenceEnd" keys
+  'if have any single sequence "sequenceStart" and "sequenceEnd" keys hold the same UP number
+    
+  Dim yearMultiplyKeyDict As Object
+  Set yearMultiplyKeyDict = CreateObject("Scripting.Dictionary")
+
+  Dim sortedKeys As Variant
+  Dim splitedKeysDict As Object
+
+  Dim yearMultiplyKey As Variant
+  Dim extractedUpAndUpYear As Object
+  Dim i As Long
+
+  For i = LBound(upArr) To UBound(upArr)
+
+    Set extractedUpAndUpYear = Application.Run("general_utility_functions.upNoAndYearExtracAsDict", upArr(i))
+    yearMultiplyKey = extractedUpAndUpYear("only_up_year") * extractedUpAndUpYear("only_up_year") * extractedUpAndUpYear("only_up_year")
+    yearMultiplyKeyDict(extractedUpAndUpYear("only_up_no") + yearMultiplyKey) = upArr(i)
+
+  Next i
+
+  sortedKeys = Application.Run("Sorting_Algorithms.BubbleSort", yearMultiplyKeyDict.Keys) 'sort ascending order
+
+  Set splitedKeysDict = Application.Run("Sorting_Algorithms.SplitSequence", sortedKeys) 'split every sequence
+
+  Dim dictKey As Variant
+
+  For Each dictKey In splitedKeysDict.keys
+
+    splitedKeysDict(dictKey)("sequenceStart") = yearMultiplyKeyDict(splitedKeysDict(dictKey)("sequenceStart")) 'pick UP no.
+    splitedKeysDict(dictKey)("sequenceEnd") = yearMultiplyKeyDict(splitedKeysDict(dictKey)("sequenceEnd")) 'pick UP no.
+
+  Next dictKey
+
+  Set SplituPSequence = splitedKeysDict
+    
+End Function
