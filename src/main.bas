@@ -1117,7 +1117,9 @@ End Sub
         ' Set test2 = Application.Run("general_utility_functions.sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile")
 
         ' Set dict = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", "D:\Temp\UP Draft\Draft 2024\json-used-up-clause8\file.json")
-        Set dict = Application.Run("Sorting_Algorithms.SplituPSequence", Array("2/2024", "3/2024", "5/2024"))
+        ' Set dict = Application.Run("Sorting_Algorithms.SplituPSequence", Array("2/2024", "3/2024", "5/2024"))
+        
+        test2 = Application.Run("utilityFunction.upSequenceStrGenerator", Array("2/2024", "3/2024", "5/2024"))
     
     End Sub
     
