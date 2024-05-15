@@ -801,6 +801,9 @@ Sub totalPeriodBillOfEntryOrMushkUsedCalculationAndPutToImportPerformanceWithJso
     Dim allUpClause8UseAsMushakOrBillOfEntryDic As Object
     Set allUpClause8UseAsMushakOrBillOfEntryDic = Application.Run("general_utility_functions.sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile")
 
+    Dim upSequenceStr As String
+    upSequenceStr = Application.Run("utilityFunction.upSequenceStrGenerator", allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList").keys)
+
     Dim importPerformanceFileYarnImportWs As Worksheet
     Set importPerformanceFileYarnImportWs = importPerformanceFileWb.Worksheets("Yarn (Import)")
 
@@ -831,7 +834,8 @@ Sub totalPeriodBillOfEntryOrMushkUsedCalculationAndPutToImportPerformanceWithJso
     
     Application.Run "utilityFunction.putTotalUsedQtyAndValueAsBillOfEntryOrMushakToImportPerformanceFileWithJson", importPerformanceFileWrappingFilmWs, 3, 4, 8, 9, 10, 11, 28, allUpClause8UseAsMushakOrBillOfEntryDic     'Used Qty & Value put to import performance file
 
-   
+    MsgBox upSequenceStr
+    
   Application.ScreenUpdating = True
   
   Exit Sub
