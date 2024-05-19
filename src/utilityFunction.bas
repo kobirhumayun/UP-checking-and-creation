@@ -2750,19 +2750,64 @@ Private Function CombinedAllSheetsMushakOrBillOfEntryDbDict(importPerformanceFil
     Set stretchWrappingFilmWs = importPerformanceWb.Worksheets("St.Wrap.Film (Import)")
     
     Dim sourceDataImportPerformanceYarnImport As Variant
-    sourceDataImportPerformanceYarnImport = yarnImportWs.Range("A6:" & "N" & yarnImportWs.Range("C6").End(xlDown).Row).value
+
+    If IsEmpty(yarnImportWs.Range("C7").Value) Then
+
+        sourceDataImportPerformanceYarnImport = yarnImportWs.Range("A6:N6").value
+
+    Else
+
+        sourceDataImportPerformanceYarnImport = yarnImportWs.Range("A6:" & "N" & yarnImportWs.Range("C6").End(xlDown).Row).value
+
+    End If
     
     Dim sourceDataImportPerformanceYarnLocal As Variant
-    sourceDataImportPerformanceYarnLocal = yarnLocalWs.Range("A6:" & "N" & yarnLocalWs.Range("C6").End(xlDown).Row).value
+
+    If IsEmpty(yarnLocalWs.Range("C7").Value) Then
+
+        sourceDataImportPerformanceYarnLocal = yarnLocalWs.Range("A6:N6").value
+
+    Else
+
+        sourceDataImportPerformanceYarnLocal = yarnLocalWs.Range("A6:" & "N" & yarnLocalWs.Range("C6").End(xlDown).Row).value
+
+    End If
     
     Dim sourceDataImportPerformanceDyes As Variant
-    sourceDataImportPerformanceDyes = dyesWs.Range("A6:" & "N" & dyesWs.Range("C6").End(xlDown).Row).value
+
+    If IsEmpty(dyesWs.Range("C7").Value) Then
+
+        sourceDataImportPerformanceDyes = dyesWs.Range("A6:N6").value
+
+    Else
+
+        sourceDataImportPerformanceDyes = dyesWs.Range("A6:" & "N" & dyesWs.Range("C6").End(xlDown).Row).value
+
+    End If
     
     Dim sourceDataImportPerformanceChemicalsImport As Variant
-    sourceDataImportPerformanceChemicalsImport = chemicalsImportWs.Range("A6:" & "N" & chemicalsImportWs.Range("C6").End(xlDown).Row).value
+
+    If IsEmpty(chemicalsImportWs.Range("C7").Value) Then
+
+        sourceDataImportPerformanceChemicalsImport = chemicalsImportWs.Range("A6:N6").value
+
+    Else
+
+        sourceDataImportPerformanceChemicalsImport = chemicalsImportWs.Range("A6:" & "N" & chemicalsImportWs.Range("C6").End(xlDown).Row).value
+
+    End If
     
     Dim sourceDataImportPerformanceChemicalsLocal As Variant
-    sourceDataImportPerformanceChemicalsLocal = chemicalsLocalWs.Range("A6:" & "N" & chemicalsLocalWs.Range("C6").End(xlDown).Row).value
+
+    If IsEmpty(chemicalsLocalWs.Range("C7").Value) Then
+
+        sourceDataImportPerformanceChemicalsLocal = chemicalsLocalWs.Range("A6:N6").value
+
+    Else
+
+        sourceDataImportPerformanceChemicalsLocal = chemicalsLocalWs.Range("A6:" & "N" & chemicalsLocalWs.Range("C6").End(xlDown).Row).value
+
+    End If
     
     Dim sourceDataImportPerformanceStretchWrappingFilm As Variant
     
