@@ -28,11 +28,13 @@ Private Function createUseGroupDic() As Object
     "Cotton Yarn", _
     "COTTON YARN", _
     "Hemp Yarn", _
+    "True Hemp Yarn", _
     "35% Cotton 65% Polyester Yarn", _
     "65% Polyester 35% Cotton Spandex Yarn", _
     "65% Polyester 35% Rayon Yarn", _
     "65% Tencel 35% Cotton Yarn", _
     "Polyester Yarn", _
+    "65% Polyester 35% Cotton Yarn", _
     "Viscose Rayon Yarn", _
     "Lycra Yarn", _
     "Spandex Bare Yarn", _
@@ -49,7 +51,8 @@ Private Function createUseGroupDic() As Object
     "Cotton / Polyester Yarn", _
     "Cotton Yarn", _
     "COTTON YARN", _
-    "Hemp Yarn"))
+    "Hemp Yarn", _
+    "True Hemp Yarn"))
 
     Set yarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", yarnUseGroupDict, "polyester", _
     Array("35% Cotton 65% Polyester Yarn", _
@@ -57,6 +60,7 @@ Private Function createUseGroupDic() As Object
     "65% Polyester 35% Rayon Yarn", _
     "65% Tencel 35% Cotton Yarn", _
     "Polyester Yarn", _
+    "65% Polyester 35% Cotton Yarn", _
     "Viscose Rayon Yarn"))
 
     Set yarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", yarnUseGroupDict, "spandex", _
@@ -131,6 +135,9 @@ Private Function createUseGroupDic() As Object
 
     Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Wax", _
     Array("Waxes"))
+
+    Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Resin", _
+    Array("Resin"))
 
     Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Wetting Agent", _
     Array("Wetting Agent", "Mercerizing Agent (Wetting Agent)"))
