@@ -2765,9 +2765,17 @@ Private Function CombinedAllSheetsMushakOrBillOfEntryDbDict(importPerformanceFil
     sourceDataImportPerformanceChemicalsLocal = chemicalsLocalWs.Range("A6:" & "N" & chemicalsLocalWs.Range("C6").End(xlDown).Row).value
     
     Dim sourceDataImportPerformanceStretchWrappingFilm As Variant
-    sourceDataImportPerformanceStretchWrappingFilm = stretchWrappingFilmWs.Range("A6:" & "N" & stretchWrappingFilmWs.Range("C6").End(xlDown).Row).value
     
-    
+    If IsEmpty(stretchWrappingFilmWs.Range("C7").Value) Then
+
+        sourceDataImportPerformanceStretchWrappingFilm = stretchWrappingFilmWs.Range("A6:N6").value
+
+    Else
+
+        sourceDataImportPerformanceStretchWrappingFilm = stretchWrappingFilmWs.Range("A6:" & "N" & stretchWrappingFilmWs.Range("C6").End(xlDown).Row).value
+
+    End If
+
     importPerformanceWb.Close SaveChanges:=False
     
     Application.ScreenUpdating = True
