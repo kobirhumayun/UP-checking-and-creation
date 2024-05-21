@@ -971,7 +971,7 @@ Sub afterYarnConsumption()
     Set yarnConsumptionInfoDic = Application.Run("afterConsumption.upYarnConsumptionInformationFromProvidedWs", consumptionWorksheet)
     
     'chemical consumption as "dedo"
-    Dim finalRawMaterialsQtyDicAsGroup As Object ' SL 9 for rolling film, Fabric Qty. should be dynamic
+    Dim finalRawMaterialsQtyDicAsGroup As Object
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dedo_consumption.finalRawMaterialsQtyCalculatedAsGroup", _
     yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Black")), _
     yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "Mercerization(Black)")), _
@@ -987,6 +987,12 @@ Sub afterYarnConsumption()
     yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL")), _
     Application.Run("utilityFunction.sumQtyFromDictFormat", sourceDataAsDicUpIssuingStatus))
     
+   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "cotton", yarnConsumptionInfoDic("Cotton"))
+   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "polyester", yarnConsumptionInfoDic("Polyester"))
+   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "spandex", yarnConsumptionInfoDic("Spandex"))
+   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Detergent", 0) ' Qty. be dynamic
+   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Pumice Stone", 0) ' Qty. be dynamic
+   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Natural Garnet", 0) ' Qty. be dynamic
     
     Dim impPerformanceDataDic As Object
     
@@ -1003,7 +1009,7 @@ Sub afterYarnConsumption()
     
     'create new UP clause 8 info
     Dim newUpClause8InfoDic As Object
-    Set newUpClause8InfoDic = Application.Run("afterConsumption.createNewUpClause8Information", upClause8InfoDic, impPerformanceDataDic, sourceDataAsDicUpIssuingStatus, importYarnUseDetailsForUd, CreateObject("Scripting.Dictionary"))
+    Set newUpClause8InfoDic = Application.Run("afterConsumption.createNewUpClause8Information", upClause8InfoDic, impPerformanceDataDic, sourceDataAsDicUpIssuingStatus, importYarnUseDetailsForUd, finalRawMaterialsQtyDicAsGroup)
     
 
     
