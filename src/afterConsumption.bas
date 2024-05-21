@@ -330,7 +330,7 @@ Private Function sourceDataAsDicImportYarnUseDetailsForUd(fileName As String, wo
 End Function
 
 
-Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPerformanceDataDic As Object, sourceDataAsDicUpIssuingStatus As Object, importYarnUseDetailsForUd As Object, nnQty As Object) As Object
+Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPerformanceDataDic As Object, sourceDataAsDicUpIssuingStatus As Object, importYarnUseDetailsForUd As Object, finalRawMaterialsQtyDicAsGroup As Object) As Object
     'this function create new UP clause8 data dictionary
 
 
@@ -472,7 +472,7 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
                     If allMushakInfoAgainstB2bAsUpClause8Format.Count > 0 Then
 
-                        Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", allMushakInfoAgainstB2bAsUpClause8Format, upClause8KeysDic, CreateObject("Scripting.Dictionary"), 1000) ' cotton comsumption use only B2B, no add any Bill of entry
+                        Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", allMushakInfoAgainstB2bAsUpClause8Format, upClause8KeysDic, CreateObject("Scripting.Dictionary"), finalRawMaterialsQtyDicAsGroup("cotton")) ' cotton comsumption use only B2B, no add any Bill of entry
 
                     End If
 
@@ -543,11 +543,11 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
                         If impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("importCtnAsBillOfEntry").Exists(dicKey) Then
 
-                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", tempDic, upClause8KeysDic, impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("importCtnAsBillOfEntry")(dicKey), 1000)
+                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", tempDic, upClause8KeysDic, impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("importCtnAsBillOfEntry")(dicKey), finalRawMaterialsQtyDicAsGroup(dicKey))
 
                         Else
 
-                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", tempDic, upClause8KeysDic, CreateObject("Scripting.Dictionary"), 1000)
+                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", tempDic, upClause8KeysDic, CreateObject("Scripting.Dictionary"), finalRawMaterialsQtyDicAsGroup(dicKey))
 
                         End If
 
@@ -562,11 +562,11 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
                         If impPerformanceDataDic("yarnClassifiedDbDic").Exists(dicKey) Then
 
-                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, impPerformanceDataDic("yarnClassifiedDbDic")(dicKey), 1000)
+                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, impPerformanceDataDic("yarnClassifiedDbDic")(dicKey), finalRawMaterialsQtyDicAsGroup(dicKey))
 
                         Else
 
-                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, CreateObject("Scripting.Dictionary"), 1000)
+                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, CreateObject("Scripting.Dictionary"), finalRawMaterialsQtyDicAsGroup(dicKey))
 
                         End If
 
@@ -583,11 +583,11 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
             If impPerformanceDataDic("nonYarnClassifiedDbDic").Exists(dicKey) Then
 
-                Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, impPerformanceDataDic("nonYarnClassifiedDbDic")(dicKey), 1000)
+                Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, impPerformanceDataDic("nonYarnClassifiedDbDic")(dicKey), finalRawMaterialsQtyDicAsGroup(dicKey))
 
             Else
 
-                Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, CreateObject("Scripting.Dictionary"), 1000)
+                Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, CreateObject("Scripting.Dictionary"), finalRawMaterialsQtyDicAsGroup(dicKey))
 
             End If
 
