@@ -993,9 +993,11 @@ Sub afterYarnConsumption()
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Natural Garnet", 0) ' Qty. be dynamic
     
     Dim impPerformanceDataDic As Object
-    
+    Dim importPerformanceFilePath As String
+    importPerformanceFilePath = ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2024-2025.xlsx"
+
     Set impPerformanceDataDic = Application.Run("data_from_imp_performance.classifiedDbDicFromImpPerformance", _
-    ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2024-2025.xlsx") ' path change after changed the period
+    importPerformanceFilePath) ' path change after changed the period
     
     'take source data as dictionary from Import Yarn Use Details For UD File
     Dim importYarnUseDetailsForUd As Object
@@ -1014,8 +1016,7 @@ Sub afterYarnConsumption()
     Application.Run "afterConsumption.upClause8MakeUniqueRowsFromProvidedWs", upWorksheet
     
     Application.Run "afterConsumption.upClause8InformationPutToProvidedWs", upWorksheet, newUpClause8InfoDic
-    
-'    Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", Range("ab119"), finalRawMaterialsQtyDicAsGroup, 1, 1, 1 'print to sheet for test
+
     
 
 End Sub
