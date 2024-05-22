@@ -910,3 +910,12 @@ Private Function convertImpPerformanceMushakOrBillOfEntryToUpClause8(mushakOrBil
     Set convertImpPerformanceMushakOrBillOfEntryToUpClause8 = tempMushakOrBillOfEntryDic
 
 End Function
+
+Private Function dealWithUpClause9(ws As Worksheet, newUpClause8Dic As Object, importPerformanceFilePath As String)
+
+    Dim upClause9StockinformationRangeObject As Variant
+
+    Set upClause9StockinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause9StockinformationRangeObjectFromProvidedWs", ws)
+    Set upClause9StockinformationRangeObject = upClause9StockinformationRangeObject(1, 1).Resize(6, 29)
+
+End Function
