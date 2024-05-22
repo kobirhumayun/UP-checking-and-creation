@@ -119,6 +119,24 @@ Private Function upClause8BtbLcinformationRangeObjectPreviousFormatFromProvidedW
     Set upClause8BtbLcinformationRangeObjectPreviousFormatFromProvidedWs = workingRange
 
 End Function
+
+Private Function upClause9StockinformationRangeObjectFromProvidedWs(ws As Worksheet) As Variant
+    'give stock information Range Object from provided sheet
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    Dim topRow, bottomRow As Variant
+
+    topRow = ws.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("infoAboutStockBengaliTxt"), LookAt:=xlPart).Row + 3
+    bottomRow = ws.Range("T" & topRow).End(xlDown).Row
+
+    Dim workingRange As Range
+    Set workingRange = ws.Range("A" & topRow & ":" & "AC" & bottomRow)
+    workingRange.Font.Color = RGB(255, 255, 255)
+    Set upClause9StockinformationRangeObjectFromProvidedWs = workingRange
+
+End Function
  
 
 Private Function upClause9StockinformationRangeObject() As Variant
