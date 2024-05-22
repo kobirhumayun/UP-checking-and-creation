@@ -945,15 +945,13 @@ Sub createNewUp()
 End Sub
 
 Sub afterYarnConsumption()
-    
-'    Set nnws = Worksheets(2)
 
     Dim upWorkBook As Workbook
     Dim upWorksheet As Worksheet
     Dim consumptionWorksheet As Worksheet
     
     Set upWorkBook = ActiveWorkbook
-    Set upWorksheet = upWorkBook.ActiveSheet 'be change sheet no. 2 & UP file
+    Set upWorksheet = upWorkBook.Worksheets(2)
     Set consumptionWorksheet = upWorkBook.Worksheets("Consumption")
     
 
@@ -987,12 +985,12 @@ Sub afterYarnConsumption()
     yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL")), _
     Application.Run("utilityFunction.sumQtyFromDictFormat", sourceDataAsDicUpIssuingStatus))
     
-   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "cotton", yarnConsumptionInfoDic("Cotton"))
-   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "polyester", yarnConsumptionInfoDic("Polyester"))
-   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "spandex", yarnConsumptionInfoDic("Spandex"))
-   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Detergent", 0) ' Qty. be dynamic
-   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Pumice Stone", 0) ' Qty. be dynamic
-   Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Natural Garnet", 0) ' Qty. be dynamic
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "cotton", yarnConsumptionInfoDic("Cotton"))
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "polyester", yarnConsumptionInfoDic("Polyester"))
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "spandex", yarnConsumptionInfoDic("Spandex"))
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Detergent", 0) ' Qty. be dynamic
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Pumice Stone", 0) ' Qty. be dynamic
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Natural Garnet", 0) ' Qty. be dynamic
     
     Dim impPerformanceDataDic As Object
     
