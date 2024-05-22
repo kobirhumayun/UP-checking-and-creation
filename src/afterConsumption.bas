@@ -914,8 +914,22 @@ End Function
 Private Function dealWithUpClause9(ws As Worksheet, newUpClause8Dic As Object, importPerformanceFilePath As String)
 
     Dim upClause9StockinformationRangeObject As Variant
+    Dim upClause9Val As Variant
+    Dim temp As Variant
 
     Set upClause9StockinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause9StockinformationRangeObjectFromProvidedWs", ws)
     Set upClause9StockinformationRangeObject = upClause9StockinformationRangeObject(1, 1).Resize(6, 29)
+
+    upClause9Val = upClause9StockinformationRangeObject.Value
+    ReDim temp(1 To UBound(upClause9Val, 1), 1 To 1)
+
+    Dim i As Long
+
+        'previous used Qty. update
+    For i = 1 To UBound(upClause9Val, 1)
+        temp(i, 1) = upClause9Val(i, 28)
+    Next i
+
+    upClause9StockinformationRangeObject.Columns(20) = temp
 
 End Function
