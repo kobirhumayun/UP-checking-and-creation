@@ -932,4 +932,22 @@ Private Function dealWithUpClause9(ws As Worksheet, newUpClause8Dic As Object, i
 
     upClause9StockinformationRangeObject.Columns(20) = temp
 
+    Dim fso As Object
+    Dim fileName As String
+
+    Set fso = CreateObject("Scripting.FileSystemObject")
+
+    fileName = fso.GetFileName(importPerformanceFilePath)
+
+        'take source data from Import Performance Total Summary
+    Dim sourceDataImportPerformanceTotalSummary As Variant
+    sourceDataImportPerformanceTotalSummary = Application.Run("helperFunctionGetData.sourceDataImportPerformance", fileName, "Summary of Grand Total", True, True)
+
+        'new import Qty. update
+    For i = 1 To UBound(upClause9Val, 1)
+        temp(i, 1) = sourceDataImportPerformanceTotalSummary(i + 1, 5)
+    Next i
+
+    upClause9StockinformationRangeObject.Columns(16) = temp
+
 End Function
