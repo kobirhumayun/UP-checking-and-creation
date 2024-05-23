@@ -816,7 +816,18 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
 
             Cells(i + loopCounter, 20).FormulaR1C1 = "=RC[-4]-RC[-2]"
             Cells(i + loopCounter, 21).FormulaR1C1 = "=RC[-4]-RC[-2]"
-            Cells(i + loopCounter, 23).FormulaR1C1 = "=RC[-6]/RC[-7]*RC[-1]"
+
+                ' handle error, if divide zero then error show in cell
+            If upClause8DicGroupByGoods(dicKey)("qtyOfGoods") > 0 Then
+
+                Cells(i + loopCounter, 23).FormulaR1C1 = "=RC[-6]/RC[-7]*RC[-1]"
+
+            Else
+
+                Cells(i + loopCounter, 23).value = 0
+
+            End If
+            
             Cells(i + loopCounter, 24).FormulaR1C1 = "=SUM(RC[-6],RC[-2])"
             Cells(i + loopCounter, 25).FormulaR1C1 = "=SUM(RC[-6],RC[-2])"
             Cells(i + loopCounter, 26).FormulaR1C1 = "=RC[-6]-RC[-4]"
