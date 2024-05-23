@@ -541,9 +541,9 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
                         End If
 
 
-                        If impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("importCtnAsBillOfEntry").Exists(dicKey) Then
+                        If impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("importCtnAsBillOfEntry").Count > 0 Then
 
-                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", tempDic, upClause8KeysDic, impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("importCtnAsBillOfEntry")(dicKey), finalRawMaterialsQtyDicAsGroup(dicKey))
+                            Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", tempDic, upClause8KeysDic, impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("importCtnAsBillOfEntry"), finalRawMaterialsQtyDicAsGroup(dicKey))
 
                         Else
 
