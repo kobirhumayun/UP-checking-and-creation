@@ -962,3 +962,92 @@ Private Function dealWithUpClause9(ws As Worksheet, newUpClause8Dic As Object, i
     upClause9StockinformationRangeObject.Columns(16) = temp
 
 End Function
+
+Private Function sumNewUpClause8ClassifiedPart(newUpClause8Dic As Object) As Object
+    
+    Dim dicKey As Variant
+    Dim innerDicKey As Variant
+    Dim calculatedValue As Variant
+
+    Dim YarnDyesChemicalsClassifiedPart As Object
+    Set YarnDyesChemicalsClassifiedPart = CreateObject("Scripting.Dictionary")
+    
+    YarnDyesChemicalsClassifiedPart("yarnImportQty") = 0
+    YarnDyesChemicalsClassifiedPart("yarnLocalQty") = 0
+    YarnDyesChemicalsClassifiedPart("dyesQty") = 0
+    YarnDyesChemicalsClassifiedPart("chemicalsImportQty") = 0
+    YarnDyesChemicalsClassifiedPart("chemicalsLocalQty") = 0
+    YarnDyesChemicalsClassifiedPart("stretchWrappingFilmQty") = 0
+
+    YarnDyesChemicalsClassifiedPart("yarnImportValue") = 0
+    YarnDyesChemicalsClassifiedPart("yarnLocalValue") = 0
+    YarnDyesChemicalsClassifiedPart("dyesValue") = 0
+    YarnDyesChemicalsClassifiedPart("chemicalsImportValue") = 0
+    YarnDyesChemicalsClassifiedPart("chemicalsLocalValue") = 0
+    YarnDyesChemicalsClassifiedPart("stretchWrappingFilmValue") = 0
+
+    For Each dicKey In newUpClause8Dic.keys
+
+        For Each innerDicKey In newUpClause8Dic(dicKey).keys
+
+                'calculate value, cause used value not calculated, used value to be calculate in excel sheet
+            If newUpClause8Dic(dicKey)(innerDicKey)("valueOfGoods") > 0 Then
+
+                calculatedValue = newUpClause8Dic(dicKey)(innerDicKey)("valueOfGoods") / newUpClause8Dic(dicKey)(innerDicKey)("qtyOfGoods") * newUpClause8Dic(dicKey)(innerDicKey)("inThisUpUsedQtyOfGoods")
+
+            Else
+
+                calculatedValue = 0
+
+            End If
+
+            If Application.Run("general_utility_functions.isStrPatternExist", newUpClause8Dic(dicKey)(innerDicKey)("nameOfGoods"), "yarn", True, True, True) Then
+
+                If Application.Run("general_utility_functions.isStrPatternExist", newUpClause8Dic(dicKey)(innerDicKey)("mushakOrBillOfEntryNoAndDt"), "^c-", True, True, True) Then
+
+                    YarnDyesChemicalsClassifiedPart("yarnImportQty") = YarnDyesChemicalsClassifiedPart("yarnImportQty") + newUpClause8Dic(dicKey)(innerDicKey)("inThisUpUsedQtyOfGoods")
+                    YarnDyesChemicalsClassifiedPart("yarnImportValue") = YarnDyesChemicalsClassifiedPart("yarnImportValue") + calculatedValue
+
+                ElseIf Application.Run("general_utility_functions.isStrPatternExist", newUpClause8Dic(dicKey)(innerDicKey)("mushakOrBillOfEntryNoAndDt"), "^m", True, True, True) Then
+                    
+                    YarnDyesChemicalsClassifiedPart("yarnLocalQty") = YarnDyesChemicalsClassifiedPart("yarnLocalQty") + newUpClause8Dic(dicKey)(innerDicKey)("inThisUpUsedQtyOfGoods")
+                    YarnDyesChemicalsClassifiedPart("yarnLocalValue") = YarnDyesChemicalsClassifiedPart("yarnLocalValue") + calculatedValue
+
+                End If
+
+            ElseIf Application.Run("general_utility_functions.isStrPatternExist", newUpClause8Dic(dicKey)(innerDicKey)("nameOfGoods"), "dyes", True, True, True)  Then
+
+                YarnDyesChemicalsClassifiedPart("dyesQty") = YarnDyesChemicalsClassifiedPart("dyesQty") + newUpClause8Dic(dicKey)(innerDicKey)("inThisUpUsedQtyOfGoods")
+                YarnDyesChemicalsClassifiedPart("dyesValue") = YarnDyesChemicalsClassifiedPart("dyesValue") + calculatedValue
+
+            ElseIf Application.Run("general_utility_functions.isStrPatternExist", newUpClause8Dic(dicKey)(innerDicKey)("nameOfGoods"), "Stretch Wrapping Film", True, True, True)  Then
+            
+                YarnDyesChemicalsClassifiedPart("stretchWrappingFilmQty") = YarnDyesChemicalsClassifiedPart("stretchWrappingFilmQty") + newUpClause8Dic(dicKey)(innerDicKey)("inThisUpUsedQtyOfGoods")
+                YarnDyesChemicalsClassifiedPart("stretchWrappingFilmValue") = YarnDyesChemicalsClassifiedPart("stretchWrappingFilmValue") + calculatedValue
+
+            Else
+
+                If Application.Run("general_utility_functions.isStrPatternExist", newUpClause8Dic(dicKey)(innerDicKey)("mushakOrBillOfEntryNoAndDt"), "^c-", True, True, True) Then
+
+                    YarnDyesChemicalsClassifiedPart("chemicalsImportQty") = YarnDyesChemicalsClassifiedPart("chemicalsImportQty") + newUpClause8Dic(dicKey)(innerDicKey)("inThisUpUsedQtyOfGoods")
+                    YarnDyesChemicalsClassifiedPart("chemicalsImportValue") = YarnDyesChemicalsClassifiedPart("chemicalsImportValue") + calculatedValue
+
+                ElseIf Application.Run("general_utility_functions.isStrPatternExist", newUpClause8Dic(dicKey)(innerDicKey)("mushakOrBillOfEntryNoAndDt"), "^m", True, True, True) Then
+
+                    YarnDyesChemicalsClassifiedPart("chemicalsLocalQty") = YarnDyesChemicalsClassifiedPart("chemicalsLocalQty") + newUpClause8Dic(dicKey)(innerDicKey)("inThisUpUsedQtyOfGoods")
+                    YarnDyesChemicalsClassifiedPart("chemicalsLocalValue") = YarnDyesChemicalsClassifiedPart("chemicalsLocalValue") + calculatedValue
+
+                End If
+                
+            End If
+
+        Next innerDicKey
+
+    Next dicKey
+
+
+    ' For Each dicKey In YarnDyesChemicalsClassifiedPart.keys
+    '     Debug.Print dicKey, YarnDyesChemicalsClassifiedPart(dicKey)
+    ' Next dicKey
+
+End Function
