@@ -922,7 +922,7 @@ Private Function convertImpPerformanceMushakOrBillOfEntryToUpClause8(mushakOrBil
 
 End Function
 
-Private Function dealWithUpClause9(ws As Worksheet, newUpClause8Dic As Object, importPerformanceFilePath As String)
+Private Function dealWithUpClause9(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object, importPerformanceFilePath As String)
 
     Dim upClause9StockinformationRangeObject As Variant
     Dim upClause9Val As Variant
@@ -960,6 +960,16 @@ Private Function dealWithUpClause9(ws As Worksheet, newUpClause8Dic As Object, i
     Next i
 
     upClause9StockinformationRangeObject.Columns(16) = temp
+
+        'used in this UP Qty. update
+        temp(1, 1) = newUpClause8InfoClassifiedPartDic("yarnImportQty")
+        temp(2, 1) = newUpClause8InfoClassifiedPartDic("yarnLocalQty")
+        temp(3, 1) = newUpClause8InfoClassifiedPartDic("dyesQty")
+        temp(4, 1) = newUpClause8InfoClassifiedPartDic("chemicalsImportQty")
+        temp(5, 1) = newUpClause8InfoClassifiedPartDic("chemicalsLocalQty")
+        temp(6, 1) = newUpClause8InfoClassifiedPartDic("stretchWrappingFilmQty")
+
+    upClause9StockinformationRangeObject.Columns(24) = temp
 
 End Function
 
