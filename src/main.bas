@@ -993,11 +993,15 @@ Sub afterYarnConsumption()
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Natural Garnet", 0) ' Qty. be dynamic
     
     Dim impPerformanceDataDic As Object
-    Dim importPerformanceFilePath As String
-    importPerformanceFilePath = ActiveWorkbook.path & Application.PathSeparator & "Import Performance Statement of PDL-2024-2025.xlsx"
+    Dim importPerformanceFileName As String
+    importPerformanceFileName = "Import Performance Statement of PDL-2024-2025.xlsx"
+
+    'take source data from Import Performance Total Summary
+    Dim sourceDataImportPerformanceTotalSummary As Variant
+    sourceDataImportPerformanceTotalSummary = Application.Run("helperFunctionGetData.sourceDataImportPerformance", importPerformanceFileName, "Summary of Grand Total", True, False)
 
     Set impPerformanceDataDic = Application.Run("data_from_imp_performance.classifiedDbDicFromImpPerformance", _
-    importPerformanceFilePath) ' path change after changed the period
+    ActiveWorkbook.path & Application.PathSeparator & importPerformanceFileName) ' path change after changed the period
     
     'take source data as dictionary from Import Yarn Use Details For UD File
     Dim importYarnUseDetailsForUd As Object
@@ -1021,7 +1025,7 @@ Sub afterYarnConsumption()
     
     Application.Run "afterConsumption.upClause8InformationPutToProvidedWs", upWorksheet, newUpClause8InfoDic
 
-    Application.Run "afterConsumption.dealWithUpClause9", upWorksheet, newUpClause8InfoClassifiedPartDic, importPerformanceFilePath
+    Application.Run "afterConsumption.dealWithUpClause9", upWorksheet, newUpClause8InfoClassifiedPartDic, sourceDataImportPerformanceTotalSummary
 
 End Sub
      
