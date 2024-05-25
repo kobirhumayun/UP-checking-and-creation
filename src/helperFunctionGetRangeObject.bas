@@ -171,6 +171,22 @@ Set upClause11UdExpIpinformationRangeObject = workingRange
 
 End Function
 
+Private Function upClause11UdExpIpinformationRangeObjectFromProvidedWs(ws As Worksheet) As Variant
+    'give UD/EXP/IP information Range Object from provided sheet
+    Dim topRow, bottomRow As Variant
+
+    topRow = ws.Cells.Find("11|", LookAt:=xlPart).Row + 3
+    bottomRow = ws.Range("Z" & topRow).End(xlDown).Row
+
+    Dim workingRange As Range
+    Set workingRange = ws.Range("A" & topRow & ":" & "AA" & bottomRow)
+
+    workingRange.Font.Color = RGB(255, 255, 255)
+
+    Set upClause11UdExpIpinformationRangeObjectFromProvidedWs = workingRange
+
+End Function
+
 Private Function upClause12AYarnConsumptioninformationRangeObject() As Variant
 'this function give yarn consumption information Range Object from active sheet
 Dim topRow, bottomRow As Variant
