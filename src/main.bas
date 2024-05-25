@@ -1021,7 +1021,7 @@ Sub afterYarnConsumption()
     
     Application.Run "afterConsumption.upClause8InformationPutToProvidedWs", upWorksheet, newUpClause8InfoDic
 
-    Application.Run "afterConsumption.dealWithUpClause9", upWorksheet, newUpClause8InfoDic, importPerformanceFilePath
+    Application.Run "afterConsumption.dealWithUpClause9", upWorksheet, newUpClause8InfoClassifiedPartDic, importPerformanceFilePath
 
 End Sub
      
