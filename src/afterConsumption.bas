@@ -922,7 +922,7 @@ Private Function convertImpPerformanceMushakOrBillOfEntryToUpClause8(mushakOrBil
 
 End Function
 
-Private Function dealWithUpClause9(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object, importPerformanceFilePath As String)
+Private Function dealWithUpClause9(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object, sourceDataImportPerformanceTotalSummary As Variant)
 
     Dim upClause9StockinformationRangeObject As Variant
     Dim upClause9Val As Variant
@@ -942,17 +942,6 @@ Private Function dealWithUpClause9(ws As Worksheet, newUpClause8InfoClassifiedPa
     Next i
 
     upClause9StockinformationRangeObject.Columns(20) = temp
-
-    Dim fso As Object
-    Dim fileName As String
-
-    Set fso = CreateObject("Scripting.FileSystemObject")
-
-    fileName = fso.GetFileName(importPerformanceFilePath)
-
-        'take source data from Import Performance Total Summary
-    Dim sourceDataImportPerformanceTotalSummary As Variant
-    sourceDataImportPerformanceTotalSummary = Application.Run("helperFunctionGetData.sourceDataImportPerformance", fileName, "Summary of Grand Total", True, True)
 
         'new import Qty. update
     For i = 1 To UBound(upClause9Val, 1)
