@@ -1034,3 +1034,74 @@ Private Function sumNewUpClause8ClassifiedPart(newUpClause8Dic As Object) As Obj
     Set sumNewUpClause8ClassifiedPart = YarnDyesChemicalsClassifiedPart
 
 End Function
+
+Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim upClause11UdExpIpinformationRangeObject As Range
+    Set upClause11UdExpIpinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause11UdExpIpinformationRangeObjectFromProvidedWs", ws)
+
+    If upClause11UdExpIpinformationRangeObject.Rows.Count > 2 Then
+
+        upClause11UdExpIpinformationRangeObject.Rows("2:" & upClause11UdExpIpinformationRangeObject.Rows.Count - 1).EntireRow.Delete
+
+    End If
+    
+    Dim i, j, k As Long
+
+    'insert rows as lc count, note already two rows exist one row for UD, IP, EXP, buyer etc info and one row form total sum
+    'rest row insert between these rows
+    If sourceDataAsDicUpIssuingStatus.Count > 1 Then
+
+        For i = 1 To sourceDataAsDicUpIssuingStatus.Count - 1
+            upClause11UdExpIpinformationRangeObject.Rows("2").EntireRow.Insert
+        Next i
+
+    End If
+
+    Dim regExReturnedObjectUdIpExp As Object
+    Dim regExReturnedObjectUdIpExpDt As Object
+    Dim tempUdIpExpAndDtJoinStr As String
+
+    For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
+
+        upClause11UdExpIpinformationRangeObject(j + 1, 2).value = j + 1
+        upClause11UdExpIpinformationRangeObject.Range("b" & j + 1 & ":c" & j + 1).Merge
+
+        upClause11UdExpIpinformationRangeObject(j + 1, 4).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("NameofBuyers")
+        upClause11UdExpIpinformationRangeObject.Range("d" & j + 1 & ":p" & j + 1).Merge
+
+
+
+
+        Set regExReturnedObjectUdIpExp = Application.Run("general_utility_functions.regExReturnedObj", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("UDNoIPNo"), ".+", True, True, True)
+        Set regExReturnedObjectUdIpExpDt = Application.Run("general_utility_functions.regExReturnedObj", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("UDIPDate"), ".+", True, True, True)
+
+
+        For k = 0 To regExReturnedObjectUdIpExp.Count - 1
+
+            tempUdIpExpAndDtJoinStr = tempUdIpExpAndDtJoinStr & regExReturnedObjectUdIpExp(k) & " " & regExReturnedObjectUdIpExpDt(k) & Chr(10)
+
+        Next k
+
+        upClause11UdExpIpinformationRangeObject(j + 1, 17).value = Left(tempUdIpExpAndDtJoinStr, Len(tempUdIpExpAndDtJoinStr) - 1)
+        upClause11UdExpIpinformationRangeObject.Range("q" & j + 1 & ":s" & j + 1).Merge
+
+        tempUdIpExpAndDtJoinStr = "" 'reset
+
+
+
+
+
+
+
+
+
+    Next j
+
+
+
+        ' Application.Run "utility_formating_fun.SetBorderInsideHairlineAroundThin", upClause11UdExpIpinformationRangeObject.Range("b1:z" & upClause11UdExpIpinformationRangeObject.Rows.Count)
+        ' Application.Run "utility_formating_fun.setBorder", upClause11UdExpIpinformationRangeObject.Range("b1:z1"), xlEdgeTop, xlHairline
+
+
+End Function
