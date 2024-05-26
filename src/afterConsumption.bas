@@ -1105,3 +1105,65 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
 
 End Function
+
+Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim i, j As Long
+    Dim loopCounter As Long
+
+    loopCounter = 4 'initially run from first buyer row
+
+    For i = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
+
+        ' Debug.Print sourceDataAsDicUpIssuingStatus.keys()(i)
+
+
+        j = loopCounter
+
+        If sourceDataAsDicUpIssuingStatus.Count = 1 Then
+
+            If ws.Cells(j, 1) = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") Then
+                Debug.Print "match"
+            End If
+
+        Else
+
+            If ws.Cells(j, 1) = i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") Then
+                Debug.Print "match"
+            End If
+
+        End If
+
+
+        j = j + 1 ' add one for check next row, as no need to check buyer row
+
+        Do Until ws.Cells(j, 3) = "Cotton"
+
+        
+            If Not IsEmpty(ws.Cells(j, 1)) And ws.Cells(j, 1) <> "Cotton" And ws.Cells(j, 1) <> "Polyester" And ws.Cells(j, 1) <> "Spandex" Then
+
+                Debug.Print i + 1 & ") " & ws.Cells(j, 4)
+
+            End If
+            
+            j = j + 1
+
+            If j > 2000 Then ' asume highest consumption
+                Exit Do
+            End If
+
+           If Not IsEmpty(ws.Cells(j, 1)) And ws.Cells(j, 1) <> "Cotton" And ws.Cells(j, 1) <> "Polyester" And ws.Cells(j, 1) <> "Spandex" And ws.Cells(j, 1) <> "Weight :" Then
+
+                Exit Do ' asume in this row exist buyer
+
+            End If
+            
+        Loop
+
+        loopCounter = j
+
+    Next i
+
+    Set addConRangeToSourceDataAsDicUpIssuingStatus = sourceDataAsDicUpIssuingStatus
+
+End Function
