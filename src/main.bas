@@ -1018,6 +1018,10 @@ Sub afterYarnConsumption()
     'create new UP clause 8 yarn, dyes chemicals Classified part Qty. & value
     Dim newUpClause8InfoClassifiedPartDic As Object
     Set newUpClause8InfoClassifiedPartDic = Application.Run("afterConsumption.sumNewUpClause8ClassifiedPart", newUpClause8InfoDic)
+
+    'add consumption range to UP issuing status
+    Dim withConRangeSourceDataAsDicUpIssuingStatus As Object
+    Set withConRangeSourceDataAsDicUpIssuingStatus = Application.Run("afterConsumption.addConRangeToSourceDataAsDicUpIssuingStatus", consumptionWorksheet, sourceDataAsDicUpIssuingStatus)
     
 
     
