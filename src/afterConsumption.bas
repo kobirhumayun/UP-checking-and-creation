@@ -1144,7 +1144,7 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
         Do Until ws.Cells(j, 3) = "Cotton"
 
         
-            If ws.Cells(j, 1) <> "Weight :" Then
+            If ws.Cells(j, 1) = "Weight :" Then
 
                 Debug.Print i + 1 & ") " & ws.Cells(j, 4)
 
