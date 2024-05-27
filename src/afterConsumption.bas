@@ -1127,7 +1127,7 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
                 sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i)).Add "consumptionRange", CreateObject("Scripting.Dictionary")
             Else
                 Debug.Print "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
-                MsgBox "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") & " condumption sheet"
+                MsgBox "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") & " consumption sheet"
             End If
 
         Else
@@ -1137,7 +1137,7 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
                 sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i)).Add "consumptionRange", CreateObject("Scripting.Dictionary")
             Else
                 Debug.Print "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
-                MsgBox "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") & " condumption sheet"
+                MsgBox "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") & " consumption sheet"
             End If
 
         End If
@@ -1149,6 +1149,11 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
 
         
             If ws.Cells(j, 1) = "Weight :" Then
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Add sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count + 1, CreateObject("Scripting.Dictionary")
+                
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "weight", ws.Cells(j, 4)
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "width", ws.Cells(j, 12)
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "qty", ws.Cells(j, 20)
 
                 Debug.Print i + 1 & ") " & ws.Cells(j, 4)
 
