@@ -1124,12 +1124,16 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
 
             If ws.Cells(j, 1) = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") Then
                 Debug.Print "match"
+            Else
+                Debug.Print "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
             End If
 
         Else
 
             If ws.Cells(j, 1) = i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") Then
                 Debug.Print "match"
+            Else
+                Debug.Print "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
             End If
 
         End If
@@ -1140,7 +1144,7 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
         Do Until ws.Cells(j, 3) = "Cotton"
 
         
-            If Not IsEmpty(ws.Cells(j, 1)) And ws.Cells(j, 1) <> "Cotton" And ws.Cells(j, 1) <> "Polyester" And ws.Cells(j, 1) <> "Spandex" Then
+            If ws.Cells(j, 1) <> "Weight :" Then
 
                 Debug.Print i + 1 & ") " & ws.Cells(j, 4)
 
