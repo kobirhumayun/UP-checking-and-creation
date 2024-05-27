@@ -1124,16 +1124,20 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
 
             If ws.Cells(j, 1) = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") Then
                 Debug.Print "match"
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i)).Add "consumptionRange", CreateObject("Scripting.Dictionary")
             Else
                 Debug.Print "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
+                MsgBox "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") & " condumption sheet"
             End If
 
         Else
 
             If ws.Cells(j, 1) = i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") Then
                 Debug.Print "match"
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i)).Add "consumptionRange", CreateObject("Scripting.Dictionary")
             Else
                 Debug.Print "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
+                MsgBox "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") & " condumption sheet"
             End If
 
         End If
