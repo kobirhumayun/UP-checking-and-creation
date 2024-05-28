@@ -1115,28 +1115,25 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
 
     For i = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
-        ' Debug.Print sourceDataAsDicUpIssuingStatus.keys()(i)
-
-
         j = loopCounter
 
         If sourceDataAsDicUpIssuingStatus.Count = 1 Then
 
             If ws.Cells(j, 1) = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") Then
-                Debug.Print "match"
+                ' Debug.Print "match"
                 sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i)).Add "consumptionRange", CreateObject("Scripting.Dictionary")
             Else
-                Debug.Print "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
+                ' Debug.Print "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
                 MsgBox "mismatch " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") & " consumption sheet"
             End If
 
         Else
 
             If ws.Cells(j, 1) = i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") Then
-                Debug.Print "match"
+                ' Debug.Print "match"
                 sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i)).Add "consumptionRange", CreateObject("Scripting.Dictionary")
             Else
-                Debug.Print "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
+                ' Debug.Print "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
                 MsgBox "mismatch " & i + 1 & ") " & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers") & " consumption sheet"
             End If
 
@@ -1149,29 +1146,68 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
 
         
             If ws.Cells(j, 1) = "Weight :" Then
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Add sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count + 1, CreateObject("Scripting.Dictionary")
-                
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "weight", ws.Cells(j, 4)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "width", ws.Cells(j, 12)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "qty", ws.Cells(j, 20)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "yarnConPerYds", ws.Cells(j + 2, 15)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "totalYarnCon", ws.Cells(j + 8, 3)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "cottonYarn", ws.Cells(j + 10, 6)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "polyesterYarn", ws.Cells(j + 11, 6)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "spandexYarn", ws.Cells(j + 12, 6)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "black", ws.Cells(j + 2, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "mercerizationBlack", ws.Cells(j + 3, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "indigo", ws.Cells(j + 4, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "mercerizationIndigo", ws.Cells(j + 5, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "toppingBottoming", ws.Cells(j + 6, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "mercerizationToppingBottoming", ws.Cells(j + 7, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "overDying", ws.Cells(j + 8, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "mercerizationOverDying", ws.Cells(j + 9, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "coating", ws.Cells(j + 10, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "pfd", ws.Cells(j + 11, 19)
-                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange")(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "ecru", ws.Cells(j + 12, 19)
 
-                Debug.Print i + 1 & ") " & ws.Cells(j, 4)
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Add _
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count + 1, CreateObject("Scripting.Dictionary")
+                
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "weight", ws.Cells(j, 4)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "width", ws.Cells(j, 12)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "qty", ws.Cells(j, 20)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "yarnConPerYds", ws.Cells(j + 2, 15)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "totalYarnCon", ws.Cells(j + 8, 3)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "cottonYarn", ws.Cells(j + 10, 6)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "polyesterYarn", ws.Cells(j + 11, 6)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "spandexYarn", ws.Cells(j + 12, 6)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "black", ws.Cells(j + 2, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "mercerizationBlack", ws.Cells(j + 3, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "indigo", ws.Cells(j + 4, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "mercerizationIndigo", ws.Cells(j + 5, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "toppingBottoming", ws.Cells(j + 6, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "mercerizationToppingBottoming", ws.Cells(j + 7, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "overDying", ws.Cells(j + 8, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "mercerizationOverDying", ws.Cells(j + 9, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "coating", ws.Cells(j + 10, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "pfd", ws.Cells(j + 11, 19)
+
+                sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange") _
+                (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("consumptionRange").Count).Add "ecru", ws.Cells(j + 12, 19)
+
+                ' Debug.Print i + 1 & ") " & ws.Cells(j, 4)
 
             End If
             
