@@ -1088,6 +1088,11 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
         tempUdIpExpAndDtJoinStr = "" 'reset
 
+        upClause11UdExpIpinformationRangeObject.Range("t" & j + 1).value = "." & Chr(10) & "Qty- Pcs"
+        upClause11UdExpIpinformationRangeObject.Range("t" & j + 1 & ":u" & j + 1).Merge
+
+        upClause11UdExpIpinformationRangeObject.Range("v" & j + 1).value = "Denim Fabric"
+
 
 
 
