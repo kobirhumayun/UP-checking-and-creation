@@ -1064,10 +1064,10 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
     For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
-        upClause11UdExpIpinformationRangeObject(j + 1, 2).value = j + 1
+        upClause11UdExpIpinformationRangeObject.Range("b" & j + 1).value = j + 1
         upClause11UdExpIpinformationRangeObject.Range("b" & j + 1 & ":c" & j + 1).Merge
 
-        upClause11UdExpIpinformationRangeObject(j + 1, 4).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("NameofBuyers")
+        upClause11UdExpIpinformationRangeObject.Range("d" & j + 1).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("NameofBuyers")
         upClause11UdExpIpinformationRangeObject.Range("d" & j + 1 & ":p" & j + 1).Merge
 
 
@@ -1083,7 +1083,7 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
         Next k
 
-        upClause11UdExpIpinformationRangeObject(j + 1, 17).value = Left(tempUdIpExpAndDtJoinStr, Len(tempUdIpExpAndDtJoinStr) - 1)
+        upClause11UdExpIpinformationRangeObject.Range("q" & j + 1).value = Left(tempUdIpExpAndDtJoinStr, Len(tempUdIpExpAndDtJoinStr) - 1)
         upClause11UdExpIpinformationRangeObject.Range("q" & j + 1 & ":s" & j + 1).Merge
 
         tempUdIpExpAndDtJoinStr = "" 'reset
