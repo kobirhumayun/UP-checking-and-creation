@@ -1100,10 +1100,12 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
         upClause11UdExpIpinformationRangeObject.Range("v" & j + 1).value = "Denim Fabric"
 
         Set tempWidthStr = CreateObject("Scripting.Dictionary")
+        Set tempWeightStr = CreateObject("Scripting.Dictionary")
 
         For Each dicKey In sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").keys
 
             tempWidthStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("width")) = Null
+            tempWeightStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("weight")) = Null
 
         Next dicKey
 
@@ -1115,6 +1117,14 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
         
         upClause11UdExpIpinformationRangeObject.Range("w" & j + 1).value = Join(temp, ",")
         upClause11UdExpIpinformationRangeObject.Range("w" & j + 1 & ":x" & j + 1).Merge
+
+        temp = Application.Run("Sorting_Algorithms.BubbleSort", tempWeightStr.keys)
+        
+        For m = LBound(temp) To UBound(temp)
+            temp(m) = Format(temp(m), "0.00")
+        Next m
+        
+        upClause11UdExpIpinformationRangeObject.Range("y" & j + 1).value = Join(temp, ",")
 
 
 
