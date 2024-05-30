@@ -1046,7 +1046,7 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
     End If
     
-    Dim i, j, k As Long
+    Dim i, j, k, l, m As Long
 
     'insert rows as lc count, note already two rows exist one row for UD, IP, EXP, buyer etc info and one row form total sum
     'rest row insert between these rows
@@ -1061,6 +1061,12 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
     Dim regExReturnedObjectUdIpExp As Object
     Dim regExReturnedObjectUdIpExpDt As Object
     Dim tempUdIpExpAndDtJoinStr As String
+
+    Dim tempWidthStr As Object
+    Dim tempWeightStr As Object
+    Dim dicKey As Variant
+
+    Dim temp As Variant
 
     For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
@@ -1093,11 +1099,22 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
         upClause11UdExpIpinformationRangeObject.Range("v" & j + 1).value = "Denim Fabric"
 
+        Set tempWidthStr = CreateObject("Scripting.Dictionary")
 
+        For Each dicKey In sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").keys
 
+            tempWidthStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("width")) = Null
 
+        Next dicKey
 
-
+        temp = Application.Run("Sorting_Algorithms.BubbleSort", tempWidthStr.keys)
+        
+        For l = LBound(temp) To UBound(temp)
+            temp(l) = Format(temp(l), "0.00")
+        Next l
+        
+        upClause11UdExpIpinformationRangeObject.Range("w" & j + 1).value = Join(temp, ",")
+        upClause11UdExpIpinformationRangeObject.Range("w" & j + 1 & ":x" & j + 1).Merge
 
 
 
