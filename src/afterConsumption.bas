@@ -1070,30 +1070,34 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
     For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
+            'put Sl. No.
         upClause11UdExpIpinformationRangeObject.Range("b" & j + 1).value = j + 1
         upClause11UdExpIpinformationRangeObject.Range("b" & j + 1 & ":c" & j + 1).Merge
 
+            'put buyer name
         upClause11UdExpIpinformationRangeObject.Range("d" & j + 1).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("NameofBuyers")
         upClause11UdExpIpinformationRangeObject.Range("d" & j + 1 & ":p" & j + 1).Merge
 
 
-
-
+            'extract UD IP EXP & Date
         Set regExReturnedObjectUdIpExp = Application.Run("general_utility_functions.regExReturnedObj", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("UDNoIPNo"), ".+", True, True, True)
         Set regExReturnedObjectUdIpExpDt = Application.Run("general_utility_functions.regExReturnedObj", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("UDIPDate"), ".+", True, True, True)
 
 
         For k = 0 To regExReturnedObjectUdIpExp.Count - 1
 
+                'join UD IP EXP & Date
             tempUdIpExpAndDtJoinStr = tempUdIpExpAndDtJoinStr & regExReturnedObjectUdIpExp(k) & " " & regExReturnedObjectUdIpExpDt(k) & Chr(10)
 
         Next k
 
+            'put UD IP EXP & Date
         upClause11UdExpIpinformationRangeObject.Range("q" & j + 1).value = Left(tempUdIpExpAndDtJoinStr, Len(tempUdIpExpAndDtJoinStr) - 1)
         upClause11UdExpIpinformationRangeObject.Range("q" & j + 1 & ":s" & j + 1).Merge
 
         tempUdIpExpAndDtJoinStr = "" 'reset
 
+            'put template for reduce manual input
         upClause11UdExpIpinformationRangeObject.Range("t" & j + 1).value = "." & Chr(10) & "Qty- Pcs"
         upClause11UdExpIpinformationRangeObject.Range("t" & j + 1 & ":u" & j + 1).Merge
 
@@ -1104,28 +1108,36 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
         For Each dicKey In sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").keys
 
+                'create unique width & weight
             tempWidthStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("width").value) = Null
             tempWeightStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("weight").value) = Null
 
         Next dicKey
 
+            'sort
         temp = Application.Run("Sorting_Algorithms.BubbleSort", tempWidthStr.keys)
-        
+
+            'formate
         For l = LBound(temp) To UBound(temp)
             temp(l) = Format(temp(l), "0.00")
         Next l
         
+            'put width
         upClause11UdExpIpinformationRangeObject.Range("w" & j + 1).value = Join(temp, ",")
         upClause11UdExpIpinformationRangeObject.Range("w" & j + 1 & ":x" & j + 1).Merge
 
+            'sort
         temp = Application.Run("Sorting_Algorithms.BubbleSort", tempWeightStr.keys)
         
+            'format
         For m = LBound(temp) To UBound(temp)
             temp(m) = Format(temp(m), "0.00")
         Next m
         
+            'put weight
         upClause11UdExpIpinformationRangeObject.Range("y" & j + 1).value = Join(temp, ",")
 
+            'put qty.
         If Right(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("qtyNumberFormat"), 5) = """Mtr""" Then
 
             upClause11UdExpIpinformationRangeObject.Range("z" & j + 1).value = Round(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("QuantityofFabricsYdsMtr") * 1.0936132983)
