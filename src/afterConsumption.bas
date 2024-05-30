@@ -1104,8 +1104,8 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
         For Each dicKey In sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").keys
 
-            tempWidthStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("width")) = Null
-            tempWeightStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("weight")) = Null
+            tempWidthStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("width").value) = Null
+            tempWeightStr(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange")(dicKey)("weight").value) = Null
 
         Next dicKey
 
