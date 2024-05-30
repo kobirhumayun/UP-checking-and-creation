@@ -1339,14 +1339,23 @@ Private Function dealWithUpClause12a(ws As Worksheet, sourceDataAsDicUpIssuingSt
 
         For k = 0 To sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").Count - 1
 
+                'put goods description (fabrics)
+            upClause12AYarnConsumptionInformationRangeObject.Range("p" & loopCounter + k).value = "Denim Fabrics"
+            upClause12AYarnConsumptionInformationRangeObject.Range("p" & loopCounter + k & ":q" & loopCounter + k).Merge
+
+                'put goods description (garments)
+            upClause12AYarnConsumptionInformationRangeObject.Range("r" & loopCounter + k).value = 0
+
                 'put yds
             upClause12AYarnConsumptionInformationRangeObject.Range("s" & loopCounter + k).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange") _
             (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").keys()(k))("qty")
 
+                'put raw materials name
+            upClause12AYarnConsumptionInformationRangeObject.Range("t" & loopCounter + k).value = "Yarn"
+
                 'put yarn consumption per yds
             upClause12AYarnConsumptionInformationRangeObject.Range("u" & loopCounter + k).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange") _
             (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").keys()(k))("yarnConPerYds")
-
             upClause12AYarnConsumptionInformationRangeObject.Range("u" & loopCounter + k & ":v" & loopCounter + k).Merge
 
         Next k
