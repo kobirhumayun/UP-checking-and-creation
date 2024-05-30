@@ -1290,3 +1290,31 @@ Private Function addConRangeToSourceDataAsDicUpIssuingStatus(ws As Worksheet, so
     Set addConRangeToSourceDataAsDicUpIssuingStatus = sourceDataAsDicUpIssuingStatus
 
 End Function
+
+Private Function dealWithUpClause12a(ws As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim upClause12AYarnConsumptionInformationRangeObject As Range
+    Set upClause12AYarnConsumptionInformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause12AYarnConsumptioninformationRangeObjectFromProvidedWs", ws)
+
+    If upClause12AYarnConsumptionInformationRangeObject.Rows.Count > 2 Then
+
+        upClause12AYarnConsumptionInformationRangeObject.Rows("2:" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count - 1).EntireRow.Delete
+
+    End If
+    
+
+    'insert rows as lc count, note already two rows exist one row for UD, IP, EXP, buyer etc info and one row form total sum
+    'rest row insert between these rows
+    ' If sourceDataAsDicUpIssuingStatus.Count > 1 Then
+
+    '     For i = 1 To sourceDataAsDicUpIssuingStatus.Count - 1
+    '         upClause12AYarnConsumptionInformationRangeObject.Rows("2").EntireRow.Insert
+    '     Next i
+
+    ' End If
+
+    Dim i, j, k, l, m As Long
+
+
+
+End Function
