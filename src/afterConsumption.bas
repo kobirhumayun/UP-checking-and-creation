@@ -1302,18 +1302,27 @@ Private Function dealWithUpClause12a(ws As Worksheet, sourceDataAsDicUpIssuingSt
 
     End If
     
+    Dim dicKey As Variant
+    Dim consumptionCount As Long
 
-    'insert rows as lc count, note already two rows exist one row for UD, IP, EXP, buyer etc info and one row form total sum
-    'rest row insert between these rows
-    ' If sourceDataAsDicUpIssuingStatus.Count > 1 Then
+    For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
-    '     For i = 1 To sourceDataAsDicUpIssuingStatus.Count - 1
-    '         upClause12AYarnConsumptionInformationRangeObject.Rows("2").EntireRow.Insert
-    '     Next i
+        consumptionCount = consumptionCount + sourceDataAsDicUpIssuingStatus(dicKey)("consumptionRange").Count
 
-    ' End If
+    Next dicKey
 
     Dim i, j, k, l, m As Long
+
+    'insert rows as consumption count, note already two rows exist one row for consumption info and one row for total sum
+    'rest row insert between these rows
+    If consumptionCount > 1 Then
+
+        For i = 1 To consumptionCount - 1
+            upClause12AYarnConsumptionInformationRangeObject.Rows("2").EntireRow.Insert
+        Next i
+
+    End If
+
 
 
 
