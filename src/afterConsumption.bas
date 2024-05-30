@@ -1141,10 +1141,13 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
     Next j
 
+    upClause11UdExpIpinformationRangeObject.Range("z" & upClause11UdExpIpinformationRangeObject.Rows.Count).FormulaR1C1 = "=SUM(R[-" & upClause11UdExpIpinformationRangeObject.Rows.Count - 1 & "]C:R[-1]C)"
 
 
-        ' Application.Run "utility_formating_fun.SetBorderInsideHairlineAroundThin", upClause11UdExpIpinformationRangeObject.Range("b1:z" & upClause11UdExpIpinformationRangeObject.Rows.Count)
-        ' Application.Run "utility_formating_fun.setBorder", upClause11UdExpIpinformationRangeObject.Range("b1:z1"), xlEdgeTop, xlHairline
+    Application.Run "utility_formating_fun.setBorder", upClause11UdExpIpinformationRangeObject.Range("b1:aa" & upClause11UdExpIpinformationRangeObject.Rows.Count - 1), xlInsideHorizontal, xlHairline
+    Application.Run "utility_formating_fun.setBorder", upClause11UdExpIpinformationRangeObject.Range("b1:aa" & upClause11UdExpIpinformationRangeObject.Rows.Count - 1), xlInsideVertical, xlHairline
+    Application.Run "utility_formating_fun.setBorder", upClause11UdExpIpinformationRangeObject.Range("b1:aa" & upClause11UdExpIpinformationRangeObject.Rows.Count), xlEdgeLeft, xlThin
+    Application.Run "utility_formating_fun.setBorder", upClause11UdExpIpinformationRangeObject.Range("b1:aa" & upClause11UdExpIpinformationRangeObject.Rows.Count), xlEdgeRight, xlThin
 
 
 End Function
