@@ -1323,7 +1323,22 @@ Private Function dealWithUpClause12a(ws As Worksheet, sourceDataAsDicUpIssuingSt
 
     End If
 
+    Dim loopCounter As Long
 
+    loopCounter = 1
+    
+    For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
+            'put Sl. No.
+        upClause12AYarnConsumptionInformationRangeObject.Range("b" & loopCounter).value = j + 1
+        upClause12AYarnConsumptionInformationRangeObject.Range("b" & loopCounter & ":b" & loopCounter + sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").Count - 1).Merge
+
+            'put buyer name
+        upClause12AYarnConsumptionInformationRangeObject.Range("c" & loopCounter).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("NameofBuyers")
+        upClause12AYarnConsumptionInformationRangeObject.Range("c" & loopCounter & ":o" & loopCounter + sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").Count - 1).Merge
+
+        loopCounter = loopCounter + sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").Count
+
+    Next j
 
 End Function
