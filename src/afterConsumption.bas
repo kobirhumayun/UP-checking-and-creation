@@ -1126,7 +1126,18 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
         
         upClause11UdExpIpinformationRangeObject.Range("y" & j + 1).value = Join(temp, ",")
 
+        If Right(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("qtyNumberFormat"), 5) = """Mtr""" Then
 
+            upClause11UdExpIpinformationRangeObject.Range("z" & j + 1).value = Round(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("QuantityofFabricsYdsMtr") * 1.0936132983)
+            upClause11UdExpIpinformationRangeObject.Range("z" & j + 1 & ":aa" & j + 1).Merge
+
+        Else
+
+            upClause11UdExpIpinformationRangeObject.Range("z" & j + 1).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("QuantityofFabricsYdsMtr")
+            upClause11UdExpIpinformationRangeObject.Range("z" & j + 1 & ":aa" & j + 1).Merge
+
+
+        End If
 
     Next j
 
