@@ -231,6 +231,22 @@ Set upClause12BChemicalDyesConsumptioninformationRangeObject = workingRange
 
 End Function
 
+Private Function upClause12BChemicalDyesConsumptioninformationRangeObjectFromProvidedWs(ws As Worksheet) As Variant
+    'give chemical & dyes consumption information Range Object from provided sheet
+    Dim topRow, bottomRow As Variant
+
+    topRow = ws.Cells.Find("12| (L)", LookAt:=xlPart).Row + 2
+    bottomRow = ws.Range("X" & topRow + 1).End(xlDown).Row
+
+    Dim workingRange As Range
+    Set workingRange = ws.Range("A" & topRow & ":" & "Y" & bottomRow)
+
+    workingRange.Font.Color = RGB(255, 255, 255)
+
+    Set upClause12BChemicalDyesConsumptioninformationRangeObjectFromProvidedWs = workingRange
+
+End Function
+
 Private Function upClause13UseRawMaterialsinformationRangeObject() As Variant
 'this function give used raw materials information Range Object from active sheet
 Dim topRow, bottomRow As Variant
