@@ -1426,3 +1426,12 @@ Private Function dealWithUpClause12b(ws As Worksheet, sourceDataAsDicUpIssuingSt
     Next i
 
 End Function
+
+Private Function dealWithUpClause13(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object)
+
+    Dim upClause13InformationRangeObject As Range
+    Set upClause13InformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause13UseRawMaterialsinformationRangeObjectFromProvidedWs", ws)
+
+
+
+End Function
