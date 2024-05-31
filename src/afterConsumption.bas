@@ -1432,6 +1432,20 @@ Private Function dealWithUpClause13(ws As Worksheet, newUpClause8InfoClassifiedP
     Dim upClause13InformationRangeObject As Range
     Set upClause13InformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause13UseRawMaterialsinformationRangeObjectFromProvidedWs", ws)
 
+        'used in this UP Qty. update
+    upClause13InformationRangeObject.Range("o1").value = newUpClause8InfoClassifiedPartDic("yarnImportQty")
+    upClause13InformationRangeObject.Range("o2").value = newUpClause8InfoClassifiedPartDic("yarnLocalQty")
+    upClause13InformationRangeObject.Range("o3").value = newUpClause8InfoClassifiedPartDic("dyesQty")
+    upClause13InformationRangeObject.Range("o4").value = newUpClause8InfoClassifiedPartDic("chemicalsImportQty")
+    upClause13InformationRangeObject.Range("o5").value = newUpClause8InfoClassifiedPartDic("chemicalsLocalQty")
+    upClause13InformationRangeObject.Range("o6").value = newUpClause8InfoClassifiedPartDic("stretchWrappingFilmQty")
 
+        'used in this UP value update
+    upClause13InformationRangeObject.Range("r1").value = newUpClause8InfoClassifiedPartDic("yarnImportValue")
+    upClause13InformationRangeObject.Range("r2").value = newUpClause8InfoClassifiedPartDic("yarnLocalValue")
+    upClause13InformationRangeObject.Range("r3").value = newUpClause8InfoClassifiedPartDic("dyesValue")
+    upClause13InformationRangeObject.Range("r4").value = newUpClause8InfoClassifiedPartDic("chemicalsImportValue")
+    upClause13InformationRangeObject.Range("r5").value = newUpClause8InfoClassifiedPartDic("chemicalsLocalValue")
+    upClause13InformationRangeObject.Range("r6").value = newUpClause8InfoClassifiedPartDic("stretchWrappingFilmValue")
 
 End Function
