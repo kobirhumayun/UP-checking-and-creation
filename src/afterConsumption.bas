@@ -1358,6 +1358,19 @@ Private Function dealWithUpClause12a(ws As Worksheet, sourceDataAsDicUpIssuingSt
             (sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").keys()(k))("yarnConPerYds")
             upClause12AYarnConsumptionInformationRangeObject.Range("u" & loopCounter + k & ":v" & loopCounter + k).Merge
 
+                'put formula for calculate total yarn consumption
+            upClause12AYarnConsumptionInformationRangeObject.Range("w" & loopCounter + k).FormulaR1C1 = "=RC[-4]*RC[-2]"
+            upClause12AYarnConsumptionInformationRangeObject.Range("w" & loopCounter + k & ":x" & loopCounter + k).Merge
+
+                'put cell value 6%
+            upClause12AYarnConsumptionInformationRangeObject.Range("y" & loopCounter + k).value = "6%"
+
+
+                'put formula for calculate total yarn consumption with 6%
+            upClause12AYarnConsumptionInformationRangeObject.Range("z" & loopCounter + k).FormulaR1C1 = "=RC[-3]*6%+RC[-3]"
+            upClause12AYarnConsumptionInformationRangeObject.Range("z" & loopCounter + k & ":aa" & loopCounter + k).Merge
+            
+
         Next k
 
         loopCounter = loopCounter + sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("consumptionRange").Count
