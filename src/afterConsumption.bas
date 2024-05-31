@@ -1399,5 +1399,21 @@ Private Function dealWithUpClause12b(ws As Worksheet, sourceDataAsDicUpIssuingSt
     Dim upClause12BYarnConsumptionInformationRangeObject As Range
     Set upClause12BYarnConsumptionInformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause12BChemicalDyesConsumptioninformationRangeObjectFromProvidedWs", ws)
 
+    Dim buyerCellsDict As Object
+    Set buyerCellsDict = CreateObject("Scripting.Dictionary")
+
+    buyerCellsDict.Add 0, upClause12BYarnConsumptionInformationRangeObject.Range("b2")
+    buyerCellsDict.Add 1, upClause12BYarnConsumptionInformationRangeObject.Range("b8")
+    buyerCellsDict.Add 2, upClause12BYarnConsumptionInformationRangeObject.Range("b16")
+    buyerCellsDict.Add 3, upClause12BYarnConsumptionInformationRangeObject.Range("b22")
+    buyerCellsDict.Add 4, upClause12BYarnConsumptionInformationRangeObject.Range("b31")
+
+    Dim dicKey As Variant
+
+    For Each dicKey In buyerCellsDict.keys
+
+        buyerCellsDict(dicKey).value = Null
+
+    Next dicKey
 
 End Function
