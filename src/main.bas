@@ -1035,6 +1035,8 @@ Sub afterYarnConsumption()
 
     Application.Run "afterConsumption.dealWithUpClause12a", upWorksheet, withConRangeSourceDataAsDicUpIssuingStatus
 
+    Application.Run "afterConsumption.dealWithUpClause12b", upWorksheet, sourceDataAsDicUpIssuingStatus
+
 End Sub
      
    
