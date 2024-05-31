@@ -1037,6 +1037,8 @@ Sub afterYarnConsumption()
 
     Application.Run "afterConsumption.dealWithUpClause12b", upWorksheet, sourceDataAsDicUpIssuingStatus
 
+    Application.Run "afterConsumption.dealWithUpClause13", upWorksheet, newUpClause8InfoClassifiedPartDic
+
 End Sub
      
    
