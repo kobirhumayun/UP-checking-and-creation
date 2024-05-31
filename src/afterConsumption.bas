@@ -1377,4 +1377,19 @@ Private Function dealWithUpClause12a(ws As Worksheet, sourceDataAsDicUpIssuingSt
 
     Next j
 
+    upClause12AYarnConsumptionInformationRangeObject.Range("r" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count).FormulaR1C1 = _
+    "=SUM(R[-" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count - 1 & "]C:R[-1]C)"
+
+    upClause12AYarnConsumptionInformationRangeObject.Range("s" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count).FormulaR1C1 = _
+    "=SUM(R[-" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count - 1 & "]C:R[-1]C)"
+
+    upClause12AYarnConsumptionInformationRangeObject.Range("z" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count).FormulaR1C1 = _
+    "=SUM(R[-" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count - 1 & "]C:R[-1]C)"
+
+
+    Application.Run "utility_formating_fun.setBorder", upClause12AYarnConsumptionInformationRangeObject.Range("b1:aa" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count), xlInsideHorizontal, xlHairline
+    Application.Run "utility_formating_fun.setBorder", upClause12AYarnConsumptionInformationRangeObject.Range("b1:aa" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count), xlInsideVertical, xlHairline
+    Application.Run "utility_formating_fun.setBorder", upClause12AYarnConsumptionInformationRangeObject.Range("b1:aa" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count), xlEdgeLeft, xlThin
+    Application.Run "utility_formating_fun.setBorder", upClause12AYarnConsumptionInformationRangeObject.Range("b1:aa" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count), xlEdgeRight, xlThin
+
 End Function
