@@ -1402,6 +1402,7 @@ Private Function dealWithUpClause12b(ws As Worksheet, sourceDataAsDicUpIssuingSt
     Dim buyerCellsDict As Object
     Set buyerCellsDict = CreateObject("Scripting.Dictionary")
 
+        'take all buyer cells
     buyerCellsDict.Add 0, upClause12BYarnConsumptionInformationRangeObject.Range("b2")
     buyerCellsDict.Add 1, upClause12BYarnConsumptionInformationRangeObject.Range("b8")
     buyerCellsDict.Add 2, upClause12BYarnConsumptionInformationRangeObject.Range("b16")
@@ -1411,9 +1412,17 @@ Private Function dealWithUpClause12b(ws As Worksheet, sourceDataAsDicUpIssuingSt
     Dim dicKey As Variant
 
     For Each dicKey In buyerCellsDict.keys
-
+            'clear previous buyer name
         buyerCellsDict(dicKey).value = Null
 
     Next dicKey
+
+    Dim i As Long
+
+    For i = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
+            'put current buyer
+        buyerCellsDict(i).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(i))("NameofBuyers")
+
+    Next i
 
 End Function
