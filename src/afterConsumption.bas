@@ -1393,3 +1393,11 @@ Private Function dealWithUpClause12a(ws As Worksheet, sourceDataAsDicUpIssuingSt
     Application.Run "utility_formating_fun.setBorder", upClause12AYarnConsumptionInformationRangeObject.Range("b1:aa" & upClause12AYarnConsumptionInformationRangeObject.Rows.Count), xlEdgeRight, xlThin
 
 End Function
+
+Private Function dealWithUpClause12b(ws As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim upClause12BYarnConsumptionInformationRangeObject As Range
+    Set upClause12BYarnConsumptionInformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause12BChemicalDyesConsumptioninformationRangeObjectFromProvidedWs", ws)
+
+
+End Function
