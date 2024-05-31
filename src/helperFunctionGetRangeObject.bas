@@ -262,6 +262,23 @@ Set upClause13UseRawMaterialsinformationRangeObject = workingRange
 
 End Function
 
+Private Function upClause13UseRawMaterialsinformationRangeObjectFromProvidedWs(ws As Worksheet) As Variant
+    'give used raw materials information Range Object from provided sheet
+    Dim topRow, bottomRow As Variant
+
+    topRow = ws.Cells.Find("13|", LookAt:=xlPart).Row + 2
+    bottomRow = ws.Range("R" & topRow).End(xlDown).Row
+
+    Dim workingRange As Range
+    Set workingRange = ws.Range("A" & topRow & ":" & "R" & bottomRow)
+
+    workingRange.Font.Color = RGB(255, 255, 255)
+
+    Set upClause13UseRawMaterialsinformationRangeObjectFromProvidedWs = workingRange
+
+
+End Function
+
 
 
 Private Function sourceDataImportPerformanceRangeObject(fileName As String, worksheetTabName As String, openFile As Boolean, closeFile As Boolean) As Variant ' provide source file name & worksheetTabName
