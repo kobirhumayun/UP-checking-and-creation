@@ -1040,7 +1040,28 @@ Sub afterYarnConsumption()
     Application.Run "afterConsumption.dealWithUpClause13", upWorksheet, newUpClause8InfoClassifiedPartDic
 
 End Sub
+
+Sub yarnConsumption()
+
+    Dim upWorkBook As Workbook
+    Dim upWorksheet As Worksheet
+    Dim consumptionWorksheet As Worksheet
+
+    Set upWorkBook = ActiveWorkbook
+    Set upWorksheet = upWorkBook.Worksheets(2)
+    Set consumptionWorksheet = upWorkBook.Worksheets("Consumption")
+
+
+    Dim newUp As String
+    newUp = Application.Run("helperFunctionGetData.upNoFromProvidedWs", upWorksheet)
+
+
+        'take source data as dictionary from UP Issuing Status
+    Dim sourceDataAsDicUpIssuingStatus As Variant
+    Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
+
      
+End Sub
    
     Sub test()
         Dim test1, test2 As Variant
