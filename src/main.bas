@@ -1171,7 +1171,7 @@ End Sub
         
         ' test2 = Application.Run("utilityFunction.upSequenceStrGenerator", Array("2/2024", "3/2024", "5/2024"))
 
-        Application.Run "yarnConsumption.yarnConsumptionInformationPutToProvidedWs", ActiveSheet.Range("a5:aa6"), 2, CreateObject("Scripting.Dictionary")
+        Application.Run "yarnConsumption.yarnConsumptionInformationPutToProvidedWs", ActiveSheet.Range("a5:aa6"), 1, CreateObject("Scripting.Dictionary")
     
     End Sub
     
