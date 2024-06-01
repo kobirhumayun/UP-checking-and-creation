@@ -1169,7 +1169,9 @@ End Sub
         ' Set dict = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", "D:\Temp\UP Draft\Draft 2024\json-used-up-clause8\file.json")
         ' Set dict = Application.Run("Sorting_Algorithms.SplituPSequence", Array("2/2024", "3/2024", "5/2024"))
         
-        test2 = Application.Run("utilityFunction.upSequenceStrGenerator", Array("2/2024", "3/2024", "5/2024"))
+        ' test2 = Application.Run("utilityFunction.upSequenceStrGenerator", Array("2/2024", "3/2024", "5/2024"))
+
+        Application.Run "yarnConsumption.yarnConsumptionInformationPutToProvidedWs", ActiveSheet.Range("a5:aa6"), 2, CreateObject("Scripting.Dictionary")
     
     End Sub
     
