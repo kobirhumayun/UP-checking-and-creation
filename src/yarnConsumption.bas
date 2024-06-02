@@ -82,6 +82,49 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 3 & ":am" & rowTracker + 3).Merge
     totalConsumptionRange.Range("ag" & rowTracker + 3 & ":am" & rowTracker + 3).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("b" & rowTracker + 4).value = "="
+
+    totalConsumptionRange.Range("c" & rowTracker + 4).FormulaR1C1 = "=R[-2]C[12]"
+    totalConsumptionRange.Range("c" & rowTracker + 4 & ":f" & rowTracker + 4).Merge
+
+    totalConsumptionRange.Range("g" & rowTracker + 4).value = "kgs"
+
+    totalConsumptionRange.Range("h" & rowTracker + 4).value = "x"
+
+    totalConsumptionRange.Range("i" & rowTracker + 4).FormulaR1C1 = "=R[-4]C[11]"
+    totalConsumptionRange.Range("i" & rowTracker + 4 & ":k" & rowTracker + 4).Merge
+
+    totalConsumptionRange.Range("l" & rowTracker + 4).value = "Yds"
+    totalConsumptionRange.Range("l" & rowTracker + 4 & ":m" & rowTracker + 4).Merge
+
+    totalConsumptionRange.Range("s" & rowTracker + 4).value = "Indigo" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 4 & ":y" & rowTracker + 4).Merge
+    totalConsumptionRange.Range("s" & rowTracker + 4 & ":y" & rowTracker + 4).BorderAround, Weight:=xlThin
+
+    totalConsumptionRange.Range("ag" & rowTracker + 4).value = "Indigo"
+    totalConsumptionRange.Range("ag" & rowTracker + 4 & ":am" & rowTracker + 4).Merge
+    totalConsumptionRange.Range("ag" & rowTracker + 4 & ":am" & rowTracker + 4).BorderAround, Weight:=xlThin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
