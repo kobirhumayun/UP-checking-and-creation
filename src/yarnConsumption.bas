@@ -208,10 +208,23 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 11 & ":am" & rowTracker + 11).BorderAround, Weight:=xlThin
 
 
+    totalConsumptionRange.Range("a" & rowTracker + 12).value = "Spandex"
+    totalConsumptionRange.Range("a" & rowTracker + 12 & ":d" & rowTracker + 12).Merge
+    totalConsumptionRange.Range("a" & rowTracker + 12 & ":d" & rowTracker + 12).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("e" & rowTracker + 12).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("f" & rowTracker + 12).FormulaR1C1 = "=R[-4]C[-3]*" & "5%" 'percentage be dynamic
+    totalConsumptionRange.Range("f" & rowTracker + 12 & ":j" & rowTracker + 12).Merge
+    totalConsumptionRange.Range("f" & rowTracker + 12 & ":j" & rowTracker + 12).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("s" & rowTracker + 12).value = "ECRU" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 12 & ":y" & rowTracker + 12).Merge
+    totalConsumptionRange.Range("s" & rowTracker + 12 & ":y" & rowTracker + 12).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("ag" & rowTracker + 12).value = "ECRU"
+    totalConsumptionRange.Range("ag" & rowTracker + 12 & ":am" & rowTracker + 12).Merge
+    totalConsumptionRange.Range("ag" & rowTracker + 12 & ":am" & rowTracker + 12).BorderAround, Weight:=xlThin
 
 
 End Function
