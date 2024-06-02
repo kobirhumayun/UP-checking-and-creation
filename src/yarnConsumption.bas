@@ -9,7 +9,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("a" & rowTracker & ":c" & rowTracker).Merge
 
         'weight
-    totalConsumptionRange.Range("d" & rowTracker).value = 10.5 'to be dynamic
+    totalConsumptionRange.Range("d" & rowTracker).value = yarnConsumptionInfoDic("weight")
     totalConsumptionRange.Range("d" & rowTracker & ":e" & rowTracker).Merge
 
     totalConsumptionRange.Range("f" & rowTracker).value = "OZ/YD2"
@@ -19,7 +19,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("i" & rowTracker & ":k" & rowTracker).Merge
 
         'Width
-    totalConsumptionRange.Range("l" & rowTracker).value = 66.5 'to be dynamic
+    totalConsumptionRange.Range("l" & rowTracker).value = yarnConsumptionInfoDic("width")
     totalConsumptionRange.Range("l" & rowTracker & ":n" & rowTracker).Merge
 
     totalConsumptionRange.Range("o" & rowTracker).value = "Inch"
@@ -29,7 +29,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("r" & rowTracker & ":s" & rowTracker).Merge
 
         'Qty.
-    totalConsumptionRange.Range("t" & rowTracker).value = 5000 'to be dynamic
+    totalConsumptionRange.Range("t" & rowTracker).value = yarnConsumptionInfoDic("fabricQty")
     totalConsumptionRange.Range("t" & rowTracker).Style = "Comma"
     totalConsumptionRange.Range("t" & rowTracker & ":v" & rowTracker).Merge
 
@@ -66,7 +66,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("o" & rowTracker + 2).FormulaR1C1 = "=RC[-12]*RC[-9]/RC[-7]/RC[-5]/RC[-3]"
     totalConsumptionRange.Range("o" & rowTracker + 2 & ":r" & rowTracker + 2).Merge
 
-    totalConsumptionRange.Range("s" & rowTracker + 2).value = "Black" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 2).value = yarnConsumptionInfoDic("black")
     totalConsumptionRange.Range("s" & rowTracker + 2 & ":y" & rowTracker + 2).Merge
     totalConsumptionRange.Range("s" & rowTracker + 2 & ":y" & rowTracker + 2).BorderAround, Weight:=xlThin
 
@@ -75,7 +75,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 2 & ":am" & rowTracker + 2).BorderAround, Weight:=xlThin
 
 
-    totalConsumptionRange.Range("s" & rowTracker + 3).value = "Mercerization(Black)" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 3).value = yarnConsumptionInfoDic("mercerizationBlack")
     totalConsumptionRange.Range("s" & rowTracker + 3 & ":y" & rowTracker + 3).Merge
     totalConsumptionRange.Range("s" & rowTracker + 3 & ":y" & rowTracker + 3).BorderAround, Weight:=xlThin
 
@@ -98,7 +98,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("l" & rowTracker + 4).value = "Yds"
     totalConsumptionRange.Range("l" & rowTracker + 4 & ":m" & rowTracker + 4).Merge
 
-    totalConsumptionRange.Range("s" & rowTracker + 4).value = "Indigo" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 4).value = yarnConsumptionInfoDic("indigo")
     totalConsumptionRange.Range("s" & rowTracker + 4 & ":y" & rowTracker + 4).Merge
     totalConsumptionRange.Range("s" & rowTracker + 4 & ":y" & rowTracker + 4).BorderAround, Weight:=xlThin
 
@@ -107,7 +107,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 4 & ":am" & rowTracker + 4).BorderAround, Weight:=xlThin
 
 
-    totalConsumptionRange.Range("s" & rowTracker + 5).value = "Mercerization(Indigo)" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 5).value = yarnConsumptionInfoDic("mercerizationIndigo")
     totalConsumptionRange.Range("s" & rowTracker + 5 & ":y" & rowTracker + 5).Merge
     totalConsumptionRange.Range("s" & rowTracker + 5 & ":y" & rowTracker + 5).BorderAround, Weight:=xlThin
 
@@ -128,7 +128,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("i" & rowTracker + 6).value = "6%"
     totalConsumptionRange.Range("i" & rowTracker + 6 & ":j" & rowTracker + 6).Merge
 
-    totalConsumptionRange.Range("s" & rowTracker + 6).value = "Topping/ Bottoming" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 6).value = yarnConsumptionInfoDic("toppingBottoming")
     totalConsumptionRange.Range("s" & rowTracker + 6 & ":y" & rowTracker + 6).Merge
     totalConsumptionRange.Range("s" & rowTracker + 6 & ":y" & rowTracker + 6).BorderAround, Weight:=xlThin
 
@@ -137,7 +137,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 6 & ":am" & rowTracker + 6).BorderAround, Weight:=xlThin
 
 
-    totalConsumptionRange.Range("s" & rowTracker + 7).value = "Mercerization(Topping/ Bottoming)" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 7).value = yarnConsumptionInfoDic("mercerizationtoppingBottoming")
     totalConsumptionRange.Range("s" & rowTracker + 7 & ":y" & rowTracker + 7).Merge
     totalConsumptionRange.Range("s" & rowTracker + 7 & ":y" & rowTracker + 7).BorderAround, Weight:=xlThin
 
@@ -158,7 +158,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
     totalConsumptionRange.Range("n" & rowTracker + 8).NumberFormat = ";;;" 'hide text
 
-    totalConsumptionRange.Range("s" & rowTracker + 8).value = "Over Dying" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 8).value = yarnConsumptionInfoDic("overDying")
     totalConsumptionRange.Range("s" & rowTracker + 8 & ":y" & rowTracker + 8).Merge
     totalConsumptionRange.Range("s" & rowTracker + 8 & ":y" & rowTracker + 8).BorderAround, Weight:=xlThin
 
@@ -167,7 +167,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 8 & ":am" & rowTracker + 8).BorderAround, Weight:=xlThin
 
 
-    totalConsumptionRange.Range("s" & rowTracker + 9).value = "Mercerization(Over Dying)" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 9).value = yarnConsumptionInfoDic("mercerizationoverDying")
     totalConsumptionRange.Range("s" & rowTracker + 9 & ":y" & rowTracker + 9).Merge
     totalConsumptionRange.Range("s" & rowTracker + 9 & ":y" & rowTracker + 9).BorderAround, Weight:=xlThin
 
@@ -182,11 +182,11 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
     totalConsumptionRange.Range("e" & rowTracker + 10).BorderAround, Weight:=xlThin
 
-    totalConsumptionRange.Range("f" & rowTracker + 10).FormulaR1C1 = "=R[-2]C[-3]*" & "90%" 'percentage be dynamic
+    totalConsumptionRange.Range("f" & rowTracker + 10).FormulaR1C1 = "=R[-2]C[-3]*" & yarnConsumptionInfoDic("cottonPercentage") & "%"
     totalConsumptionRange.Range("f" & rowTracker + 10 & ":j" & rowTracker + 10).Merge
     totalConsumptionRange.Range("f" & rowTracker + 10 & ":j" & rowTracker + 10).BorderAround, Weight:=xlThin
 
-    totalConsumptionRange.Range("s" & rowTracker + 10).value = "Coating" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 10).value = yarnConsumptionInfoDic("coating")
     totalConsumptionRange.Range("s" & rowTracker + 10 & ":y" & rowTracker + 10).Merge
     totalConsumptionRange.Range("s" & rowTracker + 10 & ":y" & rowTracker + 10).BorderAround, Weight:=xlThin
 
@@ -201,11 +201,11 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
     totalConsumptionRange.Range("e" & rowTracker + 11).BorderAround, Weight:=xlThin
 
-    totalConsumptionRange.Range("f" & rowTracker + 11).FormulaR1C1 = "=R[-3]C[-3]*" & "5%" 'percentage be dynamic
+    totalConsumptionRange.Range("f" & rowTracker + 11).FormulaR1C1 = "=R[-3]C[-3]*" & yarnConsumptionInfoDic("polyesterPercentage") & "%"
     totalConsumptionRange.Range("f" & rowTracker + 11 & ":j" & rowTracker + 11).Merge
     totalConsumptionRange.Range("f" & rowTracker + 11 & ":j" & rowTracker + 11).BorderAround, Weight:=xlThin
 
-    totalConsumptionRange.Range("s" & rowTracker + 11).value = "PFD" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 11).value = yarnConsumptionInfoDic("pfd")
     totalConsumptionRange.Range("s" & rowTracker + 11 & ":y" & rowTracker + 11).Merge
     totalConsumptionRange.Range("s" & rowTracker + 11 & ":y" & rowTracker + 11).BorderAround, Weight:=xlThin
 
@@ -220,11 +220,11 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
     totalConsumptionRange.Range("e" & rowTracker + 12).BorderAround, Weight:=xlThin
 
-    totalConsumptionRange.Range("f" & rowTracker + 12).FormulaR1C1 = "=R[-4]C[-3]*" & "5%" 'percentage be dynamic
+    totalConsumptionRange.Range("f" & rowTracker + 12).FormulaR1C1 = "=R[-4]C[-3]*" & yarnConsumptionInfoDic("spandexPercentage") & "%"
     totalConsumptionRange.Range("f" & rowTracker + 12 & ":j" & rowTracker + 12).Merge
     totalConsumptionRange.Range("f" & rowTracker + 12 & ":j" & rowTracker + 12).BorderAround, Weight:=xlThin
 
-    totalConsumptionRange.Range("s" & rowTracker + 12).value = "ECRU" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 12).value = yarnConsumptionInfoDic("ecru")
     totalConsumptionRange.Range("s" & rowTracker + 12 & ":y" & rowTracker + 12).Merge
     totalConsumptionRange.Range("s" & rowTracker + 12 & ":y" & rowTracker + 12).BorderAround, Weight:=xlThin
 
