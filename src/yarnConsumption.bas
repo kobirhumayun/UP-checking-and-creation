@@ -189,6 +189,23 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 10 & ":am" & rowTracker + 10).BorderAround, Weight:=xlThin
 
 
+    totalConsumptionRange.Range("a" & rowTracker + 11).value = "Polyester"
+    totalConsumptionRange.Range("a" & rowTracker + 11 & ":d" & rowTracker + 11).Merge
+    totalConsumptionRange.Range("a" & rowTracker + 11 & ":d" & rowTracker + 11).BorderAround, Weight:=xlThin
+
+    totalConsumptionRange.Range("e" & rowTracker + 11).BorderAround, Weight:=xlThin
+
+    totalConsumptionRange.Range("f" & rowTracker + 11).FormulaR1C1 = "=R[-3]C[-3]*" & "5%" 'percentage be dynamic
+    totalConsumptionRange.Range("f" & rowTracker + 11 & ":j" & rowTracker + 11).Merge
+    totalConsumptionRange.Range("f" & rowTracker + 11 & ":j" & rowTracker + 11).BorderAround, Weight:=xlThin
+
+    totalConsumptionRange.Range("s" & rowTracker + 11).value = "PFD" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 11 & ":y" & rowTracker + 11).Merge
+    totalConsumptionRange.Range("s" & rowTracker + 11 & ":y" & rowTracker + 11).BorderAround, Weight:=xlThin
+
+    totalConsumptionRange.Range("ag" & rowTracker + 11).value = "PFD"
+    totalConsumptionRange.Range("ag" & rowTracker + 11 & ":am" & rowTracker + 11).Merge
+    totalConsumptionRange.Range("ag" & rowTracker + 11 & ":am" & rowTracker + 11).BorderAround, Weight:=xlThin
 
 
 
