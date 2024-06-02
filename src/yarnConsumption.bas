@@ -170,10 +170,23 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 9 & ":am" & rowTracker + 9).BorderAround, Weight:=xlThin
 
 
+    totalConsumptionRange.Range("a" & rowTracker + 10).value = "Cotton"
+    totalConsumptionRange.Range("a" & rowTracker + 10 & ":d" & rowTracker + 10).Merge
+    totalConsumptionRange.Range("a" & rowTracker + 10 & ":d" & rowTracker + 10).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("e" & rowTracker + 10).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("f" & rowTracker + 10).FormulaR1C1 = "=R[-2]C[-3]*" & "90%" 'percentage be dynamic
+    totalConsumptionRange.Range("f" & rowTracker + 10 & ":j" & rowTracker + 10).Merge
+    totalConsumptionRange.Range("f" & rowTracker + 10 & ":j" & rowTracker + 10).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("s" & rowTracker + 10).value = "Coating" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 10 & ":y" & rowTracker + 10).Merge
+    totalConsumptionRange.Range("s" & rowTracker + 10 & ":y" & rowTracker + 10).BorderAround, Weight:=xlThin
 
+    totalConsumptionRange.Range("ag" & rowTracker + 10).value = "Coating"
+    totalConsumptionRange.Range("ag" & rowTracker + 10 & ":am" & rowTracker + 10).Merge
+    totalConsumptionRange.Range("ag" & rowTracker + 10 & ":am" & rowTracker + 10).BorderAround, Weight:=xlThin
 
 
 
