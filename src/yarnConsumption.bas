@@ -30,6 +30,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
         'Qty.
     totalConsumptionRange.Range("t" & rowTracker).value = 5000 'to be dynamic
+    totalConsumptionRange.Range("t" & rowTracker).Style = "Comma"
     totalConsumptionRange.Range("t" & rowTracker & ":v" & rowTracker).Merge
 
     totalConsumptionRange.Range("w" & rowTracker).value = "Yds"
