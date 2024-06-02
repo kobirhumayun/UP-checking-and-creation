@@ -115,10 +115,25 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 5 & ":am" & rowTracker + 5).BorderAround, Weight:=xlThin
 
 
+    totalConsumptionRange.Range("b" & rowTracker + 6).value = "="
 
+    totalConsumptionRange.Range("c" & rowTracker + 6).FormulaR1C1 = "=R[-2]C*R[-2]C[6]"
+    totalConsumptionRange.Range("c" & rowTracker + 6 & ":f" & rowTracker + 6).Merge
 
+    totalConsumptionRange.Range("g" & rowTracker + 6).value = "kgs"
 
+    totalConsumptionRange.Range("h" & rowTracker + 6).value = "x"
 
+    totalConsumptionRange.Range("i" & rowTracker + 6).value = "6%"
+    totalConsumptionRange.Range("i" & rowTracker + 6 & ":j" & rowTracker + 6).Merge
+
+    totalConsumptionRange.Range("s" & rowTracker + 6).value = "Topping/ Bottoming" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 6 & ":y" & rowTracker + 6).Merge
+    totalConsumptionRange.Range("s" & rowTracker + 6 & ":y" & rowTracker + 6).BorderAround, Weight:=xlThin
+
+    totalConsumptionRange.Range("ag" & rowTracker + 6).value = "Topping/ Bottoming"
+    totalConsumptionRange.Range("ag" & rowTracker + 6 & ":am" & rowTracker + 6).Merge
+    totalConsumptionRange.Range("ag" & rowTracker + 6 & ":am" & rowTracker + 6).BorderAround, Weight:=xlThin
 
 
 
