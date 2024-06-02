@@ -152,6 +152,11 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
     totalConsumptionRange.Range("g" & rowTracker + 8).value = "kgs"
 
+    totalConsumptionRange.Range("n" & rowTracker + 8).FormulaR1C1 = _
+        "=R[-6]C[5]&R[-5]C[5]&R[-4]C[5]&R[-3]C[5]&R[-2]C[5]&R[-1]C[5]&RC[5]&R[1]C[5]&R[2]C[5]&R[3]C[5]&R[4]C[5]"
+
+    totalConsumptionRange.Range("n" & rowTracker + 8).NumberFormat = ";;;" 'hide text
+
     totalConsumptionRange.Range("s" & rowTracker + 8).value = "Over Dying" 'to be dynamic
     totalConsumptionRange.Range("s" & rowTracker + 8 & ":y" & rowTracker + 8).Merge
     totalConsumptionRange.Range("s" & rowTracker + 8 & ":y" & rowTracker + 8).BorderAround, Weight:=xlThin
