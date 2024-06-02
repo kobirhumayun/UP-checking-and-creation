@@ -3,7 +3,28 @@ Option Explicit
 
 
 Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange As Range, rowTracker As Long, yarnConsumptionInfoDic As Object)
-    'this function put yarnConsumption information to provided worksheet
+    'received total range, row No. & yarn info dictionary
+    'put yarnConsumption information to provided worksheet & related formula
+    '***if any dictionary key and value exit put that right place
+    '***if any dictionary key not exit put null value of that place
+    'below list of all needed key and value example
+    ' yarnConsumptionInfoDic("weight") = 10.75 'should be dynamic
+    ' yarnConsumptionInfoDic("width") = 66.5 'should be dynamic
+    ' yarnConsumptionInfoDic("fabricQty") = 5000 'should be dynamic
+    ' yarnConsumptionInfoDic("black") = "Black" 'add as PI color
+    ' yarnConsumptionInfoDic("mercerizationBlack") = "Mercerization(Black)" 'add as PI
+    ' yarnConsumptionInfoDic("indigo") = "Indigo" 'add as PI color
+    ' yarnConsumptionInfoDic("mercerizationIndigo") = "Mercerization(Indigo)" 'add as PI
+    ' yarnConsumptionInfoDic("toppingBottoming") = "Topping/ Bottoming" 'add as PI color
+    ' yarnConsumptionInfoDic("mercerizationtoppingBottoming") = "Mercerization(Topping/ Bottoming)" 'add as PI
+    ' yarnConsumptionInfoDic("overDying") = "Over Dying" 'add as PI
+    ' yarnConsumptionInfoDic("mercerizationoverDying") = "Mercerization(Over Dying)" 'add as PI
+    ' yarnConsumptionInfoDic("cottonPercentage") = 90 'should be dynamic
+    ' yarnConsumptionInfoDic("coating") = "Coating" 'add as PI
+    ' yarnConsumptionInfoDic("polyesterPercentage") = 5 'should be dynamic
+    ' yarnConsumptionInfoDic("pfd") = "PFD" 'add as PI
+    ' yarnConsumptionInfoDic("spandexPercentage") = 5 'should be dynamic
+    ' yarnConsumptionInfoDic("ecru") = "ECRU" 'add as PI
 
     totalConsumptionRange.Range("a" & rowTracker).value = "Weight :"
     totalConsumptionRange.Range("a" & rowTracker & ":c" & rowTracker).Merge
