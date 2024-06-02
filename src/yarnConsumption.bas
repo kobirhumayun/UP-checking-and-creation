@@ -161,6 +161,13 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("ag" & rowTracker + 8 & ":am" & rowTracker + 8).BorderAround, Weight:=xlThin
 
 
+    totalConsumptionRange.Range("s" & rowTracker + 9).value = "Mercerization(Over Dying)" 'to be dynamic
+    totalConsumptionRange.Range("s" & rowTracker + 9 & ":y" & rowTracker + 9).Merge
+    totalConsumptionRange.Range("s" & rowTracker + 9 & ":y" & rowTracker + 9).BorderAround, Weight:=xlThin
+
+    totalConsumptionRange.Range("ag" & rowTracker + 9).value = "Mercerization(Over Dying)"
+    totalConsumptionRange.Range("ag" & rowTracker + 9 & ":am" & rowTracker + 9).Merge
+    totalConsumptionRange.Range("ag" & rowTracker + 9 & ":am" & rowTracker + 9).BorderAround, Weight:=xlThin
 
 
 
