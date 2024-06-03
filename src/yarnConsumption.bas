@@ -324,12 +324,19 @@ Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuin
         
             Set tempFabricCodeDicAsCommercialFile = Application.Run("dictionary_utility_functions.CreateDicWithProvidedKeysAndValues", propertiesArr, propertiesValArr)
                     
-            commercialFileNoDic.Add commercialFileNoDic(temp(i, 3)).Count + 1, tempFabricCodeDicAsCommercialFile
+            commercialFileNoDic(temp(i, 3)).Add commercialFileNoDic(temp(i, 3)).Count + 1, tempFabricCodeDicAsCommercialFile
         
         End If
         
 
     Next i
+
+
+    ' For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
+
+    '     sourceDataAsDicUpIssuingStatus(dicKey).Add "fabricsInfo", commercialFileNoDic(sourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo"))
+
+    ' Next dicKey
 
             
     Set addPiInfoSourceDataAsDicUpIssuingStatus = sourceDataAsDicUpIssuingStatus
