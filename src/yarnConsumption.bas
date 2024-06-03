@@ -292,7 +292,7 @@ Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuin
     ' Dim tempDic As Object
     ' Set tempDic = CreateObject("Scripting.Dictionary")
     
-    ' Dim tempLcDic As Object
+    Dim tempFabricCodeDicAsCommercialFile As Object
     
     Dim propertiesArr, propertiesValArr As Variant
     
@@ -314,32 +314,22 @@ Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuin
     ' propertiesArr(6) = "LC" & propertiesArr(6) ' same key conflict handle
     ' propertiesArr(22) = "BTB" & propertiesArr(22) ' same key conflict handle
     
-    ' For i = 1 To UBound(temp)
+    For i = 1 To UBound(temp)
         
-    '     If commercialFileNoDic.Exists(temp(i, 3)) Then
+        If commercialFileNoDic.Exists(temp(i, 3)) Then
         
-    '         For j = 1 To UBound(temp, 2)
-    '             propertiesValArr(j) = temp(i, j)
-    '         Next j
+            For j = 1 To UBound(temp, 2)
+                propertiesValArr(j) = temp(i, j)
+            Next j
         
-    '     Set tempLcDic = Application.Run("dictionary_utility_functions.CreateDicWithProvidedKeysAndValues", propertiesArr, propertiesValArr)
-        
-    '     tempLcDic("currencyNumberFormat") = workingRange(i, 6).NumberFormat
-    '     tempLcDic("qtyNumberFormat") = workingRange(i, 9).NumberFormat
+            Set tempFabricCodeDicAsCommercialFile = Application.Run("dictionary_utility_functions.CreateDicWithProvidedKeysAndValues", propertiesArr, propertiesValArr)
                     
-    '     If Not workingRange(i, 20).Comment Is Nothing Then   'check if the cell has a comment
-    '         tempLcDic("b2bComment") = workingRange(i, 20).Comment.Text
-    '     Else
-    '         tempLcDic("b2bComment") = "No Comment"
-    '     End If
+            commercialFileNoDic.Add commercialFileNoDic(temp(i, 3)).Count + 1, tempFabricCodeDicAsCommercialFile
         
-                    
-    '     upIssuingStatusDic.Add temp(i, 4) & "_" & lcCount(temp(i, 4)), tempLcDic
-        
-    '     End If
+        End If
         
 
-    ' Next i
+    Next i
 
             
     Set addPiInfoSourceDataAsDicUpIssuingStatus = sourceDataAsDicUpIssuingStatus
