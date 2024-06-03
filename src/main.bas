@@ -1060,6 +1060,10 @@ Sub yarnConsumption()
     Dim sourceDataAsDicUpIssuingStatus As Variant
     Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
 
+        'add PI info to UP Issuing Status
+    Dim withPiInfosourceDataAsDicUpIssuingStatus As Variant
+    Set withPiInfosourceDataAsDicUpIssuingStatus = Application.Run("yarnConsumption.addPiInfoSourceDataAsDicUpIssuingStatus", sourceDataAsDicUpIssuingStatus)
+
      
 End Sub
    
