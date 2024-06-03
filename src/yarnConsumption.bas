@@ -332,12 +332,11 @@ Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuin
     Next i
 
 
-    ' For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
+    For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
-    '     sourceDataAsDicUpIssuingStatus(dicKey).Add "fabricsInfo", commercialFileNoDic(sourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo"))
+        sourceDataAsDicUpIssuingStatus(dicKey).Add "fabricsInfo", commercialFileNoDic(sourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo"))
 
-    ' Next dicKey
-
+    Next dicKey
             
     Set addPiInfoSourceDataAsDicUpIssuingStatus = sourceDataAsDicUpIssuingStatus
 
