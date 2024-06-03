@@ -280,7 +280,7 @@ Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuin
 
     For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
-        If Not commercialFileNoDic.Exists(sourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo")) Then ' create group by ud dictionary
+        If Not commercialFileNoDic.Exists(sourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo")) Then
 
                 'take unique commercial file name as dictionary key & assign a new dictionary
             commercialFileNoDic.Add sourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo"), CreateObject("Scripting.Dictionary")
@@ -289,9 +289,6 @@ Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuin
 
     Next dicKey
 
-    ' Dim tempDic As Object
-    ' Set tempDic = CreateObject("Scripting.Dictionary")
-    
     Dim tempFabricCodeDicAsCommercialFile As Object
     
     Dim propertiesArr, propertiesValArr As Variant
@@ -311,9 +308,6 @@ Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuin
 
     Next j
     
-    ' propertiesArr(6) = "LC" & propertiesArr(6) ' same key conflict handle
-    ' propertiesArr(22) = "BTB" & propertiesArr(22) ' same key conflict handle
-    
     For i = 1 To UBound(temp)
         
         If commercialFileNoDic.Exists(temp(i, 3)) Then
@@ -327,10 +321,8 @@ Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuin
             commercialFileNoDic(temp(i, 3)).Add commercialFileNoDic(temp(i, 3)).Count + 1, tempFabricCodeDicAsCommercialFile
         
         End If
-        
 
     Next i
-
 
     For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
