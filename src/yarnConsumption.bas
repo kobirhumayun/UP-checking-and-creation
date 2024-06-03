@@ -255,3 +255,95 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
 
 End Function
+
+Private Function addPiInfoSourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus As Object) As Object
+        'add PI data to UP issuing status
+
+    Application.ScreenUpdating = False
+        
+    Dim piReportWb As Workbook
+    Dim piReportWs As Worksheet
+    Set piReportWb = Workbooks.Open(ActiveWorkbook.path & Application.PathSeparator & "PIReport.xlsx")
+    Set piReportWs = piReportWb.Worksheets(1)
+
+    piReportWs.AutoFilterMode = False
+        
+    Dim temp As Variant
+    temp = piReportWs.Range("A4").CurrentRegion.value
+
+    piReportWb.Close SaveChanges:=False
+        
+    Dim commercialFileNoDic As Object
+    Set commercialFileNoDic = CreateObject("Scripting.Dictionary")
+    
+    Dim dicKey As Variant
+
+    For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
+
+        If Not commercialFileNoDic.Exists(sourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo")) Then ' create group by ud dictionary
+
+                'take unique commercial file name as dictionary key & assign a new dictionary
+            commercialFileNoDic.Add sourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo"), CreateObject("Scripting.Dictionary")
+
+        End If
+
+    Next dicKey
+
+    ' Dim tempDic As Object
+    ' Set tempDic = CreateObject("Scripting.Dictionary")
+    
+    ' Dim tempLcDic As Object
+    
+    Dim propertiesArr, propertiesValArr As Variant
+    
+    ReDim propertiesArr(1 To UBound(temp, 2))
+    ReDim propertiesValArr(1 To UBound(temp, 2))
+    
+    Dim i, j As Long
+    
+    For j = 1 To UBound(temp, 2)
+            'take first row as properties
+        If IsEmpty(temp(1, j)) Then
+            propertiesArr(j) = "column" & j 'empty key conflict handle
+        Else  
+            propertiesArr(j) = temp(1, j)
+        End If
+
+    Next j
+    
+    ' propertiesArr(6) = "LC" & propertiesArr(6) ' same key conflict handle
+    ' propertiesArr(22) = "BTB" & propertiesArr(22) ' same key conflict handle
+    
+    ' For i = 1 To UBound(temp)
+        
+    '     If commercialFileNoDic.Exists(temp(i, 3)) Then
+        
+    '         For j = 1 To UBound(temp, 2)
+    '             propertiesValArr(j) = temp(i, j)
+    '         Next j
+        
+    '     Set tempLcDic = Application.Run("dictionary_utility_functions.CreateDicWithProvidedKeysAndValues", propertiesArr, propertiesValArr)
+        
+    '     tempLcDic("currencyNumberFormat") = workingRange(i, 6).NumberFormat
+    '     tempLcDic("qtyNumberFormat") = workingRange(i, 9).NumberFormat
+                    
+    '     If Not workingRange(i, 20).Comment Is Nothing Then   'check if the cell has a comment
+    '         tempLcDic("b2bComment") = workingRange(i, 20).Comment.Text
+    '     Else
+    '         tempLcDic("b2bComment") = "No Comment"
+    '     End If
+        
+                    
+    '     upIssuingStatusDic.Add temp(i, 4) & "_" & lcCount(temp(i, 4)), tempLcDic
+        
+    '     End If
+        
+
+    ' Next i
+
+            
+    Set addPiInfoSourceDataAsDicUpIssuingStatus = sourceDataAsDicUpIssuingStatus
+
+End Function
+
+
