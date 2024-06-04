@@ -471,15 +471,32 @@ Private Function dealWithConsumptionSheet(consumptionWorksheet As Worksheet, wit
     Dim dicKey As Variant
     Dim innerDicKey As Variant
     Dim rowTracker As Long
+    Dim outerLoopCounter As Long
 
     Dim totalConsumptionRange As Range
     Set totalConsumptionRange = consumptionWorksheet.Range("a1:aa500") 'should be dynamic
 
+    outerLoopCounter = 0
     rowTracker = 1 'may be change
 
     For Each dicKey In withYarnConsumptionInfosourceDataAsDicUpIssuingStatus.keys
 
-        totalConsumptionRange.Range("a" & rowTracker).value = withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+        outerLoopCounter = outerLoopCounter + 1 'for buyer Sl. No.
+
+        If withYarnConsumptionInfosourceDataAsDicUpIssuingStatus.Count = 1 Then
+
+            totalConsumptionRange.Range("a" & rowTracker).value = withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+            totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker).Merge
+            totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker).Interior.ColorIndex = 6
+
+        Else
+
+            totalConsumptionRange.Range("a" & rowTracker).value = outerLoopCounter & ") " & withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+            totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker).Merge
+            totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker).Interior.ColorIndex = 6
+
+        End If
+
 
         rowTracker = rowTracker + 1
 
