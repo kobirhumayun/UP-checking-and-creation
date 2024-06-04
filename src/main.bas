@@ -1064,6 +1064,30 @@ Sub yarnConsumption()
     Dim withPiInfosourceDataAsDicUpIssuingStatus As Variant
     Set withPiInfosourceDataAsDicUpIssuingStatus = Application.Run("yarnConsumption.addPiInfoSourceDataAsDicUpIssuingStatus", sourceDataAsDicUpIssuingStatus)
 
+        'add yarn consumption info to UP Issuing Status
+    Dim withYarnConsumptionInfosourceDataAsDicUpIssuingStatus As Variant
+    Set withYarnConsumptionInfosourceDataAsDicUpIssuingStatus = Application.Run("yarnConsumption.addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus", withPiInfosourceDataAsDicUpIssuingStatus)
+
+    Dim dicKey As Variant
+    Dim innerDicKey As Variant
+    Dim rowTracker As Long
+    rowTracker = 1
+        'this portion should be modified
+    For Each dicKey In withYarnConsumptionInfosourceDataAsDicUpIssuingStatus.keys
+        ActiveSheet.Range("a" & rowTracker).value = withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+        For Each innerDicKey In withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").keys
+            Debug.Print withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(innerDicKey)("weight")
+            Debug.Print withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(innerDicKey)("width")
+            Debug.Print withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(innerDicKey)("fabricQty")
+            Debug.Print withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(innerDicKey)("black")
+            Debug.Print withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(innerDicKey)("cottonPercentage")
+
+            Application.Run "yarnConsumption.yarnConsumptionInformationPutToProvidedWs", ActiveSheet.Range("a1:aa500"), rowTracker + 1, _
+            withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(innerDicKey)
+            rowTracker = rowTracker + 15
+
+        Next innerDicKey
+    Next dicKey
      
 End Sub
    
