@@ -466,3 +466,32 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
 End Function
 
 
+Private Function dealWithConsumptionSheet(consumptionWorksheet As Worksheet, withYarnConsumptionInfosourceDataAsDicUpIssuingStatus As Object)
+
+    Dim dicKey As Variant
+    Dim innerDicKey As Variant
+    Dim rowTracker As Long
+
+    Dim totalConsumptionRange As Range
+    Set totalConsumptionRange = consumptionWorksheet.Range("a1:aa500") 'should be dynamic
+
+    rowTracker = 1 'may be change
+
+    For Each dicKey In withYarnConsumptionInfosourceDataAsDicUpIssuingStatus.keys
+
+        totalConsumptionRange.Range("a" & rowTracker).value = withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+
+        rowTracker = rowTracker + 1
+
+        For Each innerDicKey In withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").keys
+
+            Application.Run "yarnConsumption.yarnConsumptionInformationPutToProvidedWs", totalConsumptionRange, rowTracker, _
+                withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(innerDicKey)
+
+            rowTracker = rowTracker + 14
+
+        Next innerDicKey
+
+    Next dicKey
+
+End Function
