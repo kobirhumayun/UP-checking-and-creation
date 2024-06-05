@@ -162,3 +162,25 @@ Function SplituPSequence(upArr As Variant) As Object
   Set SplituPSequence = splitedKeysDict
     
 End Function
+
+Private Function FindMaxTwoNumbers(arr As Variant) As Object
+
+  Dim maxTwo As Object
+  Set maxTwo = CreateObject("Scripting.Dictionary")
+
+  If UBound(arr) - LBound(arr) < 1 Then
+    MsgBox "Must be array have two or more elements"
+    Set FindMaxTwoNumbers = maxTwo
+    Exit Function
+  End If
+
+  Dim sortedAscendingArr As Variant
+
+  sortedAscendingArr = Application.Run("Sorting_Algorithms.BubbleSort", arr) 'sort ascending order
+
+  maxTwo("firstMax") = sortedAscendingArr(UBound(sortedAscendingArr))
+  maxTwo("secondMax") = sortedAscendingArr(UBound(sortedAscendingArr) - 1)
+
+  Set FindMaxTwoNumbers = maxTwo
+
+End Function
