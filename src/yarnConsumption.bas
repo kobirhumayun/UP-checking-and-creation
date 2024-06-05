@@ -512,3 +512,147 @@ Private Function dealWithConsumptionSheet(consumptionWorksheet As Worksheet, wit
     Next dicKey
 
 End Function
+
+Private Function fabricWidthCalculation(width As Variant) As Variant
+
+    Dim regEx As Object
+    Set regEx = CreateObject("VBScript.RegExp")
+    regEx.Global = True
+    regEx.MultiLine = True
+        
+    Dim result As Variant
+            
+    regEx.Pattern = "\-"
+    
+    width = regEx.Replace(width, "/")
+    
+    regEx.Pattern = "\s\/"
+    
+    width = regEx.Replace(width, "/")
+    
+    regEx.Pattern = "\/\s"
+    
+    width = regEx.Replace(width, "/")
+    
+    regEx.Pattern = "(\d+\.\d+)|(\d+)"
+    
+    Dim extractedWidth As Variant
+    Set extractedWidth = regEx.Execute(width)
+    
+    If extractedWidth.Count > 1 Then
+    
+        Dim allWidthArr() As Variant
+        ReDim allWidthArr(0 To extractedWidth.Count - 1)
+        
+        Dim allWidthArrIterator As Long
+        For allWidthArrIterator = 0 To extractedWidth.Count - 1
+            allWidthArr(allWidthArrIterator) = CDbl(extractedWidth(allWidthArrIterator).Value)
+        Next allWidthArrIterator
+            
+        Dim infoAboutWidth As Object
+        Set infoAboutWidth = CreateObject("Scripting.Dictionary")
+        
+        infoAboutWidth("allWidthArrLengthGreaterThanOne") = UBound(allWidthArr) > 1
+        regEx.Pattern = "((\d+\.\d+)|(\d+))\/((\d+\.\d+)|(\d+))"
+        infoAboutWidth("slashBesideDigit") = regEx.test(width)
+        
+        If infoAboutWidth("slashBesideDigit") Then
+        
+            infoAboutWidth.Add "slashExtrac", regEx.Execute(width)
+            
+            infoAboutWidth("slashOneTime") = infoAboutWidth("slashExtrac").Count = 1
+            infoAboutWidth("slashTwoTime") = infoAboutWidth("slashExtrac").Count = 2
+            
+        End If
+        
+        If infoAboutWidth("allWidthArrLengthGreaterThanOne") Then
+            Dim maxTwo As Variant
+            ' maxTwo = Application.Run("yarnConsumptionModule.FindMaxTwoNumbers", allWidthArr)
+            Set maxTwo = Application.Run("Sorting_Algorithms.FindMaxTwoNumbers", allWidthArr)
+
+        End If
+        
+        If infoAboutWidth("allWidthArrLengthGreaterThanOne") And infoAboutWidth("slashBesideDigit") Then
+            
+            Dim leftWidth, rightWidth As Variant
+            
+            If infoAboutWidth("slashOneTime") Then
+        
+                regEx.Pattern = "(\d+\.\d+\/)|(\d+\/)"
+                        
+                Set leftWidth = regEx.Execute(infoAboutWidth("slashExtrac").Item(0))
+                leftWidth = Replace(leftWidth.Item(0), "/", "")
+        
+                regEx.Pattern = "(\/\d+\.\d+)|(\/\d+)"
+        
+                Set rightWidth = regEx.Execute(infoAboutWidth("slashExtrac").Item(0))
+                rightWidth = Replace(rightWidth.Item(0), "/", "")
+        
+            ElseIf infoAboutWidth("slashTwoTime") Then
+                regEx.Pattern = "(\d+\.\d+\/)|(\d+\/)"
+            
+                Set leftWidth = regEx.Execute(infoAboutWidth("slashExtrac").Item(1))
+                leftWidth = Replace(leftWidth.Item(0), "/", "")
+        
+                regEx.Pattern = "(\/\d+\.\d+)|(\/\d+)"
+        
+                Set rightWidth = regEx.Execute(infoAboutWidth("slashExtrac").Item(1))
+                rightWidth = Replace(rightWidth.Item(0), "/", "")
+            End If
+    
+        End If
+        
+        If infoAboutWidth("slashOneTime") And extractedWidth.Count = 2 Then
+        
+            result = (CDbl(extractedWidth(0).Value) + CDbl(extractedWidth(1).Value)) / 2
+        
+        ElseIf infoAboutWidth("slashOneTime") And extractedWidth.Count = 3 Then
+
+        
+        Dim slashOneTimeExclude As Variant
+        slashOneTimeExclude = Application.Run("general_utility_functions.ExcludeElements", allWidthArr, Array(leftWidth, rightWidth))
+        
+        If slashOneTimeExclude(0) = maxTwo("firstMax") Then
+            result = slashOneTimeExclude(0)
+            
+        ElseIf CDbl(leftWidth) = maxTwo("secondMax") And CDbl(rightWidth) = maxTwo("firstMax") Then
+            result = (CDbl(leftWidth) + CDbl(rightWidth)) / 2
+        End If
+        
+        ElseIf infoAboutWidth("slashTwoTime") Then
+            Dim slashTwoTimeBesideNumberStr As Variant
+            slashTwoTimeBesideNumberStr = infoAboutWidth("slashExtrac")(0).Value & " " & infoAboutWidth("slashExtrac")(1).Value
+            
+            regEx.Pattern = "(\d+\.\d+)|(\d+)"
+            
+            Dim slashTwoTimeBesideNumberExtract As Variant
+            Set slashTwoTimeBesideNumberExtract = regEx.Execute(slashTwoTimeBesideNumberStr)
+            
+            Dim slashTwoTimeBesideNumberExtractArr() As Variant
+            ReDim slashTwoTimeBesideNumberExtractArr(0 To slashTwoTimeBesideNumberExtract.Count - 1)
+            
+            Dim slashTwoTimeBesideNumberExtractArrIterator As Long
+            For slashTwoTimeBesideNumberExtractArrIterator = 0 To slashTwoTimeBesideNumberExtract.Count - 1
+                slashTwoTimeBesideNumberExtractArr(slashTwoTimeBesideNumberExtractArrIterator) = CDbl(slashTwoTimeBesideNumberExtract(slashTwoTimeBesideNumberExtractArrIterator).Value)
+            Next slashTwoTimeBesideNumberExtractArrIterator
+                 
+            Dim slashTwoTimeBesideNumberExtractArrMaxTwo As Variant
+            ' slashTwoTimeBesideNumberExtractArrMaxTwo = Application.Run("yarnConsumptionModule.FindMaxTwoNumbers", slashTwoTimeBesideNumberExtractArr)
+            Set slashTwoTimeBesideNumberExtractArrMaxTwo = Application.Run("Sorting_Algorithms.FindMaxTwoNumbers", slashTwoTimeBesideNumberExtractArr)
+
+            
+            If CDbl(leftWidth) = slashTwoTimeBesideNumberExtractArrMaxTwo("secondMax") And CDbl(rightWidth) = slashTwoTimeBesideNumberExtractArrMaxTwo("firstMax") Then
+            result = (CDbl(leftWidth) + CDbl(rightWidth)) / 2
+            End If
+            
+        End If
+    
+    Else
+    
+        result = CDbl(extractedWidth(0).Value)
+        
+    End If
+    
+    fabricWidthCalculation = result
+    
+  End Function
