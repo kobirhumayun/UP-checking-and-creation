@@ -722,3 +722,36 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     Set sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile = allUpClause8UseAsMushakOrBillOfEntryDic
 
 End Function
+
+Private Function ExcludeElements(arr1 As Variant, arr2 As Variant) As Variant
+    'exclude all the elements from first array which elements exist in second array
+    Dim i As Long
+    Dim j As Long
+
+    Dim arr2Dictionary As Object
+    Set arr2Dictionary = CreateObject("Scripting.Dictionary")
+
+    Dim excludedDictionary As Object
+    Set excludedDictionary = CreateObject("Scripting.Dictionary")
+        
+    ' Loop through the elements of arr2
+    For i = LBound(arr2) To UBound(arr2)
+        
+        arr2Dictionary(arr2(i)) = arr2(i)
+        
+    Next i
+
+    ' Loop through the elements of arr1
+    For j = LBound(arr1) To UBound(arr1)
+
+        If Not arr2Dictionary.Exists(arr1(j)) Then
+            excludedDictionary(arr1(j)) = arr1(j)
+        End If
+        
+    Next j
+        
+    ' Return the result array
+    ExcludeElements = excludedDictionary.keys
+        
+End Function
+   
