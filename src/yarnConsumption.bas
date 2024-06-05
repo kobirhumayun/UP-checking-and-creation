@@ -377,7 +377,7 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
                 'add width
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("width") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Width") 'static value should be dynamic
+                Application.Run("yarnConsumption.fabricWidthCalculation", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Width"))
 
                 'add fabricQty
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
