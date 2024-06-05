@@ -359,6 +359,8 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
     Dim dicKey As Variant
     Dim innerDicKey As Variant
 
+    Dim fabricQtyInYds As Variant
+
     For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
             'add yarn consumption dictionary
@@ -372,7 +374,7 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
                 'add weight
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("weight") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Weight") 'static value should be dynamic
+                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Weight")
 
                 'add width
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
@@ -381,8 +383,13 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
 
                 'add fabricQty
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+            If sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Unit") = "MTR" Then
+                fabricQtyInYds = sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983
+            Else
+                fabricQtyInYds = sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty")
+            End If
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("fabricQty") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") 'static value should be dynamic
+                fabricQtyInYds
 
                 'add black
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
