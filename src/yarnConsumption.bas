@@ -427,60 +427,73 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
             isEcru = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished"), _
                 "ecru", True, True, True)
 
-                'add black
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("black") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color") 'static value should be dynamic
+            If (isToppingBottoming) Or (isBlack And isIndigo) Then
+                    'add toppingBottoming
+                    '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("toppingBottoming") = _
+                    "Topping/ Bottoming"
 
-                'add mercerizationBlack
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("mercerizationBlack") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished") 'static value should be dynamic
+                If isMercerization Then
+                        'add mercerizationtoppingBottoming
+                        '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                    sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("mercerizationtoppingBottoming") = _
+                        "Mercerization(Topping/ Bottoming)"
+                End If
+                
+            ElseIf isBlack Then
+                    'add black
+                    '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("black") = _
+                    "Black"
 
-                'add indigo
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("indigo") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color") 'static value should be dynamic
+                If isMercerization Then
+                        'add mercerizationBlack
+                        '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                    sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("mercerizationBlack") = _
+                        "Mercerization(Black)"
 
-                'add mercerizationIndigo
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("mercerizationIndigo") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished") 'static value should be dynamic
+                End If
 
-                'add toppingBottoming
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("toppingBottoming") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color") 'static value should be dynamic
+            ElseIf isIndigo Then
+                    'add indigo
+                    '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("indigo") = _
+                    "Indigo"
 
-                'add mercerizationtoppingBottoming
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("mercerizationtoppingBottoming") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished") 'static value should be dynamic
+                If isMercerization Then
+                        'add mercerizationIndigo
+                        '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                    sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("mercerizationIndigo") = _
+                        "Mercerization(Indigo)"
 
-                'add overDying
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("overDying") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color") 'static value should be dynamic
+                End If
 
-                'add mercerizationoverDying
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("mercerizationoverDying") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished") 'static value should be dynamic
+            ElseIf isOverDying Then
+                    'add overDying
+                    '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("overDying") = _
+                    "Over Dying"
 
-                'add coating
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("coating") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished") 'static value should be dynamic
+                'no use case mercerizationoverDying
 
-                'add pfd
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("pfd") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished") 'static value should be dynamic
+            ElseIf isCoating Then
+                    'add coating
+                    '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("coating") = _
+                    "Coating"
+            ElseIf isPfd Then
+                    'add pfd
+                    '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("pfd") = _
+                    "PFD"
+            ElseIf isEcru Then
+                    'add ecru
+                    '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
+                sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("ecru") = _
+                    "ECRU"
 
-                'add ecru
-                '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
-            sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("ecru") = _
-                sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished") 'static value should be dynamic
+            End If
+
 
                 'add cottonPercentage
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
