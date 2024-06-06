@@ -468,25 +468,32 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
 
                 End If
 
-            ElseIf isOverDying Then
+            End If
+
+            If isOverDying Then
                     'add overDying
                     '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
                 sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("overDying") = _
                     "Over Dying"
 
                 'no use case mercerizationoverDying
+            End If
 
-            ElseIf isCoating Then
+            If isCoating Then
                     'add coating
                     '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
                 sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("coating") = _
                     "Coating"
-            ElseIf isPfd Then
+            End If
+
+            If isPfd Then
                     'add pfd
                     '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
                 sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("pfd") = _
                     "PFD"
-            ElseIf isEcru Then
+            End If
+
+            If isEcru Then
                     'add ecru
                     '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
                 sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("ecru") = _
