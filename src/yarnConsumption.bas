@@ -361,6 +361,24 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
 
     Dim fabricQtyInYds As Variant
 
+    Dim isBlack As Boolean
+    Dim isIndigo As Boolean
+    Dim isToppingBottoming As Boolean
+    Dim isMercerization As Boolean
+    Dim isOverDying As Boolean
+    Dim isCoating As Boolean
+    Dim isPfd As Boolean
+    Dim isEcru As Boolean
+
+    isBlack = False
+    isIndigo = False
+    isToppingBottoming = False
+    isMercerization = False
+    isOverDying = False
+    isCoating = False
+    isPfd = False
+    isEcru = False
+
     For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
             'add yarn consumption dictionary
@@ -390,6 +408,24 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
             End If
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("fabricQty") = _
                 fabricQtyInYds
+
+
+            isBlack = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color"), _
+                "black", True, True, True)
+            isIndigo = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color"), _
+                "(indigo)|(blue)", True, True, True)
+            isToppingBottoming = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color"), _
+                "(topping)|(bottoming)|(bi.?color)", True, True, True)
+            isMercerization = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished"), _
+                "mercerize", True, True, True)
+            isOverDying = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished"), _
+                "over", True, True, True)
+            isCoating = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished"), _
+                "coated", True, True, True)
+            isPfd = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished"), _
+                "pfd", True, True, True)
+            isEcru = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished"), _
+                "ecru", True, True, True)
 
                 'add black
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
