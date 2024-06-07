@@ -361,6 +361,8 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
 
     Dim fabricQtyInYds As Variant
 
+    Dim yarnPercentage As Object
+
     Dim isBlack As Boolean
     Dim isIndigo As Boolean
     Dim isToppingBottoming As Boolean
@@ -501,24 +503,22 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
 
             End If
 
+            Set yarnPercentage = Application.Run("yarnConsumption.calculateYarnPercentage", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Composition"))
 
                 'add cottonPercentage
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("cottonPercentage") = _
-                85'sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Composition") 'static value should be dynamic
+                yarnPercentage("cotton")
 
                 'add polyesterPercentage
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("polyesterPercentage") = _
-                10'sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Composition") 'static value should be dynamic
+                yarnPercentage("polyester")
 
                 'add spandexPercentage
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("spandexPercentage") = _
-                5'sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Composition") 'static value should be dynamic
-
-
-            ' Debug.Print sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Width")
+                yarnPercentage("spandex")
 
         Next innerDicKey
 
