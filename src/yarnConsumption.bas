@@ -719,3 +719,91 @@ Private Function fabricWidthCalculation(width As Variant) As Variant
     fabricWidthCalculation = result
     
   End Function
+
+Private Function calculateYarnPercentage(fabricComposition As Variant) As Object
+
+    Dim regEx As Object
+    Set regEx = CreateObject("VBScript.RegExp")
+    regEx.Global = True
+    regEx.pattern = "(\d+\.\d+\%)|(\d+\%)"
+    regEx.MultiLine = True
+
+    Dim yarnGroup As Object
+    Set yarnGroup = CreateObject("Scripting.Dictionary")
+    
+    Set yarnGroup = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", yarnGroup, "cotton", _
+        Array("cotton", _
+        "pcw", _
+        "PreCW", _
+        "PIW", _
+        "RCS", _
+        "ocs", _
+        "bci", _
+        "LINEN", _
+        "grs", _
+        "Hemp Yarn"))
+    
+    Set yarnGroup = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", yarnGroup, "polyester", _
+        Array("polyester", _
+        "Tencel", _
+        "poly", _
+        "Viscose", _
+        "Rayon"))
+        
+    Set yarnGroup = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", yarnGroup, "spandex", _
+       Array("spandex", _
+       "elastane", _
+       "Lycra", _
+       "ELASTOMULTISTER", _
+       "elastomultiester"))
+    
+    Dim sumPercentageAsYarnGroup As Object
+    Set sumPercentageAsYarnGroup = CreateObject("Scripting.Dictionary")
+    
+    sumPercentageAsYarnGroup("cotton") = 0
+    sumPercentageAsYarnGroup("polyester") = 0
+    sumPercentageAsYarnGroup("spandex") = 0
+
+    fabricComposition = Replace(fabricComposition, " ", "") 'replace space
+    
+    Dim regExReturnedObjectExtractPercentage As Variant
+    Set regExReturnedObjectExtractPercentage = regEx.Execute(fabricComposition)
+
+    Dim percentageReplaceWithComma As Variant
+    percentageReplaceWithComma = Replace(fabricComposition, ",", "")  'replace previous comma
+    percentageReplaceWithComma = regEx.Replace(percentageReplaceWithComma, ",")  'replace percentage portion with commma
+    percentageReplaceWithComma = Replace(percentageReplaceWithComma, ",", "", 1, 1) ' replace first comma only
+
+    Dim extractYarnCategory As Variant
+    extractYarnCategory = Split(percentageReplaceWithComma, ",")
+
+    Dim extractYarnCategoryArrayIterator As Long
+    Dim dictKey As Variant
+
+    For extractYarnCategoryArrayIterator = 0 To UBound(extractYarnCategory)
+
+        For Each dictKey In yarnGroup.keys
+            
+            If Application.Run("general_utility_functions.isStrPatternExist", Application.Run("general_utility_functions.RemoveInvalidChars", extractYarnCategory(extractYarnCategoryArrayIterator)), dictKey, True, True, True) Then
+            
+                sumPercentageAsYarnGroup(yarnGroup(dictKey)) = sumPercentageAsYarnGroup(yarnGroup(dictKey)) _
+                + Replace(regExReturnedObjectExtractPercentage.Item(extractYarnCategoryArrayIterator), "%", "")
+                    
+                    Exit For
+
+            End If
+    
+        Next
+
+    Next extractYarnCategoryArrayIterator
+    
+    If sumPercentageAsYarnGroup("cotton") + sumPercentageAsYarnGroup("polyester") + sumPercentageAsYarnGroup("spandex") <> 100 Then
+        MsgBox "Total sum of Yarn percentage not 100 may be new yarn group exist"
+        Exit Function
+    End If
+    
+    Set calculateYarnPercentage = sumPercentageAsYarnGroup
+
+End Function
+
+
