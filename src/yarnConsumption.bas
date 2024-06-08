@@ -555,7 +555,21 @@ Private Function dealWithConsumptionSheet(consumptionWorksheet As Worksheet, wit
         .Font.Size = 9
     End With
 
-    totalConsumptionRange.Rows("2:500").EntireRow.Insert 'hard code, should be dynamic
+    Dim rowsCountForInsert As Long
+
+    rowsCountForInsert = 0
+
+    For Each dicKey In withYarnConsumptionInfosourceDataAsDicUpIssuingStatus.keys
+
+            'count total yarnConsumptionInfo dictionary
+        rowsCountForInsert = rowsCountForInsert + withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count
+
+    Next dicKey
+
+        'for each consumption portion 13 & bellow 1, for each buyer 1, and extra 2 rows for bottom
+    rowsCountForInsert = (rowsCountForInsert * 13) + rowsCountForInsert + withYarnConsumptionInfosourceDataAsDicUpIssuingStatus.Count + 2
+
+    totalConsumptionRange.Rows("2:" & rowsCountForInsert).EntireRow.Insert
 
     outerLoopCounter = 0
     rowTracker = 1
