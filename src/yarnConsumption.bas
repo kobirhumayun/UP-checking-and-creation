@@ -536,11 +536,29 @@ Private Function dealWithConsumptionSheet(consumptionWorksheet As Worksheet, wit
     Dim rowTracker As Long
     Dim outerLoopCounter As Long
 
+    Dim topRow, bottomRow As Long
+
+    topRow = 4
+    bottomRow = consumptionWorksheet.Cells.Find("TOTAL", LookAt:=xlPart).Row - 4
+
     Dim totalConsumptionRange As Range
-    Set totalConsumptionRange = consumptionWorksheet.Range("a1:aa500") 'should be dynamic
+    Set totalConsumptionRange = consumptionWorksheet.Range("A" & topRow & ":" & "AM" & bottomRow)
+
+    totalConsumptionRange.Rows("2:" & totalConsumptionRange.Rows.Count - 1).EntireRow.Delete
+
+    With totalConsumptionRange.Rows("1")
+        .Clear
+        .Interior.ColorIndex = 2
+        .RowHeight = 15
+        .HorizontalAlignment = xlCenter
+        .VerticalAlignment = xlCenter
+        .Font.Size = 9
+    End With
+
+    totalConsumptionRange.Rows("2:500").EntireRow.Insert 'hard code, should be dynamic
 
     outerLoopCounter = 0
-    rowTracker = 1 'may be change
+    rowTracker = 1
 
     For Each dicKey In withYarnConsumptionInfosourceDataAsDicUpIssuingStatus.keys
 
