@@ -531,6 +531,8 @@ End Function
 
 Private Function dealWithConsumptionSheet(consumptionWorksheet As Worksheet, withYarnConsumptionInfosourceDataAsDicUpIssuingStatus As Object)
 
+    Application.ScreenUpdating = False
+
     Dim dicKey As Variant
     Dim innerDicKey As Variant
     Dim rowTracker As Long
@@ -581,14 +583,24 @@ Private Function dealWithConsumptionSheet(consumptionWorksheet As Worksheet, wit
         If withYarnConsumptionInfosourceDataAsDicUpIssuingStatus.Count = 1 Then
 
             totalConsumptionRange.Range("a" & rowTracker).value = withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
-            totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker).Merge
-            totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker).Interior.ColorIndex = 6
+
+            With totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker)
+                .Merge
+                .Interior.ColorIndex = 6
+                .HorizontalAlignment = xlLeft
+                .RowHeight = 20
+            End With
 
         Else
 
             totalConsumptionRange.Range("a" & rowTracker).value = outerLoopCounter & ") " & withYarnConsumptionInfosourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
-            totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker).Merge
-            totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker).Interior.ColorIndex = 6
+
+            With totalConsumptionRange.Range("a" & rowTracker & ":y" & rowTracker)
+                .Merge
+                .Interior.ColorIndex = 6
+                .HorizontalAlignment = xlLeft
+                .RowHeight = 20
+            End With
 
         End If
 
@@ -605,6 +617,8 @@ Private Function dealWithConsumptionSheet(consumptionWorksheet As Worksheet, wit
         Next innerDicKey
 
     Next dicKey
+
+    Application.ScreenUpdating = True
 
 End Function
 
