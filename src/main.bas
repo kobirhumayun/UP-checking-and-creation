@@ -1070,7 +1070,7 @@ Sub yarnConsumption()
     Dim withYarnConsumptionInfosourceDataAsDicUpIssuingStatus As Variant
     Set withYarnConsumptionInfosourceDataAsDicUpIssuingStatus = Application.Run("yarnConsumption.addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus", withPiInfosourceDataAsDicUpIssuingStatus)
 
-    Application.Run "yarnConsumption.dealWithConsumptionSheet", ActiveSheet, withYarnConsumptionInfosourceDataAsDicUpIssuingStatus
+    Application.Run "yarnConsumption.dealWithConsumptionSheet", consumptionWorksheet, withYarnConsumptionInfosourceDataAsDicUpIssuingStatus
 
 
      
