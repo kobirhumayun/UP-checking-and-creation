@@ -1078,6 +1078,10 @@ Sub dealWithYarnConsumption()
     Dim newUp As String
     newUp = Application.Run("helperFunctionGetData.upNoFromProvidedWs", upWorksheet)
 
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    consumptionWorksheet.Range("a1").value = vsCodeNotSupportedOrBengaliTxtDictionary("pioneerDenimLimitedUpNoBengaliTxt") & newUp
 
         'take source data as dictionary from UP Issuing Status
     Dim sourceDataAsDicUpIssuingStatus As Variant
