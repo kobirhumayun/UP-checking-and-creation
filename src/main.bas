@@ -1039,6 +1039,8 @@ Sub afterYarnConsumption()
 
     Application.Run "afterConsumption.dealWithUpClause13", upWorksheet, newUpClause8InfoClassifiedPartDic
 
+    MsgBox "UP " & newUp & " making done!"
+
 End Sub
 
 Sub yarnConsumption()
