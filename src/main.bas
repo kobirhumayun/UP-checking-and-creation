@@ -945,7 +945,7 @@ Sub createNewUp()
 
         newUpWb.Activate
 
-        Application.Run "main.yarnConsumption"
+        Application.Run "main.dealWithYarnConsumption"
         Application.Run "main.afterYarnConsumption"
 
         Application.DisplayAlerts = False
@@ -1064,7 +1064,7 @@ Sub afterYarnConsumption()
 
 End Sub
 
-Sub yarnConsumption()
+Sub dealWithYarnConsumption()
 
     Dim upWorkBook As Workbook
     Dim upWorksheet As Worksheet
