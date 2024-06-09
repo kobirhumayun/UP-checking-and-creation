@@ -967,6 +967,8 @@ End Sub
 
 Sub afterYarnConsumption()
 
+    Application.ScreenUpdating = False
+
     Dim upWorkBook As Workbook
     Dim upWorksheet As Worksheet
     Dim consumptionWorksheet As Worksheet
@@ -1059,6 +1061,13 @@ Sub afterYarnConsumption()
     Application.Run "afterConsumption.dealWithUpClause12b", upWorksheet, sourceDataAsDicUpIssuingStatus
 
     Application.Run "afterConsumption.dealWithUpClause13", upWorksheet, newUpClause8InfoClassifiedPartDic
+
+    With upWorksheet.Cells
+        .Interior.Pattern = xlNone
+        .Font.ColorIndex = xlAutomatic
+    End With
+
+    Application.ScreenUpdating = True
 
     MsgBox "UP " & newUp & " making done!"
 
