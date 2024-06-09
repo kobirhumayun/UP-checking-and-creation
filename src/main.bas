@@ -848,6 +848,11 @@ End Sub
     
 Sub createNewUp()
     Application.ScreenUpdating = False
+
+    Dim answer As VbMsgBoxResult
+
+            ' Display the message box with Yes and No buttons
+        answer = MsgBox("Do you want make complete UP? If click to No button then stop before yarn consumption.", vbYesNo + vbQuestion, "Create UP")
     
     'take UP file path
 
@@ -933,12 +938,28 @@ Sub createNewUp()
     
     'updated range
     Set upClause7RangObj = Application.Run("createUp.dealWithUpClause7", upClause7RangObj, sourceDataAsDicUpIssuingStatus)
-    
-    
-    'working
-    Application.DisplayAlerts = False
-    newUpWb.Close SaveChanges:=True
-    Application.DisplayAlerts = True
+
+        ' Check which button the user clicked
+    If answer = vbYes Then
+            ' Code to execute if user clicks Yes
+
+        newUpWb.Activate
+
+        Application.Run "main.yarnConsumption"
+        Application.Run "main.afterYarnConsumption"
+
+        Application.DisplayAlerts = False
+        newUpWb.Close SaveChanges:=True
+        Application.DisplayAlerts = True
+
+    ElseIf answer = vbNo Then
+            ' Code to execute if user clicks No
+
+        Application.DisplayAlerts = False
+        newUpWb.Close SaveChanges:=True
+        Application.DisplayAlerts = True
+
+    End If
     
     Application.ScreenUpdating = True
 
