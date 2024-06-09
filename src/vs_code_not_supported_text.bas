@@ -18,6 +18,7 @@ Private Function CreateVsCodeNotSupportedOrBengaliTxtDictionary()
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "totalUsedRawMetarialsBengaliTxt", "‡gvU e¨eüZ c‡Y¨i"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "charCode151", "—"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "charCode151WithSlash", "\—"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "pioneerDenimLimitedUpNoBengaliTxt", "cvBIwbqvi †Wwbg wjwg‡UW. BD wc bs-"
     
     Set CreateVsCodeNotSupportedOrBengaliTxtDictionary = vsCodeNotSupportedOrBengaliTxtDictionary
     
