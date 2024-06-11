@@ -358,6 +358,10 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
     Dim dicKey As Variant
     Dim innerDicKey As Variant
+    Dim innerDicKey1 As Variant
+
+    Dim goodsGroupNameFromUpWs As Variant
+
     Dim tempDic As Object
 
     Dim isGarments As Variant
@@ -583,13 +587,26 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
             If impPerformanceDataDic("nonYarnClassifiedDbDic").Exists(dicKey) Then
 
+                    'name of goods take from first mushak or bill of entry from previous UP, which mean keep original group name from UP worksheet
+                goodsGroupNameFromUpWs = upClause8InfoDic(dicKey)(upClause8InfoDic(dicKey).keys()(0))("nameOfGoods")
+
                 Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, impPerformanceDataDic("nonYarnClassifiedDbDic")(dicKey), finalRawMaterialsQtyDicAsGroup(dicKey))
 
             Else
 
+                    'name of goods take from first mushak or bill of entry from previous UP, which mean keep original group name from UP worksheet
+                goodsGroupNameFromUpWs = upClause8InfoDic(dicKey)(upClause8InfoDic(dicKey).keys()(0))("nameOfGoods")
+
                 Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, CreateObject("Scripting.Dictionary"), finalRawMaterialsQtyDicAsGroup(dicKey))
 
             End If
+            
+                'change name of goods from UP worksheet's group name
+            For Each innerDicKey1 In tempDic.keys
+
+                tempDic(innerDicKey1)("nameOfGoods") = goodsGroupNameFromUpWs
+
+            Next innerDicKey1
 
             newUpClause8InfoDic.Add dicKey, tempDic
 
