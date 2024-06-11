@@ -599,6 +599,17 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
     Next dicKey
 
+        'change name of goods to "Yarn"
+    For Each dicKey In newUpClause8TempYarnInfoDic.keys
+
+        For Each innerDicKey In newUpClause8TempYarnInfoDic(dicKey).keys
+
+            newUpClause8TempYarnInfoDic(dicKey)(innerDicKey)("nameOfGoods") = "Yarn"
+
+        Next innerDicKey
+
+    Next dicKey
+
     ' yarn dict key sorting only
 
     If newUpClause8TempYarnInfoDic.Exists("garmentsCotton") Then
