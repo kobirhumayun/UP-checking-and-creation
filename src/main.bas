@@ -1023,6 +1023,10 @@ Sub afterYarnConsumption()
     Dim sourceDataImportPerformanceTotalSummary As Variant
     sourceDataImportPerformanceTotalSummary = Application.Run("helperFunctionGetData.sourceDataImportPerformance", importPerformanceFileName, "Summary of Grand Total", True, False)
 
+    'take source data from Import Performance dyes to check last UP updated or not
+    Dim sourceDataImportPerformanceDyes As Variant
+    sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformanceWithUpColumn", importPerformanceFileName, "Dyes", False, False)
+
     Set impPerformanceDataDic = Application.Run("data_from_imp_performance.classifiedDbDicFromImpPerformance", _
     ActiveWorkbook.path & Application.PathSeparator & importPerformanceFileName) ' path change after changed the period
     
