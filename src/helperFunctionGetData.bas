@@ -253,6 +253,42 @@ Private Function sourceDataImportPerformance(fileName As String, worksheetTabNam
 
 End Function
 
+Private Function sourceDataImportPerformanceWithUpColumn(fileName As String, worksheetTabName As String, openFile As Boolean, closeFile As Boolean) As Variant ' provide source file name & worksheetTabName
+    'this function give source data from Import Performance with UP column
+    
+    Dim workingWs As Worksheet
+
+    If openFile Then
+        Application.Run "utilityFunction.openFile", fileName ' provide filename
+    End If
+
+    Set workingWs = ActiveWorkbook.Worksheets(worksheetTabName)
+    workingWs.AutoFilterMode = False
+
+    Dim workingRange As Range
+
+    If IsEmpty(workingWs.Range("C7").Value) Then
+
+        Set workingRange = workingWs.Range("A6:AB6")
+
+    Else
+
+        Set workingRange = workingWs.Range("A6:" & "AB" & workingWs.Range("C6").End(xlDown).Row)
+
+    End If
+
+    Dim workingRangeValueArr As Variant
+
+    workingRangeValueArr = workingRange.value
+
+    If closeFile Then
+       Application.Run "utilityFunction.closeFile", fileName ' provide filename
+    End If
+    
+    sourceDataImportPerformanceWithUpColumn = workingRangeValueArr
+
+End Function
+
 
 Private Function sourceDataPreviousUp(currentUp As Variant, upClauseNo As Integer, openFile As Boolean, closeFile As Boolean) As Variant  ' provide UP clause No.
 'this function give source data from previous UP
