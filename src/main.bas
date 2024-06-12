@@ -1027,6 +1027,9 @@ Sub afterYarnConsumption()
     Dim sourceDataImportPerformanceDyes As Variant
     sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformanceWithUpColumn", importPerformanceFileName, "Dyes", False, False)
 
+    Dim isLastUpUsedUpdated As Boolean
+    isLastUpUsedUpdated = Application.Run("afterConsumption.isLastUpUsedUpdatedInImportPerformance", sourceDataImportPerformanceDyes, "10/2024", 28)
+
     Set impPerformanceDataDic = Application.Run("data_from_imp_performance.classifiedDbDicFromImpPerformance", _
     ActiveWorkbook.path & Application.PathSeparator & importPerformanceFileName) ' path change after changed the period
     
