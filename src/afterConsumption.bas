@@ -1476,3 +1476,46 @@ Private Function dealWithUpClause13(ws As Worksheet, newUpClause8InfoClassifiedP
     upClause13InformationRangeObject.Range("r6").value = newUpClause8InfoClassifiedPartDic("stretchWrappingFilmValue")
 
 End Function
+
+Private Function isLastUpUsedUpdatedInImportPerformance(importPerformanceAnyRawMaterialsData As Variant, upNo As Variant, upColumn As Integer) As Boolean
+    'return true if only given UP No. updated in import performance used as last UP.
+    Dim allExistedUpDict As Object
+    Set allExistedUpDict = CreateObject("Scripting.Dictionary")
+
+    Dim i As Long
+
+    For i = 1 To UBound(importPerformanceAnyRawMaterialsData)
+            'if UP exist, then add
+        If Application.Run("general_utility_functions.isStrPatternExist", importPerformanceAnyRawMaterialsData(i, upColumn), "^" & Replace(upNo, "/", "\/") & "$", True, True, True) Then
+
+            allExistedUpDict(i) = importPerformanceAnyRawMaterialsData(i, upColumn)
+
+        End If
+
+    Next i
+
+    If allExistedUpDict.Count = 0 Then
+            'not found
+        isLastUpUsedUpdatedInImportPerformance = False
+        Exit Function
+
+    End If
+
+    Dim dicKey As Variant
+
+    For Each dicKey In allExistedUpDict.keys
+
+            'if UP exist, but not end of the string, then enter
+        If Not Application.Run("general_utility_functions.isStrPatternExist", allExistedUpDict(dicKey), Replace(upNo, "/", "\/") & "$", True, True, False) Then
+
+            isLastUpUsedUpdatedInImportPerformance = False
+            Exit Function
+
+        End If
+
+    Next dicKey
+
+        'UP exit only end of the string
+    isLastUpUsedUpdatedInImportPerformance = True
+
+End Function
