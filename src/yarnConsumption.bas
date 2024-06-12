@@ -628,6 +628,9 @@ Private Function fabricWidthCalculation(width As Variant) As Variant
     Set regEx = CreateObject("VBScript.RegExp")
     regEx.Global = True
     regEx.MultiLine = True
+
+    Dim storeWidthForValidation As Variant
+    storeWidthForValidation = width 'just for use bottom validation section
         
     Dim result As Variant
             
@@ -759,6 +762,35 @@ Private Function fabricWidthCalculation(width As Variant) As Variant
     Else
     
         result = CDbl(extractedWidth(0).Value)
+        
+    End If
+
+        'final width validation
+    storeWidthForValidation = Replace(storeWidthForValidation, " ", "") 'replace space
+    
+    Dim tempDict As Object
+    Set tempDict = CreateObject("Scripting.Dictionary")
+    
+    Dim sortedArrForValidation As Variant
+   
+    Dim extractWidthForValidation As Object
+     
+    regEx.pattern = "(\d+\.\d+)|(\d+)"
+    
+    Set extractWidthForValidation = regEx.Execute(storeWidthForValidation)
+
+    Dim Match As Object
+
+    For Each Match In extractWidthForValidation
+        tempDict(Match.value) = Match.value
+    Next
+    
+    sortedArrForValidation = Application.Run("Sorting_Algorithms.BubbleSort", tempDict.keys)  'sort ascending order
+    
+    If Not Application.Run("utilityFunction.isCompareValuesLessThanProvidedValue", result, sortedArrForValidation(UBound(sortedArrForValidation)), 0.51) Then
+
+        MsgBox "Width " & storeWidthForValidation & " Calculation Error"
+        Exit Function
         
     End If
     
