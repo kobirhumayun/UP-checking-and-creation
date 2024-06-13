@@ -806,6 +806,9 @@ Private Function calculateYarnPercentage(fabricComposition As Variant) As Object
     regEx.pattern = "(\d+\.\d+\%)|(\d+\%)"
     regEx.MultiLine = True
 
+    Dim fabricCompositionStoreForMsg As Variant
+    fabricCompositionStoreForMsg = fabricComposition
+
     Dim yarnGroup As Object
     Set yarnGroup = CreateObject("Scripting.Dictionary")
     
@@ -876,7 +879,7 @@ Private Function calculateYarnPercentage(fabricComposition As Variant) As Object
     Next extractYarnCategoryArrayIterator
     
     If sumPercentageAsYarnGroup("cotton") + sumPercentageAsYarnGroup("polyester") + sumPercentageAsYarnGroup("spandex") <> 100 Then
-        MsgBox "Total sum of Yarn percentage not 100 may be new yarn group exist"
+        MsgBox fabricCompositionStoreForMsg & Chr(10) & "Above Total sum of Yarn percentage not 100 may be new yarn group exist"
         Exit Function
     End If
     
