@@ -875,6 +875,21 @@ Sub createNewUp()
     'extract UP and year of UP from file name
     Dim extractedUpAndUpYearFromFile As Variant
     extractedUpAndUpYearFromFile = Application.Run("general_utility_functions.upNoAndYearExtrac", curentUpNoFromFileName)
+
+    Dim importPerformanceFileName As String
+    importPerformanceFileName = "Import Performance Statement of PDL-2024-2025.xlsx"
+
+    'take source data from Import Performance dyes to check last UP updated or not
+    Dim sourceDataImportPerformanceDyes As Variant
+    sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformanceWithUpColumn", importPerformanceFileName, "Dyes", True, True)
+
+    Dim isLastUpUsedUpdated As Boolean
+    isLastUpUsedUpdated = Application.Run("afterConsumption.isLastUpUsedUpdatedInImportPerformance", sourceDataImportPerformanceDyes, extractedUpAndUpYearFromFile(1) & "/" & extractedUpAndUpYearFromFile(2), 28)
+
+    If Not isLastUpUsedUpdated Then
+        MsgBox "Current UP not updated as last UP in import performance for used Bill of Entry or Mushak" & Chr(10) & "Update first!"
+        Exit Sub
+    End If
     
     Dim newUpFromFile As String
     newUpFromFile = extractedUpAndUpYearFromFile(1) + 1 & "/" & extractedUpAndUpYearFromFile(2)
