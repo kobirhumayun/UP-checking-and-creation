@@ -1028,7 +1028,12 @@ Sub afterYarnConsumption()
     sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformanceWithUpColumn", importPerformanceFileName, "Dyes", False, False)
 
     Dim isLastUpUsedUpdated As Boolean
-    isLastUpUsedUpdated = Application.Run("afterConsumption.isLastUpUsedUpdatedInImportPerformance", sourceDataImportPerformanceDyes, "10/2024", 28)
+    isLastUpUsedUpdated = Application.Run("afterConsumption.isLastUpUsedUpdatedInImportPerformance", sourceDataImportPerformanceDyes, "332/2024", 28)
+
+    If Not isLastUpUsedUpdated Then
+        MsgBox "Current UP not updated as last UP in import performance for used Bill of Entry or Mushak"
+        Exit Sub
+    End If
 
     Set impPerformanceDataDic = Application.Run("data_from_imp_performance.classifiedDbDicFromImpPerformance", _
     ActiveWorkbook.path & Application.PathSeparator & importPerformanceFileName) ' path change after changed the period
