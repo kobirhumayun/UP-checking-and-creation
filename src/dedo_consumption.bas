@@ -678,6 +678,12 @@ Private Function finalRawMaterialsQtyCalculatedAsGroup( _
     denimFabricDyedEtpWtpQty, _
     denimFabricPackingQty)
 
+    Dim jsonPath As String
+    jsonPath = ActiveWorkbook.path & Application.PathSeparator & "json-used-percentage-specific-raw-materials"
+
+        'uncomment just for save first time, then again comment bellow function call
+        'modify json file as requirements
+    ' Application.Run "dedo_consumption.combineDicSaveAsJsonForUsedPercentageSpecificRawMaterials", allDedoConDicAfterCalculateActualQty, jsonPath
 
     Set allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials = Application.Run("dedo_consumption.appliedUsedPercentageSpecificRawMaterials", allDedoConDicAfterCalculateActualQty, _
     usedPercentageSpecificRawMaterialsDict)
