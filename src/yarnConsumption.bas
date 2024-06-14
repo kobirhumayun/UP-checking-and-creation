@@ -899,6 +899,9 @@ Private Function validateCommercialFileQtyAndUnit(withPiInfosourceDataAsDicUpIss
     Dim tempSum As Variant
     tempSum = 0
 
+    Dim qtyUnitFromPiInfo As String
+    Dim qtyUnitFromUpIssuingStatus As String
+
     Dim dicKey As Variant
     Dim innerDicKey As Variant
 
@@ -907,7 +910,9 @@ Private Function validateCommercialFileQtyAndUnit(withPiInfosourceDataAsDicUpIss
         For Each innerDicKey In withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo").keys
 
             tempSum = tempSum + withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty")
-            ' "Unit"
+
+            qtyUnitFromPiInfo = withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Unit")
+            
         Next innerDicKey
 
         If withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("QuantityofFabricsYdsMtr") <> tempSum Then
@@ -917,6 +922,25 @@ Private Function validateCommercialFileQtyAndUnit(withPiInfosourceDataAsDicUpIss
         End If
 
         tempSum = 0 'reset
+
+            'Qty. unit pick form up issuing status
+        If Right(withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("qtyNumberFormat"), 5) = """Mtr""" Then
+
+            qtyUnitFromUpIssuingStatus = "MTR"
+        Else
+
+            qtyUnitFromUpIssuingStatus = "YDS"
+
+        End If
+
+        If qtyUnitFromUpIssuingStatus <> qtyUnitFromPiInfo Then
+                'add commercial file
+            validateFileUnit(withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo")) = withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo")
+
+        End If
+
+        qtyUnitFromPiInfo = "" 'reset
+        qtyUnitFromUpIssuingStatus = "" 'reset
 
     Next dicKey
 
@@ -932,6 +956,22 @@ Private Function validateCommercialFileQtyAndUnit(withPiInfosourceDataAsDicUpIss
         Next dicKey
         
         MsgBox tempQtyMsg
+        Err.Raise vbObjectError + 1000, , "Customs Err to stop procedure"
+
+    End If
+
+    Dim tempQtyUnitMsg As String
+    tempQtyUnitMsg = "Bellow commercial file Qty. unit mismatch in up issuing status & PI info, Please corrected" & Chr(10)
+
+    If validateFileUnit.Count > 0 Then
+
+        For Each dicKey In validateFileUnit.keys
+
+            tempQtyUnitMsg = tempQtyUnitMsg & validateFileUnit(dicKey) & Chr(10)
+
+        Next dicKey
+        
+        MsgBox tempQtyUnitMsg
         Err.Raise vbObjectError + 1000, , "Customs Err to stop procedure"
 
     End If
