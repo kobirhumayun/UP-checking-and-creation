@@ -890,6 +890,15 @@ End Function
 
 Private Function validateCommercialFileQtyAndUnit(withPiInfosourceDataAsDicUpIssuingStatus As Object)
 
+    Dim validateFileqty As Object
+    Set validateFileqty = CreateObject("Scripting.Dictionary")
+
+    Dim validateFileUnit As Object
+    Set validateFileUnit = CreateObject("Scripting.Dictionary")
+
+    Dim tempSum As Variant
+    tempSum = 0
+
     Dim dicKey As Variant
     Dim innerDicKey As Variant
 
@@ -897,10 +906,34 @@ Private Function validateCommercialFileQtyAndUnit(withPiInfosourceDataAsDicUpIss
 
         For Each innerDicKey In withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo").keys
 
-            Debug.Print withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PINo")
-
+            tempSum = tempSum + withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty")
+            ' "Unit"
         Next innerDicKey
 
+        If withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("QuantityofFabricsYdsMtr") <> tempSum Then
+                'add commercial file
+            validateFileqty(withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo")) = withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("CommercialFileNo")
+
+        End If
+
+        tempSum = 0 'reset
+
     Next dicKey
+
+    Dim tempQtyMsg As String
+    tempQtyMsg = "May be bellow commercial file include multiple LC Amnd, Make unique file manully by add extension with file No. in both sheet up issuing status & PI info" & Chr(10)
+
+    If validateFileqty.Count > 0 Then
+
+        For Each dicKey In validateFileqty.keys
+
+            tempQtyMsg = tempQtyMsg & validateFileqty(dicKey) & Chr(10)
+
+        Next dicKey
+        
+        MsgBox tempQtyMsg
+        Err.Raise vbObjectError + 1000, , "Customs Err to stop procedure"
+
+    End If
 
 End Function
