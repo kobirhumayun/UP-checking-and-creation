@@ -600,6 +600,23 @@ Private Function appliedUsedPercentageSpecificRawMaterials(combineDicAfterCalcul
 
 End Function
 
+Private Function combineDicSaveAsJsonForUsedPercentageSpecificRawMaterials(combineDic As Object, jsonPath As String)
+    'combined dictionary save as json to take actual properties name
+    'initially all properties value set 100, as requirements modify json file manually
+
+    Dim dictKey As Variant
+
+    For Each dictKey In combineDic.keys
+
+        combineDic(dictKey) = 100
+
+    Next dictKey
+
+    Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", combineDic, jsonPath & Application.PathSeparator & _
+    "used-percentage-specific-raw-materials" & ".json"
+
+End Function
+
 
 Private Function sumRawMaterialsAsGroupAndAddToDic(qtyAsGroupDic As Object, allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials As Object, _
     rawMaterialsGroupName As Variant, rawMaterialsGroupArr As Variant) As Object
