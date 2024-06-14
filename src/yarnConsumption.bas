@@ -888,3 +888,19 @@ Private Function calculateYarnPercentage(fabricComposition As Variant) As Object
 End Function
 
 
+Private Function validateCommercialFileQtyAndUnit(withPiInfosourceDataAsDicUpIssuingStatus As Object)
+
+    Dim dicKey As Variant
+    Dim innerDicKey As Variant
+
+    For Each dicKey In withPiInfosourceDataAsDicUpIssuingStatus.keys
+
+        For Each innerDicKey In withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo").keys
+
+            Debug.Print withPiInfosourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PINo")
+
+        Next innerDicKey
+
+    Next dicKey
+
+End Function
