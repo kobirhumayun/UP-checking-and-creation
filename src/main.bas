@@ -1115,6 +1115,9 @@ Sub dealWithYarnConsumption()
     Dim withPiInfosourceDataAsDicUpIssuingStatus As Variant
     Set withPiInfosourceDataAsDicUpIssuingStatus = Application.Run("yarnConsumption.addPiInfoSourceDataAsDicUpIssuingStatus", sourceDataAsDicUpIssuingStatus)
 
+        'validate commercial file qty. & unit with PI info
+    Application.Run "yarnConsumption.validateCommercialFileQtyAndUnit", withPiInfosourceDataAsDicUpIssuingStatus
+
         'add yarn consumption info to UP Issuing Status
     Dim withYarnConsumptionInfosourceDataAsDicUpIssuingStatus As Variant
     Set withYarnConsumptionInfosourceDataAsDicUpIssuingStatus = Application.Run("yarnConsumption.addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus", withPiInfosourceDataAsDicUpIssuingStatus)
