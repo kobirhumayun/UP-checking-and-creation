@@ -655,12 +655,12 @@ Private Function finalRawMaterialsQtyCalculatedAsGroup( _
     Dim allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials As Object
 
     Dim usedPercentageSpecificRawMaterialsDict As Object
-    Set usedPercentageSpecificRawMaterialsDict = CreateObject("Scripting.Dictionary")
+    ' Set usedPercentageSpecificRawMaterialsDict = CreateObject("Scripting.Dictionary")
 
-    Set usedPercentageSpecificRawMaterialsDict = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", usedPercentageSpecificRawMaterialsDict, "5. Sulphur black (Powder)_Sl_5", 0)
-    Set usedPercentageSpecificRawMaterialsDict = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", usedPercentageSpecificRawMaterialsDict, "5. Vat Dyes (Powder/Solid)_Sl_25", 0)
-    Set usedPercentageSpecificRawMaterialsDict = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", usedPercentageSpecificRawMaterialsDict, "5. Vat Dyes (Powder/Solid)_Sl_45", 0)
-    Set usedPercentageSpecificRawMaterialsDict = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", usedPercentageSpecificRawMaterialsDict, "6. Sulphur black (Powder)_Sl_47", 0)
+    ' Set usedPercentageSpecificRawMaterialsDict = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", usedPercentageSpecificRawMaterialsDict, "5. Sulphur black (Powder)_Sl_5", 0)
+    ' Set usedPercentageSpecificRawMaterialsDict = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", usedPercentageSpecificRawMaterialsDict, "5. Vat Dyes (Powder/Solid)_Sl_25", 0)
+    ' Set usedPercentageSpecificRawMaterialsDict = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", usedPercentageSpecificRawMaterialsDict, "5. Vat Dyes (Powder/Solid)_Sl_45", 0)
+    ' Set usedPercentageSpecificRawMaterialsDict = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", usedPercentageSpecificRawMaterialsDict, "6. Sulphur black (Powder)_Sl_47", 0)
 
 
     Set allDedoConDicAfterCalculateActualQty = Application.Run("dedo_consumption.combineAllDedoConDicAfterCalculateActualQty", _
@@ -684,6 +684,8 @@ Private Function finalRawMaterialsQtyCalculatedAsGroup( _
         'uncomment just for save first time, then again comment bellow function call
         'modify json file as requirements
     ' Application.Run "dedo_consumption.combineDicSaveAsJsonForUsedPercentageSpecificRawMaterials", allDedoConDicAfterCalculateActualQty, jsonPath
+
+    Set usedPercentageSpecificRawMaterialsDict = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPath & Application.PathSeparator & "used-percentage-specific-raw-materials" & ".json")
 
     Set allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials = Application.Run("dedo_consumption.appliedUsedPercentageSpecificRawMaterials", allDedoConDicAfterCalculateActualQty, _
     usedPercentageSpecificRawMaterialsDict)
