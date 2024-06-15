@@ -173,6 +173,12 @@ Private Function openFile(fileName As String) As Variant ' provide source file n
 
 End Function
 
+Private Function openFileFullPath(filePath As String) ' provide source file full path
+    'open a specific file
+
+    Workbooks.Open fileName:=filePath, ReadOnly:=True
+
+End Function
 
 Private Function closeFile(fileName As String) As Variant ' provide source file name
 'this function close a specific file
