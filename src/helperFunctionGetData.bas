@@ -259,7 +259,7 @@ Private Function sourceDataImportPerformanceWithUpColumn(fileName As String, wor
     Dim workingWs As Worksheet
 
     If openFile Then
-        Application.Run "utilityFunction.openFile", fileName ' provide filename
+        Application.Run "utilityFunction.openFileFullPath", fileName ' provide filename
     End If
 
     Set workingWs = ActiveWorkbook.Worksheets(worksheetTabName)
@@ -281,8 +281,14 @@ Private Function sourceDataImportPerformanceWithUpColumn(fileName As String, wor
 
     workingRangeValueArr = workingRange.value
 
+    Dim fso As Object
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    
+    Dim fileNameOnly As String
+    fileNameOnly = fso.GetFileName(fileName)
+
     If closeFile Then
-       Application.Run "utilityFunction.closeFile", fileName ' provide filename
+       Application.Run "utilityFunction.closeFile", fileNameOnly ' provide filename
     End If
     
     sourceDataImportPerformanceWithUpColumn = workingRangeValueArr
