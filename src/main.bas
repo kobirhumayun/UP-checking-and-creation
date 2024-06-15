@@ -881,7 +881,7 @@ Sub createNewUp()
 
     'take source data from Import Performance dyes to check last UP updated or not
     Dim sourceDataImportPerformanceDyes As Variant
-    sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformanceWithUpColumn", importPerformanceFileName, "Dyes", True, True)
+    sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformanceWithUpColumn", upFolderPath & Application.PathSeparator & importPerformanceFileName, "Dyes", True, True)
 
     Dim isLastUpUsedUpdated As Boolean
     isLastUpUsedUpdated = Application.Run("afterConsumption.isLastUpUsedUpdatedInImportPerformance", sourceDataImportPerformanceDyes, extractedUpAndUpYearFromFile(1) & "/" & extractedUpAndUpYearFromFile(2), 28)
