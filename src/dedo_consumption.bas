@@ -566,7 +566,7 @@ End Function
 
 Private Function appliedUsedPercentageSpecificRawMaterials(combineDicAfterCalculateActualQty As Object, usedPercentageSpecificRawMaterialsDict As Object) As Object
     'this function received combined dictionary after calculate actual Qty. and specific raw materials used percentage dict then
-    ' specific raw materials Qty. set zero and return modified dictionary
+    ' specific raw materials Qty. set as provided percentage and return modified dictionary
 
     Dim dictKey  As Variant
 
@@ -594,7 +594,15 @@ Private Function appliedUsedPercentageSpecificRawMaterials(combineDicAfterCalcul
 
     Next
 
-    MsgBox msgStr
+    If msgStr = "" Then
+
+        MsgBox "All raw materials using 100%", , "Raw materials use as DEDO"
+
+    Else
+
+        MsgBox msgStr, , "Raw materials use as DEDO"
+
+    End If
 
     Set appliedUsedPercentageSpecificRawMaterials = combineDicAfterCalculateActualQty
 
