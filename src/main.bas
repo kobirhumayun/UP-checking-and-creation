@@ -887,7 +887,8 @@ Sub createNewUp()
     isLastUpUsedUpdated = Application.Run("afterConsumption.isLastUpUsedUpdatedInImportPerformance", sourceDataImportPerformanceDyes, extractedUpAndUpYearFromFile(1) & "/" & extractedUpAndUpYearFromFile(2), 28)
 
     If Not isLastUpUsedUpdated Then
-        MsgBox "Current UP not updated as last UP in import performance for used Bill of Entry or Mushak" & Chr(10) & "Update first!"
+        MsgBox "Current UP-" & extractedUpAndUpYearFromFile(1) & "/" & extractedUpAndUpYearFromFile(2) & _
+        " not updated as last UP in import performance for used Bill of Entry or Mushak" & Chr(10) & "Update first!"
         Exit Sub
     End If
     
