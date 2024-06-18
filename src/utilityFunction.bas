@@ -2845,6 +2845,57 @@ Private Function CombinedAllSheetsMushakOrBillOfEntryDbDict(importPerformanceFil
     
 End Function
 
+Private Function importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedSheet(ws As worksheet, mushakOrBillOfEntryCol As Integer, qtyCol As Integer, valueCol As Integer) As Object
+    'returned all commented bill of entry or mushak dictionary
+
+    ws.AutoFilterMode = False
+
+    Dim workingRange As Range
+
+    If IsEmpty(ws.Range("C7").Value) Then
+
+        Set workingRange = ws.Range("A6:N6")
+
+    Else
+
+        Set workingRange = ws.Range("A6:" & "N" & ws.Range("C6").End(xlDown).Row)
+
+    End If
+
+    Dim commentedBillOfEntryOrMushak As Object
+    Set commentedBillOfEntryOrMushak = CreateObject("Scripting.Dictionary")
+
+    Dim tempMuOrBillKey As String
+
+    Dim i As Long
+
+    For i = 1 To workingRange.Rows.Count
+
+        If Not workingRange(i, mushakOrBillOfEntryCol).Comment Is Nothing Then   'check if the cell has a comment
+
+            tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithMushakOrBillOfEntryQtyAndValue", workingRange(i, mushakOrBillOfEntryCol), workingRange(i, qtyCol), workingRange(i, valueCol))
+
+            If commentedBillOfEntryOrMushak.Exists(tempMuOrBillKey) Then
+
+                commentedBillOfEntryOrMushak(tempMuOrBillKey)("Entry_Count") = commentedBillOfEntryOrMushak(tempMuOrBillKey)("Entry_Count") + 1
+                commentedBillOfEntryOrMushak(tempMuOrBillKey)("comment") = commentedBillOfEntryOrMushak(tempMuOrBillKey)("comment") & Chr(10) & workingRange(i, mushakOrBillOfEntryCol).Comment.Text
+
+            Else
+
+                commentedBillOfEntryOrMushak.Add tempMuOrBillKey, CreateObject("Scripting.Dictionary")
+                commentedBillOfEntryOrMushak(tempMuOrBillKey)("Entry_Count") = 1
+                commentedBillOfEntryOrMushak(tempMuOrBillKey)("comment") = workingRange(i, mushakOrBillOfEntryCol).Comment.Text
+
+            End If
+
+        End If
+
+    Next i
+
+    Set importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedSheet = commentedBillOfEntryOrMushak
+
+End Function
+
 Private Function upSequenceStrGenerator(upArr As Variant) As String
     'this function received an UP No. array and return UP sequence string
     Dim uPSequenceObj As Object
