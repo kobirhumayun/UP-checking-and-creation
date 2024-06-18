@@ -212,10 +212,27 @@ Private Function classifiedDbDicFromImpPerformance(importPerformanceFilePath As 
     importPerformanceWb.Close SaveChanges:=False
     Application.ScreenUpdating = True
     
+    Dim dicKey As Variant
+    
+    For Each dicKey In garmentsYarnBillOfEntry.keys
+        
+            'Remove garments yarn bill of entry
+        If impBillAndMushakDb.Exists(dicKey) Then
+        
+            impBillAndMushakDb.Remove dicKey
+            
+        Else
+            
+            MsgBox "Garments bill of entry " & dicKey & " not exitst in import performance DB dictionary"
+            Exit Function
+            
+        End If
+    
+    Next dicKey
+
     Dim tempDic As Object
     Dim extractLc As String
 
-    Dim dicKey As Variant
     Dim removedAllInvalidChrFromImpRawMaterialsDes As Variant
     Dim removedAllInvalidChrFromPreDefclassifiedDbDic As Variant
 
