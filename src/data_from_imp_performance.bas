@@ -216,16 +216,18 @@ Private Function classifiedDbDicFromImpPerformance(importPerformanceFilePath As 
     
     For Each dicKey In garmentsYarnBillOfEntry.keys
         
-            'Remove garments yarn bill of entry
-        If impBillAndMushakDb.Exists(dicKey) Then
-        
-            impBillAndMushakDb.Remove dicKey
+        If Application.Run("general_utility_functions.isStrPatternExist", garmentsYarnBillOfEntry(dicKey)("comment"), "garments", True, True, True) Then
+                'Remove garments yarn bill of entry
+            If impBillAndMushakDb.Exists(dicKey) Then
             
-        Else
-            
-            MsgBox "Garments bill of entry " & dicKey & " not exitst in import performance DB dictionary"
-            Exit Function
-            
+                impBillAndMushakDb.Remove dicKey
+                
+            Else
+                
+                MsgBox "Garments bill of entry " & dicKey & " not exitst in import performance DB dictionary"
+                Exit Function
+                
+            End If
         End If
     
     Next dicKey
