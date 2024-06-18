@@ -199,6 +199,19 @@ Private Function classifiedDbDicFromImpPerformance(importPerformanceFilePath As 
     Dim impBillAndMushakDb As Object
     Set impBillAndMushakDb = Application.Run("utilityFunction.CombinedAllSheetsMushakOrBillOfEntryDbDict", importPerformanceFilePath)
 
+    Application.ScreenUpdating = False
+    Dim importPerformanceWb As Workbook
+    Set importPerformanceWb = Workbooks.Open(importPerformanceFilePath)
+    
+    Dim yarnImportWs As Worksheet
+    Set yarnImportWs = importPerformanceWb.Worksheets("Yarn (Import)")
+
+    Dim garmentsYarnBillOfEntry As Object
+    Set garmentsYarnBillOfEntry = Application.Run("utilityFunction.importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedSheet", yarnImportWs, 3, 7, 8)
+
+    importPerformanceWb.Close SaveChanges:=False
+    Application.ScreenUpdating = True
+    
     Dim tempDic As Object
     Dim extractLc As String
 
