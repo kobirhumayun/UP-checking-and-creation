@@ -868,7 +868,7 @@ Private Function calculateYarnPercentage(fabricComposition As Variant) As Object
             If Application.Run("general_utility_functions.isStrPatternExist", Application.Run("general_utility_functions.RemoveInvalidChars", extractYarnCategory(extractYarnCategoryArrayIterator)), dictKey, True, True, True) Then
             
                 sumPercentageAsYarnGroup(yarnGroup(dictKey)) = sumPercentageAsYarnGroup(yarnGroup(dictKey)) _
-                + Replace(regExReturnedObjectExtractPercentage.Item(extractYarnCategoryArrayIterator), "%", "")
+                + Round(CDec(Replace(regExReturnedObjectExtractPercentage.Item(extractYarnCategoryArrayIterator), "%", "")), 2) 'some time type conflict, handle error type converted
                     
                     Exit For
 
@@ -880,6 +880,7 @@ Private Function calculateYarnPercentage(fabricComposition As Variant) As Object
     
     If sumPercentageAsYarnGroup("cotton") + sumPercentageAsYarnGroup("polyester") + sumPercentageAsYarnGroup("spandex") <> 100 Then
         MsgBox fabricCompositionStoreForMsg & Chr(10) & "Above Total sum of Yarn percentage not 100 may be new yarn group exist"
+        Debug.Print fabricCompositionStoreForMsg 'print Immediate window for copy
         Exit Function
     End If
     
