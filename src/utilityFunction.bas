@@ -2834,18 +2834,18 @@ Private Function CombinedAllSheetsMushakOrBillOfEntryDbDict(importPerformanceFil
     Dim importPerformanceDbDict As Object
     Set importPerformanceDbDict = CreateObject("Scripting.Dictionary")
     
-    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceYarnImport, 3, 7, 8, 6, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
-    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceYarnLocal, 3, 7, 8, 6, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
-    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceDyes, 3, 7, 8, 6, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
-    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceChemicalsImport, 3, 8, 9, 7, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 7, 8, 9, 10, 11, 12, 13))
-    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceChemicalsLocal, 3, 8, 9, 7, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 7, 8, 9, 10, 11, 12, 13))
-    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceStretchWrappingFilm, 3, 8, 9, 7, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 7, 8, 9, 10, 11, 12, 13))
+    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceYarnImport, 4, 3, 7, 8, 6, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
+    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceYarnLocal, 4, 3, 7, 8, 6, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
+    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceDyes, 4, 3, 7, 8, 6, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 6, 7, 8, 9, 10, 11, 12))
+    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceChemicalsImport, 4, 3, 8, 9, 7, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 7, 8, 9, 10, 11, 12, 13))
+    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceChemicalsLocal, 4, 3, 8, 9, 7, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 7, 8, 9, 10, 11, 12, 13))
+    Set importPerformanceDbDict = Application.Run("dictionary_utility_functions.CreateMushakOrBillOfEntryDbDict", importPerformanceDbDict, sourceDataImportPerformanceStretchWrappingFilm, 4, 3, 8, 9, 7, Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), Array(3, 4, 5, 7, 8, 9, 10, 11, 12, 13))
     
     Set CombinedAllSheetsMushakOrBillOfEntryDbDict = importPerformanceDbDict
     
 End Function
 
-Private Function importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedSheet(ws As worksheet, mushakOrBillOfEntryCol As Integer, qtyCol As Integer, valueCol As Integer) As Object
+Private Function importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedSheet(ws As worksheet, lcCol As Integer, mushakOrBillOfEntryCol As Integer, qtyCol As Integer, valueCol As Integer) As Object
     'returned all commented bill of entry or mushak dictionary
 
     ws.AutoFilterMode = False
@@ -2873,7 +2873,7 @@ Private Function importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedShee
 
         If Not workingRange(i, mushakOrBillOfEntryCol).Comment Is Nothing Then   'check if the cell has a comment
 
-            tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithMushakOrBillOfEntryQtyAndValue", workingRange(i, mushakOrBillOfEntryCol), workingRange(i, qtyCol), workingRange(i, valueCol))
+            tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", workingRange(i, lcCol), workingRange(i, mushakOrBillOfEntryCol), workingRange(i, qtyCol), workingRange(i, valueCol))
 
             If commentedBillOfEntryOrMushak.Exists(tempMuOrBillKey) Then
 

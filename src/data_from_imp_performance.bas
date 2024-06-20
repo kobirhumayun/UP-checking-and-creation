@@ -207,7 +207,7 @@ Private Function classifiedDbDicFromImpPerformance(importPerformanceFilePath As 
     Set yarnImportWs = importPerformanceWb.Worksheets("Yarn (Import)")
 
     Dim garmentsYarnBillOfEntry As Object
-    Set garmentsYarnBillOfEntry = Application.Run("utilityFunction.importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedSheet", yarnImportWs, 3, 7, 8)
+    Set garmentsYarnBillOfEntry = Application.Run("utilityFunction.importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedSheet", yarnImportWs, 4, 3, 7, 8)
 
     importPerformanceWb.Close SaveChanges:=False
     Application.ScreenUpdating = True

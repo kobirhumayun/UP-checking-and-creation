@@ -142,7 +142,7 @@ Private Function upClause8InformationForCreateUpFromProvidedWs(ws As Worksheet, 
             tempMushakOrBillOfEntryDic("inThisUpUsedQtyOfGoodsComment") = "No Comment"
         End If
 
-        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithMushakOrBillOfEntryQtyAndValue", temp(i, 7), temp(i, 16), temp(i, 17))
+        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", temp(i, 2), temp(i, 7), temp(i, 16), temp(i, 17))
 
         upClause8Dic.Add tempMuOrBillKey, tempMushakOrBillOfEntryDic
 
@@ -297,7 +297,7 @@ Private Function sourceDataAsDicImportYarnUseDetailsForUd(fileName As String, wo
 
         Set tempMushakOrBillOfEntryDic = Application.Run("dictionary_utility_functions.CreateDicWithProvidedKeysAndValues", propertiesArr, propertiesValArr)
 
-        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithMushakOrBillOfEntryQtyAndValue", temp(i, 1), temp(i, 5), temp(i, 6))
+        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", temp(i, 2), temp(i, 1), temp(i, 5), temp(i, 6))
 
 
         Set udNo = Application.Run("general_utility_functions.regExReturnedObj", tempMushakOrBillOfEntryDic("udNo"), "\d+", True, True, True)

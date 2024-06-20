@@ -128,7 +128,7 @@ Private Function PutDictionaryValuesIntoWorksheet(wsRange As Range, dict As Obje
 End Function
 
 
-Private Function CreateMushakOrBillOfEntryDbDict(dict As Object, mushakOrBillOfEntrySourceArr As Variant, mushakOrBillOfEntryCol As Integer, qtyCol As Integer, valueCol As Integer, discriptionCol As Integer, propertiesArr As Variant, propertiesColsArr As Variant) As Object
+Private Function CreateMushakOrBillOfEntryDbDict(dict As Object, mushakOrBillOfEntrySourceArr As Variant, lcCol As Integer, mushakOrBillOfEntryCol As Integer, qtyCol As Integer, valueCol As Integer, discriptionCol As Integer, propertiesArr As Variant, propertiesColsArr As Variant) As Object
 
     Dim tempMuOrBillKey As Variant
     Dim propertiesValArr As Variant
@@ -148,7 +148,7 @@ Private Function CreateMushakOrBillOfEntryDbDict(dict As Object, mushakOrBillOfE
             
         Next j
 
-        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithMushakOrBillOfEntryQtyAndValue", mushakOrBillOfEntrySourceArr(i, mushakOrBillOfEntryCol), mushakOrBillOfEntrySourceArr(i, qtyCol), mushakOrBillOfEntrySourceArr(i, valueCol))
+        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", mushakOrBillOfEntrySourceArr(i, lcCol), mushakOrBillOfEntrySourceArr(i, mushakOrBillOfEntryCol), mushakOrBillOfEntrySourceArr(i, qtyCol), mushakOrBillOfEntrySourceArr(i, valueCol))
 
         Set tempMuOrBillKeyDic = Application.Run("dictionary_utility_functions.CreateDicWithProvidedKeysAndValues", propertiesArr, propertiesValArr)
         If dict.Exists(tempMuOrBillKey) Then
