@@ -863,6 +863,7 @@ Private Function finalRawMaterialsQtyCalculatedAsGroup( _
     "1. Caustic soda (NaOH)_Sl_41", _
     "1. Caustic soda (Solid)_Sl_60", _
     "1. Caustic soda (Solid)_Sl_68", _
+    "1. Caustic soda (Liquid) , (Concentration active substance not more than 60%)_Sl_70", _
     "3. Caustic Soda (Solid)_Sl_92" _
     ))
 
