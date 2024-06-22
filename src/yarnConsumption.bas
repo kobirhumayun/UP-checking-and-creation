@@ -534,8 +534,9 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
 
             If (isBlack = False) And (isIndigo = False) And (isToppingBottoming = False) And (isOverDying = True) Then
                 Dim answer As VbMsgBoxResult
-                answer = MsgBox("Color " & sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color") & _
-                    " Over Dying process exist, But now calculating without any color. Do you agree?", _
+                answer = MsgBox("Color (" & sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color") & _
+                    ") in PI No. " & sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PINo") & _
+                    " (Over Dying) process exist, But now calculating without any color. Do you agree?", _
                     vbYesNo + vbCritical + vbDefaultButton2, "Finished process conflict")
                 
                 If answer = vbNo Then
