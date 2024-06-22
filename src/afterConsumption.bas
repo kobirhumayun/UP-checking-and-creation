@@ -888,8 +888,8 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
 
     Application.Run "utility_formating_fun.SetBorderInsideHairlineAroundThin", Range(Cells(topRow - 2, 2), Cells(i, 27))
 
+    ws.Range(ws.Cells(topRow, 16), ws.Cells(i, 27)).Style = "Comma"
 
-'     Set upClause8InformationPutToProvidedWs = Nothing
 
 End Function
 
