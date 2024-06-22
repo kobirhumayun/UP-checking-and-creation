@@ -425,7 +425,7 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
 
 
             isBlack = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color"), _
-                "black", True, True, True)
+                "(black)|(vanta)", True, True, True)
             isIndigo = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color"), _
                 "(indigo)|(blue)", True, True, True)
             isToppingBottoming = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color"), _
