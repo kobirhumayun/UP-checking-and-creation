@@ -31,6 +31,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
         'weight
     totalConsumptionRange.Range("d" & rowTracker).value = yarnConsumptionInfoDic("weight")
+    totalConsumptionRange.Range("d" & rowTracker).Style = "Comma"
     totalConsumptionRange.Range("d" & rowTracker & ":e" & rowTracker).Merge
 
     totalConsumptionRange.Range("f" & rowTracker).value = "OZ/YD2"
@@ -41,6 +42,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
         'Width
     totalConsumptionRange.Range("l" & rowTracker).value = yarnConsumptionInfoDic("width")
+    totalConsumptionRange.Range("l" & rowTracker).Style = "Comma"
     totalConsumptionRange.Range("l" & rowTracker & ":n" & rowTracker).Merge
 
     totalConsumptionRange.Range("o" & rowTracker).value = "Inch"
@@ -62,12 +64,14 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
 
         'put formula to take weight
     totalConsumptionRange.Range("c" & rowTracker + 2).FormulaR1C1 = "=R[-2]C[1]"
+    totalConsumptionRange.Range("c" & rowTracker + 2).Style = "Comma"
     totalConsumptionRange.Range("c" & rowTracker + 2 & ":d" & rowTracker + 2).Merge
 
     totalConsumptionRange.Range("e" & rowTracker + 2).value = "x"
 
         'put formula to take width
     totalConsumptionRange.Range("f" & rowTracker + 2).FormulaR1C1 = "=R[-2]C[6]"
+    totalConsumptionRange.Range("f" & rowTracker + 2).Style = "Comma"
 
     totalConsumptionRange.Range("g" & rowTracker + 2).value = Chr(247)
 
@@ -140,6 +144,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("b" & rowTracker + 6).value = "="
 
     totalConsumptionRange.Range("c" & rowTracker + 6).FormulaR1C1 = "=R[-2]C*R[-2]C[6]"
+    totalConsumptionRange.Range("c" & rowTracker + 6).Style = "Comma"
     totalConsumptionRange.Range("c" & rowTracker + 6 & ":f" & rowTracker + 6).Merge
 
     totalConsumptionRange.Range("g" & rowTracker + 6).value = "kgs"
@@ -170,6 +175,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("b" & rowTracker + 8).value = "="
 
     totalConsumptionRange.Range("c" & rowTracker + 8).FormulaR1C1 = "=R[-2]C*R[-2]C[6]+R[-2]C"
+    totalConsumptionRange.Range("c" & rowTracker + 8).Style = "Comma"
     totalConsumptionRange.Range("c" & rowTracker + 8 & ":f" & rowTracker + 8).Merge
 
     totalConsumptionRange.Range("g" & rowTracker + 8).value = "kgs"
@@ -204,6 +210,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("e" & rowTracker + 10).BorderAround, Weight:=xlThin
 
     totalConsumptionRange.Range("f" & rowTracker + 10).FormulaR1C1 = "=R[-2]C[-3]*" & yarnConsumptionInfoDic("cottonPercentage") & "%"
+    totalConsumptionRange.Range("f" & rowTracker + 10).Style = "Comma"
     totalConsumptionRange.Range("f" & rowTracker + 10 & ":j" & rowTracker + 10).Merge
     totalConsumptionRange.Range("f" & rowTracker + 10 & ":j" & rowTracker + 10).BorderAround, Weight:=xlThin
 
@@ -223,6 +230,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("e" & rowTracker + 11).BorderAround, Weight:=xlThin
 
     totalConsumptionRange.Range("f" & rowTracker + 11).FormulaR1C1 = "=R[-3]C[-3]*" & yarnConsumptionInfoDic("polyesterPercentage") & "%"
+    totalConsumptionRange.Range("f" & rowTracker + 11).Style = "Comma"
     totalConsumptionRange.Range("f" & rowTracker + 11 & ":j" & rowTracker + 11).Merge
     totalConsumptionRange.Range("f" & rowTracker + 11 & ":j" & rowTracker + 11).BorderAround, Weight:=xlThin
 
@@ -242,6 +250,7 @@ Private Function yarnConsumptionInformationPutToProvidedWs(totalConsumptionRange
     totalConsumptionRange.Range("e" & rowTracker + 12).BorderAround, Weight:=xlThin
 
     totalConsumptionRange.Range("f" & rowTracker + 12).FormulaR1C1 = "=R[-4]C[-3]*" & yarnConsumptionInfoDic("spandexPercentage") & "%"
+    totalConsumptionRange.Range("f" & rowTracker + 12).Style = "Comma"
     totalConsumptionRange.Range("f" & rowTracker + 12 & ":j" & rowTracker + 12).Merge
     totalConsumptionRange.Range("f" & rowTracker + 12 & ":j" & rowTracker + 12).BorderAround, Weight:=xlThin
 
