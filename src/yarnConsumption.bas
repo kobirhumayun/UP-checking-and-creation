@@ -532,6 +532,20 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("spandexPercentage") = _
                 yarnPercentage("spandex")
 
+            If (isBlack = False) And (isIndigo = False) And (isToppingBottoming = False) And (isOverDying = True) Then
+                Dim answer As VbMsgBoxResult
+                answer = MsgBox("Color " & sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color") & _
+                    " Over Dying process exist, But now calculating without any color. Do you agree?", _
+                    vbYesNo + vbCritical + vbDefaultButton2, "Finished process conflict")
+                
+                If answer = vbNo Then
+                    
+                    'over dying exist, but color assuming Nill, which not possible, current color to be add with actual group
+                    Err.Raise vbObjectError + 1000, , "Customs Err to stop procedure"
+                    
+                End If
+            End If
+
         Next innerDicKey
 
     Next dicKey
