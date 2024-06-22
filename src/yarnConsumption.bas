@@ -381,14 +381,7 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
     Dim isPfd As Boolean
     Dim isEcru As Boolean
 
-    isBlack = False
-    isIndigo = False
-    isToppingBottoming = False
-    isMercerization = False
-    isOverDying = False
-    isCoating = False
-    isPfd = False
-    isEcru = False
+
 
     For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
@@ -396,6 +389,16 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
         sourceDataAsDicUpIssuingStatus(dicKey).Add "yarnConsumptionInfo", CreateObject("Scripting.Dictionary")
 
         For Each innerDicKey In sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo").keys
+
+                'reset all variable 
+            isBlack = False
+            isIndigo = False
+            isToppingBottoming = False
+            isMercerization = False
+            isOverDying = False
+            isCoating = False
+            isPfd = False
+            isEcru = False
 
                 'add inner dictionary & use dictionary key as dictionary count
             sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Add sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count + 1, CreateObject("Scripting.Dictionary")
