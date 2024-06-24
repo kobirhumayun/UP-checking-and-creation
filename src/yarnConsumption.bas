@@ -418,11 +418,12 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
                 'add fabricQty
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
             If sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Unit") = "MTR" Then
-                sumFractionOfMtrQty = sumFractionOfMtrQty + (sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983 - Round(sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983))
+                sumFractionOfMtrQty = sumFractionOfMtrQty + (sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983 - _
+                    Round(sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983))
                 fabricQtyInYds = Round(sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983)
 
-                If sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey).Count = innerDicKey Then
-                    fabricQtyInYds = fabricQtyInYds - Round(sumFractionOfMtrQty)
+                If sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo").Count = innerDicKey Then
+                    fabricQtyInYds = fabricQtyInYds + Round(sumFractionOfMtrQty)
                 End If
             Else
                 fabricQtyInYds = sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty")
