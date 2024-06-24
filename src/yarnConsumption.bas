@@ -381,12 +381,14 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
     Dim isPfd As Boolean
     Dim isEcru As Boolean
 
-
+    Dim sumFractionOfMtrQty As Variant
 
     For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
             'add yarn consumption dictionary
         sourceDataAsDicUpIssuingStatus(dicKey).Add "yarnConsumptionInfo", CreateObject("Scripting.Dictionary")
+
+        sumFractionOfMtrQty = 0 'reset
 
         For Each innerDicKey In sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo").keys
 
@@ -416,7 +418,12 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
                 'add fabricQty
                 '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
             If sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Unit") = "MTR" Then
-                fabricQtyInYds = sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983
+                sumFractionOfMtrQty = sumFractionOfMtrQty + (sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983 - Round(sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983))
+                fabricQtyInYds = Round(sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty") * 1.0936132983)
+
+                If sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey).Count = innerDicKey Then
+                    fabricQtyInYds = fabricQtyInYds - Round(sumFractionOfMtrQty)
+                End If
             Else
                 fabricQtyInYds = sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("PIQty")
             End If
