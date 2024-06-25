@@ -1496,7 +1496,14 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
     Application.Run("utilityFunction.sumQtyFromDictFormat", sourceDataAsDicUpIssuingStatus))
     
         ' total yarn Qty. add from consumption sheet for compare at the same time
-    finalRawMaterialsQtyDicAsGroup("Yarn") = yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL"))
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Yarn", _
+        yarnConsumptionInfoDic(Application.Run("general_utility_functions.RemoveInvalidChars", "TOTAL")))
+
+        'garments washing chemical
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Detergent", 0) ' Qty. be dynamic
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Pumice Stone", 0) ' Qty. be dynamic
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Natural Garnet", 0) ' Qty. be dynamic
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Hydroxylamine", 0) ' Qty. be dynamic
 
     Dim clause8UsedThisUpChemicalQtySumBySameGroup As Object
     Set clause8UsedThisUpChemicalQtySumBySameGroup = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
