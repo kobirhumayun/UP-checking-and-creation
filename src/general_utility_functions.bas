@@ -321,6 +321,23 @@ Private Function dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue(lc As Vari
     
 End Function
 
+Private Function dictKeyGeneratorWithProvidedArrayElements(ByVal arr As Variant) As String
+
+    Dim tempDictKeyStr As String
+    Dim elements As Variant
+
+    tempDictKeyStr = ""
+
+    For Each elements In arr
+       tempDictKeyStr = tempDictKeyStr & "_" & elements
+    Next elements
+
+    tempDictKeyStr = Right(tempDictKeyStr, Len(tempDictKeyStr) - 1)
+
+    dictKeyGeneratorWithProvidedArrayElements = tempDictKeyStr
+    
+End Function
+
 Private Function upNoAndYearExtrac(upNo As Variant) As Variant
   'this function extract up and year of up
       
