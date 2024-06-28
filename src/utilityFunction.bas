@@ -1280,7 +1280,7 @@ Private Function upClause8MushakOrBillOfEntryCompare(arrUpClause8Range As Varian
         clause8MushakOrBillOfEntryValue = upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 16)
 
             'filter by LC
-        specificMushakOrBillOfEntryInformationFromSourceData = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, clause8MushakOrBillOfEntryLcAndDate, 4)
+        specificMushakOrBillOfEntryInformationFromSourceData = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, "^" & clause8MushakOrBillOfEntryLcAndDate, 4)
 
         If IsArray(specificMushakOrBillOfEntryInformationFromSourceData) Then
 
