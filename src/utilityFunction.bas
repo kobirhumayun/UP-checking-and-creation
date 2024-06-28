@@ -1275,15 +1275,20 @@ Private Function upClause8MushakOrBillOfEntryCompare(arrUpClause8Range As Varian
 
         clause8MushakOrBillOfEntryLcAndDate = upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 1)
 
-'        specificMushakOrBillOfEntryInformationFromSourceData = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, clause8MushakOrBillOfEntryAndDate, 3)
-
         clause8MushakOrBillOfEntryQty = upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 15)
 
         clause8MushakOrBillOfEntryValue = upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 16)
 
-        
-        specificMushakOrBillOfEntryInformationFromSourceData = Application.Run("utilityFunction.filterMushakOrBillOfEntryArrayWithCompareQtyAndValue", clause8MushakOrBillOfEntryAndDate, 3, clause8MushakOrBillOfEntryQty, sourceDataQtyColumn, clause8MushakOrBillOfEntryValue, sourceDataValueColumn, sourceData)
+            'filter by LC
+        specificMushakOrBillOfEntryInformationFromSourceData = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, clause8MushakOrBillOfEntryLcAndDate, 4)
 
+        If IsArray(specificMushakOrBillOfEntryInformationFromSourceData) Then
+
+            specificMushakOrBillOfEntryInformationFromSourceData = Application.Run("utilityFunction.filterMushakOrBillOfEntryArrayWithCompareQtyAndValue", _
+                clause8MushakOrBillOfEntryAndDate, 3, clause8MushakOrBillOfEntryQty, sourceDataQtyColumn, clause8MushakOrBillOfEntryValue, sourceDataValueColumn, _
+                    specificMushakOrBillOfEntryInformationFromSourceData)
+
+        End If
 
         emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
 
