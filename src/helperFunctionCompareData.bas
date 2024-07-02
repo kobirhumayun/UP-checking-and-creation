@@ -95,7 +95,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
 '    LC index no. finding from source data (reverse direction) #start#
     patternStr = ".+"
     regex.pattern = patternStr
-    Set temp = regex.Execute(clause7OddFiltered(i, 3))
+    Set temp = regex.Execute(clause7OddFiltered(i, 2))
     
     Dim lcNoFromUpClause7 As String
     lcNoFromUpClause7 = temp.Item(0)
@@ -114,7 +114,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
         intialReturnArr(emptyIndex, 3) = ""
         intialReturnArr(emptyIndex, 4) = "Not found in source data"
         
-        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("c" & i * 2 - 1), "Mismatch"
+        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("b" & i * 2 - 1), "Mismatch"
 
         GoTo skipIteration
         
@@ -134,7 +134,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
     intialReturnArr(emptyIndex, 3) = ""
     intialReturnArr(emptyIndex, 4) = ""
     
-    Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("c" & i * 2 - 1), "OK"
+    Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("b" & i * 2 - 1), "OK"
     
     
 '    buyer name compare #start#
@@ -177,7 +177,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
     'Bank (start)
     Dim bankNameFromSourceData, bankNameFromUpClause7 As String
     bankNameFromSourceData = sourceData(lcIndexInSourceData, 3)
-    bankNameFromUpClause7 = clause7OddFiltered(i, 11)
+    bankNameFromUpClause7 = clause7OddFiltered(i, 9)
 
     patternStr = bankNameFromSourceData
     regex.pattern = "^" & Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", patternStr)
@@ -189,7 +189,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
         Result = "Mismatch"
     End If
     
-    Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("k" & i * 2 - 1), Result
+    Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("i" & i * 2 - 1), Result
 
     emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
 
@@ -251,7 +251,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
     'Qty. by LC (start)
     Dim filteredLcForQtyFromSourceData, filteredLcForQtyFromUpClause7 As Variant
     filteredLcForQtyFromSourceData = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 4)
-    filteredLcForQtyFromUpClause7 = Application.Run("utilityFunction.towDimensionalArrayFilter", clause7OddFiltered, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 3)
+    filteredLcForQtyFromUpClause7 = Application.Run("utilityFunction.towDimensionalArrayFilter", clause7OddFiltered, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 2)
 
     Dim qtyByLCFromSourceData, qtyByLCFromUpClause7 As String
     qtyByLCFromSourceData = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromSourceData, 9)
@@ -324,7 +324,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
     'Value by LC (start)
     Dim filteredLcForValueFromSourceData, filteredLcForValueFromUpClause7 As Variant
     filteredLcForValueFromSourceData = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 4)
-    filteredLcForValueFromUpClause7 = Application.Run("utilityFunction.towDimensionalArrayFilter", clause7OddFiltered, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 3)
+    filteredLcForValueFromUpClause7 = Application.Run("utilityFunction.towDimensionalArrayFilter", clause7OddFiltered, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 2)
 
     Dim valueByLCFromSourceData, valueByLCFromUpClause7 As String
     valueByLCFromSourceData = Application.Run("utilityFunction.sumArrColumn", filteredLcForValueFromSourceData, 6)
