@@ -2024,7 +2024,7 @@ Private Function upClause11CompareWithSource(arrUpClause11Range As Variant, upCl
             For buyerIterator = 1 To UBound(upClause6Buyerinformation, 1)
     
                 buyerNameFromClause6 = upClause6Buyerinformation(buyerIterator, 1)
-                buyerNameFromClause11 = arrUpClause11(buyerIterator, 3)
+                buyerNameFromClause11 = arrUpClause11(buyerIterator, 2)
                 
                 regex.pattern = "^\d\)"
                 Result = Trim(regex.Replace(Trim(buyerNameFromClause6), "")) = Trim(buyerNameFromClause11)
@@ -2036,7 +2036,7 @@ Private Function upClause11CompareWithSource(arrUpClause11Range As Variant, upCl
                         Result = "Mismatch"
                     End If
     
-                Application.Run "utilityFunction.errorMarkingForValue", arrUpClause11Range.Range("C" & buyerIterator), Result
+                Application.Run "utilityFunction.errorMarkingForValue", arrUpClause11Range.Range("B" & buyerIterator), Result
     
                 emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
     
@@ -2055,7 +2055,7 @@ Private Function upClause11CompareWithSource(arrUpClause11Range As Variant, upCl
     
     
                 buyerNameFromClause6 = upClause6Buyerinformation
-                buyerNameFromClause11 = arrUpClause11(1, 3)
+                buyerNameFromClause11 = arrUpClause11(1, 2)
                 
                 regex.pattern = "^\d\)"
                 Result = Trim(regex.Replace(Trim(buyerNameFromClause6), "")) = Trim(buyerNameFromClause11)
@@ -2066,7 +2066,7 @@ Private Function upClause11CompareWithSource(arrUpClause11Range As Variant, upCl
                         Result = "Mismatch"
                     End If
     
-                Application.Run "utilityFunction.errorMarkingForValue", arrUpClause11Range.Range("C" & 1), Result
+                Application.Run "utilityFunction.errorMarkingForValue", arrUpClause11Range.Range("B" & 1), Result
     
                 emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
     
