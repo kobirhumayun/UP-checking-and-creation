@@ -1354,8 +1354,8 @@ Private Function upClause8MushakOrBillOfEntryCompare(arrUpClause8Range As Varian
                     Result = "Mismatch"
                 End If
 
-                Application.Run "utilityFunction.errorMarkingForValue", arrUpClause8Range.Range("a" & upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 27)), Result
-                Application.Run "EditComment", arrUpClause8Range.Range("a" & upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 27)), "Compare in import performance " & Result
+                Application.Run "utilityFunction.errorMarkingForValue", arrUpClause8Range.Range("b" & upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 27)), Result
+                Application.Run "EditComment", arrUpClause8Range.Range("b" & upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 27)), "Compare in import performance " & Result
 
             emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
 
