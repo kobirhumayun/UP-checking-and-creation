@@ -1273,7 +1273,7 @@ Private Function upClause8MushakOrBillOfEntryCompare(arrUpClause8Range As Varian
 
         clause8MushakOrBillOfEntryAndDate = upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 6)
 
-        clause8MushakOrBillOfEntryLcAndDate = upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 1)
+        clause8MushakOrBillOfEntryLcAndDate = upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 2)
 
         clause8MushakOrBillOfEntryQty = upClause8mushakOrBillOfEntryArr(MushakOrBillOfEntryIterator, 15)
 
