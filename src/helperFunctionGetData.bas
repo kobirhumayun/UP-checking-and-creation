@@ -133,7 +133,7 @@ Private Function upClause12AYarnConsumptioninformation() As Variant
 'this function give yarn consumption information from active sheet
 Dim topRow, bottomRow As Variant
 
-topRow = ActiveSheet.Cells.Find("12| (K)", LookAt:=xlPart).Row + 2
+topRow = ActiveSheet.Cells.Find("12| (K)", LookAt:=xlPart).Row + 3
 bottomRow = Range("Z" & topRow).End(xlDown).Row
 
 Dim workingRange As Range
