@@ -5,7 +5,7 @@ Option Explicit
 Private Function upClause8MakeUniqueRowsFromProvidedWs(ws As Worksheet)
 
     Dim topRow As Variant
-    topRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row + 3
+    topRow = ws.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 3
 
     Dim i As Long
 
@@ -75,7 +75,7 @@ Private Function upClause8InformationForCreateUpFromProvidedWs(ws As Worksheet, 
 
     Dim topRow, bottomRow As Variant
 
-    topRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row + 3
+    topRow = ws.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 3
     bottomRow = ws.Range("V" & topRow).End(xlDown).Row - 1
 
     Dim workingRange As Range
@@ -785,7 +785,7 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
     Dim upClause8DicGroupByGoods As Object
 
     Dim topRow As Variant
-    topRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row + 3
+    topRow = ws.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 3
 
     Dim i, j, loopCounter As Long
 

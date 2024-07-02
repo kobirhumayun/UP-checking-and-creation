@@ -51,7 +51,7 @@ Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supp
 Dim topRow, bottomRow As Variant
 
 topRow = ActiveSheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxt"), LookAt:=xlPart).Row + 2
-bottomRow = Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row - 1
+bottomRow = Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row - 1
 
 Dim workingRange As Range
 Set workingRange = Range("B" & topRow & ":" & "AA" & bottomRow)
@@ -69,7 +69,7 @@ Private Function upClause7LcinformationRangeObjectFromProvidedWs(ws As Worksheet
     Dim topRow, bottomRow As Variant
 
     topRow = ws.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxt"), LookAt:=xlPart).Row + 1
-    bottomRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row - 1
+    bottomRow = ws.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row - 1
 
     Dim workingRange As Range
     Set workingRange = ws.Range("A" & topRow & ":" & "AI" & bottomRow)
@@ -82,7 +82,7 @@ Private Function upClause8BtbLcinformationRangeObject() As Variant
 'this function give BTB LC information Range Object from active sheet
 Dim topRow, bottomRow As Variant
 
-topRow = ActiveSheet.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row + 3
+topRow = ActiveSheet.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 3
 bottomRow = Range("V" & topRow).End(xlDown).Row
 
 Dim workingRange As Range
@@ -96,7 +96,7 @@ Private Function upClause8BtbLcinformationRangeObjectFromProvidedWs(ws As Worksh
     'this function give BTB LC information Range Object from provided sheet
     Dim topRow, bottomRow As Variant
 
-    topRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row + 3
+    topRow = ws.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 3
     bottomRow = ws.Range("V" & topRow).End(xlDown).Row
 
     Dim workingRange As Range
@@ -110,7 +110,7 @@ Private Function upClause8BtbLcinformationRangeObjectPreviousFormatFromProvidedW
     'this function give BTB LC information Range Object from provided sheet
     Dim topRow, bottomRow As Variant
 
-    topRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row + 2
+    topRow = ws.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 2
     bottomRow = ws.Range("S" & topRow).End(xlDown).Row
 
     Dim workingRange As Range

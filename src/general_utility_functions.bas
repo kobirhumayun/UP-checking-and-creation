@@ -484,7 +484,7 @@ Private Function upClause8InformationFromProvidedWs(ws As Worksheet) As Object
 
     Dim topRow, bottomRow As Variant
 
-    topRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row + 3
+    topRow = ws.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 3
     bottomRow = ws.Range("V" & topRow).End(xlDown).Row - 1
 
     Dim workingRange As Range
