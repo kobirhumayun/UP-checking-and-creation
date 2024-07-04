@@ -815,7 +815,7 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
         For Each dicKey In upClause8DicGroupByGoods.keys
 
 
-            Cells(i + loopCounter, 2).value = upClause8DicGroupByGoods(dicKey)("lcNoAndDt")
+            Cells(i + loopCounter, 3).value = upClause8DicGroupByGoods(dicKey)("lcNoAndDt")
             Cells(i + loopCounter, 7).value = upClause8DicGroupByGoods(dicKey)("mushakOrBillOfEntryNoAndDt")
             Cells(i + loopCounter, 14).value = upClause8DicGroupByGoods(dicKey)("nameOfGoods")
             Cells(i + loopCounter, 15).value = upClause8DicGroupByGoods(dicKey)("hsCode")
@@ -868,7 +868,7 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
             Cells(i + loopCounter, 33).FormulaR1C1 = "=RC[-6]/RC[-7]"
 
 
-            Cells(i + loopCounter, 2).Resize(1, 5).Merge
+            Cells(i + loopCounter, 3).Resize(1, 4).Merge
             Cells(i + loopCounter, 7).Resize(1, 7).Merge
 
 
