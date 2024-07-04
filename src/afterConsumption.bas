@@ -1104,11 +1104,11 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
             'put Sl. No.
         upClause11UdExpIpinformationRangeObject.Range("b" & j + 1).value = j + 1
-        upClause11UdExpIpinformationRangeObject.Range("b" & j + 1 & ":c" & j + 1).Merge
+        ' upClause11UdExpIpinformationRangeObject.Range("b" & j + 1 & ":c" & j + 1).Merge
 
             'put buyer name
-        upClause11UdExpIpinformationRangeObject.Range("d" & j + 1).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("NameofBuyers")
-        upClause11UdExpIpinformationRangeObject.Range("d" & j + 1 & ":p" & j + 1).Merge
+        upClause11UdExpIpinformationRangeObject.Range("c" & j + 1).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("NameofBuyers")
+        upClause11UdExpIpinformationRangeObject.Range("c" & j + 1 & ":p" & j + 1).Merge
 
 
             'extract UD IP EXP & Date
@@ -1129,8 +1129,7 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
         tempUdIpExpAndDtJoinStr = "" 'reset
 
-            'put template for reduce manual input
-        upClause11UdExpIpinformationRangeObject.Range("t" & j + 1).value = "." & Chr(10) & "Qty- Pcs"
+        upClause11UdExpIpinformationRangeObject.Range("t" & j + 1).value = "Denim Garments"
         upClause11UdExpIpinformationRangeObject.Range("t" & j + 1 & ":u" & j + 1).Merge
 
         upClause11UdExpIpinformationRangeObject.Range("v" & j + 1).value = "Denim Fabric"
