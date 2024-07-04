@@ -787,9 +787,11 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
     Dim topRow As Variant
     topRow = ws.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 3
 
-    Dim i, j, loopCounter As Long
+    Dim i, j, loopCounter, mushakOrBillOfEntrySl As Long
 
     Dim dicKey As Variant
+
+    mushakOrBillOfEntrySl = 0
 
     For i = topRow To 1000
 
@@ -814,7 +816,9 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
 
         For Each dicKey In upClause8DicGroupByGoods.keys
 
+            mushakOrBillOfEntrySl = mushakOrBillOfEntrySl + 1
 
+            Cells(i + loopCounter, 2).value = mushakOrBillOfEntrySl
             Cells(i + loopCounter, 3).value = upClause8DicGroupByGoods(dicKey)("lcNoAndDt")
             Cells(i + loopCounter, 7).value = upClause8DicGroupByGoods(dicKey)("mushakOrBillOfEntryNoAndDt")
             Cells(i + loopCounter, 14).value = upClause8DicGroupByGoods(dicKey)("nameOfGoods")
