@@ -81,9 +81,10 @@ Private Function dealWithUpClause7(upClause7RangObj As Range, sourceDataAsDicUpI
 
         Application.DisplayAlerts = False
 
-        lcKey = sourceDataAsDicUpIssuingStatus.keys()(0) 'take first lc key
-        Set tempRange = upClause7RangObj(1, 1).Resize(1, upClause7RangObj.Columns.Count)  'set header row
-        Application.Run "createUp.putHeaderFieldAsFirstLcInfoUpClause7", tempRange, sourceDataAsDicUpIssuingStatus, lcKey
+            'commented, cause no need to change header
+        ' lcKey = sourceDataAsDicUpIssuingStatus.keys()(0) 'take first lc key
+        ' Set tempRange = upClause7RangObj(1, 1).Resize(1, upClause7RangObj.Columns.Count)  'set header row
+        ' Application.Run "createUp.putHeaderFieldAsFirstLcInfoUpClause7", tempRange, sourceDataAsDicUpIssuingStatus, lcKey
 
 
         For j = 1 To sourceDataAsDicUpIssuingStatus.Count
@@ -97,7 +98,7 @@ Private Function dealWithUpClause7(upClause7RangObj As Range, sourceDataAsDicUpI
 
             'put sl. no.
             tempRange(1, 2) = j
-            tempRange(1, 2).Resize(2, 2).Merge
+            tempRange(1, 2).Resize(2).Merge
 
             Application.Run "createUp.putCommonFieldAsLcInfoUpClause7", tempRange, sourceDataAsDicUpIssuingStatus, lcKey
 
@@ -141,13 +142,13 @@ Private Function putCommonFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDataA
     End If
 
     'put LC no.
-    lcRangObj(1, 4).NumberFormat = "@"
-    lcRangObj(1, 4).value = temp
-    lcRangObj(1, 4).Resize(2, 8).Merge
+    lcRangObj(1, 3).NumberFormat = "@"
+    lcRangObj(1, 3).value = temp
+    lcRangObj(1, 3).Resize(2, 7).Merge
 
     'put Bank
-    lcRangObj(1, 12).value = sourceDataAsDicUpIssuingStatus(lcKey)("LCIssuingBank")
-    lcRangObj(1, 12).Resize(2, 4).Merge
+    lcRangObj(1, 10).value = sourceDataAsDicUpIssuingStatus(lcKey)("LCIssuingBank")
+    lcRangObj(1, 10).Resize(2, 6).Merge
 
     'put shipment date
     lcRangObj(1, 16).value = DateValue(sourceDataAsDicUpIssuingStatus(lcKey)("ShipmentDate"))
