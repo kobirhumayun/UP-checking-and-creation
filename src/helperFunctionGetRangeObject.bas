@@ -205,7 +205,7 @@ Private Function upClause12AYarnConsumptioninformationRangeObjectFromProvidedWs(
     'give yarn consumption information Range Object from provided sheet
     Dim topRow, bottomRow As Variant
 
-    topRow = ws.Cells.Find("12| (K)", LookAt:=xlPart).Row + 2
+    topRow = ws.Cells.Find("12| (K)", LookAt:=xlPart).Row + 3
     bottomRow = ws.Range("Z" & topRow).End(xlDown).Row
 
     Dim workingRange As Range
