@@ -117,7 +117,7 @@ Private Function upClause8InformationForCreateUpFromProvidedWs(ws As Worksheet, 
 
     For i = 1 To UBound(temp) ' create dictionary as mushak or bill of entry
 
-        propertiesValArr(1) = temp(i, 2)
+        propertiesValArr(1) = temp(i, 3)
         propertiesValArr(2) = temp(i, 7)
         propertiesValArr(3) = temp(i, 14)
         propertiesValArr(4) = temp(i, 15)
@@ -142,7 +142,7 @@ Private Function upClause8InformationForCreateUpFromProvidedWs(ws As Worksheet, 
             tempMushakOrBillOfEntryDic("inThisUpUsedQtyOfGoodsComment") = "No Comment"
         End If
 
-        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", temp(i, 2), temp(i, 7), temp(i, 16), temp(i, 17))
+        tempMuOrBillKey = Application.Run("general_utility_functions.dictKeyGeneratorWithLcMushakOrBillOfEntryQtyAndValue", temp(i, 3), temp(i, 7), temp(i, 16), temp(i, 17))
 
         upClause8Dic.Add tempMuOrBillKey, tempMushakOrBillOfEntryDic
 
