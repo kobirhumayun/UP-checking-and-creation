@@ -640,11 +640,17 @@ Private Function upClause8CompareWithSource(arrUpClause8Range As Variant, source
     Dim upClause8LocalLcSumQty, upClause8LocalLcSumValue As Variant
     Dim sourceDataUpIssuingStatusLocalLcSumQty, sourceDataUpIssuingStatusLocalLcSumValue As Variant
     
-    
     If IsArray(upClause8localYarn) Then
+
+        Dim newInsertedUpClause8localYarn As Variant
+        newInsertedUpClause8localYarn = Application.Run("utilityFunction.towDimensionalArrayFilter", upClause8localYarn, "^0$", 17)
+        
+    End If
+
+    If IsArray(newInsertedUpClause8localYarn) Then
     
-        upClause8LocalLcSumQty = Application.Run("utilityFunction.sumArrColumn", upClause8localYarn, 15)
-        upClause8LocalLcSumValue = Application.Run("utilityFunction.sumArrColumn", upClause8localYarn, 16)
+        upClause8LocalLcSumQty = Application.Run("utilityFunction.sumArrColumn", newInsertedUpClause8localYarn, 15)
+        upClause8LocalLcSumValue = Application.Run("utilityFunction.sumArrColumn", newInsertedUpClause8localYarn, 16)
     
     Else
     
@@ -666,12 +672,12 @@ Private Function upClause8CompareWithSource(arrUpClause8Range As Variant, source
                 Result = "Mismatch = " & CLng(upClause8LocalLcSumQty) - CLng(sourceDataUpIssuingStatusLocalLcSumQty)
             End If
 
-    If IsArray(upClause8localYarn) Then
+    If IsArray(newInsertedUpClause8localYarn) Then
 
         Dim localLcArrIterator As Integer
 
-        For localLcArrIterator = 1 To UBound(upClause8localYarn, 1)
-            Application.Run "utilityFunction.errorMarkingForValue", arrUpClause8Range.Range("O" & upClause8localYarn(localLcArrIterator, 27)), Result
+        For localLcArrIterator = 1 To UBound(newInsertedUpClause8localYarn, 1)
+            Application.Run "utilityFunction.errorMarkingForValue", arrUpClause8Range.Range("O" & newInsertedUpClause8localYarn(localLcArrIterator, 27)), Result
         Next localLcArrIterator
     
     End If
@@ -692,10 +698,10 @@ Private Function upClause8CompareWithSource(arrUpClause8Range As Variant, source
                 Result = "Mismatch = " & CLng(upClause8LocalLcSumValue) - CLng(sourceDataUpIssuingStatusLocalLcSumValue)
             End If
 
-    If IsArray(upClause8localYarn) Then
+    If IsArray(newInsertedUpClause8localYarn) Then
     
-        For localLcArrIterator = 1 To UBound(upClause8localYarn, 1)
-            Application.Run "utilityFunction.errorMarkingForValue", arrUpClause8Range.Range("P" & upClause8localYarn(localLcArrIterator, 27)), Result
+        For localLcArrIterator = 1 To UBound(newInsertedUpClause8localYarn, 1)
+            Application.Run "utilityFunction.errorMarkingForValue", arrUpClause8Range.Range("P" & newInsertedUpClause8localYarn(localLcArrIterator, 27)), Result
         Next localLcArrIterator
     
     End If
