@@ -1249,7 +1249,7 @@ If IsArray(upClause8localYarn) Then
 
 Dim filteredB2bLcFromUpClause8 As Variant
 
-    filteredB2bLcFromUpClause8 = Application.Run("utilityFunction.towDimensionalArrayFilter", upClause8localYarn, b2bLcFromSourceDataUpIssuingStatus, 1)
+    filteredB2bLcFromUpClause8 = Application.Run("utilityFunction.towDimensionalArrayFilter", upClause8localYarn, b2bLcFromSourceDataUpIssuingStatus, 2)
 
 Else
 
@@ -1342,7 +1342,7 @@ For localLcArrIteratorByLc = 1 To UBound(filteredB2bLcFromUpClause8, 1)
 
     regex.pattern = patternStr
     
-    Result = regex.test(filteredB2bLcFromUpClause8(localLcArrIteratorByLc, 1))
+    Result = regex.test(filteredB2bLcFromUpClause8(localLcArrIteratorByLc, 2))
 
     If Not Result Then
 
@@ -1368,12 +1368,12 @@ For localLcArrIteratorByLc = 1 To UBound(filteredB2bLcFromUpClause8, 1)
         Result = "Mismatch"
     End If
 
-    Application.Run "utilityFunction.errorMarkingForValue", arrUpClause8Range.Range("A" & filteredB2bLcFromUpClause8(localLcArrIteratorByLc, UBound(filteredB2bLcFromUpClause8, 2))), Result
+    Application.Run "utilityFunction.errorMarkingForValue", arrUpClause8Range.Range("B" & filteredB2bLcFromUpClause8(localLcArrIteratorByLc, UBound(filteredB2bLcFromUpClause8, 2))), Result
     
     
-    Application.Run "EditComment", arrUpClause8Range.Range("A" & filteredB2bLcFromUpClause8(localLcArrIteratorByLc, UBound(filteredB2bLcFromUpClause8, 2))), "B2B LC Qty. Sum by LC " & upClause8LocalLcSumQtyByLcResult
-    Application.Run "EditComment", arrUpClause8Range.Range("A" & filteredB2bLcFromUpClause8(localLcArrIteratorByLc, UBound(filteredB2bLcFromUpClause8, 2))), "B2B LC Value Sum by LC " & upClause8LocalLcSumValueByLcResult
-    Application.Run "EditComment", arrUpClause8Range.Range("A" & filteredB2bLcFromUpClause8(localLcArrIteratorByLc, UBound(filteredB2bLcFromUpClause8, 2))), "B2B LC Date " & upClause8LocalLcDateResult
+    Application.Run "EditComment", arrUpClause8Range.Range("B" & filteredB2bLcFromUpClause8(localLcArrIteratorByLc, UBound(filteredB2bLcFromUpClause8, 2))), "B2B LC Qty. Sum by LC " & upClause8LocalLcSumQtyByLcResult
+    Application.Run "EditComment", arrUpClause8Range.Range("B" & filteredB2bLcFromUpClause8(localLcArrIteratorByLc, UBound(filteredB2bLcFromUpClause8, 2))), "B2B LC Value Sum by LC " & upClause8LocalLcSumValueByLcResult
+    Application.Run "EditComment", arrUpClause8Range.Range("B" & filteredB2bLcFromUpClause8(localLcArrIteratorByLc, UBound(filteredB2bLcFromUpClause8, 2))), "B2B LC Date " & upClause8LocalLcDateResult
     
 Next localLcArrIteratorByLc
 
