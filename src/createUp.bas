@@ -261,27 +261,33 @@ Private Function putIpExpMLcFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDat
         If Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(lcKey)("UDNoIPNo"), "^IP", True, True, True) Then
             ' non Garments EPZ
 
-            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 10)
+            ' concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 10)
 
-            lcRangObj(1, 22).value = Trim(Replace(concateExp, "EXP:", ""))
-            lcRangObj(1, 22).Resize(2, 3).Merge
+            ' lcRangObj(1, 22).value = Trim(Replace(concateExp, "EXP:", ""))
+            ' lcRangObj(1, 22).Resize(2, 3).Merge
 
-            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 10)
+            ' concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 10)
 
-            lcRangObj(1, 25).value = Trim(Replace(concateIp, "IP:", ""))
-            lcRangObj(1, 25).Resize(2, 3).Merge
+            ' lcRangObj(1, 25).value = Trim(Replace(concateIp, "IP:", ""))
+            ' lcRangObj(1, 25).Resize(2, 3).Merge
+
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32)
+            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 32)
+            lcRangObj(1, 22).value = concateExp & Chr(10) & concateIp
+            lcRangObj(1, 22).Resize(2, 6).Merge
 
         ElseIf Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(lcKey)("UDNoIPNo"), "^EXP", True, True, True) Then
             ' non Garments direct
 
-            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 10)
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32)
 
-            lcRangObj(1, 22).value = Trim(Replace(concateExp, "EXP:", ""))
+            ' lcRangObj(1, 22).value = Trim(Replace(concateExp, "EXP:", ""))
+            lcRangObj(1, 22).value = concateExp
             lcRangObj(1, 22).Resize(2, 6).Merge
         Else
             ' non Garments Deem
 
-            concateMLc = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", mLC, ".", "mLcNo", "date", 10)
+            concateMLc = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", mLC, ".", "mLcNo", "date", 32)
 
             lcRangObj(1, 22).value = Trim(concateMLc)
             lcRangObj(1, 22).Resize(2, 6).Merge
@@ -290,7 +296,7 @@ Private Function putIpExpMLcFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDat
 
     Else
         ' Garments
-        lcRangObj(1, 22).value = sourceDataAsDicUpIssuingStatus(lcKey)("LCSCNo") & Chr(10) & sourceDataAsDicUpIssuingStatus(lcKey)("LCIssueDate") ' just use LC or SC no. as MLC
+        lcRangObj(1, 22).value = sourceDataAsDicUpIssuingStatus(lcKey)("LCSCNo") & Chr(32) & sourceDataAsDicUpIssuingStatus(lcKey)("LCIssueDate") ' just use LC or SC no. as MLC
         lcRangObj(1, 22).Resize(2, 6).Merge
 
     End If
