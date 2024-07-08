@@ -1034,6 +1034,30 @@ Private Function dealWithUpClause9WithPreviousUpData(ws As Worksheet, newUpClaus
 
 End Function
 
+Private Function upClause9InfoFromProvidedFile(upfileName As String, openFile As Boolean, closeFile As Boolean) As Variant
+    
+    If openFile Then
+        Application.Run "utilityFunction.openFile", upfileName ' provide filename
+    End If
+    
+    ActiveWorkbook.Worksheets(2).Activate
+    ActiveSheet.AutoFilterMode = False
+
+    Dim upClause9StockinformationRangeObject As Object
+    Set upClause9StockinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause9StockinformationRangeObjectFromProvidedWs", ActiveSheet)
+    Set upClause9StockinformationRangeObject = upClause9StockinformationRangeObject(1, 1).Resize(6, 29)
+    
+    Dim upClause9Val As Variant
+    upClause9Val = upClause9StockinformationRangeObject.Value
+    
+    If closeFile Then
+       Application.Run "utilityFunction.closeFile", upfileName ' provide filename
+    End If
+    
+    upClause9InfoFromProvidedFile = upClause9Val
+
+End Function
+
 Private Function sumNewUpClause8ClassifiedPart(newUpClause8Dic As Object) As Object
     
     Dim dicKey As Variant
