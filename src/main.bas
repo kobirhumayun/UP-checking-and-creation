@@ -1115,6 +1115,9 @@ Sub updateAfterUpClause8()
     Dim previousUpfileName As String
     previousUpfileName = "UP-" & extractedUpAndUpYear("only_up_no") - 1 & "-" & extractedUpAndUpYear("only_up_year") & ".xlsx"
 
+    Dim previousUpClause9Info As Variant
+    previousUpClause9Info = Application.Run("afterConsumption.upClause9InfoFromProvidedFile", previousUpfileName, True, True)
+
     Dim importPerformanceFileName As String
     importPerformanceFileName = "Import Performance Statement of PDL-2024-2025.xlsx"
 
@@ -1134,7 +1137,7 @@ Sub updateAfterUpClause8()
     Dim withConRangeSourceDataAsDicUpIssuingStatus As Object
     Set withConRangeSourceDataAsDicUpIssuingStatus = Application.Run("afterConsumption.addConRangeToSourceDataAsDicUpIssuingStatus", consumptionWorksheet, sourceDataAsDicUpIssuingStatus)
     
-    Application.Run "afterConsumption.dealWithUpClause9WithPreviousUpData", upWorksheet, upClause8InfoClassifiedPartDic, sourceDataImportPerformanceTotalSummary
+    Application.Run "afterConsumption.dealWithUpClause9WithPreviousUpData", upWorksheet, upClause8InfoClassifiedPartDic, sourceDataImportPerformanceTotalSummary, previousUpClause9Info
 
     Application.Run "afterConsumption.dealWithUpClause11", upWorksheet, withConRangeSourceDataAsDicUpIssuingStatus
 
