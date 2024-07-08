@@ -1109,6 +1109,19 @@ Sub updateAfterUpClause8()
     Dim sourceDataAsDicUpIssuingStatus As Variant
     Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
 
+    Dim extractedUpAndUpYear As Object
+    Set extractedUpAndUpYear = Application.Run("general_utility_functions.upNoAndYearExtracAsDict", newUp)
+
+    Dim previousUpfileName As String
+    previousUpfileName = "UP-" & extractedUpAndUpYear("only_up_no") - 1 & "-" & extractedUpAndUpYear("only_up_year") & ".xlsx"
+
+    Dim importPerformanceFileName As String
+    importPerformanceFileName = "Import Performance Statement of PDL-2024-2025.xlsx"
+
+    'take source data from Import Performance Total Summary
+    Dim sourceDataImportPerformanceTotalSummary As Variant
+    sourceDataImportPerformanceTotalSummary = Application.Run("helperFunctionGetData.sourceDataImportPerformance", importPerformanceFileName, "Summary of Grand Total", True, True)
+
     'take UP clause 8 info from "UP" sheet
     Dim upClause8InfoDic As Object
     Set upClause8InfoDic = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", upWorksheet)
@@ -1121,7 +1134,7 @@ Sub updateAfterUpClause8()
     Dim withConRangeSourceDataAsDicUpIssuingStatus As Object
     Set withConRangeSourceDataAsDicUpIssuingStatus = Application.Run("afterConsumption.addConRangeToSourceDataAsDicUpIssuingStatus", consumptionWorksheet, sourceDataAsDicUpIssuingStatus)
     
-    Application.Run "afterConsumption.upClause9UpdateOnlyUsedQty", upWorksheet, upClause8InfoClassifiedPartDic
+    Application.Run "afterConsumption.dealWithUpClause9WithPreviousUpData", upWorksheet, upClause8InfoClassifiedPartDic, sourceDataImportPerformanceTotalSummary
 
     Application.Run "afterConsumption.dealWithUpClause11", upWorksheet, withConRangeSourceDataAsDicUpIssuingStatus
 
