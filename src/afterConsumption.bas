@@ -994,23 +994,41 @@ Private Function dealWithUpClause9(ws As Worksheet, newUpClause8InfoClassifiedPa
 
 End Function
 
-Private Function upClause9UpdateOnlyUsedQty(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object)
+Private Function dealWithUpClause9WithPreviousUpData(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object, sourceDataImportPerformanceTotalSummary As Variant)
 
     Dim upClause9StockinformationRangeObject As Variant
+    Dim upClause9Val As Variant
     Dim temp As Variant
 
     Set upClause9StockinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause9StockinformationRangeObjectFromProvidedWs", ws)
     Set upClause9StockinformationRangeObject = upClause9StockinformationRangeObject(1, 1).Resize(6, 29)
 
-    ReDim temp(1 To 6, 1 To 1)
+    upClause9Val = upClause9StockinformationRangeObject.Value
+    ReDim temp(1 To UBound(upClause9Val, 1), 1 To 1)
 
-    'used in this UP Qty. update
-    temp(1, 1) = newUpClause8InfoClassifiedPartDic("yarnImportQty")
-    temp(2, 1) = newUpClause8InfoClassifiedPartDic("yarnLocalQty")
-    temp(3, 1) = newUpClause8InfoClassifiedPartDic("dyesQty")
-    temp(4, 1) = newUpClause8InfoClassifiedPartDic("chemicalsImportQty")
-    temp(5, 1) = newUpClause8InfoClassifiedPartDic("chemicalsLocalQty")
-    temp(6, 1) = newUpClause8InfoClassifiedPartDic("stretchWrappingFilmQty")
+    Dim i As Long
+
+        'previous used Qty. update
+    For i = 1 To UBound(upClause9Val, 1)
+        temp(i, 1) = upClause9Val(i, 28)
+    Next i
+
+    upClause9StockinformationRangeObject.Columns(20) = temp
+
+        'new import Qty. update
+    For i = 1 To UBound(upClause9Val, 1)
+        temp(i, 1) = sourceDataImportPerformanceTotalSummary(i + 1, 5)
+    Next i
+
+    upClause9StockinformationRangeObject.Columns(16) = temp
+
+        'used in this UP Qty. update
+        temp(1, 1) = newUpClause8InfoClassifiedPartDic("yarnImportQty")
+        temp(2, 1) = newUpClause8InfoClassifiedPartDic("yarnLocalQty")
+        temp(3, 1) = newUpClause8InfoClassifiedPartDic("dyesQty")
+        temp(4, 1) = newUpClause8InfoClassifiedPartDic("chemicalsImportQty")
+        temp(5, 1) = newUpClause8InfoClassifiedPartDic("chemicalsLocalQty")
+        temp(6, 1) = newUpClause8InfoClassifiedPartDic("stretchWrappingFilmQty")
 
     upClause9StockinformationRangeObject.Columns(24) = temp
 
