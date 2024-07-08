@@ -994,7 +994,7 @@ Private Function dealWithUpClause9(ws As Worksheet, newUpClause8InfoClassifiedPa
 
 End Function
 
-Private Function dealWithUpClause9WithPreviousUpData(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object, sourceDataImportPerformanceTotalSummary As Variant)
+Private Function dealWithUpClause9WithPreviousUpData(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object, sourceDataImportPerformanceTotalSummary As Variant, previousUpClause9Val As Variant)
 
     Dim upClause9StockinformationRangeObject As Variant
     Dim upClause9Val As Variant
@@ -1009,8 +1009,8 @@ Private Function dealWithUpClause9WithPreviousUpData(ws As Worksheet, newUpClaus
     Dim i As Long
 
         'previous used Qty. update
-    For i = 1 To UBound(upClause9Val, 1)
-        temp(i, 1) = upClause9Val(i, 28)
+    For i = 1 To UBound(previousUpClause9Val, 1)
+        temp(i, 1) = previousUpClause9Val(i, 28)
     Next i
 
     upClause9StockinformationRangeObject.Columns(20) = temp
