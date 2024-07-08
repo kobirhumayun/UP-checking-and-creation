@@ -994,6 +994,28 @@ Private Function dealWithUpClause9(ws As Worksheet, newUpClause8InfoClassifiedPa
 
 End Function
 
+Private Function upClause9UpdateOnlyUsedQty(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object)
+
+    Dim upClause9StockinformationRangeObject As Variant
+    Dim temp As Variant
+
+    Set upClause9StockinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause9StockinformationRangeObjectFromProvidedWs", ws)
+    Set upClause9StockinformationRangeObject = upClause9StockinformationRangeObject(1, 1).Resize(6, 29)
+
+    ReDim temp(1 To 6, 1 To 1)
+
+    'used in this UP Qty. update
+    temp(1, 1) = newUpClause8InfoClassifiedPartDic("yarnImportQty")
+    temp(2, 1) = newUpClause8InfoClassifiedPartDic("yarnLocalQty")
+    temp(3, 1) = newUpClause8InfoClassifiedPartDic("dyesQty")
+    temp(4, 1) = newUpClause8InfoClassifiedPartDic("chemicalsImportQty")
+    temp(5, 1) = newUpClause8InfoClassifiedPartDic("chemicalsLocalQty")
+    temp(6, 1) = newUpClause8InfoClassifiedPartDic("stretchWrappingFilmQty")
+
+    upClause9StockinformationRangeObject.Columns(24) = temp
+
+End Function
+
 Private Function sumNewUpClause8ClassifiedPart(newUpClause8Dic As Object) As Object
     
     Dim dicKey As Variant
