@@ -794,19 +794,19 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
 
     For i = topRow To 1000
 
-        If IsEmpty(Cells(i, 14).value) Then
+        If IsEmpty(ws.Cells(i, 14).value) Then
 
             Exit For
 
         End If
 
-        Set upClause8DicGroupByGoods = newUpClause8Dic(Application.Run("general_utility_functions.RemoveInvalidChars", Cells(i, 14).value)) ' handle yarn here finally
+        Set upClause8DicGroupByGoods = newUpClause8Dic(Application.Run("general_utility_functions.RemoveInvalidChars", ws.Cells(i, 14).value)) ' handle yarn here finally
 
         'insert rows as mushak or bill of entry count, note already one row exist
         If upClause8DicGroupByGoods.Count > 1 Then
 
             For j = 1 To upClause8DicGroupByGoods.Count - 1
-                Cells(i, 14).Rows("2").EntireRow.Insert
+                ws.Cells(i, 14).Rows("2").EntireRow.Insert
             Next j
 
         End If
@@ -817,62 +817,62 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
 
             mushakOrBillOfEntrySl = mushakOrBillOfEntrySl + 1
 
-            Cells(i + loopCounter, 2).value = mushakOrBillOfEntrySl
-            Cells(i + loopCounter, 3).value = upClause8DicGroupByGoods(dicKey)("lcNoAndDt")
-            Cells(i + loopCounter, 7).value = upClause8DicGroupByGoods(dicKey)("mushakOrBillOfEntryNoAndDt")
-            Cells(i + loopCounter, 14).value = upClause8DicGroupByGoods(dicKey)("nameOfGoods")
-            Cells(i + loopCounter, 15).value = upClause8DicGroupByGoods(dicKey)("hsCode")
-            Cells(i + loopCounter, 16).value = upClause8DicGroupByGoods(dicKey)("qtyOfGoods")
-            Cells(i + loopCounter, 17).value = upClause8DicGroupByGoods(dicKey)("valueOfGoods")
-            Cells(i + loopCounter, 18).value = upClause8DicGroupByGoods(dicKey)("previousUsedQtyOfGoods")
-            Cells(i + loopCounter, 19).value = upClause8DicGroupByGoods(dicKey)("previousUsedValueOfGoods")
-            Cells(i + loopCounter, 20).value = upClause8DicGroupByGoods(dicKey)("currentStockQtyOfGoods")
-            Cells(i + loopCounter, 21).value = upClause8DicGroupByGoods(dicKey)("currentStockValueOfGoods")
-            Cells(i + loopCounter, 22).value = upClause8DicGroupByGoods(dicKey)("inThisUpUsedQtyOfGoods")
-            Cells(i + loopCounter, 23).value = upClause8DicGroupByGoods(dicKey)("inThisUpUsedValueOfGoods")
-            Cells(i + loopCounter, 24).value = upClause8DicGroupByGoods(dicKey)("totalUsedQtyOfGoods")
-            Cells(i + loopCounter, 25).value = upClause8DicGroupByGoods(dicKey)("totalUsedValueOfGoods")
-            Cells(i + loopCounter, 26).value = upClause8DicGroupByGoods(dicKey)("remainingQtyOfGoods")
-            Cells(i + loopCounter, 27).value = upClause8DicGroupByGoods(dicKey)("remainingValueOfGoods")
+            ws.Cells(i + loopCounter, 2).value = mushakOrBillOfEntrySl
+            ws.Cells(i + loopCounter, 3).value = upClause8DicGroupByGoods(dicKey)("lcNoAndDt")
+            ws.Cells(i + loopCounter, 7).value = upClause8DicGroupByGoods(dicKey)("mushakOrBillOfEntryNoAndDt")
+            ws.Cells(i + loopCounter, 14).value = upClause8DicGroupByGoods(dicKey)("nameOfGoods")
+            ws.Cells(i + loopCounter, 15).value = upClause8DicGroupByGoods(dicKey)("hsCode")
+            ws.Cells(i + loopCounter, 16).value = upClause8DicGroupByGoods(dicKey)("qtyOfGoods")
+            ws.Cells(i + loopCounter, 17).value = upClause8DicGroupByGoods(dicKey)("valueOfGoods")
+            ws.Cells(i + loopCounter, 18).value = upClause8DicGroupByGoods(dicKey)("previousUsedQtyOfGoods")
+            ws.Cells(i + loopCounter, 19).value = upClause8DicGroupByGoods(dicKey)("previousUsedValueOfGoods")
+            ws.Cells(i + loopCounter, 20).value = upClause8DicGroupByGoods(dicKey)("currentStockQtyOfGoods")
+            ws.Cells(i + loopCounter, 21).value = upClause8DicGroupByGoods(dicKey)("currentStockValueOfGoods")
+            ws.Cells(i + loopCounter, 22).value = upClause8DicGroupByGoods(dicKey)("inThisUpUsedQtyOfGoods")
+            ws.Cells(i + loopCounter, 23).value = upClause8DicGroupByGoods(dicKey)("inThisUpUsedValueOfGoods")
+            ws.Cells(i + loopCounter, 24).value = upClause8DicGroupByGoods(dicKey)("totalUsedQtyOfGoods")
+            ws.Cells(i + loopCounter, 25).value = upClause8DicGroupByGoods(dicKey)("totalUsedValueOfGoods")
+            ws.Cells(i + loopCounter, 26).value = upClause8DicGroupByGoods(dicKey)("remainingQtyOfGoods")
+            ws.Cells(i + loopCounter, 27).value = upClause8DicGroupByGoods(dicKey)("remainingValueOfGoods")
 
 
-            Cells(i + loopCounter, 22).ClearComments
+            ws.Cells(i + loopCounter, 22).ClearComments
 
             If upClause8DicGroupByGoods(dicKey)("inThisUpUsedQtyOfGoodsComment") <> "No Comment" Then
 
-                Cells(i + loopCounter, 22).AddComment upClause8DicGroupByGoods(dicKey)("inThisUpUsedQtyOfGoodsComment")
+                ws.Cells(i + loopCounter, 22).AddComment upClause8DicGroupByGoods(dicKey)("inThisUpUsedQtyOfGoodsComment")
 
             End If
 
 
-            Cells(i + loopCounter, 20).FormulaR1C1 = "=RC[-4]-RC[-2]"
-            Cells(i + loopCounter, 21).FormulaR1C1 = "=RC[-4]-RC[-2]"
+            ws.Cells(i + loopCounter, 20).FormulaR1C1 = "=RC[-4]-RC[-2]"
+            ws.Cells(i + loopCounter, 21).FormulaR1C1 = "=RC[-4]-RC[-2]"
 
                 ' handle error, if divide zero then error show in cell
             If upClause8DicGroupByGoods(dicKey)("qtyOfGoods") > 0 Then
 
-                Cells(i + loopCounter, 23).FormulaR1C1 = "=RC[-6]/RC[-7]*RC[-1]"
+                ws.Cells(i + loopCounter, 23).FormulaR1C1 = "=RC[-6]/RC[-7]*RC[-1]"
 
             Else
 
-                Cells(i + loopCounter, 23).value = 0
+                ws.Cells(i + loopCounter, 23).value = 0
 
             End If
             
-            Cells(i + loopCounter, 24).FormulaR1C1 = "=SUM(RC[-6],RC[-2])"
-            Cells(i + loopCounter, 25).FormulaR1C1 = "=SUM(RC[-6],RC[-2])"
-            Cells(i + loopCounter, 26).FormulaR1C1 = "=RC[-6]-RC[-4]"
-            Cells(i + loopCounter, 27).FormulaR1C1 = "=RC[-6]-RC[-4]"
-            Cells(i + loopCounter, 28).FormulaR1C1 = "=RC[-11]/RC[-12]"
-            Cells(i + loopCounter, 29).FormulaR1C1 = "=RC[-10]/RC[-11]"
-            Cells(i + loopCounter, 30).FormulaR1C1 = "=RC[-9]/RC[-10]"
-            Cells(i + loopCounter, 31).FormulaR1C1 = "=RC[-8]/RC[-9]"
-            Cells(i + loopCounter, 32).FormulaR1C1 = "=RC[-7]/RC[-8]"
-            Cells(i + loopCounter, 33).FormulaR1C1 = "=RC[-6]/RC[-7]"
+            ws.Cells(i + loopCounter, 24).FormulaR1C1 = "=SUM(RC[-6],RC[-2])"
+            ws.Cells(i + loopCounter, 25).FormulaR1C1 = "=SUM(RC[-6],RC[-2])"
+            ws.Cells(i + loopCounter, 26).FormulaR1C1 = "=RC[-6]-RC[-4]"
+            ws.Cells(i + loopCounter, 27).FormulaR1C1 = "=RC[-6]-RC[-4]"
+            ws.Cells(i + loopCounter, 28).FormulaR1C1 = "=RC[-11]/RC[-12]"
+            ws.Cells(i + loopCounter, 29).FormulaR1C1 = "=RC[-10]/RC[-11]"
+            ws.Cells(i + loopCounter, 30).FormulaR1C1 = "=RC[-9]/RC[-10]"
+            ws.Cells(i + loopCounter, 31).FormulaR1C1 = "=RC[-8]/RC[-9]"
+            ws.Cells(i + loopCounter, 32).FormulaR1C1 = "=RC[-7]/RC[-8]"
+            ws.Cells(i + loopCounter, 33).FormulaR1C1 = "=RC[-6]/RC[-7]"
 
 
-            Cells(i + loopCounter, 3).Resize(1, 4).Merge
-            Cells(i + loopCounter, 7).Resize(1, 7).Merge
+            ws.Cells(i + loopCounter, 3).Resize(1, 4).Merge
+            ws.Cells(i + loopCounter, 7).Resize(1, 7).Merge
 
 
             loopCounter = loopCounter + 1
@@ -885,11 +885,11 @@ Private Function upClause8InformationPutToProvidedWs(ws As Worksheet, newUpClaus
 
     Next i
 
-    Cells(i, 22).FormulaR1C1 = "=SUM(R[-" & i - topRow & "]C:R[-1]C)"
-    Cells(i, 23).FormulaR1C1 = "=SUM(R[-" & i - topRow & "]C:R[-1]C)"
+    ws.Cells(i, 22).FormulaR1C1 = "=SUM(R[-" & i - topRow & "]C:R[-1]C)"
+    ws.Cells(i, 23).FormulaR1C1 = "=SUM(R[-" & i - topRow & "]C:R[-1]C)"
 
 
-    Application.Run "utility_formating_fun.SetBorderInsideHairlineAroundThin", Range(Cells(topRow - 2, 2), Cells(i, 27))
+    Application.Run "utility_formating_fun.SetBorderInsideHairlineAroundThin", ws.Range(ws.Cells(topRow - 2, 2), ws.Cells(i, 27))
 
     ws.Range(ws.Cells(topRow, 16), ws.Cells(i, 27)).Style = "Comma"
 
