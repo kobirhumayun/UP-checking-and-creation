@@ -11,21 +11,20 @@ Private Function upClause8MakeUniqueRowsFromProvidedWs(ws As Worksheet)
 
     For i = topRow To 1000
 
-        If IsEmpty(Cells(i, 14).value) Then
+        If IsEmpty(ws.Cells(i, 14).value) Then
 
             Exit For
 
         End If
 
-        If Cells(i, 14).value = Cells(i, 14).Offset(-1, 0) Then
+        If ws.Cells(i, 14).value = ws.Cells(i, 14).Offset(-1, 0) Then
 
-            Cells(i, 14).EntireRow.Delete
+            ws.Cells(i, 14).EntireRow.Delete
             i = i - 1
 
         End If
 
     Next i
-
 
 End Function
 
