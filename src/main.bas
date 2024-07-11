@@ -1197,6 +1197,42 @@ Sub dealWithYarnConsumption()
 
      
 End Sub
+
+Sub dealWithNote()
+
+    Application.ScreenUpdating = False
+
+    Dim upWorkBook As Workbook
+    Dim upWorksheet As Worksheet
+    Dim consumptionWorksheet As Worksheet
+    Dim noteWorksheet As Worksheet
+    
+    Set upWorkBook = ActiveWorkbook
+    Set upWorksheet = upWorkBook.Worksheets(2)
+    Set consumptionWorksheet = upWorkBook.Worksheets("Consumption")
+    Set noteWorksheet = upWorkBook.Worksheets("Note")
+
+    Dim newUp As String
+    newUp = Application.Run("helperFunctionGetData.upNoFromProvidedWs", upWorksheet)
+    
+    'take source data as dictionary from UP Issuing Status
+    Dim sourceDataAsDicUpIssuingStatus As Variant
+    Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
+
+    'take UP clause 8 info from "UP" sheet
+    Dim upClause8InfoDic As Object
+    Set upClause8InfoDic = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", upWorksheet)
+
+    'add consumption range to UP issuing status
+    Dim withConRangeSourceDataAsDicUpIssuingStatus As Object
+    Set withConRangeSourceDataAsDicUpIssuingStatus = Application.Run("afterConsumption.addConRangeToSourceDataAsDicUpIssuingStatus", consumptionWorksheet, sourceDataAsDicUpIssuingStatus)
+    
+
+    Application.ScreenUpdating = True
+
+    MsgBox "UP " & newUp & " Note updated!"
+
+End Sub
    
     Sub test()
         Dim test1, test2 As Variant
