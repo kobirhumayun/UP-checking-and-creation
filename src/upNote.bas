@@ -1,7 +1,7 @@
 Attribute VB_Name = "upNote"
 Option Explicit
 
-Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingStatus As Object, upClause8InfoDic As Object)
+Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingStatus As Object, upClause8InfoClassifiedPartDic As Object)
 
     Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
     Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
@@ -10,6 +10,28 @@ Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssui
     lcCountRow = noteWorksheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("exportLcSalesContractBengaliTxt"), LookAt:=xlPart).Row
 
     noteWorksheet.Range("F" & lcCountRow).value = sourceDataAsDicUpIssuingStatus.Count
+
+    Dim totalUsedQtyOfGoods, totalUsedValueOfGoods, totalUsedQtyOfYarn As Variant
+
+    totalUsedQtyOfGoods = upClause8InfoClassifiedPartDic("yarnImportQty") + _
+        upClause8InfoClassifiedPartDic("yarnLocalQty") + _
+        upClause8InfoClassifiedPartDic("dyesQty") + _
+        upClause8InfoClassifiedPartDic("stretchWrappingFilmQty") + _
+        upClause8InfoClassifiedPartDic("chemicalsImportQty") + _
+        upClause8InfoClassifiedPartDic("chemicalsLocalQty")
+
+    totalUsedValueOfGoods = upClause8InfoClassifiedPartDic("yarnImportValue") + _
+        upClause8InfoClassifiedPartDic("yarnLocalValue") + _
+        upClause8InfoClassifiedPartDic("dyesValue") + _
+        upClause8InfoClassifiedPartDic("stretchWrappingFilmValue") + _
+        upClause8InfoClassifiedPartDic("chemicalsImportValue") + _
+        upClause8InfoClassifiedPartDic("chemicalsLocalValue")
+
+    totalUsedQtyOfYarn = upClause8InfoClassifiedPartDic("yarnImportQty") + upClause8InfoClassifiedPartDic("yarnLocalQty")
+
+    noteWorksheet.Range("F" & lcCountRow + 1).value = totalUsedQtyOfGoods
+    noteWorksheet.Range("F" & lcCountRow + 2).value = totalUsedValueOfGoods
+    noteWorksheet.Range("F" & lcCountRow + 3).value = totalUsedQtyOfYarn
     
     Dim dicKey As Variant
     Dim exportValue, exportQty As Variant
@@ -46,6 +68,12 @@ Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssui
 
     noteWorksheet.Range("K" & lcCountRow).value = exportValue
     noteWorksheet.Range("K" & lcCountRow + 1).value = exportQty
+    noteWorksheet.Range("K" & lcCountRow + 2).value = (exportValue - totalUsedValueOfGoods) / totalUsedValueOfGoods * 100
+    noteWorksheet.Range("K" & lcCountRow + 3).value = upClause8InfoClassifiedPartDic("dyesQty") + _
+        upClause8InfoClassifiedPartDic("stretchWrappingFilmQty") + _
+        upClause8InfoClassifiedPartDic("chemicalsImportQty") + _
+        upClause8InfoClassifiedPartDic("chemicalsLocalQty")
+
 
 
 End Function
