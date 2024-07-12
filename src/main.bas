@@ -1227,6 +1227,7 @@ Sub dealWithNote()
     Dim withConRangeSourceDataAsDicUpIssuingStatus As Object
     Set withConRangeSourceDataAsDicUpIssuingStatus = Application.Run("afterConsumption.addConRangeToSourceDataAsDicUpIssuingStatus", consumptionWorksheet, sourceDataAsDicUpIssuingStatus)
     
+    Application.Run "upNote.putUpSummary", noteWorksheet, sourceDataAsDicUpIssuingStatus, upClause8InfoDic
 
     Application.ScreenUpdating = True
 
