@@ -1,7 +1,7 @@
 Attribute VB_Name = "upNote"
 Option Explicit
 
-Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingStatus As Object, upClause8InfoClassifiedPartDic As Object)
+Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingStatus As Object, upClause8InfoClassifiedPartDic As Object, newUp As String)
 
     Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
     Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
@@ -9,6 +9,8 @@ Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssui
     Dim lcCountRow As Long
     lcCountRow = noteWorksheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("exportLcSalesContractBengaliTxt"), LookAt:=xlPart).Row
 
+    noteWorksheet.Range("C" & lcCountRow - 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("upAppNoPart1BengaliTxt") _
+        & newUp & vsCodeNotSupportedOrBengaliTxtDictionary("upAppNoPart2BengaliTxt")
     noteWorksheet.Range("F" & lcCountRow).value = sourceDataAsDicUpIssuingStatus.Count
 
     Dim totalUsedQtyOfGoods, totalUsedValueOfGoods, totalUsedQtyOfYarn As Variant
