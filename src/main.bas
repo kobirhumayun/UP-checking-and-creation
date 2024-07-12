@@ -1223,11 +1223,15 @@ Sub dealWithNote()
     Dim upClause8InfoDic As Object
     Set upClause8InfoDic = Application.Run("general_utility_functions.upClause8InformationFromProvidedWs", upWorksheet)
 
+    'create UP clause 8 yarn, dyes chemicals Classified part Qty. & value
+    Dim upClause8InfoClassifiedPartDic As Object
+    Set upClause8InfoClassifiedPartDic = Application.Run("afterConsumption.sumUpClause8ClassifiedPart", upClause8InfoDic)
+
     'add consumption range to UP issuing status
     Dim withConRangeSourceDataAsDicUpIssuingStatus As Object
     Set withConRangeSourceDataAsDicUpIssuingStatus = Application.Run("afterConsumption.addConRangeToSourceDataAsDicUpIssuingStatus", consumptionWorksheet, sourceDataAsDicUpIssuingStatus)
     
-    Application.Run "upNote.putUpSummary", noteWorksheet, sourceDataAsDicUpIssuingStatus, upClause8InfoDic
+    Application.Run "upNote.putUpSummary", noteWorksheet, sourceDataAsDicUpIssuingStatus, upClause8InfoClassifiedPartDic
 
     Application.ScreenUpdating = True
 
