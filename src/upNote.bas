@@ -79,3 +79,102 @@ Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssui
 
 
 End Function
+
+Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    Dim topRow, bottomRow As Long
+
+    topRow = noteWorksheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("bbLcScNoAndDtBengaliTxt"), LookAt:=xlPart).Row
+    bottomRow = noteWorksheet.Range("D" & topRow).End(xlDown).Row
+
+        'one row down to take LC info only
+    topRow = topRow + 1
+
+    Dim workingRange As Range
+    Set workingRange = noteWorksheet.Range("A" & topRow & ":" & "M" & bottomRow)
+
+
+            'keep only one LC
+        If workingRange.Rows.Count > 1 Then
+
+            workingRange.Rows("2:" & workingRange.Rows.Count).EntireRow.Delete
+
+        End If
+
+        'insert rows as lc count, note already one row exist
+        If sourceDataAsDicUpIssuingStatus.Count > 1 Then
+
+            Dim i As Long
+            For i = 1 To sourceDataAsDicUpIssuingStatus.Count - 1
+                workingRange.Rows("2").EntireRow.Insert
+            Next i
+
+        End If
+
+        Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
+
+        Dim j As Long
+        Dim temp As Variant
+        Dim exportValue, exportQty As Variant
+
+        For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
+
+            temp = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCSCNo") & Chr(10) & DateValue(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCIssueDate"))
+
+            If Not IsEmpty(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("BangladeshBankRef")) Then
+            
+                temp = temp & Chr(10) & "(DC-" & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("BangladeshBankRef") & ")"
+            
+            End If
+            
+            If sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmndNo") <> "-" Then
+                Dim amndNo As Variant
+                amndNo = Application.Run("general_utility_functions.ExtractRightDigitFromEnd", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmndNo"))   'take right digits from end
+                If amndNo < 10 Then
+                    amndNo = "0" & amndNo
+                End If
+                temp = temp & Chr(10) & "Amnd-" & amndNo & " Dt." & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmndDate")
+            End If
+
+            exportValue = 0
+            exportQty = 0
+
+            If Left(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("currencyNumberFormat"), 8) = vsCodeNotSupportedOrBengaliTxtDictionary("sourceDataAsDicUpIssuingStatusCurrencyNumberFormat") Then
+
+                exportValue = CDbl(Round(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmount") * 1.05)) ' conversion rate would be dynamic
+
+            Else
+
+                exportValue = CDbl(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmount"))
+
+            End If
+
+            If Right(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("qtyNumberFormat"), 5) = """Mtr""" Then
+
+                exportQty = Round(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("QuantityofFabricsYdsMtr") * 1.0936132983)
+
+            Else
+
+                exportQty = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("QuantityofFabricsYdsMtr")
+
+            End If
+
+            workingRange.Range("C" & j + 1).value = j + 1
+            workingRange.Range("D" & j + 1).value = temp
+            workingRange.Range("E" & j + 1).value = exportValue
+            workingRange.Range("F" & j + 1).value = exportQty
+            ' workingRange.Range("n" & j + 1 & ":z" & j + 1).Merge
+        Next j
+
+
+        ' workingRange.Range("b1:b" & workingRange.Rows.Count).Merge
+        ' workingRange.Range("c1:m" & workingRange.Rows.Count).Merge
+
+        ' Application.Run "utility_formating_fun.SetBorderInsideHairlineAroundThin", workingRange.Range("b1:z" & workingRange.Rows.Count)
+        ' Application.Run "utility_formating_fun.setBorder", workingRange.Range("b1:z1"), xlEdgeTop, xlHairline
+
+
+End Function
