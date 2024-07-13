@@ -22,6 +22,7 @@ Private Function CreateVsCodeNotSupportedOrBengaliTxtDictionary()
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "exportLcSalesContractBengaliTxt", "ißvwb FYcÎ/†mjm K›Uªv± t"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "upAppNoPart1BengaliTxt", "†gmvm©  cvBIwbqvi ‡Wwbgm wjwg‡UW KZ©„K `vwLjK…Z BDwc Av‡e`b bs-"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "upAppNoPart2BengaliTxt", " Gi Z_¨vw` wb‡gœ Dc¯’vcb Kiv n‡jv t"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "bbLcScNoAndDtBengaliTxt", "weweGjwm/†mjm K›Uªv± bs I ZvwiL"
     
     Set CreateVsCodeNotSupportedOrBengaliTxtDictionary = vsCodeNotSupportedOrBengaliTxtDictionary
     
