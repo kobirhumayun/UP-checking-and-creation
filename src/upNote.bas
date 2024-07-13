@@ -119,46 +119,50 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
         Dim j As Long
         Dim temp As Variant
         Dim exportValue, exportQty As Variant
+        Dim dicKey As Variant
+
 
         For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
-            temp = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCSCNo") & Chr(10) & DateValue(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCIssueDate"))
+            dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
 
-            If Not IsEmpty(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("BangladeshBankRef")) Then
+            temp = sourceDataAsDicUpIssuingStatus(dicKey)("LCSCNo") & Chr(10) & DateValue(sourceDataAsDicUpIssuingStatus(dicKey)("LCIssueDate"))
+
+            If Not IsEmpty(sourceDataAsDicUpIssuingStatus(dicKey)("BangladeshBankRef")) Then
             
-                temp = temp & Chr(10) & "(DC-" & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("BangladeshBankRef") & ")"
+                temp = temp & Chr(10) & "(DC-" & sourceDataAsDicUpIssuingStatus(dicKey)("BangladeshBankRef") & ")"
             
             End If
             
-            If sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmndNo") <> "-" Then
+            If sourceDataAsDicUpIssuingStatus(dicKey)("LCAmndNo") <> "-" Then
                 Dim amndNo As Variant
-                amndNo = Application.Run("general_utility_functions.ExtractRightDigitFromEnd", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmndNo"))   'take right digits from end
+                amndNo = Application.Run("general_utility_functions.ExtractRightDigitFromEnd", sourceDataAsDicUpIssuingStatus(dicKey)("LCAmndNo"))   'take right digits from end
                 If amndNo < 10 Then
                     amndNo = "0" & amndNo
                 End If
-                temp = temp & Chr(10) & "Amnd-" & amndNo & " Dt." & sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmndDate")
+                temp = temp & Chr(10) & "Amnd-" & amndNo & " Dt." & sourceDataAsDicUpIssuingStatus(dicKey)("LCAmndDate")
             End If
 
             exportValue = 0
             exportQty = 0
 
-            If Left(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("currencyNumberFormat"), 8) = vsCodeNotSupportedOrBengaliTxtDictionary("sourceDataAsDicUpIssuingStatusCurrencyNumberFormat") Then
+            If Left(sourceDataAsDicUpIssuingStatus(dicKey)("currencyNumberFormat"), 8) = vsCodeNotSupportedOrBengaliTxtDictionary("sourceDataAsDicUpIssuingStatusCurrencyNumberFormat") Then
 
-                exportValue = CDbl(Round(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmount") * 1.05)) ' conversion rate would be dynamic
+                exportValue = CDbl(Round(sourceDataAsDicUpIssuingStatus(dicKey)("LCAmount") * 1.05)) ' conversion rate would be dynamic
 
             Else
 
-                exportValue = CDbl(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("LCAmount"))
+                exportValue = CDbl(sourceDataAsDicUpIssuingStatus(dicKey)("LCAmount"))
 
             End If
 
-            If Right(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("qtyNumberFormat"), 5) = """Mtr""" Then
+            If Right(sourceDataAsDicUpIssuingStatus(dicKey)("qtyNumberFormat"), 5) = """Mtr""" Then
 
-                exportQty = Round(sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("QuantityofFabricsYdsMtr") * 1.0936132983)
+                exportQty = Round(sourceDataAsDicUpIssuingStatus(dicKey)("QuantityofFabricsYdsMtr") * 1.0936132983)
 
             Else
 
-                exportQty = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("QuantityofFabricsYdsMtr")
+                exportQty = sourceDataAsDicUpIssuingStatus(dicKey)("QuantityofFabricsYdsMtr")
 
             End If
 
