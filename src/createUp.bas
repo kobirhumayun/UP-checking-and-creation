@@ -327,6 +327,53 @@ Private Function putIpExpMLcFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDat
 
 End Function
 
+Private Function combinUdIpExpMlc(lcDict As Object) As String
+
+    Dim udIpExp As Object
+    Set udIpExp = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "udOrIpOrExp", "date", Split(lcDict("UDNoIPNo"), Chr(10)), Split(lcDict("UDIPDate"), Chr(10)))
+
+    Dim mLC As Object
+    Set mLC = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "mLcNo", "date", Split(lcDict("MasterLCNo"), Chr(10)), Split(lcDict("MasterLCIssueDt"), Chr(10)))
+
+    Dim concateExp As String
+    Dim concateIp As String
+    Dim concateMLc As String
+    Dim returnStr As String
+
+    If IsEmpty(lcDict("GarmentsQty")) Then
+
+        If Application.Run("general_utility_functions.isStrPatternExist", lcDict("UDNoIPNo"), "^IP", True, True, True) Then
+            ' non Garments EPZ
+
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32)
+            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 32)
+            returnStr = concateExp & Chr(10) & concateIp
+
+        ElseIf Application.Run("general_utility_functions.isStrPatternExist", lcDict("UDNoIPNo"), "^EXP", True, True, True) Then
+            ' non Garments direct
+
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32)
+            returnStr = concateExp
+
+
+        Else
+            ' non Garments Deem
+
+            concateMLc = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", mLC, ".", "mLcNo", "date", 32)
+            returnStr = Trim(concateMLc)
+
+        End If
+
+    Else
+        ' Garments
+        returnStr = lcDict("LCSCNo") & Chr(32) & lcDict("LCIssueDate") ' just use LC or SC no. as MLC
+
+    End If
+
+    combinUdIpExpMlc = returnStr
+
+End Function
+
 
 Private Function udIpExpMLcWithDtFilterAndConcate(udIpExpMLcWithDtDic As Object, filterPattern As String, innerDicNameKey As String, innerDicDateKey As String, innerConcateCharacterCode As Integer)
      'this function take Ud, Ip, Exp or M.LC No. & Date dictionary, filter pattern, inner dictionary name key and inner dictionary date key, inner joinning character code then
