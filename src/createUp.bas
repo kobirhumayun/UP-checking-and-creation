@@ -121,6 +121,30 @@ Private Function dealWithUpClause7(upClause7RangObj As Range, sourceDataAsDicUpI
 
 End Function
 
+Private Function combinLcAndAmnd(lcDict As Object) As String
+
+    Dim temp As String
+    temp = lcDict("LCSCNo") & Chr(10) & DateValue(lcDict("LCIssueDate"))
+
+    If Not IsEmpty(lcDict("BangladeshBankRef")) Then
+    
+        temp = temp & Chr(10) & "(DC-" & lcDict("BangladeshBankRef") & ")"
+    
+    End If
+    
+    If lcDict("LCAmndNo") <> "-" Then
+        Dim amndNo As Variant
+        amndNo = Application.Run("general_utility_functions.ExtractRightDigitFromEnd", lcDict("LCAmndNo"))   'take right digits from end
+        If amndNo < 10 Then
+            amndNo = "0" & amndNo
+        End If
+        temp = temp & Chr(10) & "Amnd-" & amndNo & " Dt." & lcDict("LCAmndDate")
+    End If
+
+    combinLcAndAmnd = temp
+    
+End Function
+
 Private Function putCommonFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDataAsDicUpIssuingStatus As Object, lcKey As Variant)
     'this function fill-up common field as lc information
     Dim temp As Variant
