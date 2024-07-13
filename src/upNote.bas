@@ -117,7 +117,6 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
         Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
 
         Dim j As Long
-        Dim temp As Variant
         Dim exportValue, exportQty As Variant
         Dim dicKey As Variant
 
@@ -125,23 +124,6 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
         For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
             dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
-
-            temp = sourceDataAsDicUpIssuingStatus(dicKey)("LCSCNo") & Chr(10) & DateValue(sourceDataAsDicUpIssuingStatus(dicKey)("LCIssueDate"))
-
-            If Not IsEmpty(sourceDataAsDicUpIssuingStatus(dicKey)("BangladeshBankRef")) Then
-            
-                temp = temp & Chr(10) & "(DC-" & sourceDataAsDicUpIssuingStatus(dicKey)("BangladeshBankRef") & ")"
-            
-            End If
-            
-            If sourceDataAsDicUpIssuingStatus(dicKey)("LCAmndNo") <> "-" Then
-                Dim amndNo As Variant
-                amndNo = Application.Run("general_utility_functions.ExtractRightDigitFromEnd", sourceDataAsDicUpIssuingStatus(dicKey)("LCAmndNo"))   'take right digits from end
-                If amndNo < 10 Then
-                    amndNo = "0" & amndNo
-                End If
-                temp = temp & Chr(10) & "Amnd-" & amndNo & " Dt." & sourceDataAsDicUpIssuingStatus(dicKey)("LCAmndDate")
-            End If
 
             exportValue = 0
             exportQty = 0
@@ -167,7 +149,7 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
             End If
 
             workingRange.Range("C" & j + 1).value = j + 1
-            workingRange.Range("D" & j + 1).value = temp
+            workingRange.Range("D" & j + 1).value = Application.Run("createUp.combinLcAndAmnd", sourceDataAsDicUpIssuingStatus(dicKey))
             workingRange.Range("E" & j + 1).value = exportValue
             workingRange.Range("F" & j + 1).value = exportQty
             ' workingRange.Range("n" & j + 1 & ":z" & j + 1).Merge
