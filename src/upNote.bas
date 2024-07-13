@@ -152,7 +152,12 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
             workingRange.Range("D" & j + 1).value = Application.Run("createUp.combinLcAndAmnd", sourceDataAsDicUpIssuingStatus(dicKey))
             workingRange.Range("E" & j + 1).value = exportValue
             workingRange.Range("F" & j + 1).value = exportQty
-            ' workingRange.Range("n" & j + 1 & ":z" & j + 1).Merge
+            workingRange.Range("G" & j + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("ShipmentDate")
+            workingRange.Range("G" & j + 1 & ":H" & j + 1).Merge
+            workingRange.Range("I" & j + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("ExpiryDate")
+            workingRange.Range("I" & j + 1 & ":J" & j + 1).Merge
+
+            
         Next j
 
 
