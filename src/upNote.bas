@@ -156,8 +156,10 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
             workingRange.Range("G" & j + 1 & ":H" & j + 1).Merge
             workingRange.Range("I" & j + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("ExpiryDate")
             workingRange.Range("I" & j + 1 & ":J" & j + 1).Merge
+            workingRange.Range("K" & j + 1).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
+            workingRange.Range("K" & j + 1 & ":M" & j + 1).Merge
 
-            
+
         Next j
 
 
