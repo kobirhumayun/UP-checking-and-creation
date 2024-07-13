@@ -1232,6 +1232,7 @@ Sub dealWithNote()
     Set withConRangeSourceDataAsDicUpIssuingStatus = Application.Run("afterConsumption.addConRangeToSourceDataAsDicUpIssuingStatus", consumptionWorksheet, sourceDataAsDicUpIssuingStatus)
     
     Application.Run "upNote.putUpSummary", noteWorksheet, sourceDataAsDicUpIssuingStatus, upClause8InfoClassifiedPartDic, newUp
+    Application.Run "upNote.putLcInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
 
     Application.ScreenUpdating = True
 
