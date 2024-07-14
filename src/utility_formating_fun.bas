@@ -28,6 +28,17 @@ Private Function SetBorderInsideHairlineAroundThin(appliedRange As Range)
     
 End Function
 
+Private Function SetBorderThin(appliedRange As Range)
+
+    Application.Run "utility_formating_fun.setBorder", appliedRange, xlEdgeTop, xlThin
+    Application.Run "utility_formating_fun.setBorder", appliedRange, xlEdgeRight, xlThin
+    Application.Run "utility_formating_fun.setBorder", appliedRange, xlEdgeBottom, xlThin
+    Application.Run "utility_formating_fun.setBorder", appliedRange, xlEdgeLeft, xlThin
+    Application.Run "utility_formating_fun.setBorder", appliedRange, xlInsideHorizontal, xlThin
+    Application.Run "utility_formating_fun.setBorder", appliedRange, xlInsideVertical, xlThin
+
+End Function
+
 Private Function setBorder(rng As Range, appliedSide As Variant, borderWeight As Variant)
 
     With rng.Borders(appliedSide)
