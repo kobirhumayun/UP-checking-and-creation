@@ -145,6 +145,24 @@ Private Function combinLcAndAmnd(lcDict As Object) As String
     
 End Function
 
+Private Function qtyInYds(lcDict As Object) As Variant
+
+    Dim temp As Variant
+
+    If Right(lcDict("qtyNumberFormat"), 5) = """Mtr""" Then
+
+        temp = Round(lcDict("QuantityofFabricsYdsMtr") * 1.0936132983)
+
+    Else
+
+        temp = lcDict("QuantityofFabricsYdsMtr")
+
+    End If
+
+    qtyInYds = temp
+    
+End Function
+
 Private Function putCommonFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDataAsDicUpIssuingStatus As Object, lcKey As Variant)
     'this function fill-up common field as lc information
     Dim temp As Variant
