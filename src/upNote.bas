@@ -205,12 +205,65 @@ Private Function putUdIpExpInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIss
             
                 'put weight
             workingRange.Range("I" & j + 1).value = Join(temp, ",")
-            
+
             workingRange.Range("J" & j + 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("denimFabricsBengaliTxt")
             workingRange.Range("J" & j + 1 & ":M" & j + 1).Merge
 
         Next j
 
         Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:M" & workingRange.Rows.Count)
+
+End Function
+
+Private Function putBuyerAndBankInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    Dim topRow, bottomRow As Long
+
+    topRow = noteWorksheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("issuingBankNameAndAddressBengaliTxt"), LookAt:=xlPart).Row
+    bottomRow = noteWorksheet.Range("C" & topRow).End(xlDown).Row
+
+        'one row down to take buyer info only
+    topRow = topRow + 1
+
+    Dim workingRange As Range
+    Set workingRange = noteWorksheet.Range("A" & topRow & ":" & "M" & bottomRow)
+
+            'keep only one buyer
+        If workingRange.Rows.Count > 1 Then
+
+            workingRange.Rows("2:" & workingRange.Rows.Count).EntireRow.Delete
+
+        End If
+
+        'insert rows as lc count, note already one row exist
+        If sourceDataAsDicUpIssuingStatus.Count > 1 Then
+
+            Dim i As Long
+            For i = 1 To sourceDataAsDicUpIssuingStatus.Count - 1
+                workingRange.Rows("2").EntireRow.Insert
+            Next i
+
+        End If
+
+        Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
+
+        Dim j As Long
+        Dim dicKey As Variant
+
+        For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
+
+            dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
+
+            workingRange.Range("C" & j + 1).value = j + 1 & ") " & sourceDataAsDicUpIssuingStatus(dicKey)("LCIssuingBank")
+            workingRange.Range("C" & j + 1 & ":F" & j + 1).Merge
+            workingRange.Range("G" & j + 1).value = j + 1 & ") " & sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+            workingRange.Range("G" & j + 1 & ":L" & j + 1).Merge
+
+        Next j
+
+        Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:L" & workingRange.Rows.Count)
 
 End Function
