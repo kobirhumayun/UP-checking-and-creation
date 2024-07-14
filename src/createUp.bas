@@ -163,6 +163,26 @@ Private Function qtyInYds(lcDict As Object) As Variant
     
 End Function
 
+Private Function valueInUsd(lcDict As Object) As Variant
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+    Dim temp As Variant
+
+    If Left(lcDict("currencyNumberFormat"), 8) = vsCodeNotSupportedOrBengaliTxtDictionary("sourceDataAsDicUpIssuingStatusCurrencyNumberFormat") Then
+
+        temp = CDbl(Round(lcDict("LCAmount") * 1.05)) ' conversion rate would be dynamic
+
+    Else
+
+        temp = CDbl(lcDict("LCAmount"))
+
+    End If
+
+    valueInUsd = temp
+    
+End Function
+
 Private Function putCommonFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDataAsDicUpIssuingStatus As Object, lcKey As Variant)
     'this function fill-up common field as lc information
     Dim temp As Variant
