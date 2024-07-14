@@ -117,7 +117,6 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
         Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
 
         Dim j As Long
-        Dim exportValue As Variant
         Dim dicKey As Variant
 
 
@@ -125,21 +124,9 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
 
             dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
 
-            exportValue = 0
-
-            If Left(sourceDataAsDicUpIssuingStatus(dicKey)("currencyNumberFormat"), 8) = vsCodeNotSupportedOrBengaliTxtDictionary("sourceDataAsDicUpIssuingStatusCurrencyNumberFormat") Then
-
-                exportValue = CDbl(Round(sourceDataAsDicUpIssuingStatus(dicKey)("LCAmount") * 1.05)) ' conversion rate would be dynamic
-
-            Else
-
-                exportValue = CDbl(sourceDataAsDicUpIssuingStatus(dicKey)("LCAmount"))
-
-            End If
-
             workingRange.Range("C" & j + 1).value = j + 1
             workingRange.Range("D" & j + 1).value = Application.Run("createUp.combinLcAndAmnd", sourceDataAsDicUpIssuingStatus(dicKey))
-            workingRange.Range("E" & j + 1).value = exportValue
+            workingRange.Range("E" & j + 1).value = Application.Run("createUp.valueInUsd", sourceDataAsDicUpIssuingStatus(dicKey))
             workingRange.Range("F" & j + 1).value = Application.Run("createUp.qtyInYds", sourceDataAsDicUpIssuingStatus(dicKey))
             workingRange.Range("G" & j + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("ShipmentDate")
             workingRange.Range("G" & j + 1 & ":H" & j + 1).Merge
