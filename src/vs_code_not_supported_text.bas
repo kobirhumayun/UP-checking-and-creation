@@ -24,6 +24,7 @@ Private Function CreateVsCodeNotSupportedOrBengaliTxtDictionary()
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "upAppNoPart2BengaliTxt", " Gi Z_¨vw` wb‡gœ Dc¯’vcb Kiv n‡jv t"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "bbLcScNoAndDtBengaliTxt", "weweGjwm/†mjm K›Uªv± bs I ZvwiL"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "udIpExpNoAndDtBengaliTxt", "BDwW/AvBwc b¤^i I ZvwiL ms‡kvabxmn/BGK&ªwc bs I ZvwiL"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "denimFabricsBengaliTxt", "‡Wwbg Kvco"
     
     Set CreateVsCodeNotSupportedOrBengaliTxtDictionary = vsCodeNotSupportedOrBengaliTxtDictionary
     
