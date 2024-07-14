@@ -43,25 +43,8 @@ Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssui
 
     For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
 
-        If Left(sourceDataAsDicUpIssuingStatus(dicKey)("currencyNumberFormat"), 8) = vsCodeNotSupportedOrBengaliTxtDictionary("sourceDataAsDicUpIssuingStatusCurrencyNumberFormat") Then
-
-            exportValue = exportValue + CDbl(Round(sourceDataAsDicUpIssuingStatus(dicKey)("LCAmount") * 1.05)) ' conversion rate would be dynamic
-
-        Else
-
-            exportValue = exportValue + CDbl(sourceDataAsDicUpIssuingStatus(dicKey)("LCAmount"))
-
-        End If
-
-        If Right(sourceDataAsDicUpIssuingStatus(dicKey)("qtyNumberFormat"), 5) = """Mtr""" Then
-
-            exportQty = exportQty + Round(sourceDataAsDicUpIssuingStatus(dicKey)("QuantityofFabricsYdsMtr") * 1.0936132983)
-
-        Else
-
-            exportQty = exportQty + sourceDataAsDicUpIssuingStatus(dicKey)("QuantityofFabricsYdsMtr")
-
-        End If
+            exportValue = exportValue + Application.Run("createUp.valueInUsd", sourceDataAsDicUpIssuingStatus(dicKey))
+            exportQty = exportQty + Application.Run("createUp.qtyInYds", sourceDataAsDicUpIssuingStatus(dicKey))
 
     Next dicKey
 
