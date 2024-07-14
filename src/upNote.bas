@@ -121,3 +121,96 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
         Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:M" & workingRange.Rows.Count)
 
 End Function
+
+Private Function putUdIpExpInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    Dim topRow, bottomRow As Long
+
+    topRow = noteWorksheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("udIpExpNoAndDtBengaliTxt"), LookAt:=xlPart).Row
+    bottomRow = noteWorksheet.Range("J" & topRow).End(xlDown).Row
+
+        'one row down to take UD info only
+    topRow = topRow + 1
+
+    Dim workingRange As Range
+    Set workingRange = noteWorksheet.Range("A" & topRow & ":" & "M" & bottomRow)
+
+            'keep only one UD
+        If workingRange.Rows.Count > 1 Then
+
+            workingRange.Rows("2:" & workingRange.Rows.Count).EntireRow.Delete
+
+        End If
+
+        'insert rows as lc count, note already one row exist
+        If sourceDataAsDicUpIssuingStatus.Count > 1 Then
+
+            Dim i As Long
+            For i = 1 To sourceDataAsDicUpIssuingStatus.Count - 1
+                workingRange.Rows("2").EntireRow.Insert
+            Next i
+
+        End If
+
+        Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
+
+        Dim j, l, m As Long
+        Dim dicKey As Variant
+        Dim innerDicKey As Variant
+
+        Dim tempWidthStr As Object
+        Dim tempWeightStr As Object
+        Dim temp As Variant
+
+
+        For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
+
+            dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
+
+            workingRange.Range("C" & j + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+            workingRange.Range("C" & j + 1 & ":G" & j + 1).Merge
+
+            Set tempWidthStr = CreateObject("Scripting.Dictionary")
+            Set tempWeightStr = CreateObject("Scripting.Dictionary")
+
+            For Each innerDicKey In sourceDataAsDicUpIssuingStatus(dicKey)("consumptionRange").keys
+
+                    'create unique width & weight
+                tempWidthStr(sourceDataAsDicUpIssuingStatus(dicKey)("consumptionRange")(innerDicKey)("width").value) = Null
+                tempWeightStr(sourceDataAsDicUpIssuingStatus(dicKey)("consumptionRange")(innerDicKey)("weight").value) = Null
+
+            Next innerDicKey
+
+                'sort
+            temp = Application.Run("Sorting_Algorithms.BubbleSort", tempWidthStr.keys)
+
+                'formate
+            For l = LBound(temp) To UBound(temp)
+                temp(l) = Format(temp(l), "0.00")
+            Next l
+            
+                'put width
+            workingRange.Range("H" & j + 1).value = Join(temp, ",")
+
+                'sort
+            temp = Application.Run("Sorting_Algorithms.BubbleSort", tempWeightStr.keys)
+            
+                'format
+            For m = LBound(temp) To UBound(temp)
+                temp(m) = Format(temp(m), "0.00")
+            Next m
+            
+                'put weight
+            workingRange.Range("I" & j + 1).value = Join(temp, ",")
+            
+            workingRange.Range("J" & j + 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("denimFabricsBengaliTxt")
+            workingRange.Range("J" & j + 1 & ":M" & j + 1).Merge
+
+        Next j
+
+        Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:M" & workingRange.Rows.Count)
+
+End Function
