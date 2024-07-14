@@ -412,6 +412,41 @@ Private Function combinUdIpExpMlc(lcDict As Object) As String
 
 End Function
 
+Private Function combinUdIpExpAndDt(lcDict As Object) As String
+
+    Dim udIpExp As Object
+    Set udIpExp = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "udOrIpOrExp", "date", Split(lcDict("UDNoIPNo"), Chr(10)), Split(lcDict("UDIPDate"), Chr(10)))
+
+    Dim concateExp As String
+    Dim concateIp As String
+    Dim concateUd As String
+    Dim returnStr As String
+
+
+        If Application.Run("general_utility_functions.isStrPatternExist", lcDict("UDNoIPNo"), "^IP", True, True, True) Then
+            ' EPZ
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32)
+            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 32)
+            returnStr = concateExp & Chr(10) & concateIp
+
+        ElseIf Application.Run("general_utility_functions.isStrPatternExist", lcDict("UDNoIPNo"), "^EXP", True, True, True) Then
+            ' direct
+
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32)
+            returnStr = concateExp
+
+
+        Else
+            ' Deem
+            concateUd = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, ".", "udOrIpOrExp", "date", 32)
+            returnStr = Trim(concateUd)
+
+        End If
+
+    combinUdIpExpAndDt = returnStr
+
+End Function
+
 
 Private Function udIpExpMLcWithDtFilterAndConcate(udIpExpMLcWithDtDic As Object, filterPattern As String, innerDicNameKey As String, innerDicDateKey As String, innerConcateCharacterCode As Integer)
      'this function take Ud, Ip, Exp or M.LC No. & Date dictionary, filter pattern, inner dictionary name key and inner dictionary date key, inner joinning character code then
