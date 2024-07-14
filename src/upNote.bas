@@ -96,7 +96,6 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
     Dim workingRange As Range
     Set workingRange = noteWorksheet.Range("A" & topRow & ":" & "M" & bottomRow)
 
-
             'keep only one LC
         If workingRange.Rows.Count > 1 Then
 
@@ -119,7 +118,6 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
         Dim j As Long
         Dim dicKey As Variant
 
-
         For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
             dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
@@ -135,15 +133,8 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
             workingRange.Range("K" & j + 1).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
             workingRange.Range("K" & j + 1 & ":M" & j + 1).Merge
 
-
         Next j
 
-
-        ' workingRange.Range("b1:b" & workingRange.Rows.Count).Merge
-        ' workingRange.Range("c1:m" & workingRange.Rows.Count).Merge
-
-        ' Application.Run "utility_formating_fun.SetBorderInsideHairlineAroundThin", workingRange.Range("b1:z" & workingRange.Rows.Count)
-        ' Application.Run "utility_formating_fun.setBorder", workingRange.Range("b1:z1"), xlEdgeTop, xlHairline
-
+        Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:M" & workingRange.Rows.Count)
 
 End Function
