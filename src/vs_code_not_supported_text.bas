@@ -26,6 +26,17 @@ Private Function CreateVsCodeNotSupportedOrBengaliTxtDictionary()
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "udIpExpNoAndDtBengaliTxt", "BDwW/AvBwc b¤^i I ZvwiL ms‡kvabxmn/BGK&ªwc bs I ZvwiL"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "denimFabricsBengaliTxt", "‡Wwbg Kvco"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "issuingBankNameAndAddressBengaliTxt", "Bm¨yK…Z e¨vs‡Ki bvg I wVKvbv"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "submittedInfoBengaliTxt", "cÖwZôv‡bi `vwLjK„Z Z_¨"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "foundCorrectBengaliTxt", "mwVK cvIqv wM‡q‡Q"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "buyerNameBengaliTxt", "‡µZv cÖwZôv‡bi bvg"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "udNoBengaliTxt", "BDwW bs-"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "mLcExpIpNoBengaliTxt", "gvóvi Gjwm/ AvBwc/BG·wc bs I ZvwiL"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "sellerNameBengaliTxt", "we‡µZv cÖwZôv‡bi bvg"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "bbLcValueBengaliTxt", "weweGj wm bs I g~j¨ (gv:W:)"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "qtyOfGoodsYdsBengaliTxt", "c‡b¨I cwigvb (MR)"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "mLcValueBengaliTxt", "gvóvi Gj wm g~j¨"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "mLcValidityBengaliTxt", "gvóvi Gj wm ‡gqv`"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "rawMaterialNameAndDescriptionBengaliTxt", "KuvPvgv‡ji bvg I eY©bv"
     
     Set CreateVsCodeNotSupportedOrBengaliTxtDictionary = vsCodeNotSupportedOrBengaliTxtDictionary
     
