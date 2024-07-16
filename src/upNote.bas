@@ -328,6 +328,20 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("H" & rowTracker & ":L" & rowTracker).Merge
         workingRange.Range("M" & rowTracker).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
+        workingRange.Range("C" & rowTracker + 1).value = "2)"
+        workingRange.Range("D" & rowTracker + 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("udNoBengaliTxt")
+        workingRange.Range("E" & rowTracker + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("E" & rowTracker + 1 & ":G" & rowTracker + 1).Merge
+        workingRange.Range("H" & rowTracker + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 1 & ":L" & rowTracker + 1).Merge
+        workingRange.Range("M" & rowTracker + 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+
+
+
+
+
+
+
         rowTracker = rowTracker + 10
     Next j
 
