@@ -1235,6 +1235,7 @@ Sub dealWithNote()
     Application.Run "upNote.putLcInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
     Application.Run "upNote.putUdIpExpInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
     Application.Run "upNote.putBuyerAndBankInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
+    Application.Run "upNote.putVerifiedInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
 
     Application.ScreenUpdating = True
 
