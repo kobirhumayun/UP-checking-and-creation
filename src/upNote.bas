@@ -336,6 +336,13 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("H" & rowTracker + 1 & ":L" & rowTracker + 1).Merge
         workingRange.Range("M" & rowTracker + 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
+        workingRange.Range("C" & rowTracker + 2).value = "3)"
+        workingRange.Range("D" & rowTracker + 2).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcExpIpNoBengaliTxt")
+        workingRange.Range("E" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("E" & rowTracker + 2 & ":G" & rowTracker + 2).Merge
+        workingRange.Range("H" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 2 & ":L" & rowTracker + 2).Merge
+        workingRange.Range("M" & rowTracker + 2).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
 
 
