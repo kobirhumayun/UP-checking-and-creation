@@ -267,3 +267,70 @@ Private Function putBuyerAndBankInfo(noteWorksheet As Worksheet, sourceDataAsDic
         Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:L" & workingRange.Rows.Count)
 
 End Function
+
+Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    Dim topRow, bottomRow As Long
+
+    topRow = noteWorksheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("submittedInfoBengaliTxt"), LookAt:=xlPart).Row + 1
+    bottomRow = noteWorksheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("rawMaterialNameAndDescriptionBengaliTxt"), LookAt:=xlPart).Row - 3
+
+    Dim workingRange As Range
+    Set workingRange = noteWorksheet.Range("A" & topRow & ":" & "M" & bottomRow)
+
+    'keep only one row
+    workingRange.Rows("2:" & workingRange.Rows.Count).EntireRow.Delete
+
+    Dim i As Long
+    Dim totalInsertedRows As Long
+
+    'insert rows as lc count, note already one row exist
+    If sourceDataAsDicUpIssuingStatus.Count > 1 Then
+
+        totalInsertedRows = sourceDataAsDicUpIssuingStatus.Count * 9 + sourceDataAsDicUpIssuingStatus.Count - 2
+
+        For i = 1 To totalInsertedRows
+            workingRange.Rows("2").EntireRow.Insert
+        Next i
+
+    Else
+
+        totalInsertedRows = 8
+
+        For i = 1 To totalInsertedRows
+            workingRange.Rows("2").EntireRow.Insert
+        Next i
+
+    End If
+
+    Set workingRange = workingRange.Resize(totalInsertedRows)
+
+    Dim j As Long
+    Dim rowTracker As Long
+    Dim dicKey As Variant
+
+    rowTracker = 1
+
+    For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
+
+        dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
+
+
+        workingRange.Range("B" & rowTracker).value = Chr(j + 97) & ")"
+        workingRange.Range("C" & rowTracker).value = "1)"
+        workingRange.Range("D" & rowTracker).value = vsCodeNotSupportedOrBengaliTxtDictionary("buyerNameBengaliTxt")
+        workingRange.Range("E" & rowTracker).value = sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+        workingRange.Range("E" & rowTracker & ":G" & rowTracker).Merge
+        workingRange.Range("H" & rowTracker).value = sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+        workingRange.Range("H" & rowTracker & ":L" & rowTracker).Merge
+        workingRange.Range("M" & rowTracker).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+
+        rowTracker = rowTracker + 10
+    Next j
+
+    ' Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:L" & workingRange.Rows.Count)
+
+End Function
