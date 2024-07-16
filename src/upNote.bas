@@ -344,6 +344,13 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("H" & rowTracker + 2 & ":L" & rowTracker + 2).Merge
         workingRange.Range("M" & rowTracker + 2).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
+        workingRange.Range("C" & rowTracker + 3).value = "4)"
+        workingRange.Range("D" & rowTracker + 3).value = vsCodeNotSupportedOrBengaliTxtDictionary("sellerNameBengaliTxt")
+        workingRange.Range("E" & rowTracker + 3).value = "Pioneer Denim Denim Ltd"
+        workingRange.Range("E" & rowTracker + 3 & ":G" & rowTracker + 3).Merge
+        workingRange.Range("H" & rowTracker + 3).value = "Pioneer Denim Denim Ltd"
+        workingRange.Range("H" & rowTracker + 3 & ":L" & rowTracker + 3).Merge
+        workingRange.Range("M" & rowTracker + 3).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
 
 
