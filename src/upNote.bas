@@ -312,85 +312,85 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
     Dim rowTracker As Long
     Dim dicKey As Variant
 
-    rowTracker = 1
+    rowTracker = 0
 
     For j = 0 To sourceDataAsDicUpIssuingStatus.Count - 1
 
         dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
 
 
-        workingRange.Range("B" & rowTracker).value = Chr(j + 97) & ")"
-        workingRange.Range("C" & rowTracker).value = "1)"
-        workingRange.Range("D" & rowTracker).value = vsCodeNotSupportedOrBengaliTxtDictionary("buyerNameBengaliTxt")
-        workingRange.Range("E" & rowTracker).value = sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
-        workingRange.Range("E" & rowTracker & ":G" & rowTracker).Merge
-        workingRange.Range("H" & rowTracker).value = sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
-        workingRange.Range("H" & rowTracker & ":L" & rowTracker).Merge
-        workingRange.Range("M" & rowTracker).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
-
-        workingRange.Range("C" & rowTracker + 1).value = "2)"
-        workingRange.Range("D" & rowTracker + 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("udNoBengaliTxt")
-        workingRange.Range("E" & rowTracker + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("B" & rowTracker + 1).value = Chr(j + 97) & ")"
+        workingRange.Range("C" & rowTracker + 1).value = "1)"
+        workingRange.Range("D" & rowTracker + 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("buyerNameBengaliTxt")
+        workingRange.Range("E" & rowTracker + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
         workingRange.Range("E" & rowTracker + 1 & ":G" & rowTracker + 1).Merge
-        workingRange.Range("H" & rowTracker + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
         workingRange.Range("H" & rowTracker + 1 & ":L" & rowTracker + 1).Merge
         workingRange.Range("M" & rowTracker + 1).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
-        workingRange.Range("C" & rowTracker + 2).value = "3)"
-        workingRange.Range("D" & rowTracker + 2).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcExpIpNoBengaliTxt")
-        workingRange.Range("E" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("C" & rowTracker + 2).value = "2)"
+        workingRange.Range("D" & rowTracker + 2).value = vsCodeNotSupportedOrBengaliTxtDictionary("udNoBengaliTxt")
+        workingRange.Range("E" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
         workingRange.Range("E" & rowTracker + 2 & ":G" & rowTracker + 2).Merge
-        workingRange.Range("H" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
         workingRange.Range("H" & rowTracker + 2 & ":L" & rowTracker + 2).Merge
         workingRange.Range("M" & rowTracker + 2).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
-        workingRange.Range("C" & rowTracker + 3).value = "4)"
-        workingRange.Range("D" & rowTracker + 3).value = vsCodeNotSupportedOrBengaliTxtDictionary("sellerNameBengaliTxt")
-        workingRange.Range("E" & rowTracker + 3).value = "Pioneer Denim Denim Ltd"
+        workingRange.Range("C" & rowTracker + 3).value = "3)"
+        workingRange.Range("D" & rowTracker + 3).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcExpIpNoBengaliTxt")
+        workingRange.Range("E" & rowTracker + 3).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
         workingRange.Range("E" & rowTracker + 3 & ":G" & rowTracker + 3).Merge
-        workingRange.Range("H" & rowTracker + 3).value = "Pioneer Denim Denim Ltd"
+        workingRange.Range("H" & rowTracker + 3).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
         workingRange.Range("H" & rowTracker + 3 & ":L" & rowTracker + 3).Merge
         workingRange.Range("M" & rowTracker + 3).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
-        workingRange.Range("C" & rowTracker + 4).value = "5)"
-        workingRange.Range("D" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("bbLcScNoAndDtBengaliTxt")
-        workingRange.Range("E" & rowTracker + 4).value = Application.Run("createUp.combinLcAndAmnd", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("C" & rowTracker + 4).value = "4)"
+        workingRange.Range("D" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("sellerNameBengaliTxt")
+        workingRange.Range("E" & rowTracker + 4).value = "Pioneer Denim Denim Ltd"
         workingRange.Range("E" & rowTracker + 4 & ":G" & rowTracker + 4).Merge
-        workingRange.Range("H" & rowTracker + 4).value = Application.Run("createUp.combinLcAndAmnd", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 4).value = "Pioneer Denim Denim Ltd"
         workingRange.Range("H" & rowTracker + 4 & ":L" & rowTracker + 4).Merge
         workingRange.Range("M" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
-        workingRange.Range("C" & rowTracker + 4).value = "6)"
-        workingRange.Range("D" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("bbLcValueBengaliTxt")
-        workingRange.Range("E" & rowTracker + 4).value = Application.Run("createUp.valueInUsd", sourceDataAsDicUpIssuingStatus(dicKey))
-        workingRange.Range("E" & rowTracker + 4 & ":G" & rowTracker + 4).Merge
-        workingRange.Range("H" & rowTracker + 4).value = Application.Run("createUp.valueInUsd", sourceDataAsDicUpIssuingStatus(dicKey))
-        workingRange.Range("H" & rowTracker + 4 & ":L" & rowTracker + 4).Merge
-        workingRange.Range("M" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+        workingRange.Range("C" & rowTracker + 5).value = "5)"
+        workingRange.Range("D" & rowTracker + 5).value = vsCodeNotSupportedOrBengaliTxtDictionary("bbLcScNoAndDtBengaliTxt")
+        workingRange.Range("E" & rowTracker + 5).value = Application.Run("createUp.combinLcAndAmnd", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("E" & rowTracker + 5 & ":G" & rowTracker + 5).Merge
+        workingRange.Range("H" & rowTracker + 5).value = Application.Run("createUp.combinLcAndAmnd", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 5 & ":L" & rowTracker + 5).Merge
+        workingRange.Range("M" & rowTracker + 5).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
-        workingRange.Range("C" & rowTracker + 4).value = "7)"
-        workingRange.Range("D" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("qtyOfGoodsYdsBengaliTxt")
-        workingRange.Range("E" & rowTracker + 4).value = Application.Run("createUp.qtyInYds", sourceDataAsDicUpIssuingStatus(dicKey))
-        workingRange.Range("E" & rowTracker + 4 & ":G" & rowTracker + 4).Merge
-        workingRange.Range("H" & rowTracker + 4).value = Application.Run("createUp.qtyInYds", sourceDataAsDicUpIssuingStatus(dicKey))
-        workingRange.Range("H" & rowTracker + 4 & ":L" & rowTracker + 4).Merge
-        workingRange.Range("M" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+        workingRange.Range("C" & rowTracker + 6).value = "6)"
+        workingRange.Range("D" & rowTracker + 6).value = vsCodeNotSupportedOrBengaliTxtDictionary("bbLcValueBengaliTxt")
+        workingRange.Range("E" & rowTracker + 6).value = Application.Run("createUp.valueInUsd", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("E" & rowTracker + 6 & ":G" & rowTracker + 6).Merge
+        workingRange.Range("H" & rowTracker + 6).value = Application.Run("createUp.valueInUsd", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 6 & ":L" & rowTracker + 6).Merge
+        workingRange.Range("M" & rowTracker + 6).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
-        workingRange.Range("C" & rowTracker + 4).value = "8)"
-        workingRange.Range("D" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcValueBengaliTxt")
-        workingRange.Range("E" & rowTracker + 4).value = "" 'actual value put manually
-        workingRange.Range("E" & rowTracker + 4 & ":G" & rowTracker + 4).Merge
-        workingRange.Range("H" & rowTracker + 4).value = "" 'actual value put manually
-        workingRange.Range("H" & rowTracker + 4 & ":L" & rowTracker + 4).Merge
-        workingRange.Range("M" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+        workingRange.Range("C" & rowTracker + 7).value = "7)"
+        workingRange.Range("D" & rowTracker + 7).value = vsCodeNotSupportedOrBengaliTxtDictionary("qtyOfGoodsYdsBengaliTxt")
+        workingRange.Range("E" & rowTracker + 7).value = Application.Run("createUp.qtyInYds", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("E" & rowTracker + 7 & ":G" & rowTracker + 7).Merge
+        workingRange.Range("H" & rowTracker + 7).value = Application.Run("createUp.qtyInYds", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 7 & ":L" & rowTracker + 7).Merge
+        workingRange.Range("M" & rowTracker + 7).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
-        workingRange.Range("C" & rowTracker + 4).value = "9)"
-        workingRange.Range("D" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcValidityBengaliTxt")
-        workingRange.Range("E" & rowTracker + 4).value = "" 'actual value put manually
-        workingRange.Range("E" & rowTracker + 4 & ":G" & rowTracker + 4).Merge
-        workingRange.Range("H" & rowTracker + 4).value = "" 'actual value put manually
-        workingRange.Range("H" & rowTracker + 4 & ":L" & rowTracker + 4).Merge
-        workingRange.Range("M" & rowTracker + 4).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+        workingRange.Range("C" & rowTracker + 8).value = "8)"
+        workingRange.Range("D" & rowTracker + 8).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcValueBengaliTxt")
+        workingRange.Range("E" & rowTracker + 8).value = "" 'actual value put manually
+        workingRange.Range("E" & rowTracker + 8 & ":G" & rowTracker + 8).Merge
+        workingRange.Range("H" & rowTracker + 8).value = "" 'actual value put manually
+        workingRange.Range("H" & rowTracker + 8 & ":L" & rowTracker + 8).Merge
+        workingRange.Range("M" & rowTracker + 8).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+
+        workingRange.Range("C" & rowTracker + 9).value = "9)"
+        workingRange.Range("D" & rowTracker + 9).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcValidityBengaliTxt")
+        workingRange.Range("E" & rowTracker + 9).value = "" 'actual value put manually
+        workingRange.Range("E" & rowTracker + 9 & ":G" & rowTracker + 9).Merge
+        workingRange.Range("H" & rowTracker + 9).value = "" 'actual value put manually
+        workingRange.Range("H" & rowTracker + 9 & ":L" & rowTracker + 9).Merge
+        workingRange.Range("M" & rowTracker + 9).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
 
 
