@@ -476,6 +476,9 @@ Private Function putRawMaterialsQtyAsGroup(noteWorksheet As Worksheet, upClause8
     Next i
 
     Set workingRange = workingRange.Resize(rawMaterialsQtyGroupByGoods.Count)
+    workingRange.Clear
+    Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 10, False, True, xlCenter, xlCenter, "General"
+
 
     Dim j As Long
 
@@ -495,5 +498,7 @@ Private Function putRawMaterialsQtyAsGroup(noteWorksheet As Worksheet, upClause8
     workingRange.Range("K" & 10).value = totalUsedValueOfGoods / totalUsedQtyOfGoods
 
     Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:L" & workingRange.Rows.Count)
+    Application.Run "utility_formating_fun.removeBorder", workingRange.Range("K1:L" & workingRange.Rows.Count), xlInsideHorizontal
+    workingRange.Range("J1:K" & workingRange.Rows.Count).Style = "Comma"
 
 End Function
