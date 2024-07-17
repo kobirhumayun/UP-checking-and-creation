@@ -417,3 +417,83 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
 
 
 End Function
+
+Private Function putRawMaterialsQtyAsGroup(noteWorksheet As Worksheet, upClause8InfoDic As Object)
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    Dim topRow, bottomRow As Long
+
+    topRow = noteWorksheet.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("rawMaterialNameAndDescriptionBengaliTxt"), LookAt:=xlPart).Row
+    bottomRow = noteWorksheet.Range("C" & topRow).End(xlDown).Row
+
+        'one row down to take raw materials Qty. area only
+    topRow = topRow + 1
+
+    Dim workingRange As Range
+    Set workingRange = noteWorksheet.Range("A" & topRow & ":" & "L" & bottomRow)
+
+    'keep only one row
+    workingRange.Rows("2:" & workingRange.Rows.Count).EntireRow.Delete
+
+    Dim dicKey As Variant
+    Dim rawMaterialsQtyGroupByGoods As Object
+    Set rawMaterialsQtyGroupByGoods = CreateObject("Scripting.Dictionary")
+    Dim removedAllInvalidChrFromRawMaterialsDes As String
+    Dim totalUsedQtyOfGoods, totalUsedValueOfGoods As Variant
+
+    totalUsedQtyOfGoods = 0
+    totalUsedValueOfGoods = 0
+
+    For Each dicKey In upClause8InfoDic.keys
+
+        removedAllInvalidChrFromRawMaterialsDes = Application.Run("general_utility_functions.RemoveInvalidChars", upClause8InfoDic(dicKey)("nameOfGoods")) 'remove all invalid characters
+
+        If Not rawMaterialsQtyGroupByGoods.Exists(removedAllInvalidChrFromRawMaterialsDes) Then ' create group by goods dictionary
+
+            rawMaterialsQtyGroupByGoods.Add removedAllInvalidChrFromRawMaterialsDes, CreateObject("Scripting.Dictionary")
+
+        End If
+
+        rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("nameOfGoods") = upClause8InfoDic(dicKey)("nameOfGoods")
+
+        rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("concatedHsCode") = rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("concatedHsCode") _
+            & ", " & upClause8InfoDic(dicKey)("hsCode")
+
+        rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("sumInThisUpUsedQtyOfGoods") = _
+            rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("sumInThisUpUsedQtyOfGoods") + upClause8InfoDic(dicKey)("inThisUpUsedQtyOfGoods")
+
+        totalUsedQtyOfGoods = totalUsedQtyOfGoods + upClause8InfoDic(dicKey)("inThisUpUsedQtyOfGoods")
+        totalUsedValueOfGoods = totalUsedValueOfGoods + upClause8InfoDic(dicKey)("inThisUpUsedValueOfGoods")
+
+    Next dicKey
+
+    'insert rows as goods count, note already one row exist
+    Dim i As Long
+    For i = 1 To rawMaterialsQtyGroupByGoods.Count - 1
+        workingRange.Rows("2").EntireRow.Insert
+    Next i
+
+    Set workingRange = workingRange.Resize(rawMaterialsQtyGroupByGoods.Count)
+
+    Dim j As Long
+
+    For j = 0 To rawMaterialsQtyGroupByGoods.Count - 1
+
+        dicKey = rawMaterialsQtyGroupByGoods.keys()(j)
+
+        workingRange.Range("C" & j + 1).value = j + 1
+        workingRange.Range("D" & j + 1).value = rawMaterialsQtyGroupByGoods(dicKey)("nameOfGoods")
+        workingRange.Range("D" & j + 1 & ":G" & j + 1).Merge
+        workingRange.Range("H" & j + 1).value = rawMaterialsQtyGroupByGoods(dicKey)("concatedHsCode")
+        workingRange.Range("H" & j + 1 & ":I" & j + 1).Merge
+        workingRange.Range("J" & j + 1).value = rawMaterialsQtyGroupByGoods(dicKey)("sumInThisUpUsedQtyOfGoods")
+
+    Next j
+
+    workingRange.Range("K" & 10).value = totalUsedValueOfGoods / totalUsedQtyOfGoods
+
+    Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:L" & workingRange.Rows.Count)
+
+End Function
