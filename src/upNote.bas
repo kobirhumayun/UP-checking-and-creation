@@ -156,6 +156,10 @@ Private Function putUdIpExpInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIss
         End If
 
         Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
+        workingRange.Clear
+        Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 11, False, True, xlCenter, xlCenter, "General"
+        Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(10), "SutonnyMJ", 11, False, True, xlCenter, xlCenter, "General"
+
 
         Dim j, l, m As Long
         Dim dicKey As Variant
@@ -170,8 +174,9 @@ Private Function putUdIpExpInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIss
 
             dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
 
-            workingRange.Range("C" & j + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
-            workingRange.Range("C" & j + 1 & ":G" & j + 1).Merge
+            workingRange.Range("C" & j + 1).value = j + 1
+            workingRange.Range("D" & j + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+            workingRange.Range("D" & j + 1 & ":G" & j + 1).Merge
 
             Set tempWidthStr = CreateObject("Scripting.Dictionary")
             Set tempWeightStr = CreateObject("Scripting.Dictionary")
