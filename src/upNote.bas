@@ -453,13 +453,13 @@ Private Function putRawMaterialsQtyAsGroup(noteWorksheet As Worksheet, upClause8
         If Not rawMaterialsQtyGroupByGoods.Exists(removedAllInvalidChrFromRawMaterialsDes) Then ' create group by goods dictionary
 
             rawMaterialsQtyGroupByGoods.Add removedAllInvalidChrFromRawMaterialsDes, CreateObject("Scripting.Dictionary")
+            rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes).Add "concatedHsCode", CreateObject("Scripting.Dictionary") 'for unique value
 
         End If
 
         rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("nameOfGoods") = upClause8InfoDic(dicKey)("nameOfGoods")
 
-        rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("concatedHsCode") = rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("concatedHsCode") _
-            & ", " & upClause8InfoDic(dicKey)("hsCode")
+        rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("concatedHsCode")(upClause8InfoDic(dicKey)("hsCode")) = Null 'just for unique value
 
         rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("sumInThisUpUsedQtyOfGoods") = _
             rawMaterialsQtyGroupByGoods(removedAllInvalidChrFromRawMaterialsDes)("sumInThisUpUsedQtyOfGoods") + upClause8InfoDic(dicKey)("inThisUpUsedQtyOfGoods")
@@ -486,7 +486,7 @@ Private Function putRawMaterialsQtyAsGroup(noteWorksheet As Worksheet, upClause8
         workingRange.Range("C" & j + 1).value = j + 1
         workingRange.Range("D" & j + 1).value = rawMaterialsQtyGroupByGoods(dicKey)("nameOfGoods")
         workingRange.Range("D" & j + 1 & ":G" & j + 1).Merge
-        workingRange.Range("H" & j + 1).value = rawMaterialsQtyGroupByGoods(dicKey)("concatedHsCode")
+        workingRange.Range("H" & j + 1).value = Join(rawMaterialsQtyGroupByGoods(dicKey)("concatedHsCode").keys, ", ")
         workingRange.Range("H" & j + 1 & ":I" & j + 1).Merge
         workingRange.Range("J" & j + 1).value = rawMaterialsQtyGroupByGoods(dicKey)("sumInThisUpUsedQtyOfGoods")
 
