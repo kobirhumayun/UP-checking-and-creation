@@ -401,6 +401,7 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("E" & rowTracker + 9 & ":L" & rowTracker + 9).NumberFormat = "dd/mm/yyyy"
 
 
+        Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C" & rowTracker + 1 & ":M" & rowTracker + 9)
 
 
 
@@ -414,6 +415,5 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         rowTracker = rowTracker + 10
     Next j
 
-    ' Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:L" & workingRange.Rows.Count)
 
 End Function
