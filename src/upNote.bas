@@ -306,7 +306,11 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
 
     End If
 
-    Set workingRange = workingRange.Resize(totalInsertedRows)
+    Set workingRange = workingRange.Resize(totalInsertedRows + 1)
+    workingRange.Clear
+    Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 11, False, True, xlCenter, xlCenter, "General"
+    Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(4), "SutonnyMJ", 11, False, True, xlCenter, xlCenter, "General"
+    Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(13), "SutonnyMJ", 11, False, True, xlCenter, xlCenter, "General"
 
     Dim j As Long
     Dim rowTracker As Long
@@ -367,6 +371,7 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("H" & rowTracker + 6).value = Application.Run("createUp.valueInUsd", sourceDataAsDicUpIssuingStatus(dicKey))
         workingRange.Range("H" & rowTracker + 6 & ":L" & rowTracker + 6).Merge
         workingRange.Range("M" & rowTracker + 6).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+        workingRange.Range("E" & rowTracker + 6 & ":L" & rowTracker + 6).Style = "Comma"
 
         workingRange.Range("C" & rowTracker + 7).value = "7)"
         workingRange.Range("D" & rowTracker + 7).value = vsCodeNotSupportedOrBengaliTxtDictionary("qtyOfGoodsYdsBengaliTxt")
@@ -375,6 +380,7 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("H" & rowTracker + 7).value = Application.Run("createUp.qtyInYds", sourceDataAsDicUpIssuingStatus(dicKey))
         workingRange.Range("H" & rowTracker + 7 & ":L" & rowTracker + 7).Merge
         workingRange.Range("M" & rowTracker + 7).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+        workingRange.Range("E" & rowTracker + 7 & ":L" & rowTracker + 7).Style = "Comma"
 
         workingRange.Range("C" & rowTracker + 8).value = "8)"
         workingRange.Range("D" & rowTracker + 8).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcValueBengaliTxt")
@@ -383,6 +389,7 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("H" & rowTracker + 8).value = "" 'actual value put manually
         workingRange.Range("H" & rowTracker + 8 & ":L" & rowTracker + 8).Merge
         workingRange.Range("M" & rowTracker + 8).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+        workingRange.Range("E" & rowTracker + 8 & ":L" & rowTracker + 8).Style = "Comma"
 
         workingRange.Range("C" & rowTracker + 9).value = "9)"
         workingRange.Range("D" & rowTracker + 9).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcValidityBengaliTxt")
@@ -391,6 +398,7 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("H" & rowTracker + 9).value = "" 'actual value put manually
         workingRange.Range("H" & rowTracker + 9 & ":L" & rowTracker + 9).Merge
         workingRange.Range("M" & rowTracker + 9).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
+        workingRange.Range("E" & rowTracker + 9 & ":L" & rowTracker + 9).NumberFormat = "dd/mm/yyyy"
 
 
 
