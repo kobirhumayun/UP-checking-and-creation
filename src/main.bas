@@ -963,6 +963,7 @@ Sub createNewUp()
 
         Application.Run "main.dealWithYarnConsumption"
         Application.Run "main.afterYarnConsumption"
+        Application.Run "main.dealWithNote"
 
         Application.DisplayAlerts = False
         newUpWb.Close SaveChanges:=True
