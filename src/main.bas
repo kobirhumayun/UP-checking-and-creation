@@ -1238,9 +1238,14 @@ Sub dealWithNote()
     Application.Run "upNote.putVerifiedInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
     Application.Run "upNote.putRawMaterialsQtyAsGroup", noteWorksheet, upClause8InfoDic
 
+    With upWorksheet.Cells
+        .Interior.Pattern = xlNone
+        .Font.ColorIndex = xlAutomatic
+    End With
+
     Application.ScreenUpdating = True
 
-    MsgBox "UP " & newUp & " Note updated!"
+    MsgBox "UP " & newUp & " making done!"
 
 End Sub
    
