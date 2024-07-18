@@ -97,6 +97,8 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
         End If
 
         Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
+        workingRange.Clear
+        Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 10, False, True, xlCenter, xlCenter, "General"
 
         Dim j As Long
         Dim dicKey As Variant
@@ -118,6 +120,7 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
 
         Next j
 
+        workingRange.Range("E1:F" & workingRange.Rows.Count).Style = "Comma"
         Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C1:M" & workingRange.Rows.Count)
 
 End Function
