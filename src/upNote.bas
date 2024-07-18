@@ -160,8 +160,8 @@ Private Function putUdIpExpInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIss
 
         Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
         workingRange.Clear
-        Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 11, False, True, xlCenter, xlCenter, "General"
-        Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(10), "SutonnyMJ", 11, False, True, xlCenter, xlCenter, "General"
+        Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 10, False, True, xlCenter, xlCenter, "General"
+        Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(10), "SutonnyMJ", 10, False, True, xlCenter, xlCenter, "General"
 
 
         Dim j, l, m As Long
