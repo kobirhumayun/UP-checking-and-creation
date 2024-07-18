@@ -254,6 +254,8 @@ Private Function putBuyerAndBankInfo(noteWorksheet As Worksheet, sourceDataAsDic
         End If
 
         Set workingRange = workingRange.Resize(sourceDataAsDicUpIssuingStatus.Count)
+        workingRange.Clear
+        Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 10, False, True, xlCenter, xlCenter, "General"
 
         Dim j As Long
         Dim dicKey As Variant
@@ -262,9 +264,10 @@ Private Function putBuyerAndBankInfo(noteWorksheet As Worksheet, sourceDataAsDic
 
             dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
 
-            workingRange.Range("C" & j + 1).value = j + 1 & ") " & sourceDataAsDicUpIssuingStatus(dicKey)("LCIssuingBank")
-            workingRange.Range("C" & j + 1 & ":F" & j + 1).Merge
-            workingRange.Range("G" & j + 1).value = j + 1 & ") " & sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
+            workingRange.Range("C" & j + 1).value = j + 1
+            workingRange.Range("D" & j + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("LCIssuingBank")
+            workingRange.Range("D" & j + 1 & ":F" & j + 1).Merge
+            workingRange.Range("G" & j + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("NameofBuyers")
             workingRange.Range("G" & j + 1 & ":L" & j + 1).Merge
 
         Next j
