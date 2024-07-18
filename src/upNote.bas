@@ -319,9 +319,10 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
 
     Set workingRange = workingRange.Resize(totalInsertedRows + 1)
     workingRange.Clear
-    Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 11, False, True, xlCenter, xlCenter, "General"
-    Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(4), "SutonnyMJ", 11, False, True, xlCenter, xlCenter, "General"
-    Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(13), "SutonnyMJ", 11, False, True, xlCenter, xlCenter, "General"
+    Application.Run "utility_formating_fun.rangeFormat", workingRange, "Calibri", 10, False, True, xlCenter, xlCenter, "General"
+    Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(2), "Calibri", 12, True, True, xlCenter, xlCenter, "General"
+    Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(4), "SutonnyMJ", 10, False, True, xlCenter, xlCenter, "General"
+    Application.Run "utility_formating_fun.rangeFormat", workingRange.Columns(13), "SutonnyMJ", 10, False, True, xlCenter, xlCenter, "General"
 
     Dim j As Long
     Dim rowTracker As Long
@@ -411,21 +412,10 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
         workingRange.Range("M" & rowTracker + 9).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
         workingRange.Range("E" & rowTracker + 9 & ":L" & rowTracker + 9).NumberFormat = "dd/mm/yyyy"
 
-
         Application.Run "utility_formating_fun.SetBorderThin", workingRange.Range("C" & rowTracker + 1 & ":M" & rowTracker + 9)
-
-
-
-
-
-
-
-
-
 
         rowTracker = rowTracker + 10
     Next j
-
 
 End Function
 
