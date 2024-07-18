@@ -1087,8 +1087,6 @@ Sub afterYarnConsumption()
 
     Application.ScreenUpdating = True
 
-    MsgBox "UP " & newUp & " making done!"
-
 End Sub
 
 Sub updateAfterUpClause8()
