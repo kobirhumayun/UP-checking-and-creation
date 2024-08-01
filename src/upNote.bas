@@ -49,7 +49,7 @@ Private Function putUpSummary(noteWorksheet As Worksheet, sourceDataAsDicUpIssui
     Next dicKey
 
         'clear first, because when manual ref. from UP sheet it's an array & withous clear error occur
-    Range("K" & lcCountRow & ":L" & lcCountRow + 1).ClearContents
+    noteWorksheet.Range("K" & lcCountRow & ":L" & lcCountRow + 1).ClearContents
 
     noteWorksheet.Range("K" & lcCountRow).value = exportValue
     noteWorksheet.Range("K" & lcCountRow + 1).value = exportQty
