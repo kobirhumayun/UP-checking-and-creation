@@ -1066,6 +1066,20 @@ Private Function sumNewUpClause8ClassifiedPart(newUpClause8Dic As Object) As Obj
     Dim YarnDyesChemicalsClassifiedPart As Object
     Set YarnDyesChemicalsClassifiedPart = CreateObject("Scripting.Dictionary")
 
+        'assign zero to handle if any actual Qty. zero, then put empty string
+    YarnDyesChemicalsClassifiedPart("yarnImportQty") = 0
+    YarnDyesChemicalsClassifiedPart("yarnImportValue") = 0
+    YarnDyesChemicalsClassifiedPart("yarnLocalQty") = 0
+    YarnDyesChemicalsClassifiedPart("yarnLocalValue") = 0
+    YarnDyesChemicalsClassifiedPart("dyesQty") = 0
+    YarnDyesChemicalsClassifiedPart("dyesValue") = 0
+    YarnDyesChemicalsClassifiedPart("stretchWrappingFilmQty") = 0
+    YarnDyesChemicalsClassifiedPart("stretchWrappingFilmValue") = 0
+    YarnDyesChemicalsClassifiedPart("chemicalsImportQty") = 0
+    YarnDyesChemicalsClassifiedPart("chemicalsImportValue") = 0
+    YarnDyesChemicalsClassifiedPart("chemicalsLocalQty") = 0
+    YarnDyesChemicalsClassifiedPart("chemicalsLocalValue") = 0
+
     For Each dicKey In newUpClause8Dic.keys
 
         For Each innerDicKey In newUpClause8Dic(dicKey).keys
