@@ -899,11 +899,11 @@ Private Function finalRawMaterialsQtyCalculatedAsGroup( _
     "2. Water decoloring Agent_Sl_105" _
     ))
 
-    ' Set qtyAsGroupDic = Application.Run("dedo_consumption.sumRawMaterialsAsGroupAndAddToDic", qtyAsGroupDic, allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials, _
-    ' "Pumice Stone", _
-    ' Array( _
-
-    ' ))
+    Set qtyAsGroupDic = Application.Run("dedo_consumption.sumRawMaterialsAsGroupAndAddToDic", qtyAsGroupDic, allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials, _
+    "Sodium Hypochloride", _
+    Array( _
+    "4. Sodium  Hypochloride ( NaOCI)_Sl_109" _
+    ))
 
     Set qtyAsGroupDic = Application.Run("dedo_consumption.sumRawMaterialsAsGroupAndAddToDic", qtyAsGroupDic, allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials, _
     "Stretch Wrapping Film", _
