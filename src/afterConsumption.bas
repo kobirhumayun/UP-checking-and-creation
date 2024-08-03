@@ -477,10 +477,9 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
                         Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", allMushakInfoAgainstB2bAsUpClause8Format, upClause8KeysDic, CreateObject("Scripting.Dictionary"), finalRawMaterialsQtyDicAsGroup("cotton")) ' cotton comsumption use only B2B, no add any Bill of entry
 
+                        newUpClause8TempYarnInfoDic.Add "garmentsCotton", tempDic
+
                     End If
-
-                    newUpClause8TempYarnInfoDic.Add "garmentsCotton", tempDic
-
 
                     Set tempDic = Application.Run("afterConsumption.createNewUpClause8DicGroupByGoods", upClause8InfoDic(dicKey), upClause8KeysDic, CreateObject("Scripting.Dictionary"), 0) ' use 0, no add any Bill of entry, just for others calculation
 
