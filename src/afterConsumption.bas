@@ -439,9 +439,21 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
     If isGarments Then
 
+        Dim formatedUdNo As String
+
         For Each dicKey In sourceDataAsDicUpIssuingStatus.keys ' specific bill of entry use in UD
 
-            Set tempDic = importYarnUseDetailsForUd(Application.Run("general_utility_functions.extractAndFormatUdNo", sourceDataAsDicUpIssuingStatus(dicKey)("UDNoIPNo")))
+            formatedUdNo = Application.Run("general_utility_functions.extractAndFormatUdNo", sourceDataAsDicUpIssuingStatus(dicKey)("UDNoIPNo"))
+
+            If importYarnUseDetailsForUd.Exists(formatedUdNo) Then
+
+                Set tempDic = importYarnUseDetailsForUd(formatedUdNo)
+
+            Else
+
+                Set tempDic = CreateObject("Scripting.Dictionary")
+
+            End If
 
             For Each innerDicKey In tempDic.keys
 
