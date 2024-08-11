@@ -281,16 +281,16 @@ Private Function sourceDataAsDicImportYarnUseDetailsForUd(fileName As String, wo
         propertiesValArr(4) = temp(i, 3)
         propertiesValArr(5) = temp(i, 5)
         propertiesValArr(6) = temp(i, 6)
-        propertiesValArr(7) = temp(i, 7)
-        propertiesValArr(8) = temp(i, 8)
-        propertiesValArr(9) = temp(i, 9)
-        propertiesValArr(10) = temp(i, 10)
+        propertiesValArr(7) = 0 'no need because UP sequence not same as UD
+        propertiesValArr(8) = 0 'no need because UP sequence not same as UD
+        propertiesValArr(9) = 0 'no need because UP sequence not same as UD
+        propertiesValArr(10) = 0 'no need because UP sequence not same as UD
         propertiesValArr(11) = temp(i, 11)
         propertiesValArr(12) = temp(i, 12)
-        propertiesValArr(13) = temp(i, 13)
-        propertiesValArr(14) = temp(i, 14)
-        propertiesValArr(15) = temp(i, 15)
-        propertiesValArr(16) = temp(i, 16)
+        propertiesValArr(13) = 0 'no need because UP sequence not same as UD
+        propertiesValArr(14) = 0 'no need because UP sequence not same as UD
+        propertiesValArr(15) = 0 'no need because UP sequence not same as UD
+        propertiesValArr(16) = 0 'no need because UP sequence not same as UD
         propertiesValArr(17) = temp(i, 17)
         propertiesValArr(18) = temp(i, 18)
 
