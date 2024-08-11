@@ -439,6 +439,16 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
     If isGarments Then
 
+        For Each dicKey In allMushakInfoAgainstB2bAsUpClause8Format.keys
+
+            allMushakInfoAgainstB2bAsUpClause8Format(dicKey)("inThisUpUsedQtyOfGoodsComment") = "ONLY USED FOR GARMENTS UD" ' change comment for new garments mushak
+
+        Next dicKey
+
+    End If
+
+    If isGarments Then
+
         Dim formatedUdNo As String
 
         For Each dicKey In sourceDataAsDicUpIssuingStatus.keys ' specific bill of entry use in UD
