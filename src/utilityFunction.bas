@@ -2933,3 +2933,19 @@ Private Function upSequenceStrGenerator(upArr As Variant) As String
     upSequenceStrGenerator = uPSequenceStr
     
 End Function
+
+Private Function cellsMarkingAsValue(markingRange As Range, criteriaValue As String)
+    
+    Dim eachCell As Range
+
+    For Each eachCell In markingRange
+
+        If eachCell.Value = criteriaValue Then
+
+            markingRange.Interior.Color = RGB(255, 0, 0)
+
+        End If
+
+    Next eachCell
+    
+End Function
