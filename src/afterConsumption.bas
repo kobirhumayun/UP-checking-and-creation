@@ -418,7 +418,7 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
             ' properties take from "CombinedAllSheetsMushakOrBillOfEntryDbDict" Function, if properties mismatch than arises conflict
             Set tempDic = Application.Run("dictionary_utility_functions.CreateDicWithProvidedKeysAndValues", _
             Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), _
-            Array(usedB2bInfoFromUpIssuingStatus(dicKey)("BTBLCNo"), usedB2bInfoFromUpIssuingStatus(dicKey)("BTBLCNo"), "5203.00.00", "COTTON YARN", _
+            Array("Bill of Entry not Received", usedB2bInfoFromUpIssuingStatus(dicKey)("BTBLCNo"), "5203.00.00", "COTTON YARN", _
             usedB2bInfoFromUpIssuingStatus(dicKey)("QuantityKgs"), usedB2bInfoFromUpIssuingStatus(dicKey)("BTBAmount"), _
             0, 0, _
             usedB2bInfoFromUpIssuingStatus(dicKey)("QuantityKgs"), usedB2bInfoFromUpIssuingStatus(dicKey)("BTBAmount")))
