@@ -100,7 +100,7 @@ Private Function upClause8BtbLcinformationRangeObjectFromProvidedWs(ws As Worksh
     bottomRow = ws.Range("V" & topRow).End(xlDown).Row
 
     Dim workingRange As Range
-    Set workingRange = ws.Range("B" & topRow & ":" & "AA" & bottomRow)
+    Set workingRange = ws.Range("A" & topRow & ":" & "AA" & bottomRow)
     workingRange.Font.Color = RGB(0, 255, 0)
     Set upClause8BtbLcinformationRangeObjectFromProvidedWs = workingRange
 
