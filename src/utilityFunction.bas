@@ -2942,7 +2942,7 @@ Private Function cellsMarkingAsValue(markingRange As Range, criteriaValue As Str
 
         If eachCell.Value = criteriaValue Then
 
-            markingRange.Interior.Color = RGB(255, 0, 0)
+            eachCell.Interior.Color = RGB(255, 0, 0)
 
         End If
 
