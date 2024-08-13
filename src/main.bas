@@ -1237,10 +1237,15 @@ Sub dealWithNote()
     Application.Run "upNote.putVerifiedInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
     Application.Run "upNote.putRawMaterialsQtyAsGroup", noteWorksheet, upClause8InfoDic
 
+    Dim upClause8BtbLcinformationRangeObject As Object
+    Set upClause8BtbLcinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause8BtbLcinformationRangeObjectFromProvidedWs", upWorksheet)
+
     With upWorksheet.Cells
         .Interior.Pattern = xlNone
         .Font.ColorIndex = xlAutomatic
     End With
+
+    Application.Run "utilityFunction.cellsMarkingAsValue", upClause8BtbLcinformationRangeObject.Range("G1:G" & upClause8BtbLcinformationRangeObject.Rows.Count), "Bill of Entry not Received"
 
     Application.ScreenUpdating = True
 
