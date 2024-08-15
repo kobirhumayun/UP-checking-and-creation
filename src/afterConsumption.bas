@@ -1624,6 +1624,21 @@ Private Function dealWithUpClause12b(ws As Worksheet, sourceDataAsDicUpIssuingSt
 
 End Function
 
+Private Function dealWithUpClause12bGarments(ws As Worksheet)
+
+    Dim upClause12BGarmentsRangeObject As Range
+    Set upClause12BGarmentsRangeObject = Application.Run("helperFunctionGetRangeObject.upClause12BGarmentsRangeObjectFromProvidedWs", ws)
+
+     Dim eachCell As Range
+
+    For Each eachCell In upClause12BGarmentsRangeObject.Range("K1:K" & upClause12BGarmentsRangeObject.Rows.Count)
+
+        eachCell.value = Null ' to clear content
+
+    Next eachCell
+
+End Function
+
 Private Function dealWithUpClause13(ws As Worksheet, newUpClause8InfoClassifiedPartDic As Object)
 
     Dim upClause13InformationRangeObject As Range
