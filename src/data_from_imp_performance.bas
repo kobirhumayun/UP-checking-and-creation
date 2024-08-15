@@ -18,30 +18,6 @@ Private Function createUseGroupDic() As Object
     Set nonYarnUseGroupDict = CreateObject("Scripting.Dictionary") ' UP raw materials group against import performance raw materials
     'alternatively UP raw materials assign import performance raw materials id
 
-    Set isYarn = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", isYarn, "yarn", _
-    Array("50% Cotton 50% Modal Yarn", _
-    "Carded Cotton Yarn", _
-    "Cotton Carded Lycra Yarn", _
-    "Cotton Carded Yarn", _
-    "Cotton / Lycra Yarn", _
-    "Cotton / Polyester Yarn", _
-    "Cotton Yarn", _
-    "COTTON YARN", _
-    "Hemp Yarn", _
-    "True Hemp Yarn", _
-    "35% Cotton 65% Polyester Yarn", _
-    "65% Polyester 35% Cotton Spandex Yarn", _
-    "65% Polyester 35% Rayon Yarn", _
-    "65% Tencel 35% Cotton Yarn", _
-    "Polyester Yarn", _
-    "65% Polyester 35% Cotton Yarn", _
-    "Viscose Rayon Yarn", _
-    "Lycra Yarn", _
-    "Spandex Bare Yarn", _
-    "Spandex Yarn"))
-
-    useGroupDict.Add "isYarn", isYarn
-
     Set yarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", yarnUseGroupDict, "cotton", _
     Array("50% Cotton 50% Modal Yarn", _
     "Carded Cotton Yarn", _
@@ -69,6 +45,9 @@ Private Function createUseGroupDic() As Object
     "Spandex Yarn"))
 
     useGroupDict.Add "yarnUseGroupDict", yarnUseGroupDict
+
+    Set isYarn = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", isYarn, "yarn", yarnUseGroupDict.keys) 'dynamic array elements
+    useGroupDict.Add "isYarn", isYarn
 
     Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Desizing Agent / Enzyme", _
     Array("Desizing Agent", "Enzyme"))
