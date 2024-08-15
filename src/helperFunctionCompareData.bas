@@ -1582,7 +1582,17 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
             If Result Then
                 Result = "OK"
             Else
-                Result = "Used in UP " & Round(clause8UsedThisUpChemicalQtySumBySameGroup(dictKey) / finalRawMaterialsQtyDicAsGroup(dictKey), 2) * 100 & "%"
+                    'fix division by zero error
+                If finalRawMaterialsQtyDicAsGroup(dictKey) = 0 Then
+
+                    Result = "Programmatically Qty. = 0"
+                    
+                Else
+                    
+                    Result = "Used in UP " & Round(clause8UsedThisUpChemicalQtySumBySameGroup(dictKey) / finalRawMaterialsQtyDicAsGroup(dictKey), 2) * 100 & "%"
+
+                End If
+
             End If
             
             emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1))        ' find empty string pattern = "^$"
