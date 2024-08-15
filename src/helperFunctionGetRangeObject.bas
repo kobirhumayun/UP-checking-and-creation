@@ -247,6 +247,22 @@ Private Function upClause12BChemicalDyesConsumptioninformationRangeObjectFromPro
 
 End Function
 
+Private Function upClause12BGarmentsRangeObjectFromProvidedWs(ws As Worksheet) As Variant
+
+    Dim topRow, bottomRow As Variant
+
+    topRow = ws.Cells.Find("Unit One (1) Dozen (Denim/Twill/Cord)", LookAt:=xlPart).Row + 2
+    bottomRow = topRow + 131
+
+    Dim workingRange As Range
+    Set workingRange = ws.Range("A" & topRow & ":" & "Y" & bottomRow)
+
+    workingRange.Font.Color = RGB(255, 255, 255)
+
+    Set upClause12BGarmentsRangeObjectFromProvidedWs = workingRange
+
+End Function
+
 Private Function upClause13UseRawMaterialsinformationRangeObject() As Variant
 'this function give used raw materials information Range Object from active sheet
 Dim topRow, bottomRow As Variant
