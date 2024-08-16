@@ -365,7 +365,7 @@ Private Function putIpExpMLcFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDat
 
 End Function
 
-Private Function combinUdIpExpMlc(lcDict As Object) As String
+Private Function combinUdIpExpMlc(lcDict As Object, innerConcateCharacterCode As Long, afterDateConcateCharacterCode As Long) As String
 
     Dim udIpExp As Object
     Set udIpExp = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "udOrIpOrExp", "date", Split(lcDict("UDNoIPNo"), Chr(10)), Split(lcDict("UDIPDate"), Chr(10)))
@@ -383,28 +383,28 @@ Private Function combinUdIpExpMlc(lcDict As Object) As String
         If Application.Run("general_utility_functions.isStrPatternExist", lcDict("UDNoIPNo"), "^IP", True, True, True) Then
             ' non Garments EPZ
 
-            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32, 10)
-            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 32, 10)
-            returnStr = concateExp & Chr(10) & concateIp
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", innerConcateCharacterCode, afterDateConcateCharacterCode)
+            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", innerConcateCharacterCode, afterDateConcateCharacterCode)
+            returnStr = concateExp & Chr(afterDateConcateCharacterCode) & concateIp
 
         ElseIf Application.Run("general_utility_functions.isStrPatternExist", lcDict("UDNoIPNo"), "^EXP", True, True, True) Then
             ' non Garments direct
 
-            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32, 10)
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", innerConcateCharacterCode, afterDateConcateCharacterCode)
             returnStr = concateExp
 
 
         Else
             ' non Garments Deem
 
-            concateMLc = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", mLC, ".", "mLcNo", "date", 32, 10)
+            concateMLc = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", mLC, ".", "mLcNo", "date", innerConcateCharacterCode, afterDateConcateCharacterCode)
             returnStr = Trim(concateMLc)
 
         End If
 
     Else
         ' Garments
-        returnStr = lcDict("LCSCNo") & Chr(32) & lcDict("LCIssueDate") ' just use LC or SC no. as MLC
+        returnStr = lcDict("LCSCNo") & Chr(innerConcateCharacterCode) & lcDict("LCIssueDate") ' just use LC or SC no. as MLC
 
     End If
 
