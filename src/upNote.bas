@@ -178,7 +178,7 @@ Private Function putUdIpExpInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIss
             dicKey = sourceDataAsDicUpIssuingStatus.keys()(j)
 
             workingRange.Range("C" & j + 1).value = j + 1
-            workingRange.Range("D" & j + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+            workingRange.Range("D" & j + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey), 32, 10)
             workingRange.Range("D" & j + 1 & ":G" & j + 1).Merge
 
             Set tempWidthStr = CreateObject("Scripting.Dictionary")
@@ -346,9 +346,9 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
 
         workingRange.Range("C" & rowTracker + 2).value = "2)"
         workingRange.Range("D" & rowTracker + 2).value = vsCodeNotSupportedOrBengaliTxtDictionary("udNoBengaliTxt")
-        workingRange.Range("E" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("E" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey), 32, 10)
         workingRange.Range("E" & rowTracker + 2 & ":G" & rowTracker + 2).Merge
-        workingRange.Range("H" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 2).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(dicKey), 32, 10)
         workingRange.Range("H" & rowTracker + 2 & ":L" & rowTracker + 2).Merge
         workingRange.Range("M" & rowTracker + 2).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
