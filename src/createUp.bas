@@ -448,7 +448,7 @@ Private Function combinUdIpExpAndDt(lcDict As Object) As String
 End Function
 
 
-Private Function udIpExpMLcWithDtFilterAndConcate(udIpExpMLcWithDtDic As Object, filterPattern As String, innerDicNameKey As String, innerDicDateKey As String, innerConcateCharacterCode As Integer)
+Private Function udIpExpMLcWithDtFilterAndConcate(udIpExpMLcWithDtDic As Object, filterPattern As String, innerDicNameKey As String, innerDicDateKey As String, innerConcateCharacterCode As Long, afterDateConcateCharacterCode As Long)
      'this function take Ud, Ip, Exp or M.LC No. & Date dictionary, filter pattern, inner dictionary name key and inner dictionary date key, inner joinning character code then
      'return with concate sequentially Related Ud, Ip, Exp or M.LC No. & Date
 
@@ -461,7 +461,7 @@ Private Function udIpExpMLcWithDtFilterAndConcate(udIpExpMLcWithDtDic As Object,
 
         If Application.Run("general_utility_functions.isStrPatternExist", dictKey, filterPattern, True, True, True) Then
 
-            concateUdIpExpOrMLcWithDt = concateUdIpExpOrMLcWithDt & Trim(udIpExpMLcWithDtDic(dictKey)(innerDicNameKey)) & Chr(innerConcateCharacterCode) & Trim(udIpExpMLcWithDtDic(dictKey)(innerDicDateKey)) & Chr(innerConcateCharacterCode)
+            concateUdIpExpOrMLcWithDt = concateUdIpExpOrMLcWithDt & Trim(udIpExpMLcWithDtDic(dictKey)(innerDicNameKey)) & Chr(innerConcateCharacterCode) & Trim(udIpExpMLcWithDtDic(dictKey)(innerDicDateKey)) & Chr(afterDateConcateCharacterCode)
 
         End If
 
