@@ -412,7 +412,7 @@ Private Function combinUdIpExpMlc(lcDict As Object, innerConcateCharacterCode As
 
 End Function
 
-Private Function combinUdIpExpAndDt(lcDict As Object) As String
+Private Function combinUdIpExpAndDt(lcDict As Object, innerConcateCharacterCode As Long, afterDateConcateCharacterCode As Long) As String
 
     Dim udIpExp As Object
     Set udIpExp = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "udOrIpOrExp", "date", Split(lcDict("UDNoIPNo"), Chr(10)), Split(lcDict("UDIPDate"), Chr(10)))
@@ -425,20 +425,20 @@ Private Function combinUdIpExpAndDt(lcDict As Object) As String
 
         If Application.Run("general_utility_functions.isStrPatternExist", lcDict("UDNoIPNo"), "^IP", True, True, True) Then
             ' EPZ
-            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32, 10)
-            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 32, 10)
-            returnStr = concateExp & Chr(10) & concateIp
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", innerConcateCharacterCode, afterDateConcateCharacterCode)
+            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", innerConcateCharacterCode, afterDateConcateCharacterCode)
+            returnStr = concateExp & Chr(afterDateConcateCharacterCode) & concateIp
 
         ElseIf Application.Run("general_utility_functions.isStrPatternExist", lcDict("UDNoIPNo"), "^EXP", True, True, True) Then
             ' direct
 
-            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32, 10)
+            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", innerConcateCharacterCode, afterDateConcateCharacterCode)
             returnStr = concateExp
 
 
         Else
             ' Deem
-            concateUd = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, ".", "udOrIpOrExp", "date", 32, 10)
+            concateUd = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, ".", "udOrIpOrExp", "date", innerConcateCharacterCode, afterDateConcateCharacterCode)
             returnStr = Trim(concateUd)
 
         End If
