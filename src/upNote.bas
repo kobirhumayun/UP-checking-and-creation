@@ -115,7 +115,7 @@ Private Function putLcInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIssuingS
             workingRange.Range("G" & j + 1 & ":H" & j + 1).Merge
             workingRange.Range("I" & j + 1).value = sourceDataAsDicUpIssuingStatus(dicKey)("ExpiryDate")
             workingRange.Range("I" & j + 1 & ":J" & j + 1).Merge
-            workingRange.Range("K" & j + 1).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
+            workingRange.Range("K" & j + 1).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey), 32, 10)
             workingRange.Range("K" & j + 1 & ":M" & j + 1).Merge
 
         Next j
@@ -354,9 +354,9 @@ Private Function putVerifiedInfo(noteWorksheet As Worksheet, sourceDataAsDicUpIs
 
         workingRange.Range("C" & rowTracker + 3).value = "3)"
         workingRange.Range("D" & rowTracker + 3).value = vsCodeNotSupportedOrBengaliTxtDictionary("mLcExpIpNoBengaliTxt")
-        workingRange.Range("E" & rowTracker + 3).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("E" & rowTracker + 3).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey), 32, 10)
         workingRange.Range("E" & rowTracker + 3 & ":G" & rowTracker + 3).Merge
-        workingRange.Range("H" & rowTracker + 3).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey))
+        workingRange.Range("H" & rowTracker + 3).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(dicKey), 32, 10)
         workingRange.Range("H" & rowTracker + 3 & ":L" & rowTracker + 3).Merge
         workingRange.Range("M" & rowTracker + 3).value = vsCodeNotSupportedOrBengaliTxtDictionary("foundCorrectBengaliTxt")
 
