@@ -760,7 +760,7 @@ Private Function createNewUpClause8DicGroupByGoods(upClause8DicGroupByGoods As O
 
         upClause8DicGroupByGoods(dicKey)("inThisUpUsedQtyOfGoods") = 0
 
-        If upClause8DicGroupByGoods(dicKey)("remainingQtyOfGoods") > 0.1 Then
+        If upClause8DicGroupByGoods(dicKey)("remainingQtyOfGoods") > 0.01 Then
 
             newUpClause8InfoDic.Add dicKey, upClause8DicGroupByGoods(dicKey)
 
