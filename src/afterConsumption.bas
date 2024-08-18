@@ -1245,7 +1245,7 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
 
     End If
     
-    Dim i, j, k, l, m As Long
+    Dim i, j, l, m As Long
 
     'insert rows as lc count, note already two rows exist one row for UD, IP, EXP, buyer etc info and one row form total sum
     'rest row insert between these rows
@@ -1277,24 +1277,9 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
         upClause11UdExpIpinformationRangeObject.Range("c" & j + 1).value = sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("NameofBuyers")
         upClause11UdExpIpinformationRangeObject.Range("c" & j + 1 & ":p" & j + 1).Merge
 
-
-            'extract UD IP EXP & Date
-        Set regExReturnedObjectUdIpExp = Application.Run("general_utility_functions.regExReturnedObj", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("UDNoIPNo"), ".+", True, True, True)
-        Set regExReturnedObjectUdIpExpDt = Application.Run("general_utility_functions.regExReturnedObj", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j))("UDIPDate"), ".+", True, True, True)
-
-
-        For k = 0 To regExReturnedObjectUdIpExp.Count - 1
-
-                'join UD IP EXP & Date
-            tempUdIpExpAndDtJoinStr = tempUdIpExpAndDtJoinStr & regExReturnedObjectUdIpExp(k) & " " & regExReturnedObjectUdIpExpDt(k) & Chr(10)
-
-        Next k
-
             'put UD IP EXP & Date
-        upClause11UdExpIpinformationRangeObject.Range("q" & j + 1).value = Left(tempUdIpExpAndDtJoinStr, Len(tempUdIpExpAndDtJoinStr) - 1)
+        upClause11UdExpIpinformationRangeObject.Range("q" & j + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j)), 32, 10)
         upClause11UdExpIpinformationRangeObject.Range("q" & j + 1 & ":s" & j + 1).Merge
-
-        tempUdIpExpAndDtJoinStr = "" 'reset
 
         upClause11UdExpIpinformationRangeObject.Range("t" & j + 1).value = "Denim Garments"
         upClause11UdExpIpinformationRangeObject.Range("t" & j + 1 & ":u" & j + 1).Merge
