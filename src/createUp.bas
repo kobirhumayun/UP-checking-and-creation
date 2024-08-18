@@ -305,63 +305,10 @@ End Function
 
 
 Private Function putIpExpMLcFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDataAsDicUpIssuingStatus As Object, lcKey As Variant)
-    'this function fill-up Ip or Exp or M.LC field as lc information
+    'fill-up Ip or Exp or M.LC field as lc information
 
-        ' lcRangObj(1, 22).Resize(2, 2).Style = "Comma"
-    Dim udIpExp As Object
-    Set udIpExp = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "udOrIpOrExp", "date", Split(sourceDataAsDicUpIssuingStatus(lcKey)("UDNoIPNo"), Chr(10)), Split(sourceDataAsDicUpIssuingStatus(lcKey)("UDIPDate"), Chr(10)))
-
-    Dim mLC As Object
-    Set mLC = Application.Run("general_utility_functions.sequentiallyRelateTwoArraysAsDictionary", "mLcNo", "date", Split(sourceDataAsDicUpIssuingStatus(lcKey)("MasterLCNo"), Chr(10)), Split(sourceDataAsDicUpIssuingStatus(lcKey)("MasterLCIssueDt"), Chr(10)))
-
-    Dim concateExp As String
-    Dim concateIp As String
-    Dim concateMLc As String
-
-    If IsEmpty(sourceDataAsDicUpIssuingStatus(lcKey)("GarmentsQty")) Then
-
-        If Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(lcKey)("UDNoIPNo"), "^IP", True, True, True) Then
-            ' non Garments EPZ
-
-            ' concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 10, 10)
-
-            ' lcRangObj(1, 22).value = Trim(Replace(concateExp, "EXP:", ""))
-            ' lcRangObj(1, 22).Resize(2, 3).Merge
-
-            ' concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 10, 10)
-
-            ' lcRangObj(1, 25).value = Trim(Replace(concateIp, "IP:", ""))
-            ' lcRangObj(1, 25).Resize(2, 3).Merge
-
-            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32, 10)
-            concateIp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^IP", "udOrIpOrExp", "date", 32, 10)
-            lcRangObj(1, 22).value = concateExp & Chr(10) & concateIp
-            lcRangObj(1, 22).Resize(2, 6).Merge
-
-        ElseIf Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(lcKey)("UDNoIPNo"), "^EXP", True, True, True) Then
-            ' non Garments direct
-
-            concateExp = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", udIpExp, "^EXP", "udOrIpOrExp", "date", 32, 10)
-
-            ' lcRangObj(1, 22).value = Trim(Replace(concateExp, "EXP:", ""))
-            lcRangObj(1, 22).value = concateExp
-            lcRangObj(1, 22).Resize(2, 6).Merge
-        Else
-            ' non Garments Deem
-
-            concateMLc = Application.Run("createUp.udIpExpMLcWithDtFilterAndConcate", mLC, ".", "mLcNo", "date", 32, 10)
-
-            lcRangObj(1, 22).value = Trim(concateMLc)
-            lcRangObj(1, 22).Resize(2, 6).Merge
-
-        End If
-
-    Else
-        ' Garments
-        lcRangObj(1, 22).value = sourceDataAsDicUpIssuingStatus(lcKey)("LCSCNo") & Chr(32) & sourceDataAsDicUpIssuingStatus(lcKey)("LCIssueDate") ' just use LC or SC no. as MLC
-        lcRangObj(1, 22).Resize(2, 6).Merge
-
-    End If
+    lcRangObj(1, 22).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(lcKey), 32, 10)
+    lcRangObj(1, 22).Resize(2, 6).Merge
 
 End Function
 
