@@ -184,28 +184,11 @@ Private Function valueInUsd(lcDict As Object) As Variant
 End Function
 
 Private Function putCommonFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDataAsDicUpIssuingStatus As Object, lcKey As Variant)
-    'this function fill-up common field as lc information
-    Dim temp As Variant
-    temp = sourceDataAsDicUpIssuingStatus(lcKey)("LCSCNo") & Chr(10) & DateValue(sourceDataAsDicUpIssuingStatus(lcKey)("LCIssueDate"))
-
-    If Not IsEmpty(sourceDataAsDicUpIssuingStatus(lcKey)("BangladeshBankRef")) Then
-    
-        temp = temp & Chr(10) & "(DC-" & sourceDataAsDicUpIssuingStatus(lcKey)("BangladeshBankRef") & ")"
-    
-    End If
-    
-    If sourceDataAsDicUpIssuingStatus(lcKey)("LCAmndNo") <> "-" Then
-        Dim amndNo As Variant
-        amndNo = Application.Run("general_utility_functions.ExtractRightDigitFromEnd", sourceDataAsDicUpIssuingStatus(lcKey)("LCAmndNo"))   'take right digits from end
-        If amndNo < 10 Then
-            amndNo = "0" & amndNo
-        End If
-        temp = temp & Chr(10) & "Amnd-" & amndNo & " Dt." & sourceDataAsDicUpIssuingStatus(lcKey)("LCAmndDate")
-    End If
+    'fill-up common field as lc information
 
     'put LC no.
     lcRangObj(1, 3).NumberFormat = "@"
-    lcRangObj(1, 3).value = temp
+    lcRangObj(1, 3).value = Application.Run("createUp.combinLcAndAmnd", sourceDataAsDicUpIssuingStatus(lcKey))
     lcRangObj(1, 3).Resize(2, 7).Merge
 
     'put Bank
