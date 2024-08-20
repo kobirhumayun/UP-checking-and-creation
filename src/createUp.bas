@@ -145,6 +145,80 @@ Private Function combinLcAndAmnd(lcDict As Object) As String
     
 End Function
 
+Private Function valueQtySummaryAsUP(sourceDataAsDicUpIssuingStatus As Object) As Object
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    Dim resultDict As Object
+    Set resultDict = CreateObject("Scripting.Dictionary")
+
+    resultDict("TotalExportValueSumConvertedInUSD") = 0
+    resultDict("TotalExportQtySumConvertedInYds") = 0
+    resultDict("totalB2BValueSum") = 0
+    resultDict("totalB2BQtySum") = 0
+    resultDict("sumOfGarmentsQty") = 0
+
+    resultDict("exportValueSumOfUSD") = 0
+    resultDict("exportValueSumOfEuro") = 0
+
+    resultDict("exportQtySumOfYds") = 0
+    resultDict("exportQtySumOfMtr") = 0
+
+    resultDict("usedInUpB2BValueSum") = 0
+    resultDict("notUsedInUpB2BValueSum") = 0
+
+    resultDict("usedInUpB2BQtySum") = 0
+    resultDict("notUsedInUpB2BQtySum") = 0
+
+    Dim dicKey As Variant
+
+    For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
+
+        resultDict("TotalExportValueSumConvertedInUSD") = resultDict("TotalExportValueSumConvertedInUSD") + Application.Run("createUp.valueInUsd", sourceDataAsDicUpIssuingStatus(dicKey))
+        resultDict("TotalExportQtySumConvertedInYds") = resultDict("TotalExportQtySumConvertedInYds") + Application.Run("createUp.qtyInYds", sourceDataAsDicUpIssuingStatus(dicKey))
+        resultDict("totalB2BValueSum") = resultDict("totalB2BValueSum") + sourceDataAsDicUpIssuingStatus(dicKey)("BTBAmount")
+        resultDict("totalB2BQtySum") = resultDict("totalB2BQtySum") + sourceDataAsDicUpIssuingStatus(dicKey)("QuantityKgs")
+        resultDict("sumOfGarmentsQty") = resultDict("sumOfGarmentsQty") + sourceDataAsDicUpIssuingStatus(dicKey)("GarmentsQty")
+
+        If Left(sourceDataAsDicUpIssuingStatus(dicKey)("currencyNumberFormat"), 8) = vsCodeNotSupportedOrBengaliTxtDictionary("sourceDataAsDicUpIssuingStatusCurrencyNumberFormat") Then
+
+            resultDict("exportValueSumOfEuro") = resultDict("exportValueSumOfEuro") + CDbl(sourceDataAsDicUpIssuingStatus(dicKey)("LCAmount"))
+
+        Else
+
+            resultDict("exportValueSumOfUSD") = resultDict("exportValueSumOfUSD") + CDbl(sourceDataAsDicUpIssuingStatus(dicKey)("LCAmount"))
+
+        End If
+
+        If Right(sourceDataAsDicUpIssuingStatus(dicKey)("qtyNumberFormat"), 5) = """Mtr""" Then
+
+            resultDict("exportQtySumOfMtr") = resultDict("exportQtySumOfMtr") + sourceDataAsDicUpIssuingStatus(dicKey)("QuantityofFabricsYdsMtr")
+
+        Else
+
+            resultDict("exportQtySumOfYds") = resultDict("exportQtySumOfYds") + sourceDataAsDicUpIssuingStatus(dicKey)("QuantityofFabricsYdsMtr")
+
+        End If
+
+        If Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("b2bComment"), "B2B not use in UP", True, True, True) Then
+
+            resultDict("notUsedInUpB2BValueSum") = resultDict("notUsedInUpB2BValueSum") + sourceDataAsDicUpIssuingStatus(dicKey)("BTBAmount")
+            resultDict("notUsedInUpB2BQtySum") = resultDict("notUsedInUpB2BQtySum") + sourceDataAsDicUpIssuingStatus(dicKey)("QuantityKgs")
+
+        Else
+
+            resultDict("usedInUpB2BValueSum") = resultDict("usedInUpB2BValueSum") + sourceDataAsDicUpIssuingStatus(dicKey)("BTBAmount")
+            resultDict("usedInUpB2BQtySum") = resultDict("usedInUpB2BQtySum") + sourceDataAsDicUpIssuingStatus(dicKey)("QuantityKgs")
+
+        End If
+
+    Next dicKey
+
+    Set valueQtySummaryAsUP = resultDict
+    
+End Function
+
 Private Function qtyInYds(lcDict As Object) As Variant
 
     Dim temp As Variant
