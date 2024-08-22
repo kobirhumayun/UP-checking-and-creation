@@ -51,7 +51,10 @@ End Function
 
 
 Private Function dealWithUpClause7(upClause7RangObj As Range, sourceDataAsDicUpIssuingStatus As Object) As Variant
-    'this function put all the information clause 7 on new UP
+        'put all the information clause 7 on new UP
+
+        Dim valueQtySummaryAsUPDict As Object
+        Set valueQtySummaryAsUPDict = Application.Run("createUp.valueQtySummaryAsUP", sourceDataAsDicUpIssuingStatus)
 
         'delete all the lc information rows
         upClause7RangObj.Rows("2:" & upClause7RangObj.Rows.Count - 1).EntireRow.Delete
@@ -62,8 +65,8 @@ Private Function dealWithUpClause7(upClause7RangObj As Range, sourceDataAsDicUpI
             upClause7RangObj.Rows("2").EntireRow.Insert
         Next i
 
-        upClause7RangObj.Range("r" & upClause7RangObj.Rows.Count).FormulaR1C1 = "=SUM(R[-" & upClause7RangObj.Rows.Count - 2 & "]C:R[-1]C)"
-        upClause7RangObj.Range("t" & upClause7RangObj.Rows.Count).FormulaR1C1 = "=SUM(R[-" & upClause7RangObj.Rows.Count - 2 & "]C:R[-1]C)"
+        upClause7RangObj.Range("r" & upClause7RangObj.Rows.Count).value = valueQtySummaryAsUPDict("TotalExportQtySumConvertedInYds")
+        upClause7RangObj.Range("t" & upClause7RangObj.Rows.Count).value = valueQtySummaryAsUPDict("TotalExportValueSumConvertedInUSD")
 
         Application.Run "utility_formating_fun.SetBorderInsideHairlineAroundThin", upClause7RangObj.Range("b1:aa" & upClause7RangObj.Rows.Count)
 
