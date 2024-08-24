@@ -1647,6 +1647,40 @@ Private Function dealWithUpClause13(ws As Worksheet, newUpClause8InfoClassifiedP
 
 End Function
 
+Private Function dealWithUpClause14(ws As Worksheet, sourceDataAsDicUpIssuingStatus As Object)
+
+    Dim valueQtySummaryAsUPDict As Object
+    Set valueQtySummaryAsUPDict = Application.Run("createUp.valueQtySummaryAsUP", sourceDataAsDicUpIssuingStatus)
+
+    Dim isGarments As Boolean
+    
+    If sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(0))("GarmentsQty") > 0 Then
+    
+        isGarments = True
+    
+    Else
+    
+        isGarments = False
+    
+    End If
+
+    Dim upClause14InformationRangeObject As Range
+    Set upClause14InformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause14RangeObjectFromProvidedWs", ws)
+
+    If isGarments Then
+
+        upClause14InformationRangeObject.Range("q1").value = valueQtySummaryAsUPDict("sumOfGarmentsQty")
+        upClause14InformationRangeObject.Range("r1").value = "Pcs"
+
+    Else
+
+        upClause14InformationRangeObject.Range("q1").value = Null
+        upClause14InformationRangeObject.Range("r1").value = Null
+
+    End If
+
+End Function
+
 Private Function isLastUpUsedUpdatedInImportPerformance(importPerformanceAnyRawMaterialsData As Variant, upNo As Variant, upColumn As Integer) As Boolean
     'return true if only given UP No. updated in import performance used as last UP.
     Dim allExistedUpDict As Object
