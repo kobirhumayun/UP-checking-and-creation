@@ -1082,6 +1082,8 @@ Sub afterYarnConsumption()
 
     Application.Run "afterConsumption.dealWithUpClause13", upWorksheet, newUpClause8InfoClassifiedPartDic
 
+    Application.Run "afterConsumption.dealWithUpClause14", upWorksheet, sourceDataAsDicUpIssuingStatus
+
     With upWorksheet.Cells
         .Interior.Pattern = xlNone
         .Font.ColorIndex = xlAutomatic
