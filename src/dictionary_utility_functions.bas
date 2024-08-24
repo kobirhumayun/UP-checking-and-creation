@@ -263,6 +263,25 @@ Private Function sumOfProvidedKeys(dict As Object, arrOfKeys As Variant) As Vari
 
 End Function
 
+Private Function sumOfInnerDictOfProvidedKeys(dict As Object, arrOfKeys As Variant) As Variant
+    'received a one level nested dictionary and a array of keys then
+    ' sum of all inner dictionary of provided key's value and return the sum
+
+    Dim sum As Variant
+    sum = 0
+
+    Dim dicKey As Variant
+
+    For Each dicKey In dict.keys
+        
+        sum = sum + Application.Run("dictionary_utility_functions.sumOfProvidedKeys", dict(dicKey), arrOfKeys)
+
+    Next dicKey
+
+    sumOfInnerDictOfProvidedKeys = sum
+
+End Function
+
 Private Function arrSpecificColumnGroupAndSpecificColumnSumAsGroup(srcArr As Variant, columnOfGroup As Integer, columnOfSum As Integer) As Object
         
     Dim removedAllInvalidChrFromKeys As Variant
