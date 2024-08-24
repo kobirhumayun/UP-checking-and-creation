@@ -1150,6 +1150,8 @@ Sub updateAfterUpClause8()
 
     Application.Run "afterConsumption.dealWithUpClause13", upWorksheet, upClause8InfoClassifiedPartDic
 
+    Application.Run "afterConsumption.dealWithUpClause14", upWorksheet, sourceDataAsDicUpIssuingStatus
+
     With upWorksheet.Cells
         .Interior.Pattern = xlNone
         .Font.ColorIndex = xlAutomatic
