@@ -1251,7 +1251,7 @@ Sub dealWithNote()
         .Font.ColorIndex = xlAutomatic
     End With
 
-    Application.Run "utilityFunction.cellsMarkingAsValue", upClause8BtbLcinformationRangeObject.Range("G1:G" & upClause8BtbLcinformationRangeObject.Rows.Count), "Bill of Entry not Received"
+    Application.Run "utilityFunction.cellsMarkingAsValue", upClause8BtbLcinformationRangeObject.Range("G1:G" & upClause8BtbLcinformationRangeObject.Rows.Count), "Mushak Pending"
 
     Application.ScreenUpdating = True
 
