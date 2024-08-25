@@ -363,6 +363,9 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
     Dim tempDic As Object
 
+    Dim tempSumMushakQty, tempSumMushakValue As Variant
+    Dim tempSumMushakPendingQty, tempSumMushakPendingValue As Variant
+
     Dim isGarments As Variant
     
     If sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(0))("GarmentsQty") > 0 Then
@@ -409,21 +412,59 @@ Private Function createNewUpClause8Information(upClause8InfoDic As Object, impPe
 
     For Each dicKey In usedB2bInfoFromUpIssuingStatus.keys
 
+        tempSumMushakQty = 0 'reset
+        tempSumMushakValue = 0 'reset
+
         If impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("localCtnAsLc").Exists(dicKey) Then
+
+            tempSumMushakQty = Application.Run("dictionary_utility_functions.sumOfInnerDictOfProvidedKeys", impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("localCtnAsLc")(dicKey), Array("Qty"))
+            tempSumMushakValue = Application.Run("dictionary_utility_functions.sumOfInnerDictOfProvidedKeys", impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("localCtnAsLc")(dicKey), Array("Value"))
 
             Set allMushakInfoAgainstB2b = Application.Run("dictionary_utility_functions.mergeDict", allMushakInfoAgainstB2b, impPerformanceDataDic("CottonYarnLocalOrImpClassifiedDbDic")("localCtnAsLc")(dicKey))
 
-        Else
+        End If
+
+        If Not isGarments And Not Application.Run("utilityFunction.isCompareValuesLessThanProvidedValue", Round(CDec(tempSumMushakQty), 2), Round(CDec(usedB2bInfoFromUpIssuingStatus(dicKey)("QuantityKgs")), 2), 0.1) Then
+
+            tempSumMushakPendingQty = usedB2bInfoFromUpIssuingStatus(dicKey)("QuantityKgs") - tempSumMushakQty
+            tempSumMushakPendingValue = usedB2bInfoFromUpIssuingStatus(dicKey)("BTBAmount") - tempSumMushakValue
+
+                'if Qty. or Value greater in import performance, throw msg. and err
+            If CDec(tempSumMushakPendingQty) < 0 Or CDec(tempSumMushakPendingValue) < 0 Then
+
+                If CDec(tempSumMushakPendingQty) < 0 And CDec(tempSumMushakPendingValue) < 0 Then
+
+                    MsgBox "BTB =>" & usedB2bInfoFromUpIssuingStatus(dicKey)("BTBLCNo") & Chr(10) & _
+                      "Qty = " & Abs(Round(CDec(tempSumMushakPendingQty), 2)) & Chr(10) & "Value = " & Abs(Round(CDec(tempSumMushakPendingValue), 2)) _
+                      & Chr(10) & "Greater in Import Performance"
+
+                ElseIf CDec(tempSumMushakPendingQty) < 0  Then
+
+                    MsgBox "BTB =>" & usedB2bInfoFromUpIssuingStatus(dicKey)("BTBLCNo") & Chr(10) & _
+                        "Qty = " & Abs(Round(CDec(tempSumMushakPendingQty), 2)) _
+                        & Chr(10) & "Greater in Import Performance"
+
+                ElseIf  CDec(tempSumMushakPendingValue) < 0 Then
+
+                    MsgBox "BTB =>" & usedB2bInfoFromUpIssuingStatus(dicKey)("BTBLCNo") & Chr(10) & _
+                        "Value = " & Abs(Round(CDec(tempSumMushakPendingValue), 2)) _
+                        & Chr(10) & "Greater in Import Performance"
+                    
+                End If
+
+                Err.Raise vbObjectError + 1000, , "Customs Err to stop procedure"
+
+            End If
 
             ' properties take from "CombinedAllSheetsMushakOrBillOfEntryDbDict" Function, if properties mismatch than arises conflict
             Set tempDic = Application.Run("dictionary_utility_functions.CreateDicWithProvidedKeysAndValues", _
             Array("BillOfEntryOrMushak", "LC", "HSCode", "Description", "Qty", "Value", "UsedQty", "UsedValue", "BalanceQty", "BalanceValue"), _
             Array("Bill of Entry not Received", usedB2bInfoFromUpIssuingStatus(dicKey)("BTBLCNo"), "5203.00.00", "COTTON YARN", _
-            usedB2bInfoFromUpIssuingStatus(dicKey)("QuantityKgs"), usedB2bInfoFromUpIssuingStatus(dicKey)("BTBAmount"), _
+            tempSumMushakPendingQty, tempSumMushakPendingValue, _
             0, 0, _
-            usedB2bInfoFromUpIssuingStatus(dicKey)("QuantityKgs"), usedB2bInfoFromUpIssuingStatus(dicKey)("BTBAmount")))
+            tempSumMushakPendingQty, tempSumMushakPendingValue))
 
-            allMushakInfoAgainstB2b.Add dicKey, tempDic ' if mushak not found then add lc info from up issuing status
+            allMushakInfoAgainstB2b.Add dicKey, tempDic ' if sum of mushak Qty. less then LC Qty. then blance qty. & value
 
         End If
 
