@@ -365,6 +365,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
     Dim regExReturnedExtractedIp, regExReturnedExtractedExp As Variant
     Dim expReturnArr, expReturnDateStr As Variant
     Dim ipReturnArr, ipReturnDateStr As Variant
+    Dim tempResult As String
         
     If ip Then
         
@@ -372,24 +373,29 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
         regExReturnedExtractedExp = Application.Run("utilityFunction.expOrIpExtractorFromSourceData", sourceData(lcIndexInSourceData, 17), "exp")
         
         
-        
         expReturnDateStr = Application.Run("utilityFunction.expOrIpDateExtractorFromSourceDate", sourceData(lcIndexInSourceData, 17), sourceData(lcIndexInSourceData, 18), regExReturnedExtractedExp)
         expReturnArr = Application.Run("utilityFunction.mLcUdExpIpCompareWithSource", clause7OddFiltered(i, 21), regExReturnedExtractedExp, expReturnDateStr, "EXP:")
         intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, expReturnArr, 1)
-        
-        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("u" & i * 2 - 1), Application.Run("utilityFunction.isAllResultOk", expReturnArr)
-        
         
         
         regExReturnedExtractedIp = Application.Run("utilityFunction.expOrIpExtractorFromSourceData", sourceData(lcIndexInSourceData, 17), "ip")
         
         
-        
         ipReturnDateStr = Application.Run("utilityFunction.expOrIpDateExtractorFromSourceDate", sourceData(lcIndexInSourceData, 17), sourceData(lcIndexInSourceData, 18), regExReturnedExtractedIp)
-        ipReturnArr = Application.Run("utilityFunction.mLcUdExpIpCompareWithSource", clause7OddFiltered(i, 24), regExReturnedExtractedIp, ipReturnDateStr, "IP:")
+        ipReturnArr = Application.Run("utilityFunction.mLcUdExpIpCompareWithSource", clause7OddFiltered(i, 21), regExReturnedExtractedIp, ipReturnDateStr, "IP:")
         intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, ipReturnArr, 1)
-        
-        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("x" & i * 2 - 1), Application.Run("utilityFunction.isAllResultOk", ipReturnArr)
+
+        If Application.Run("utilityFunction.isAllResultOk", expReturnArr) = "OK" And Application.Run("utilityFunction.isAllResultOk", ipReturnArr) = "OK" Then
+
+            tempResult = "OK"
+
+        Else
+            
+            tempResult = "Mismatch"
+
+        End If
+
+        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("u" & i * 2 - 1), tempResult
     
     ElseIf exp Then
     
