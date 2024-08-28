@@ -165,7 +165,7 @@ sourceDataPreviousUpClause9 = Application.Run("helperFunctionGetData.sourceDataP
 '#####compare section start from here#####
 
 Dim upClause6And7CompareWithSourceResultArr As Variant
-upClause6And7CompareWithSourceResultArr = Application.Run("helperFunctionCompareData.upClause6And7CompareWithSource", upClause6BuyerinformationRangeObject, upClause7LcinformationRangeObject, sourceDataUpIssuingStatus)
+upClause6And7CompareWithSourceResultArr = Application.Run("helperFunctionCompareData.upClause6And7CompareWithSource", upClause6BuyerinformationRangeObject, upClause7LcinformationRangeObject, sourceDataUpIssuingStatus, sourceDataAsDicUpIssuingStatus)
 
 
 Dim upClause8CompareWithSourceResultArr As Variant
