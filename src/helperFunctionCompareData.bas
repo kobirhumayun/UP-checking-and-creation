@@ -1,7 +1,7 @@
 Attribute VB_Name = "helperFunctionCompareData"
 Option Explicit
 
-Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, arrUpClause7Range As Variant, sourceData As Variant) As Variant
+Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, arrUpClause7Range As Variant, sourceData As Variant, sourceDataAsDicUpIssuingStatus As Object) As Variant
 '      this function give compare result of UP clause 6 & 7 with source data
     Dim arrUpClause6, arrUpClause7 As Variant
     arrUpClause6 = arrUpClause6Range.value
@@ -35,6 +35,18 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
     Dim clause7OddFiltered, clause7EvenFiltered As Variant
     clause7OddFiltered = Application.Run("utilityFunction.evenOrOddIndexArrayFilter", arrUpClause7, "odd", False)
     clause7EvenFiltered = Application.Run("utilityFunction.evenOrOddIndexArrayFilter", arrUpClause7, "even", False)
+
+    Dim isGarments As Boolean
+    
+    If sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(0))("GarmentsQty") > 0 Then
+    
+        isGarments = True
+    
+    Else
+    
+        isGarments = False
+    
+    End If
     
     
 '   UP Clause7 compare "start"
@@ -256,7 +268,7 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
     Dim qtyByLCFromSourceData, qtyByLCFromUpClause7 As String
     qtyByLCFromSourceData = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromSourceData, 9)
     
-    If Not IsEmpty(clause7EvenFiltered(i, 17)) Then
+    If Not IsEmpty(clause7EvenFiltered(i, 17)) And Not isGarments Then
     '   if qty. unit in Mtr then active this code block
        Dim qtyUnitMtr As Variant
         regex.pattern = "[a-z|A-Z|' ']+"
