@@ -2,7 +2,7 @@ Attribute VB_Name = "helperFunctionCompareData"
 Option Explicit
 
 Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, arrUpClause7Range As Variant, sourceData As Variant, sourceDataAsDicUpIssuingStatus As Object) As Variant
-'      this function give compare result of UP clause 6 & 7 with source data
+    ' this function give compare result of UP clause 6 & 7 with source data
     Dim arrUpClause6, arrUpClause7 As Variant
     arrUpClause6 = arrUpClause6Range.value
     arrUpClause7 = arrUpClause7Range.value
@@ -261,76 +261,83 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
     
     
     'Qty. by LC (start)
-    Dim filteredLcForQtyFromSourceData, filteredLcForQtyFromUpClause7 As Variant
-    filteredLcForQtyFromSourceData = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 4)
-    filteredLcForQtyFromUpClause7 = Application.Run("utilityFunction.towDimensionalArrayFilter", clause7OddFiltered, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 2)
 
-    Dim qtyByLCFromSourceData, qtyByLCFromUpClause7 As String
-    qtyByLCFromSourceData = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromSourceData, 9)
-    
-    If Not IsEmpty(clause7EvenFiltered(i, 17)) And Not isGarments Then
-    '   if qty. unit in Mtr then active this code block
-       Dim qtyUnitMtr As Variant
-        regex.pattern = "[a-z|A-Z|' ']+"
+        'Qty. check non garments
+    If Not isGarments Then
         
-        Dim j As Integer
-        For j = 1 To UBound(filteredLcForQtyFromUpClause7, 1)
+        Dim filteredLcForQtyFromSourceData, filteredLcForQtyFromUpClause7 As Variant
+        filteredLcForQtyFromSourceData = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 4)
+        filteredLcForQtyFromUpClause7 = Application.Run("utilityFunction.towDimensionalArrayFilter", clause7OddFiltered, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 2)
+
+        Dim qtyByLCFromSourceData, qtyByLCFromUpClause7 As String
+        qtyByLCFromSourceData = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromSourceData, 9)
         
-          qtyUnitMtr = regex.Replace(filteredLcForQtyFromUpClause7(j, 17), "")
-          filteredLcForQtyFromUpClause7(j, 17) = qtyUnitMtr
-          
-          
-        Next j
-        
-        
-            'check mtr to yds qty. converted ok or not start
-            Dim mtrQtyConvertedToYdsFromClause7, mtrQtyConvertedToYdsActually As Variant
+        If Not IsEmpty(clause7EvenFiltered(i, 17)) Then
+        '   if qty. unit in Mtr then active this code block
+        Dim qtyUnitMtr As Variant
+            regex.pattern = "[a-z|A-Z|' ']+"
             
-            mtrQtyConvertedToYdsFromClause7 = clause7EvenFiltered(i, 17)
-            mtrQtyConvertedToYdsActually = Round(regex.Replace(clause7OddFiltered(i, 17), "") * 1.0936132983)
-          
-          
-            Result = Round(mtrQtyConvertedToYdsFromClause7) = Round(mtrQtyConvertedToYdsActually)
-        
-            If Result Then
-                Result = "OK"
-            Else
-                Result = "Mismatch = " & Round(mtrQtyConvertedToYdsFromClause7) - Round(mtrQtyConvertedToYdsActually)
-            End If
+            Dim j As Integer
+            For j = 1 To UBound(filteredLcForQtyFromUpClause7, 1)
             
-            Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("q" & i * 2), Result
+            qtyUnitMtr = regex.Replace(filteredLcForQtyFromUpClause7(j, 17), "")
+            filteredLcForQtyFromUpClause7(j, 17) = qtyUnitMtr
+            
+            
+            Next j
+            
+            
+                'check mtr to yds qty. converted ok or not start
+                Dim mtrQtyConvertedToYdsFromClause7, mtrQtyConvertedToYdsActually As Variant
+                
+                mtrQtyConvertedToYdsFromClause7 = clause7EvenFiltered(i, 17)
+                mtrQtyConvertedToYdsActually = Round(regex.Replace(clause7OddFiltered(i, 17), "") * 1.0936132983)
+            
+            
+                Result = Round(mtrQtyConvertedToYdsFromClause7) = Round(mtrQtyConvertedToYdsActually)
+            
+                If Result Then
+                    Result = "OK"
+                Else
+                    Result = "Mismatch = " & Round(mtrQtyConvertedToYdsFromClause7) - Round(mtrQtyConvertedToYdsActually)
+                End If
+                
+                Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("q" & i * 2), Result
+            
+                emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
+            
+                intialReturnArr(emptyIndex, 1) = "Qty. Mtr to Yds by LC"
+                intialReturnArr(emptyIndex, 2) = mtrQtyConvertedToYdsFromClause7 & " (LC SL. " & i & " only)"
+                intialReturnArr(emptyIndex, 3) = mtrQtyConvertedToYdsActually & " (LC SL. " & i & " only)"
+                intialReturnArr(emptyIndex, 4) = Result
+                'check mtr to yds qty. converted ok or not end
+            
+
+        End If
         
-            emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
         
-            intialReturnArr(emptyIndex, 1) = "Qty. Mtr to Yds by LC"
-            intialReturnArr(emptyIndex, 2) = mtrQtyConvertedToYdsFromClause7 & " (LC SL. " & i & " only)"
-            intialReturnArr(emptyIndex, 3) = mtrQtyConvertedToYdsActually & " (LC SL. " & i & " only)"
-            intialReturnArr(emptyIndex, 4) = Result
-            'check mtr to yds qty. converted ok or not end
+        qtyByLCFromUpClause7 = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromUpClause7, 17)
         
+        
+        Result = qtyByLCFromSourceData = qtyByLCFromUpClause7
+
+        If Result Then
+            Result = "OK"
+        Else
+            Result = "Mismatch = " & qtyByLCFromSourceData - qtyByLCFromUpClause7
+        End If
+        
+        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("q" & i * 2 - 1), Result
+
+        emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
+
+        intialReturnArr(emptyIndex, 1) = "Sum Qty. by LC"
+        intialReturnArr(emptyIndex, 2) = qtyByLCFromUpClause7 & " (Sum of Same LC)"
+        intialReturnArr(emptyIndex, 3) = qtyByLCFromSourceData & " (Sum of Same LC)"
+        intialReturnArr(emptyIndex, 4) = Result
 
     End If
-    
-    
-    qtyByLCFromUpClause7 = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromUpClause7, 17)
-    
-    
-    Result = qtyByLCFromSourceData = qtyByLCFromUpClause7
 
-    If Result Then
-        Result = "OK"
-    Else
-        Result = "Mismatch = " & qtyByLCFromSourceData - qtyByLCFromUpClause7
-    End If
-    
-    Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("q" & i * 2 - 1), Result
-
-    emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
-
-    intialReturnArr(emptyIndex, 1) = "Sum Qty. by LC"
-    intialReturnArr(emptyIndex, 2) = qtyByLCFromUpClause7 & " (Sum of Same LC)"
-    intialReturnArr(emptyIndex, 3) = qtyByLCFromSourceData & " (Sum of Same LC)"
-    intialReturnArr(emptyIndex, 4) = Result
     'Qty. by LC (end)
     
     'Value by LC (start)
