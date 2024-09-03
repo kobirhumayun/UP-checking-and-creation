@@ -1240,7 +1240,7 @@ Sub dealWithNote()
     Application.Run "upNote.putLcInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
     Application.Run "upNote.putUdIpExpInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
     Application.Run "upNote.putBuyerAndBankInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
-    Application.Run "upNote.putVerifiedInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus
+    ' Application.Run "upNote.putVerifiedInfo", noteWorksheet, sourceDataAsDicUpIssuingStatus 'not submitted now
     Application.Run "upNote.putRawMaterialsQtyAsGroup", noteWorksheet, upClause8InfoDic
 
     Dim upClause8BtbLcinformationRangeObject As Object
