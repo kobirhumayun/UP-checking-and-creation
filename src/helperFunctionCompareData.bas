@@ -349,6 +349,41 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
 
         filteredLcForQtyFromUpClause7Garments = Application.Run("utilityFunction.towDimensionalArrayFilter", filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 2)
 
+        Dim garmentsQtyByLCFromSourceDataGarments, garmentsQtyByLCFromUpClause7Garments As String
+
+        Dim dicKey As Variant
+
+        garmentsQtyByLCFromSourceDataGarments = 0 'reset
+
+        For Each dicKey In sourceDataAsDicUpIssuingStatus.keys
+
+            If sourceDataAsDicUpIssuingStatus(dicKey)("LCSCNo") = lcNoFromUpClause7 Then
+
+                garmentsQtyByLCFromSourceDataGarments = garmentsQtyByLCFromSourceDataGarments + sourceDataAsDicUpIssuingStatus(dicKey)("GarmentsQty")
+            
+            End If
+
+        Next dicKey
+        
+        garmentsQtyByLCFromUpClause7Garments = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromUpClause7Garments, 17)
+        
+        Result = garmentsQtyByLCFromSourceDataGarments = garmentsQtyByLCFromUpClause7Garments
+
+        If Result Then
+            Result = "OK"
+        Else
+            Result = "Mismatch = " & garmentsQtyByLCFromSourceDataGarments - garmentsQtyByLCFromUpClause7Garments
+        End If
+        
+        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("q" & i * 2 - 1), Result
+
+        emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
+
+        intialReturnArr(emptyIndex, 1) = "Sum of Garments Qty. by LC"
+        intialReturnArr(emptyIndex, 2) = garmentsQtyByLCFromUpClause7Garments & " (Sum of Same LC)"
+        intialReturnArr(emptyIndex, 3) = garmentsQtyByLCFromSourceDataGarments & " (Sum of Same LC)"
+        intialReturnArr(emptyIndex, 4) = Result
+
         Dim fabricsQtyByLCFromSourceDataGarments, fabricsQtyByLCFromUpClause7Garments As String
         
         fabricsQtyByLCFromSourceDataGarments = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromSourceDataGarments, 9)
