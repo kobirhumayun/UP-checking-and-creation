@@ -341,35 +341,35 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
         'Qty. check garments
     If isGarments Then
         
-        Dim filteredLcForQtyFromSourceDataGarments, filteredLcForQtyFromUpClause7Garments, filteredLcForQtyFromUpClause7GarmentsQtyOneRowUp As Variant
+        Dim filteredLcForQtyFromSourceDataGarments, filteredLcForQtyFromUpClause7Garments, filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp As Variant
 
         filteredLcForQtyFromSourceDataGarments = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 4)
 
-        filteredLcForQtyFromUpClause7GarmentsQtyOneRowUp = Application.Run("utilityFunction.addSpecificColumnValueOneRowUpTo2DArrayOnLastColumn", clause7OddFiltered, 17)
+        filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp = Application.Run("utilityFunction.addSpecificColumnValueOneRowUpTo2DArrayOnLastColumn", clause7OddFiltered, 17)
 
-        filteredLcForQtyFromUpClause7Garments = Application.Run("utilityFunction.towDimensionalArrayFilter", filteredLcForQtyFromUpClause7GarmentsQtyOneRowUp, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 2)
+        filteredLcForQtyFromUpClause7Garments = Application.Run("utilityFunction.towDimensionalArrayFilter", filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 2)
 
-        Dim qtyByLCFromSourceDataGarments, qtyByLCFromUpClause7Garments As String
+        Dim fabricsQtyByLCFromSourceDataGarments, fabricsQtyByLCFromUpClause7Garments As String
         
-        qtyByLCFromSourceDataGarments = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromSourceDataGarments, 9)
+        fabricsQtyByLCFromSourceDataGarments = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromSourceDataGarments, 9)
         
-        qtyByLCFromUpClause7Garments = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromUpClause7Garments, UBound(filteredLcForQtyFromUpClause7Garments, 2) - 1)
+        fabricsQtyByLCFromUpClause7Garments = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromUpClause7Garments, UBound(filteredLcForQtyFromUpClause7Garments, 2) - 1)
         
-        Result = qtyByLCFromSourceDataGarments = qtyByLCFromUpClause7Garments
+        Result = fabricsQtyByLCFromSourceDataGarments = fabricsQtyByLCFromUpClause7Garments
 
         If Result Then
             Result = "OK"
         Else
-            Result = "Mismatch = " & qtyByLCFromSourceDataGarments - qtyByLCFromUpClause7Garments
+            Result = "Mismatch = " & fabricsQtyByLCFromSourceDataGarments - fabricsQtyByLCFromUpClause7Garments
         End If
         
         Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("q" & i * 2), Result
 
         emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
 
-        intialReturnArr(emptyIndex, 1) = "Sum Qty. by LC"
-        intialReturnArr(emptyIndex, 2) = qtyByLCFromUpClause7Garments & " (Sum of Same LC)"
-        intialReturnArr(emptyIndex, 3) = qtyByLCFromSourceDataGarments & " (Sum of Same LC)"
+        intialReturnArr(emptyIndex, 1) = "Sum of Garments Fabrics Qty. by LC"
+        intialReturnArr(emptyIndex, 2) = fabricsQtyByLCFromUpClause7Garments & " (Sum of Same LC)"
+        intialReturnArr(emptyIndex, 3) = fabricsQtyByLCFromSourceDataGarments & " (Sum of Same LC)"
         intialReturnArr(emptyIndex, 4) = Result
 
     End If
