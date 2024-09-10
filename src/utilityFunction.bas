@@ -2902,7 +2902,7 @@ Private Function importPerformanceCommentedBillOfEntryOrMushakDbFromProvidedShee
 
 End Function
 
-Private Function upSequenceStrGenerator(upArr As Variant) As String
+Private Function upSequenceStrGenerator(upArr As Variant, sequenceInnerText As String, sequenceBreakCharacterCode As Long) As String
     'this function received an UP No. array and return UP sequence string
     Dim uPSequenceObj As Object
     Dim uPSequenceStr As String
@@ -2922,15 +2922,15 @@ Private Function upSequenceStrGenerator(upArr As Variant) As String
 
         Else
                 
-            tempStr = uPSequenceObj(dictKey)("sequenceStart") & "-to-" & uPSequenceObj(dictKey)("sequenceEnd")
+            tempStr = uPSequenceObj(dictKey)("sequenceStart") & sequenceInnerText & uPSequenceObj(dictKey)("sequenceEnd")
             
         End If
 
-        uPSequenceStr = uPSequenceStr & tempStr & Chr(10)
+        uPSequenceStr = uPSequenceStr & tempStr & Chr(sequenceBreakCharacterCode)
 
     Next dictKey
 
-    upSequenceStrGenerator = uPSequenceStr
+    upSequenceStrGenerator = Left(uPSequenceStr, Len(uPSequenceStr) - 1)
     
 End Function
 
