@@ -802,7 +802,7 @@ Sub totalPeriodBillOfEntryOrMushkUsedCalculationAndPutToImportPerformanceWithJso
     Set allUpClause8UseAsMushakOrBillOfEntryDic = Application.Run("general_utility_functions.sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile")
 
     Dim upSequenceStr As String
-    upSequenceStr = Application.Run("utilityFunction.upSequenceStrGenerator", allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList").keys)
+    upSequenceStr = Application.Run("utilityFunction.upSequenceStrGenerator", allUpClause8UseAsMushakOrBillOfEntryDic("allCalculatedUpList").keys, " -to- ", 10)
 
     Dim importPerformanceFileYarnImportWs As Worksheet
     Set importPerformanceFileYarnImportWs = importPerformanceFileWb.Worksheets("Yarn (Import)")
