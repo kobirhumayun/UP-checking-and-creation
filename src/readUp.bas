@@ -27,7 +27,12 @@ Private Function upClause1AsDict(upWs As Worksheet) As Object
 
     Dim clause1AsDict As Object
     Set clause1AsDict = CreateObject("Scripting.Dictionary")
-        
+
+    Dim curentUpNo As Variant
+    curentUpNo = Application.Run("helperFunctionGetData.upNoFromProvidedWs", upWs)
+    
+    clause1AsDict("upNo") = curentUpNo
+
     Set upClause1AsDict = clause1AsDict
     
 End Function
