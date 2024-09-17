@@ -133,6 +133,9 @@ Private Function createUseGroupDic() As Object
     Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Hydroxylamine", _
     Array("Hydroxylamine"))
 
+    Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Bleaching Powder", _
+    Array("Bleaching Powder"))
+
     useGroupDict.Add "nonYarnUseGroupDict", nonYarnUseGroupDict
 
     Set createUseGroupDic = useGroupDict

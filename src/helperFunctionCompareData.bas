@@ -1606,6 +1606,7 @@ intialReturnArr = Application.Run("utilityFunction.mergeArry", intialReturnArr, 
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Pumice Stone", 0) ' Qty. be dynamic
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Natural Garnet", 0) ' Qty. be dynamic
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Hydroxylamine", 0) ' Qty. be dynamic
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Bleaching Powder", 0) ' Qty. be dynamic
 
     Dim clause8UsedThisUpChemicalQtySumBySameGroup As Object
     Set clause8UsedThisUpChemicalQtySumBySameGroup = Application.Run("dictionary_utility_functions.arrSpecificColumnGroupAndSpecificColumnSumAsGroup", _
