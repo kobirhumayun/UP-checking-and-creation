@@ -900,6 +900,12 @@ Private Function finalRawMaterialsQtyCalculatedAsGroup( _
     ))
 
     Set qtyAsGroupDic = Application.Run("dedo_consumption.sumRawMaterialsAsGroupAndAddToDic", qtyAsGroupDic, allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials, _
+    "Resin", _
+    Array( _
+    "1. Resin_Sl_78" _
+    ))
+
+    Set qtyAsGroupDic = Application.Run("dedo_consumption.sumRawMaterialsAsGroupAndAddToDic", qtyAsGroupDic, allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials, _
     "Sodium Hypochloride", _
     Array( _
     "4. Sodium  Hypochloride ( NaOCI)_Sl_109" _
