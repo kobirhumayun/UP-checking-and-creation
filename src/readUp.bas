@@ -14,7 +14,7 @@ Private Function readUpAsDict(upWs As Worksheet) As Object
         Dim topRow As Long
         topRow = upWs.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 1
 
-        If Left(Cells(topRow, 3).value, 4) = "Gjwm" Then
+        If Left(upWs.Cells(topRow, 3).value, 4) = "Gjwm" Then
             
             isAfterCustomsAct2023Formate = True
 
