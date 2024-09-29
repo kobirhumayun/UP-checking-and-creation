@@ -6,6 +6,22 @@ Private Function readUpAsDict(upWs As Worksheet) As Object
     Dim upAsDict As Object
     Set upAsDict = CreateObject("Scripting.Dictionary")
         
+    Dim isAfterCustomsAct2023Formate As Boolean
+    isAfterCustomsAct2023Formate = False ' Initialize the flag
+    
+    If Application.Run("utilityFunction.DoesStringExistInWorksheets", "8|  Avg`vwb Gjwmi weeiY t", upWs) Then
+
+        Dim topRow As Long
+        topRow = upWs.Cells.Find("8|  Avg`vwb Gjwmi weeiY t", LookAt:=xlPart).Row + 1
+
+        If Left(Cells(topRow, 3).value, 4) = "Gjwm" Then
+            
+            isAfterCustomsAct2023Formate = True
+
+        End If
+
+    End If
+
     upAsDict.Add "upClause1", Application.Run("readUp.upClause1AsDict", upWs)
     upAsDict.Add "upClause6", Application.Run("readUp.upClause6AsDict", upWs)
     upAsDict.Add "upClause7", Application.Run("readUp.upClause7AsDict", upWs)
