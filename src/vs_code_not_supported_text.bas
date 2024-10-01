@@ -14,6 +14,7 @@ Private Function CreateVsCodeNotSupportedOrBengaliTxtDictionary()
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "expNoAndDtBengaliTxt", "BGK&ªwc bs I ZvwiL"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "mlcNoAndDtBengaliTxt", "gvóvi Gj wm bs I ZvwiL"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "localB2bLcDesBengaliTxt", "7| ‡jvKvj e¨vK Uz e¨vK Gj/wm Gi weeiY t"
+    vsCodeNotSupportedOrBengaliTxtDictionary.Add "localB2bLcDesBengaliTxtPrevFormat", "7| ‡jvKvj e¨vK Uz e¨vK Gj wm Gi weeiY"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "infoAboutStockBengaliTxt", "9| gRy` m¤úwK©Z Z_¨vw`"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "totalUsedRawMetarialsBengaliTxt", "‡gvU e¨eüZ c‡Y¨i"
     vsCodeNotSupportedOrBengaliTxtDictionary.Add "charCode151", "—"
