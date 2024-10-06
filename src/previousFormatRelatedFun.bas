@@ -101,3 +101,21 @@ Private Function upClause6BuyerinformationRangeObjectFromProvidedWsPrevFormat(ws
     Set upClause6BuyerinformationRangeObjectFromProvidedWsPrevFormat = workingRange
 
 End Function
+
+Private Function upClause7LcinformationRangeObjectFromProvidedWsPrevFormat(ws As Worksheet) As Variant
+    'this function give buyer lc information Range Object from provided sheet
+
+    Dim vsCodeNotSupportedOrBengaliTxtDictionary As Object
+    Set vsCodeNotSupportedOrBengaliTxtDictionary = Application.Run("vs_code_not_supported_text.CreateVsCodeNotSupportedOrBengaliTxtDictionary")
+
+    Dim topRow, bottomRow As Variant
+
+    topRow = ws.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxt"), LookAt:=xlPart).Row + 1
+    bottomRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row - 1
+
+    Dim workingRange As Range
+    Set workingRange = ws.Range("A" & topRow & ":" & "AI" & bottomRow)
+
+    Set upClause7LcinformationRangeObjectFromProvidedWsPrevFormat = workingRange
+
+End Function
