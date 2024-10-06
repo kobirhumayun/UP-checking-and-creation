@@ -57,6 +57,31 @@ Private Function upClause6AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
     Dim clause6AsDict As Object
     Set clause6AsDict = CreateObject("Scripting.Dictionary")
+
+    Dim clause6Range As Object
+
+    If isAfterCustomsAct2023Formate Then
+
+        Set clause6Range = Application.Run("helperFunctionGetRangeObject.upClause6BuyerinformationRangeObjectFromProvidedWs", upWs)
+
+    Else
+
+        Set clause6Range = Application.Run("previousFormatRelatedFun.upClause6BuyerinformationRangeObjectFromProvidedWsPrevFormat", upWs)
+
+    End If
+
+    Dim clause6Arr As Variant
+    Dim regExObj As Object
+    Dim i As Long
+
+    clause6Arr = clause6Range.Value
+    Set regExObj = Application.Run("general_utility_functions.createRegExObj", "^\d\s*\)", True, True, True)
+
+    For i = LBound(clause6Arr) To UBound(clause6Arr)
+
+        clause6AsDict.Add clause6AsDict.Count + 1, Trim(regExObj.Replace(Trim(clause6Arr(i, 14)), ""))
+
+    Next i
         
     Set upClause6AsDict = clause6AsDict
     
