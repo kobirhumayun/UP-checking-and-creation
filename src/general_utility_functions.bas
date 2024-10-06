@@ -91,6 +91,25 @@ Private Function regExReturnedObj(str As Variant, pattern As Variant, isGlobal A
 
 End Function
 
+Private Function createRegExObj(pattern As String, isGlobal As Boolean, isIgnoreCase As Boolean, isMultiLine As Boolean) As Object
+
+    Dim regEx As Object
+
+    ' Create a RegExp object
+    Set regEx = CreateObject("VBScript.RegExp")
+    
+    With regEx
+        .Global = isGlobal
+        .IgnoreCase = isIgnoreCase
+        .MultiLine = isMultiLine
+        .pattern = pattern
+    End With
+
+    ' Return regEx object
+    Set createRegExObj = regEx
+
+End Function
+
 
 Private Function isStrPatternExist(str As Variant, pattern As Variant, isGlobal As Boolean, isIgnoreCase As Boolean, isMultiLine As Boolean) As Boolean
 
