@@ -92,6 +92,50 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
     Dim clause7AsDict As Object
     Set clause7AsDict = CreateObject("Scripting.Dictionary")
 
+    Dim clause7Range As Object
+
+    If isAfterCustomsAct2023Formate Then
+
+        Set clause7Range = Application.Run("helperFunctionGetRangeObject.upClause7LcinformationRangeObjectFromProvidedWs", upWs)
+
+    Else
+
+        Set clause7Range = Application.Run("previousFormatRelatedFun.upClause7LcinformationRangeObjectFromProvidedWsPrevFormat", upWs)
+
+    End If
+
+    Dim clause7Arr As Variant
+    Dim dicKey As Variant
+    Dim lcFieldVal As String
+    Dim i As Long
+
+    clause7Arr = clause7Range.Value
+
+    For i = (LBound(clause7Arr) + 1) To (UBound(clause7Arr) - 1) Step 2 'exclude first & last rows
+
+        clause7AsDict.Add clause7AsDict.Count + 1, CreateObject("Scripting.Dictionary")
+
+        If isAfterCustomsAct2023Formate Then
+
+            lcFieldVal = clause7Arr(i, 3)
+
+        Else
+
+            lcFieldVal = clause7Arr(i, 4)
+
+        End If
+
+        Dim lcFieldDict As Object
+        Set lcFieldDict = Application.Run("readUp.ExtractLCField", lcFieldVal)
+
+        For Each dicKey In lcFieldDict.keys
+            
+            clause7AsDict(clause7AsDict.Count).Add dicKey, lcFieldDict(dicKey)
+
+        Next dicKey
+
+    Next i
+
     Set upClause7AsDict = clause7AsDict
 
 End Function
