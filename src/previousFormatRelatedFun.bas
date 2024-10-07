@@ -110,7 +110,7 @@ Private Function upClause7LcinformationRangeObjectFromProvidedWsPrevFormat(ws As
 
     Dim topRow, bottomRow As Variant
 
-    topRow = ws.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxt"), LookAt:=xlPart).Row + 1
+    topRow = ws.Cells.Find(vsCodeNotSupportedOrBengaliTxtDictionary("localB2bLcDesBengaliTxtPrevFormat"), LookAt:=xlPart).Row + 1
     bottomRow = ws.Cells.Find("8|  Avg`vbx Gj/wm Gi weeiY", LookAt:=xlPart).Row - 1
 
     Dim workingRange As Range
