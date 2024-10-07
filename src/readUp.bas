@@ -91,9 +91,9 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
     Dim clause7AsDict As Object
     Set clause7AsDict = CreateObject("Scripting.Dictionary")
-        
+
     Set upClause7AsDict = clause7AsDict
-    
+
 End Function
 
 Private Function upClause8AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate As Boolean) As Object
@@ -175,6 +175,55 @@ Private Function upClause14AsDict(upWs As Worksheet, isAfterCustomsAct2023Format
     Set clause14AsDict = CreateObject("Scripting.Dictionary")
     
     Set upClause14AsDict = clause14AsDict
+    
+End Function
+
+' ========utility function=========
+
+Private Function ExtractLCField(lcFieldVal As String) As Object
+
+    Dim lcFieldDict As Object
+    Set lcFieldDict = CreateObject("Scripting.Dictionary")
+    Dim tempRegExReturnedObj As Object
+
+
+
+    lcFieldDict.Add "lcNo", Application.Run("general_utility_functions.ExtractFirstLineWithRegex", lcFieldVal)
+
+    Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", lcFieldVal, "\d{2}\/\d{2}\/\d{4}", True, True, True)
+    lcFieldDict.Add "lcDt", tempRegExReturnedObj(0) 'first occurrence
+
+    If Application.Run("general_utility_functions.isStrPatternExist", lcFieldVal, "amnd", True, True, True) Then
+
+        lcFieldDict.Add "isLcAmndExist", True
+
+        Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", lcFieldVal, "amnd\-\d+", True, True, True)
+        Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", tempRegExReturnedObj(0), "\d+$", True, True, True)
+        lcFieldDict.Add "lcAmndNo", CInt(tempRegExReturnedObj(0)) 'exclude left zero
+
+        Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", lcFieldVal, "\d{2}\/\d{2}\/\d{4}", True, True, True)
+        lcFieldDict.Add "lcAmndDt", tempRegExReturnedObj(1) 'second occurrence
+
+    Else
+
+        lcFieldDict.Add "isLcAmndExist", False
+
+    End If
+
+    If Application.Run("general_utility_functions.isStrPatternExist", lcFieldVal, "\(.+\)", True, True, True) Then
+
+        lcFieldDict.Add "isDcNoExist", True
+        Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", lcFieldVal, "\(.+\)", True, True, True)
+        Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", tempRegExReturnedObj(0), "\d+", True, True, True)
+        lcFieldDict.Add "dcNo", tempRegExReturnedObj(0)
+
+    Else
+
+        lcFieldDict.Add "isDcNoExist", False
+
+    End If
+    
+    Set ExtractLCField = lcFieldDict
     
 End Function
 
