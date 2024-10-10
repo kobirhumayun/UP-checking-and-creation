@@ -139,6 +139,9 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
         clause7AsDict(clause7AsDict.Count).Add "bankName", bankFieldVal
 
+        clause7AsDict(clause7AsDict.Count).Add "shipmentDate", CDate(clause7Arr(i, 16))
+        clause7AsDict(clause7AsDict.Count).Add "expiryDate", CDate(clause7Arr(i + 1, 16))
+
     Next i
 
     Set upClause7AsDict = clause7AsDict
