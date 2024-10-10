@@ -107,6 +107,7 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
     Dim clause7Arr As Variant
     Dim dicKey As Variant
     Dim lcFieldVal As String
+    Dim bankFieldVal As String
     Dim i As Long
 
     clause7Arr = clause7Range.Value
@@ -118,10 +119,12 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
         If isAfterCustomsAct2023Formate Then
 
             lcFieldVal = clause7Arr(i, 3)
+            bankFieldVal = clause7Arr(i, 10)
 
         Else
 
             lcFieldVal = clause7Arr(i, 4)
+            bankFieldVal = clause7Arr(i, 12)
 
         End If
 
@@ -133,6 +136,8 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
             clause7AsDict(clause7AsDict.Count).Add dicKey, lcFieldDict(dicKey)
 
         Next dicKey
+
+        clause7AsDict(clause7AsDict.Count).Add "bankName", bankFieldVal
 
     Next i
 
