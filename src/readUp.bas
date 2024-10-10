@@ -104,6 +104,7 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
     End If
 
+    Dim isGarments As Boolean
     Dim clause7Arr As Variant
     Dim dicKey As Variant
     Dim lcFieldVal As String
@@ -111,6 +112,8 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
     Dim i As Long
 
     clause7Arr = clause7Range.Value
+
+    isGarments = Application.Run("general_utility_functions.isStrPatternExist", clause7Arr(2, 17), "garments", True, True, True)
 
     For i = (LBound(clause7Arr) + 1) To (UBound(clause7Arr) - 1) Step 2 'exclude first & last rows
 
@@ -143,6 +146,8 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
         clause7AsDict(clause7AsDict.Count).Add "expiryDate", CDate(clause7Arr(i + 1, 16))
 
     Next i
+
+    clause7AsDict.Add "isGarments", isGarments ' add after loop otherwise LC serial start from 2
 
     Set upClause7AsDict = clause7AsDict
 
