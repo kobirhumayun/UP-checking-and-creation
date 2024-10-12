@@ -111,6 +111,8 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
     Dim bankFieldVal As String
     Dim qtyTopFieldVal As Variant 'type Variant to check empty value
     Dim qtyBottomFieldVal As Variant 'type Variant to check empty value
+    Dim lcValueTopFieldVal As Variant 'type Variant to check empty value
+    Dim lcValueBottomFieldVal As Variant 'type Variant to check empty value
     Dim tempRegExReturnedObj As Object
     Dim i As Long
 
@@ -195,6 +197,33 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
                     Exit Function
 
                 End If
+
+            End If
+
+        End If
+
+        lcValueTopFieldVal = clause7Arr(i, 20)
+        lcValueBottomFieldVal = clause7Arr(i + 1, 20)
+
+        If Application.Run("general_utility_functions.isStrPatternExist", lcValueTopFieldVal, "euro", True, True, True) Then
+
+            clause7AsDict(clause7AsDict.Count).Add "isLcValueExistInEuro", True
+
+            clause7AsDict(clause7AsDict.Count).Add "lcValueInEuro", CDec(Replace(lcValueTopFieldVal, "Euro", ""))
+
+            clause7AsDict(clause7AsDict.Count).Add "lcValueInUsd", CDec(lcValueBottomFieldVal)
+
+        Else
+
+            If Not IsEmpty(lcValueTopFieldVal) And IsEmpty(lcValueBottomFieldVal) Then
+                
+                clause7AsDict(clause7AsDict.Count).Add "isLcValueExistInEuro", False
+                clause7AsDict(clause7AsDict.Count).Add "lcValueInUsd", CDec(lcValueTopFieldVal)
+
+            Else
+
+                MsgBox upWs.Name & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "Bottom lc Value field not Empty but value in USD"
+                Exit Function
 
             End If
 
