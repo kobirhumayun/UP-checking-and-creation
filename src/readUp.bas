@@ -189,7 +189,7 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
                 If Not IsEmpty(qtyTopFieldVal) And IsEmpty(qtyBottomFieldVal) Then
                     
                     clause7AsDict(clause7AsDict.Count).Add "isFabQtyExistInMtr", False
-                    clause7AsDict(clause7AsDict.Count).Add "fabricsQtyInYds", qtyTopFieldVal
+                    clause7AsDict(clause7AsDict.Count).Add "fabricsQtyInYds", CDec(qtyTopFieldVal)
 
                 Else
 
