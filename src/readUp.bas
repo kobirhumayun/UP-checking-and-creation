@@ -109,6 +109,9 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
     Dim dicKey As Variant
     Dim lcFieldVal As String
     Dim bankFieldVal As String
+    Dim qtyTopFieldVal As Variant 'type Variant to check empty value
+    Dim qtyBottomFieldVal As Variant 'type Variant to check empty value
+    Dim tempRegExReturnedObj As Object
     Dim i As Long
 
     clause7Arr = clause7Range.Value
@@ -144,6 +147,58 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
         clause7AsDict(clause7AsDict.Count).Add "shipmentDate", CDate(clause7Arr(i, 16))
         clause7AsDict(clause7AsDict.Count).Add "expiryDate", CDate(clause7Arr(i + 1, 16))
+
+        qtyTopFieldVal = clause7Arr(i, 18)
+        qtyBottomFieldVal = clause7Arr(i + 1, 18)
+
+        If isGarments Then
+
+            clause7AsDict(clause7AsDict.Count).Add "garmentsQty", qtyTopFieldVal
+
+            If Application.Run("general_utility_functions.isStrPatternExist", qtyBottomFieldVal, "mtr", True, True, True) Then
+
+                clause7AsDict(clause7AsDict.Count).Add "isFabQtyExistInMtr", True
+
+                Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", qtyBottomFieldVal, ".+mtr$", True, True, True)
+                clause7AsDict(clause7AsDict.Count).Add "fabricsQtyInMtr", CDec(Replace(tempRegExReturnedObj(0), "Mtr", ""))
+
+                Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", qtyBottomFieldVal, ".+yds$", True, True, True)
+                clause7AsDict(clause7AsDict.Count).Add "fabricsQtyInYds", CDec(Replace(tempRegExReturnedObj(0), "Yds", ""))
+
+            Else
+                    
+                clause7AsDict(clause7AsDict.Count).Add "isFabQtyExistInMtr", False
+                clause7AsDict(clause7AsDict.Count).Add "fabricsQtyInYds", CDec(qtyBottomFieldVal)
+
+            End If
+
+        Else
+
+            If Application.Run("general_utility_functions.isStrPatternExist", qtyTopFieldVal, "mtr", True, True, True) Then
+
+                clause7AsDict(clause7AsDict.Count).Add "isFabQtyExistInMtr", True
+
+                clause7AsDict(clause7AsDict.Count).Add "fabricsQtyInMtr", CDec(Replace(qtyTopFieldVal, "Mtr", ""))
+
+                clause7AsDict(clause7AsDict.Count).Add "fabricsQtyInYds", CDec(qtyBottomFieldVal)
+
+            Else
+
+                If Not IsEmpty(qtyTopFieldVal) And IsEmpty(qtyBottomFieldVal) Then
+                    
+                    clause7AsDict(clause7AsDict.Count).Add "isFabQtyExistInMtr", False
+                    clause7AsDict(clause7AsDict.Count).Add "fabricsQtyInYds", qtyTopFieldVal
+
+                Else
+
+                    MsgBox upWs.Name & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "Bottom Qty. field not Empty but Qty in Yds"
+                    Exit Function
+
+                End If
+
+            End If
+
+        End If
 
     Next i
 
