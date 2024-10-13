@@ -368,3 +368,37 @@ Private Function ExtractLCField(lcFieldVal As String) As Object
     
 End Function
 
+Private Function MlcUdIpExpAndDtExtractor(receivedStr As String, regExPattern As String, mlcUdIpExpKeyName As String) As Object
+
+    Dim mlcUdIpExpDict As Object
+    Set mlcUdIpExpDict = CreateObject("Scripting.Dictionary")
+    Dim tempRegExReturnedObj As Object
+    Dim innerTempRegExReturnedObj As Object
+    Dim match As Object
+    Dim tempStr As String
+    Dim tempDateStr As String
+    Dim tempMlcUdIpExpStr As String
+    Dim removedAllInvalidChrForKeys As String
+
+    Set tempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", receivedStr, regExPattern, True, True, True)
+
+    For Each match In tempRegExReturnedObj
+
+        tempStr =  Trim(Replace(match.Value, Chr(10), ""))
+        Set innerTempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", tempStr, "\d{2}\/\d{2}\/\d{4}", True, True, True)
+
+        tempDateStr = innerTempRegExReturnedObj(0)
+        tempMlcUdIpExpStr = Trim(Replace(tempStr, tempDateStr, ""))
+
+        removedAllInvalidChrForKeys = Application.Run("general_utility_functions.RemoveInvalidChars", tempMlcUdIpExpStr)
+
+        mlcUdIpExpDict.Add removedAllInvalidChrForKeys, CreateObject("Scripting.Dictionary")
+        mlcUdIpExpDict(removedAllInvalidChrForKeys).Add mlcUdIpExpKeyName, tempMlcUdIpExpStr
+        mlcUdIpExpDict(removedAllInvalidChrForKeys).Add "date", tempDateStr
+
+    Next
+    
+    Set MlcUdIpExpAndDtExtractor = mlcUdIpExpDict
+    
+End Function
+
