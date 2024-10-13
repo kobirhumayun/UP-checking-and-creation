@@ -124,6 +124,8 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
         clause7AsDict.Add clause7AsDict.Count + 1, CreateObject("Scripting.Dictionary")
 
+        clause7AsDict(clause7AsDict.Count).Add "isGarments", isGarments
+
         If isAfterCustomsAct2023Formate Then
 
             lcFieldVal = clause7Arr(i, 3)
@@ -230,8 +232,6 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
         End If
 
     Next i
-
-    clause7AsDict.Add "isGarments", isGarments ' add after loop otherwise LC serial start from 2
 
     Set upClause7AsDict = clause7AsDict
 
