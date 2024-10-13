@@ -231,6 +231,135 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
         End If
 
+        Dim mlcExpIpLeftFieldVal As Variant
+        Dim mlcExpIpRightFieldVal As Variant
+        Dim tempDict As Object
+
+        mlcExpIpLeftFieldVal = clause7Arr(i, 22)
+        mlcExpIpRightFieldVal = clause7Arr(i, 25)
+
+        If isAfterCustomsAct2023Formate Then
+
+            If Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpLeftFieldVal, "ip", True, True, True) Then
+                ' EPZ
+                clause7AsDict(clause7AsDict.Count).Add "isExistIp", True
+                clause7AsDict(clause7AsDict.Count).Add "isExistExp", True
+                clause7AsDict(clause7AsDict.Count).Add "isExistMlc", False
+
+                Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", mlcExpIpLeftFieldVal, "ip.+\n?\d{2}\/\d{2}\/\d{4}", "ip")
+
+                If tempDict.Count > 0 Then
+                    clause7AsDict(clause7AsDict.Count).Add "ip", tempDict
+                Else
+                    MsgBox "#1000" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "IP not found in UP clause 7"
+                End If
+
+                Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", mlcExpIpLeftFieldVal, "exp.+\n?\d{2}\/\d{2}\/\d{4}", "exp")
+
+                If tempDict.Count > 0 Then
+                    clause7AsDict(clause7AsDict.Count).Add "exp", tempDict
+                Else
+                    MsgBox "#1001" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "EXP not found in UP clause 7"
+                End If
+
+            ElseIf Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpLeftFieldVal, "exp", True, True, True) Then
+                ' direct
+                clause7AsDict(clause7AsDict.Count).Add "isExistIp", False
+                clause7AsDict(clause7AsDict.Count).Add "isExistExp", True
+                clause7AsDict(clause7AsDict.Count).Add "isExistMlc", False
+
+                Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", mlcExpIpLeftFieldVal, "exp.+\n?\d{2}\/\d{2}\/\d{4}", "exp")
+
+                If tempDict.Count > 0 Then
+                    clause7AsDict(clause7AsDict.Count).Add "exp", tempDict
+                Else
+                    MsgBox "#1002" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "EXP not found in UP clause 7"
+                End If
+
+            Else
+                ' Deem
+                clause7AsDict(clause7AsDict.Count).Add "isExistIp", False
+                clause7AsDict(clause7AsDict.Count).Add "isExistExp", False
+                clause7AsDict(clause7AsDict.Count).Add "isExistMlc", True
+
+                Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", mlcExpIpLeftFieldVal, ".+\n?\d{2}\/\d{2}\/\d{4}", "mlc")
+
+                If tempDict.Count > 0 Then
+                    clause7AsDict(clause7AsDict.Count).Add "mlc", tempDict
+                Else
+                    MsgBox "#1003" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "MLC not found in UP clause 7"
+                End If
+
+            End If
+
+        Else
+            ' previous UP format
+            Dim isIpAndExp As Boolean
+            Dim isOnlyExp As Boolean
+
+            isIpAndExp = False
+            isOnlyExp = False
+
+            isIpAndExp = Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpLeftFieldVal, "\d+\/\d{6}\/\d{4}.*\n?\d{2}\/\d{2}\/\d{4}", True, True, True) _
+                And Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpRightFieldVal, ".+\n?\d{2}\/\d{2}\/\d{4}", True, True, True)
+            
+            isOnlyExp = Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpLeftFieldVal, "\d+\/\d{6}\/\d{4}.*\n?\d{2}\/\d{2}\/\d{4}", True, True, True) _
+                And IsEmpty(mlcExpIpRightFieldVal)
+
+            If isIpAndExp Then
+                ' EPZ
+                clause7AsDict(clause7AsDict.Count).Add "isExistIp", True
+                clause7AsDict(clause7AsDict.Count).Add "isExistExp", True
+                clause7AsDict(clause7AsDict.Count).Add "isExistMlc", False
+
+                Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", mlcExpIpRightFieldVal, ".+\n?\d{2}\/\d{2}\/\d{4}", "ip")
+
+                If tempDict.Count > 0 Then
+                    clause7AsDict(clause7AsDict.Count).Add "ip", tempDict
+                Else
+                    MsgBox "#1004" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "IP not found in UP clause 7"
+                End If
+
+                Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", mlcExpIpLeftFieldVal, "\d+\/\d{6}\/\d{4}.*\n?\d{2}\/\d{2}\/\d{4}", "exp")
+
+                If tempDict.Count > 0 Then
+                    clause7AsDict(clause7AsDict.Count).Add "exp", tempDict
+                Else
+                    MsgBox "#1005" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "EXP not found in UP clause 7"
+                End If
+
+            ElseIf isOnlyExp Then
+                ' direct
+                clause7AsDict(clause7AsDict.Count).Add "isExistIp", False
+                clause7AsDict(clause7AsDict.Count).Add "isExistExp", True
+                clause7AsDict(clause7AsDict.Count).Add "isExistMlc", False
+
+                Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", mlcExpIpLeftFieldVal, "\d+\/\d{6}\/\d{4}.*\n?\d{2}\/\d{2}\/\d{4}", "exp")
+
+                If tempDict.Count > 0 Then
+                    clause7AsDict(clause7AsDict.Count).Add "exp", tempDict
+                Else
+                    MsgBox "#1006" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "EXP not found in UP clause 7"
+                End If
+
+            Else
+                ' Deem
+                clause7AsDict(clause7AsDict.Count).Add "isExistIp", False
+                clause7AsDict(clause7AsDict.Count).Add "isExistExp", False
+                clause7AsDict(clause7AsDict.Count).Add "isExistMlc", True
+
+                Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", mlcExpIpLeftFieldVal, ".+\n?\d{2}\/\d{2}\/\d{4}", "mlc")
+
+                If tempDict.Count > 0 Then
+                    clause7AsDict(clause7AsDict.Count).Add "mlc", tempDict
+                Else
+                    MsgBox "#1007" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "MLC not found in UP clause 7"
+                End If
+
+            End If
+
+        End If
+
     Next i
 
     Set upClause7AsDict = clause7AsDict
