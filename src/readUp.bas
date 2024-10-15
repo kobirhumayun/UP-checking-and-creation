@@ -514,7 +514,7 @@ Private Function MlcUdIpExpAndDtExtractor(receivedStr As String, regExPattern As
     For Each match In tempRegExReturnedObj
 
         tempStr =  Trim(Replace(match.Value, Chr(10), ""))
-        Set innerTempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", tempStr, "\d{2}\/\d{2}\/\d{4}", True, True, True)
+        Set innerTempRegExReturnedObj = Application.Run("general_utility_functions.regExReturnedObj", tempStr, "\d{2}\/\d{2}\/\d{4}$", True, True, True)
 
         tempDateStr = innerTempRegExReturnedObj(0)
         tempMlcUdIpExpStr = Trim(Replace(tempStr, tempDateStr, ""))
