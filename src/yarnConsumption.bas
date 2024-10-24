@@ -445,7 +445,7 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
             isCoating = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished"), _
                 "coated", True, True, True)
             isPfd = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Finished"), _
-                "pfd", True, True, True)
+                "pfd|bleach", True, True, True)
             isEcru = Application.Run("general_utility_functions.isStrPatternExist", sourceDataAsDicUpIssuingStatus(dicKey)("fabricsInfo")(innerDicKey)("Color"), _
                 "ecru", True, True, True)
 
@@ -508,7 +508,7 @@ Private Function addYarnConsumptionInfoSourceDataAsDicUpIssuingStatus(sourceData
                     "Coating"
             End If
 
-            If isPfd Then
+            If isPfd Or ((Not isToppingBottoming) And (Not isBlack) And (Not isIndigo)) Then
                     'add pfd
                     '***inner dictionary key must be same as dictionary key of "yarnConsumptionInfoDic" of function parameter  "yarnConsumptionInformationPutToProvidedWs"
                 sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo")(sourceDataAsDicUpIssuingStatus(dicKey)("yarnConsumptionInfo").Count)("pfd") = _
