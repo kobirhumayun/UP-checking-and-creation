@@ -389,7 +389,70 @@ Private Function upClause9AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
     Dim clause9AsDict As Object
     Set clause9AsDict = CreateObject("Scripting.Dictionary")
+
+    Dim upClause9StockinformationRangeObject As Object
+    Dim upClause9Val As Variant
+
+    Set upClause9StockinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause9StockinformationRangeObjectFromProvidedWs", upWs)
+
+    upClause9Val = upClause9StockinformationRangeObject.Value
+
+    clause9AsDict.Add "yarnImport", CreateObject("Scripting.Dictionary")
+    clause9AsDict.Add "yarnLocal", CreateObject("Scripting.Dictionary")
+    clause9AsDict.Add "dyes", CreateObject("Scripting.Dictionary")
+    clause9AsDict.Add "chemicalsImport", CreateObject("Scripting.Dictionary")
+    clause9AsDict.Add "chemicalsLocal", CreateObject("Scripting.Dictionary")
+    clause9AsDict.Add "stretchWrappingFilm", CreateObject("Scripting.Dictionary")
+
+    clause9AsDict("yarnImport").Add "previousDue", upClause9Val(1 ,14)
+    clause9AsDict("yarnLocal").Add "previousDue", upClause9Val(2 ,14)
+    clause9AsDict("dyes").Add "previousDue", upClause9Val(3 ,14)
+    clause9AsDict("chemicalsImport").Add "previousDue", upClause9Val(4 ,14)
+    clause9AsDict("chemicalsLocal").Add "previousDue", upClause9Val(5 ,14)
+    clause9AsDict("stretchWrappingFilm").Add "previousDue", upClause9Val(6 ,14)
+
+    clause9AsDict("yarnImport").Add "currentImport", upClause9Val(1 ,16)
+    clause9AsDict("yarnLocal").Add "currentImport", upClause9Val(2 ,16)
+    clause9AsDict("dyes").Add "currentImport", upClause9Val(3 ,16)
+    clause9AsDict("chemicalsImport").Add "currentImport", upClause9Val(4 ,16)
+    clause9AsDict("chemicalsLocal").Add "currentImport", upClause9Val(5 ,16)
+    clause9AsDict("stretchWrappingFilm").Add "currentImport", upClause9Val(6 ,16)
         
+    clause9AsDict("yarnImport").Add "sumPreviousDueCurrentImport", upClause9Val(1 ,18)
+    clause9AsDict("yarnLocal").Add "sumPreviousDueCurrentImport", upClause9Val(2 ,18)
+    clause9AsDict("dyes").Add "sumPreviousDueCurrentImport", upClause9Val(3 ,18)
+    clause9AsDict("chemicalsImport").Add "sumPreviousDueCurrentImport", upClause9Val(4 ,18)
+    clause9AsDict("chemicalsLocal").Add "sumPreviousDueCurrentImport", upClause9Val(5 ,18)
+    clause9AsDict("stretchWrappingFilm").Add "sumPreviousDueCurrentImport", upClause9Val(6 ,18)
+
+    clause9AsDict("yarnImport").Add "previousUsed", upClause9Val(1 ,20)
+    clause9AsDict("yarnLocal").Add "previousUsed", upClause9Val(2 ,20)
+    clause9AsDict("dyes").Add "previousUsed", upClause9Val(3 ,20)
+    clause9AsDict("chemicalsImport").Add "previousUsed", upClause9Val(4 ,20)
+    clause9AsDict("chemicalsLocal").Add "previousUsed", upClause9Val(5 ,20)
+    clause9AsDict("stretchWrappingFilm").Add "previousUsed", upClause9Val(6 ,20)
+
+    clause9AsDict("yarnImport").Add "currentStock", upClause9Val(1 ,22)
+    clause9AsDict("yarnLocal").Add "currentStock", upClause9Val(2 ,22)
+    clause9AsDict("dyes").Add "currentStock", upClause9Val(3 ,22)
+    clause9AsDict("chemicalsImport").Add "currentStock", upClause9Val(4 ,22)
+    clause9AsDict("chemicalsLocal").Add "currentStock", upClause9Val(5 ,22)
+    clause9AsDict("stretchWrappingFilm").Add "currentStock", upClause9Val(6 ,22)
+
+    clause9AsDict("yarnImport").Add "usedInThisUp", upClause9Val(1 ,24)
+    clause9AsDict("yarnLocal").Add "usedInThisUp", upClause9Val(2 ,24)
+    clause9AsDict("dyes").Add "usedInThisUp", upClause9Val(3 ,24)
+    clause9AsDict("chemicalsImport").Add "usedInThisUp", upClause9Val(4 ,24)
+    clause9AsDict("chemicalsLocal").Add "usedInThisUp", upClause9Val(5 ,24)
+    clause9AsDict("stretchWrappingFilm").Add "usedInThisUp", upClause9Val(6 ,24)
+
+    clause9AsDict("yarnImport").Add "remainingQty", upClause9Val(1 ,26)
+    clause9AsDict("yarnLocal").Add "remainingQty", upClause9Val(2 ,26)
+    clause9AsDict("dyes").Add "remainingQty", upClause9Val(3 ,26)
+    clause9AsDict("chemicalsImport").Add "remainingQty", upClause9Val(4 ,26)
+    clause9AsDict("chemicalsLocal").Add "remainingQty", upClause9Val(5 ,26)
+    clause9AsDict("stretchWrappingFilm").Add "remainingQty", upClause9Val(6 ,26)
+
     Set upClause9AsDict = clause9AsDict
     
 End Function
