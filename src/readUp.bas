@@ -461,7 +461,91 @@ Private Function upClause11AsDict(upWs As Worksheet, isAfterCustomsAct2023Format
 
     Dim clause11AsDict As Object
     Set clause11AsDict = CreateObject("Scripting.Dictionary")
-        
+    Dim clause11Arr As Variant
+    Dim buyerName As String
+
+    Dim upClause11UdExpIpinformationRangeObject As Range
+    Set upClause11UdExpIpinformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause11UdExpIpinformationRangeObjectFromProvidedWs", upWs)
+
+    clause11Arr = upClause11UdExpIpinformationRangeObject.Value
+
+    Dim i As Long
+
+    For i = LBound(clause11Arr) To UBound(clause11Arr) - 1
+
+        clause11AsDict.Add clause11AsDict.Count + 1, CreateObject("Scripting.Dictionary")
+
+        If isAfterCustomsAct2023Formate Then
+
+            buyerName = clause11Arr(i, 3)
+
+        Else
+
+            buyerName = clause11Arr(i, 4)
+
+        End If
+
+        clause11AsDict(clause11AsDict.Count).Add "buyerName", buyerName
+
+        Dim udExpIp As Variant
+        Dim tempDict As Object
+
+        udExpIp = clause11Arr(i, 17)
+
+        If Application.Run("general_utility_functions.isStrPatternExist", udExpIp, "ip", True, True, True) Then
+            ' EPZ
+            clause11AsDict(clause11AsDict.Count).Add "isExistIp", True
+            clause11AsDict(clause11AsDict.Count).Add "isExistExp", True
+            clause11AsDict(clause11AsDict.Count).Add "isExistUd", False
+
+            Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", udExpIp, "ip.+\n?\d{2}\/\d{2}\/\d{4}", "ip")
+
+            If tempDict.Count > 0 Then
+                clause11AsDict(clause11AsDict.Count).Add "ip", tempDict
+            Else
+                MsgBox "#1008" & Chr(10) & "Sl. " & clause11AsDict.Count & Chr(10) & "IP not found in UP clause 11"
+            End If
+
+            Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", udExpIp, "exp.+\n?\d{2}\/\d{2}\/\d{4}", "exp")
+
+            If tempDict.Count > 0 Then
+                clause11AsDict(clause11AsDict.Count).Add "exp", tempDict
+            Else
+                MsgBox "#1009" & Chr(10) & "Sl. " & clause11AsDict.Count & Chr(10) & "EXP not found in UP clause 11"
+            End If
+
+        ElseIf Application.Run("general_utility_functions.isStrPatternExist", udExpIp, "exp", True, True, True) Then
+            ' direct
+            clause11AsDict(clause11AsDict.Count).Add "isExistIp", False
+            clause11AsDict(clause11AsDict.Count).Add "isExistExp", True
+            clause11AsDict(clause11AsDict.Count).Add "isExistUd", False
+
+            Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", udExpIp, "exp.+\n?\d{2}\/\d{2}\/\d{4}", "exp")
+
+            If tempDict.Count > 0 Then
+                clause11AsDict(clause11AsDict.Count).Add "exp", tempDict
+            Else
+                MsgBox "#1010" & Chr(10) & "Sl. " & clause11AsDict.Count & Chr(10) & "EXP not found in UP clause 11"
+            End If
+
+        Else
+            ' Deem
+            clause11AsDict(clause11AsDict.Count).Add "isExistIp", False
+            clause11AsDict(clause11AsDict.Count).Add "isExistExp", False
+            clause11AsDict(clause11AsDict.Count).Add "isExistUd", True
+
+            Set tempDict = Application.Run("readUp.MlcUdIpExpAndDtExtractor", udExpIp, ".+\n?\d{2}\/\d{2}\/\d{4}", "ud")
+
+            If tempDict.Count > 0 Then
+                clause11AsDict(clause11AsDict.Count).Add "ud", tempDict
+            Else
+                MsgBox "#1011" & Chr(10) & "Sl. " & clause11AsDict.Count & Chr(10) & "MLC not found in UP clause 11"
+            End If
+
+        End If
+
+    Next i
+
     Set upClause11AsDict = clause11AsDict
     
 End Function
