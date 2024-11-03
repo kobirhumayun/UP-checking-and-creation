@@ -119,3 +119,19 @@ Private Function upClause7LcinformationRangeObjectFromProvidedWsPrevFormat(ws As
     Set upClause7LcinformationRangeObjectFromProvidedWsPrevFormat = workingRange
 
 End Function
+
+Private Function upClause12AYarnConsumptioninformationRangeObjectFromProvidedWsPrevFormat(ws As Worksheet) As Variant
+    'give yarn consumption information Range Object from provided sheet
+    Dim topRow, bottomRow As Variant
+
+    topRow = ws.Cells.Find("12| (K)", LookAt:=xlPart).Row + 2
+    bottomRow = ws.Range("Z" & topRow).End(xlDown).Row
+
+    Dim workingRange As Range
+    Set workingRange = ws.Range("A" & topRow & ":" & "AA" & bottomRow)
+
+    workingRange.Font.Color = RGB(255, 255, 255)
+    
+    Set upClause12AYarnConsumptioninformationRangeObjectFromProvidedWsPrevFormat = workingRange
+
+End Function
