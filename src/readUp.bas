@@ -558,6 +558,45 @@ Private Function upClause12aAsDict(upWs As Worksheet, isAfterCustomsAct2023Forma
 
     Dim clause12aAsDict As Object
     Set clause12aAsDict = CreateObject("Scripting.Dictionary")
+    Dim clause12aArr As Variant
+    Dim buyerName As String
+
+    Dim upClause12AYarnConsumptionInformationRangeObject As Range
+
+    If isAfterCustomsAct2023Formate Then
+
+        Set upClause12AYarnConsumptionInformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause12AYarnConsumptioninformationRangeObjectFromProvidedWs", upWs)
+
+    Else
+
+        Set upClause12AYarnConsumptionInformationRangeObject = Application.Run("previousFormatRelatedFun.upClause12AYarnConsumptioninformationRangeObjectFromProvidedWsPrevFormat", upWs)
+
+    End If
+
+    clause12aArr = upClause12AYarnConsumptionInformationRangeObject.Value
+
+    Dim i As Long
+
+    For i = LBound(clause12aArr) To UBound(clause12aArr) - 1
+
+        If Not IsEmpty(clause12aArr(i, 3)) Then
+
+            clause12aAsDict.Add clause12aAsDict.Count + 1, CreateObject("Scripting.Dictionary")
+            buyerName = clause12aArr(i, 3)
+
+        End If
+
+        clause12aAsDict(clause12aAsDict.Count).Add clause12aAsDict(clause12aAsDict.Count).Count + 1, CreateObject("Scripting.Dictionary")
+
+        clause12aAsDict(clause12aAsDict.Count)(clause12aAsDict(clause12aAsDict.Count).Count).Add "buyerName", buyerName
+        clause12aAsDict(clause12aAsDict.Count)(clause12aAsDict(clause12aAsDict.Count).Count).Add "garmentsQty", clause12aArr(i, 18)
+        clause12aAsDict(clause12aAsDict.Count)(clause12aAsDict(clause12aAsDict.Count).Count).Add "fabricQty", clause12aArr(i, 19)
+        clause12aAsDict(clause12aAsDict.Count)(clause12aAsDict(clause12aAsDict.Count).Count).Add "yarnConPerKg", clause12aArr(i, 21)
+        clause12aAsDict(clause12aAsDict.Count)(clause12aAsDict(clause12aAsDict.Count).Count).Add "totalYarnUsed", clause12aArr(i, 23)
+        clause12aAsDict(clause12aAsDict.Count)(clause12aAsDict(clause12aAsDict.Count).Count).Add "overconsumptionPercentage", clause12aArr(i, 25)
+        clause12aAsDict(clause12aAsDict.Count)(clause12aAsDict(clause12aAsDict.Count).Count).Add "totalYarnUsedWithOverconsumption", clause12aArr(i, 26)
+
+    Next i
         
     Set upClause12aAsDict = clause12aAsDict
     
