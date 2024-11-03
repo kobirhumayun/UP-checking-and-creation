@@ -544,6 +544,10 @@ Private Function upClause11AsDict(upWs As Worksheet, isAfterCustomsAct2023Format
 
         End If
 
+        clause11AsDict(clause11AsDict.Count).Add "fabricWidth", clause11Arr(i, 23)
+        clause11AsDict(clause11AsDict.Count).Add "fabricWeight", clause11Arr(i, 25)
+        clause11AsDict(clause11AsDict.Count).Add "fabricQty", clause11Arr(i, 26)
+
     Next i
 
     Set upClause11AsDict = clause11AsDict
