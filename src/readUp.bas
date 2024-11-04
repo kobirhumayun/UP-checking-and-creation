@@ -606,7 +606,54 @@ Private Function upClause12bFabricsAsDict(upWs As Worksheet, isAfterCustomsAct20
 
     Dim clause12bFabricsAsDict As Object
     Set clause12bFabricsAsDict = CreateObject("Scripting.Dictionary")
+    Dim clause12bFabArr As Variant
         
+    Dim upClause12BYarnConsumptionInformationRangeObject As Range
+    Set upClause12BYarnConsumptionInformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause12BChemicalDyesConsumptioninformationRangeObjectFromProvidedWs", upWs)
+
+    clause12bFabArr = upClause12BYarnConsumptionInformationRangeObject.Value
+
+    clause12bFabricsAsDict.Add "grandTotalYarn", clause12bFabArr(1, 7)
+
+    clause12bFabricsAsDict.Add "buyerName", CreateObject("Scripting.Dictionary")
+    clause12bFabricsAsDict.Add "quantityOfGoodsUsedInProduction", CreateObject("Scripting.Dictionary")
+    clause12bFabricsAsDict.Add "rawMaterials", CreateObject("Scripting.Dictionary")
+
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "ropeDenimFabricsDyedBlack", clause12bFabArr(12, 7)
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "ropeDenimFabricsDyedBlackMercerization", clause12bFabArr(18, 7)
+    
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "ropeDenimFabricsDyedIndigo", clause12bFabArr(32, 7)
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "ropeDenimFabricsDyedIndigoMercerization", clause12bFabArr(38, 7)
+
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "ropeDenimFabricsDyed", clause12bFabArr(53, 7)
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "ropeDenimFabricsDyedMercerization", clause12bFabArr(61, 7)
+
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "denimFabricsOverDyedSolidDyed", clause12bFabArr(72, 7)
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "denimFabricsOverDyedSolidDyedMercerization", clause12bFabArr(75, 7)
+
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "denimFabricsCoatedAndPigment", clause12bFabArr(82, 7)
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "denimFabricsPFDFinished", clause12bFabArr(92, 7)
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "denimFabricsEcruFinished", clause12bFabArr(102, 7)
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "denimFabricDyed", clause12bFabArr(107, 7)
+    clause12bFabricsAsDict("quantityOfGoodsUsedInProduction").Add "denimFabricPacking", clause12bFabArr(111, 7)
+
+    Dim i As Long
+    Dim removedAllInvalidChrFromKeys As String
+
+    For i = LBound(clause12bFabArr) + 1 To UBound(clause12bFabArr)
+
+        If Not IsEmpty(clause12bFabArr(i, 2)) Then
+
+            clause12bFabricsAsDict("buyerName").Add clause12bFabricsAsDict("buyerName").Count + 1, clause12bFabArr(i, 2)
+
+        End If
+
+        removedAllInvalidChrFromKeys = Application.Run("general_utility_functions.RemoveInvalidChars", clause12bFabArr(i, 16))   'remove all invalid characters for use dic keys
+
+        clause12bFabricsAsDict("rawMaterials").Add removedAllInvalidChrFromKeys & "_Sl_" & i - 1, clause12bFabArr(i, 25)
+
+    Next i
+
     Set upClause12bFabricsAsDict = clause12bFabricsAsDict
     
 End Function
