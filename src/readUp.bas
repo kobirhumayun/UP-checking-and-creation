@@ -662,7 +662,59 @@ Private Function upClause12bGarmentsAsDict(upWs As Worksheet, isAfterCustomsAct2
 
     Dim clause12bGarmentsAsDict As Object
     Set clause12bGarmentsAsDict = CreateObject("Scripting.Dictionary")
-    
+    Dim isGarments As Boolean
+    Dim clause12bGarmentsArr As Variant
+
+    Dim upClause12BGarmentsRangeObject As Range
+    Set upClause12BGarmentsRangeObject = Application.Run("helperFunctionGetRangeObject.upClause12BGarmentsRangeObjectFromProvidedWs", upWs)
+
+    clause12bGarmentsArr = upClause12BGarmentsRangeObject.Value
+
+    Dim i As Long
+
+    isGarments = False
+
+    For i = LBound(clause12bGarmentsArr) To UBound(clause12bGarmentsArr)
+
+        If Not IsEmpty(clause12bGarmentsArr(i, 11)) Then
+
+            isGarments = True
+
+        End If
+
+    Next i
+
+    clause12bGarmentsAsDict.Add "isGarments", isGarments
+
+    clause12bGarmentsAsDict.Add "rawMaterials", CreateObject("Scripting.Dictionary")
+
+    Dim removedAllInvalidChrFromKeys As String
+    Dim typeOfWash As String
+
+    For i = LBound(clause12bGarmentsArr) To UBound(clause12bGarmentsArr)
+
+        If Not IsEmpty(clause12bGarmentsArr(i, 14)) Then
+
+            removedAllInvalidChrFromKeys = Application.Run("general_utility_functions.RemoveInvalidChars", clause12bGarmentsArr(i, 14))   'remove all invalid characters for use dic keys
+            typeOfWash = removedAllInvalidChrFromKeys
+            clause12bGarmentsAsDict.Add typeOfWash, CreateObject("Scripting.Dictionary")
+
+        End If
+
+        If Not IsEmpty(clause12bGarmentsArr(i, 11)) Then
+
+            removedAllInvalidChrFromKeys = Application.Run("general_utility_functions.RemoveInvalidChars", clause12bGarmentsArr(i, 2))   'remove all invalid characters for use dic keys
+
+            clause12bGarmentsAsDict(typeOfWash).Add removedAllInvalidChrFromKeys, clause12bGarmentsArr(i, 11)
+
+        End If
+
+        removedAllInvalidChrFromKeys = Application.Run("general_utility_functions.RemoveInvalidChars", clause12bGarmentsArr(i, 15))   'remove all invalid characters for use dic keys
+
+        clause12bGarmentsAsDict("rawMaterials").Add removedAllInvalidChrFromKeys & "_Sl_" & i, clause12bGarmentsArr(i, 25)
+
+    Next i
+
     Set upClause12bGarmentsAsDict = clause12bGarmentsAsDict
     
 End Function
