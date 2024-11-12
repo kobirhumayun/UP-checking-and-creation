@@ -135,3 +135,19 @@ Private Function upClause12AYarnConsumptioninformationRangeObjectFromProvidedWsP
     Set upClause12AYarnConsumptioninformationRangeObjectFromProvidedWsPrevFormat = workingRange
 
 End Function
+
+Private Function upClause15RangeObjectFromProvidedWsPrevFormat(ws As Worksheet) As Variant
+    'give used raw materials information Range Object from provided sheet
+    Dim topRow, bottomRow As Variant
+
+    topRow = ws.Cells.Find("15|", LookAt:=xlPart).Row
+    bottomRow = topRow + 3
+
+    Dim workingRange As Range
+    Set workingRange = ws.Range("A" & topRow & ":" & "AA" & bottomRow)
+
+    workingRange.Font.Color = RGB(255, 255, 255)
+
+    Set upClause15RangeObjectFromProvidedWsPrevFormat = workingRange
+
+End Function
