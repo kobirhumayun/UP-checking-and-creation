@@ -763,7 +763,44 @@ Private Function upClause14AsDict(upWs As Worksheet, isAfterCustomsAct2023Format
 
     Dim clause14AsDict As Object
     Set clause14AsDict = CreateObject("Scripting.Dictionary")
-    
+
+    Dim isGarments As Boolean
+    Dim upClause14Val As Variant
+    Dim upClause14InformationRangeObject As Range
+
+    If isAfterCustomsAct2023Formate Then
+
+        Set upClause14InformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause14RangeObjectFromProvidedWs", upWs)
+
+    Else
+
+        Set upClause14InformationRangeObject = Application.Run("previousFormatRelatedFun.upClause15RangeObjectFromProvidedWsPrevFormat", upWs)
+                
+    End If
+
+    upClause14Val = upClause14InformationRangeObject.Value
+
+    isGarments = False
+
+    If Not IsEmpty(upClause14Val(1, 17)) Then
+
+        isGarments = True
+
+    End If
+
+    clause14AsDict.Add "isGarments", isGarments
+
+    If isGarments Then
+        
+        clause14AsDict.Add "garmentsQty", upClause14Val(1, 17)
+
+    End If
+
+    clause14AsDict.Add "fabricsQty", upClause14Val(1, 15)
+    clause14AsDict.Add "exportValue", upClause14Val(2, 15)
+    clause14AsDict.Add "rawMaterialsValue", upClause14Val(3, 15)
+    clause14AsDict.Add "valueAddition", upClause14Val(4, 15)
+
     Set upClause14AsDict = clause14AsDict
     
 End Function
