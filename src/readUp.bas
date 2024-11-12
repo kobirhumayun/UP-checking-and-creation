@@ -727,7 +727,34 @@ Private Function upClause13AsDict(upWs As Worksheet, isAfterCustomsAct2023Format
 
     Dim clause13AsDict As Object
     Set clause13AsDict = CreateObject("Scripting.Dictionary")
-        
+
+    Dim upClause13Val As Variant
+    Dim upClause13InformationRangeObject As Range
+    Set upClause13InformationRangeObject = Application.Run("helperFunctionGetRangeObject.upClause13UseRawMaterialsinformationRangeObjectFromProvidedWs", upWs)
+
+    upClause13Val = upClause13InformationRangeObject.Value
+
+    clause13AsDict.Add "yarnImport", CreateObject("Scripting.Dictionary")
+    clause13AsDict.Add "yarnLocal", CreateObject("Scripting.Dictionary")
+    clause13AsDict.Add "dyes", CreateObject("Scripting.Dictionary")
+    clause13AsDict.Add "chemicalsImport", CreateObject("Scripting.Dictionary")
+    clause13AsDict.Add "chemicalsLocal", CreateObject("Scripting.Dictionary")
+    clause13AsDict.Add "stretchWrappingFilm", CreateObject("Scripting.Dictionary")
+
+    clause13AsDict("yarnImport").Add "qty", upClause13Val(1 ,15)
+    clause13AsDict("yarnLocal").Add "qty", upClause13Val(2 ,15)
+    clause13AsDict("dyes").Add "qty", upClause13Val(3 ,15)
+    clause13AsDict("chemicalsImport").Add "qty", upClause13Val(4 ,15)
+    clause13AsDict("chemicalsLocal").Add "qty", upClause13Val(5 ,15)
+    clause13AsDict("stretchWrappingFilm").Add "qty", upClause13Val(6 ,15)
+
+    clause13AsDict("yarnImport").Add "value", upClause13Val(1 ,18)
+    clause13AsDict("yarnLocal").Add "value", upClause13Val(2 ,18)
+    clause13AsDict("dyes").Add "value", upClause13Val(3 ,18)
+    clause13AsDict("chemicalsImport").Add "value", upClause13Val(4 ,18)
+    clause13AsDict("chemicalsLocal").Add "value", upClause13Val(5 ,18)
+    clause13AsDict("stretchWrappingFilm").Add "value", upClause13Val(6 ,18)
+
     Set upClause13AsDict = clause13AsDict
     
 End Function
