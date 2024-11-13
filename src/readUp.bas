@@ -888,3 +888,74 @@ Private Function MlcUdIpExpAndDtExtractor(receivedStr As String, regExPattern As
     
 End Function
 
+Private Function saveUpDataAsJsonFromSelectedUpFile(jsonPath As String, initialUpPath As String)
+
+    Application.ScreenUpdating = False
+
+    Dim allUpDic As Object
+    Set allUpDic = CreateObject("Scripting.Dictionary")
+    Dim curentUpDict As Object
+
+    Dim currentUpWb As Workbook
+    Dim currentUpWs As Worksheet
+    Dim curentUpNo As Variant
+
+    Dim answer As VbMsgBoxResult
+    ' Display the message box with Yes and No buttons
+    answer = MsgBox("Do you want to use previous calculated JSON text file", vbYesNo + vbQuestion, "JSON text file")
+    Dim jsonPathArr As Variant
+
+    ' Check which button the user clicked
+    If answer = vbYes Then
+        ' Code to execute if user clicks Yes
+
+        jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", jsonPath)  ' JSON file path
+
+        If Not UBound(jsonPathArr) = 1 Then
+            MsgBox "Please select only one JSON file"
+            Exit Function
+        End If
+
+        Set allUpDic = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
+
+    End If
+
+    Dim upPathArr As Variant
+    upPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", initialUpPath)
+
+    Dim i As Long
+    For i = LBound(upPathArr) To UBound(upPathArr) ' create dictionary as UP
+
+        Application.DisplayAlerts = False
+        Set currentUpWb = Workbooks.Open(upPathArr(i))
+        Set currentUpWs = currentUpWb.Worksheets(2)
+
+        Set curentUpDict = Application.Run("readUp.readUpAsDict", currentUpWs)
+
+        currentUpWb.Close SaveChanges:=False
+        Application.DisplayAlerts = True
+
+        If Not allUpDic.Exists(curentUpDict("upClause1")("upNo")) Then
+            
+            allUpDic.Add curentUpDict("upClause1")("upNo"), curentUpDict
+        
+        End If
+
+    Next i
+
+    Dim sortedAllCalculatedUp As Variant
+    sortedAllCalculatedUp = Application.Run("Sorting_Algorithms.upSort", allUpDic.keys)
+
+    Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", allUpDic, jsonPath & Application.PathSeparator & _
+        "UP-" & Replace(sortedAllCalculatedUp(LBound(sortedAllCalculatedUp)), "/", "-") & "-to-" & _
+        Replace(sortedAllCalculatedUp(UBound(sortedAllCalculatedUp)), "/", "-") & "-all-clause-data" & ".json"
+
+    Application.ScreenUpdating = True
+
+    Dim uPSequenceStr As String
+    uPSequenceStr = Application.Run("utilityFunction.upSequenceStrGenerator", allUpDic.keys, " -to- ", 10)
+
+    MsgBox "Saved UP data as JSON" & Chr(10) & uPSequenceStr
+
+End Function
+
