@@ -898,7 +898,6 @@ Private Function saveUpDataAsJsonFromSelectedUpFile(jsonPath As String, initialU
 
     Dim currentUpWb As Workbook
     Dim currentUpWs As Worksheet
-    Dim curentUpNo As Variant
 
     Dim answer As VbMsgBoxResult
     ' Display the message box with Yes and No buttons
