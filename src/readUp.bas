@@ -958,3 +958,97 @@ Private Function saveUpDataAsJsonFromSelectedUpFile(jsonPath As String, initialU
 
 End Function
 
+Private Function loadUpDataFromJsonAndWriteToSheetAsUp(jsonPath As String)
+
+    Application.ScreenUpdating = False
+
+    Dim allUpDic As Object
+    Set allUpDic = CreateObject("Scripting.Dictionary")
+    Dim curentUpDict As Object
+    Dim curentUpAsWriteFormatDict As Object
+    Set curentUpAsWriteFormatDict = CreateObject("Scripting.Dictionary")
+
+    Dim upNo As String
+    upNo = InputBox("Please enter UP Number", "UP Number", "UP No.")
+
+    Dim jsonPathArr As Variant
+
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", jsonPath)  ' JSON file path
+
+    If Not UBound(jsonPathArr) = 1 Then
+        MsgBox "Please select only one JSON file"
+        Exit Function
+    End If
+
+    Set allUpDic = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
+
+    Set curentUpDict = allUpDic(upNo)
+
+    curentUpAsWriteFormatDict.Add "upClause1", CreateObject("Scripting.Dictionary")
+    curentUpAsWriteFormatDict("upClause1").Add curentUpAsWriteFormatDict("upClause1").Count + 1, curentUpDict("upClause1")("upNo")
+
+    Dim outerKey, innerKey1, innerKey2 As Variant
+
+    curentUpAsWriteFormatDict.Add "upClause6", CreateObject("Scripting.Dictionary")
+
+    For Each outerKey In curentUpDict("upClause6").keys
+    
+        curentUpAsWriteFormatDict("upClause6").Add curentUpAsWriteFormatDict("upClause6").Count + 1, curentUpDict("upClause6")(outerKey)
+        
+    Next outerKey
+
+    curentUpAsWriteFormatDict.Add "upClause7", CreateObject("Scripting.Dictionary")
+
+    For Each outerKey In curentUpDict("upClause7").keys
+
+        If Not IsEmpty(outerKey) Then 'to handle unknown empty dict key
+
+            curentUpAsWriteFormatDict("upClause7").Add curentUpAsWriteFormatDict("upClause7").Count + 1, CreateObject("Scripting.Dictionary")
+
+            For Each innerKey1 In curentUpDict("upClause7")(outerKey).keys
+
+                If innerKey1 = "exp" Then
+
+                    For Each innerKey2 In curentUpDict("upClause7")(outerKey)(innerKey1).keys
+
+                        curentUpAsWriteFormatDict("upClause7")(curentUpAsWriteFormatDict("upClause7").Count).Add innerKey2 & "_exp", curentUpDict("upClause7")(outerKey)(innerKey1)(innerKey2)("exp")
+                        curentUpAsWriteFormatDict("upClause7")(curentUpAsWriteFormatDict("upClause7").Count).Add innerKey2 & "_date", curentUpDict("upClause7")(outerKey)(innerKey1)(innerKey2)("date")
+
+                    Next innerKey2
+
+                ElseIf innerKey1 = "ip" Then
+
+                    For Each innerKey2 In curentUpDict("upClause7")(outerKey)(innerKey1).keys
+
+                        curentUpAsWriteFormatDict("upClause7")(curentUpAsWriteFormatDict("upClause7").Count).Add innerKey2 & "_ip", curentUpDict("upClause7")(outerKey)(innerKey1)(innerKey2)("ip")
+                        curentUpAsWriteFormatDict("upClause7")(curentUpAsWriteFormatDict("upClause7").Count).Add innerKey2 & "_date", curentUpDict("upClause7")(outerKey)(innerKey1)(innerKey2)("date")
+
+                    Next innerKey2
+
+                ElseIf innerKey1 = "mlc" Then
+
+                    For Each innerKey2 In curentUpDict("upClause7")(outerKey)(innerKey1).keys
+
+                        curentUpAsWriteFormatDict("upClause7")(curentUpAsWriteFormatDict("upClause7").Count).Add innerKey2 & "_mlc", curentUpDict("upClause7")(outerKey)(innerKey1)(innerKey2)("mlc")
+                        curentUpAsWriteFormatDict("upClause7")(curentUpAsWriteFormatDict("upClause7").Count).Add innerKey2 & "_date", curentUpDict("upClause7")(outerKey)(innerKey1)(innerKey2)("date")
+
+                    Next innerKey2
+
+                Else
+
+                    curentUpAsWriteFormatDict("upClause7")(curentUpAsWriteFormatDict("upClause7").Count).Add innerKey1, curentUpDict("upClause7")(outerKey)(innerKey1)
+
+                End If
+
+            Next innerKey1
+
+        End If
+
+    Next outerKey
+
+    ' Sheets.Add After:=Sheets(ActiveSheet.Name)
+
+    Debug.Print "end"
+    
+End Function
+
