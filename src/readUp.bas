@@ -1119,6 +1119,26 @@ Private Function loadUpDataFromJsonAndWriteToSheetAsUp(jsonPath As String)
 
     Next outerKey
 
+    curentUpAsWriteFormatDict.Add "upClause12a", CreateObject("Scripting.Dictionary")
+
+    For Each outerKey In curentUpDict("upClause12a").keys
+
+        For Each innerKey1 In curentUpDict("upClause12a")(outerKey).keys
+
+            curentUpAsWriteFormatDict("upClause12a").Add curentUpAsWriteFormatDict("upClause12a").Count + 1, CreateObject("Scripting.Dictionary")
+
+            For Each innerKey2 In curentUpDict("upClause12a")(outerKey)(innerKey1).keys
+
+                curentUpAsWriteFormatDict("upClause12a")(curentUpAsWriteFormatDict("upClause12a").Count).Add innerKey2, curentUpDict("upClause12a")(outerKey)(innerKey1)(innerKey2)
+
+            Next innerKey2
+
+        Next innerKey1
+
+    Next outerKey
+
+
+
 
 
     ' Sheets.Add After:=Sheets(ActiveSheet.Name)
