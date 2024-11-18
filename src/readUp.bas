@@ -1136,8 +1136,33 @@ Private Function loadUpDataFromJsonAndWriteToSheetAsUp(jsonPath As String)
         Next innerKey1
 
     Next outerKey
+    
+    curentUpAsWriteFormatDict.Add "upClause12bFabrics", CreateObject("Scripting.Dictionary")
 
+    curentUpAsWriteFormatDict("upClause12bFabrics").Add curentUpAsWriteFormatDict("upClause12bFabrics").Count + 1, CreateObject("Scripting.Dictionary")
+    
+    curentUpAsWriteFormatDict("upClause12bFabrics")(curentUpAsWriteFormatDict("upClause12bFabrics").Count).Add "grandTotalYarn", curentUpDict("upClause12bFabrics")("grandTotalYarn")
 
+    For Each outerKey In curentUpDict("upClause12bFabrics")("buyerName").keys
+
+        curentUpAsWriteFormatDict("upClause12bFabrics").Add curentUpAsWriteFormatDict("upClause12bFabrics").Count + 1, CreateObject("Scripting.Dictionary")
+        curentUpAsWriteFormatDict("upClause12bFabrics")(curentUpAsWriteFormatDict("upClause12bFabrics").Count).Add "buyer_" & outerKey, curentUpDict("upClause12bFabrics")("buyerName")(outerKey)
+
+    Next outerKey
+
+    For Each outerKey In curentUpDict("upClause12bFabrics")("quantityOfGoodsUsedInProduction").keys
+
+        curentUpAsWriteFormatDict("upClause12bFabrics").Add curentUpAsWriteFormatDict("upClause12bFabrics").Count + 1, CreateObject("Scripting.Dictionary")
+        curentUpAsWriteFormatDict("upClause12bFabrics")(curentUpAsWriteFormatDict("upClause12bFabrics").Count).Add outerKey, curentUpDict("upClause12bFabrics")("quantityOfGoodsUsedInProduction")(outerKey)
+
+    Next outerKey
+
+    For Each outerKey In curentUpDict("upClause12bFabrics")("rawMaterials").keys
+
+        curentUpAsWriteFormatDict("upClause12bFabrics").Add curentUpAsWriteFormatDict("upClause12bFabrics").Count + 1, CreateObject("Scripting.Dictionary")
+        curentUpAsWriteFormatDict("upClause12bFabrics")(curentUpAsWriteFormatDict("upClause12bFabrics").Count).Add outerKey, curentUpDict("upClause12bFabrics")("rawMaterials")(outerKey)
+
+    Next outerKey
 
 
 
