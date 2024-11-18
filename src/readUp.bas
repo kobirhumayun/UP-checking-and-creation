@@ -1074,7 +1074,50 @@ Private Function loadUpDataFromJsonAndWriteToSheetAsUp(jsonPath As String)
 
     Next outerKey
 
+    curentUpAsWriteFormatDict.Add "upClause11", CreateObject("Scripting.Dictionary")
 
+    For Each outerKey In curentUpDict("upClause11").keys
+
+        curentUpAsWriteFormatDict("upClause11").Add curentUpAsWriteFormatDict("upClause11").Count + 1, CreateObject("Scripting.Dictionary")
+
+        For Each innerKey1 In curentUpDict("upClause11")(outerKey).keys
+
+            If innerKey1 = "exp" Then
+
+                For Each innerKey2 In curentUpDict("upClause11")(outerKey)(innerKey1).keys
+
+                    curentUpAsWriteFormatDict("upClause11")(curentUpAsWriteFormatDict("upClause11").Count).Add innerKey2 & "_exp", curentUpDict("upClause11")(outerKey)(innerKey1)(innerKey2)("exp")
+                    curentUpAsWriteFormatDict("upClause11")(curentUpAsWriteFormatDict("upClause11").Count).Add innerKey2 & "_date", curentUpDict("upClause11")(outerKey)(innerKey1)(innerKey2)("date")
+
+                Next innerKey2
+
+            ElseIf innerKey1 = "ip" Then
+
+                For Each innerKey2 In curentUpDict("upClause11")(outerKey)(innerKey1).keys
+
+                    curentUpAsWriteFormatDict("upClause11")(curentUpAsWriteFormatDict("upClause11").Count).Add innerKey2 & "_ip", curentUpDict("upClause11")(outerKey)(innerKey1)(innerKey2)("ip")
+                    curentUpAsWriteFormatDict("upClause11")(curentUpAsWriteFormatDict("upClause11").Count).Add innerKey2 & "_date", curentUpDict("upClause11")(outerKey)(innerKey1)(innerKey2)("date")
+
+                Next innerKey2
+
+            ElseIf innerKey1 = "ud" Then
+
+                For Each innerKey2 In curentUpDict("upClause11")(outerKey)(innerKey1).keys
+
+                    curentUpAsWriteFormatDict("upClause11")(curentUpAsWriteFormatDict("upClause11").Count).Add innerKey2 & "_ud", curentUpDict("upClause11")(outerKey)(innerKey1)(innerKey2)("ud")
+                    curentUpAsWriteFormatDict("upClause11")(curentUpAsWriteFormatDict("upClause11").Count).Add innerKey2 & "_date", curentUpDict("upClause11")(outerKey)(innerKey1)(innerKey2)("date")
+
+                Next innerKey2
+
+            Else
+
+                curentUpAsWriteFormatDict("upClause11")(curentUpAsWriteFormatDict("upClause11").Count).Add innerKey1, curentUpDict("upClause11")(outerKey)(innerKey1)
+
+            End If
+
+        Next innerKey1
+
+    Next outerKey
 
 
 
