@@ -1207,3 +1207,108 @@ Private Function loadUpDataFromJsonAndFormatedAsWriteToSheetAsUp(jsonPath As Str
     
 End Function
 
+Sub loadUpDataFromJsonAndWriteToSheetAsUptoVerify()
+
+    Dim jsonPath As String
+    jsonPath = "D:\Temp\UP Draft\Draft 2024\json-all-up-clause"
+
+    Dim upNo As String
+    upNo = InputBox("Please enter UP Number", "UP Number", "UP No.")
+
+    Dim curentUpAsWriteFormatDict As Object
+    Set curentUpAsWriteFormatDict = loadUpDataFromJsonAndFormatedAsWriteToSheetAsUp(jsonPath, upNo)
+
+    Sheets.Add After:=Sheets(ActiveSheet.Name)
+    Dim ws As Worksheet
+    Set ws = ActiveSheet
+    
+    Dim outerKey As Variant
+    Dim rowPtr As Long
+    rowPtr = 1
+    
+    ws.Range("a" & rowPtr).value = "Clause 6"
+    rowPtr = rowPtr + 1
+    
+    Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause6"), True, True, True
+    rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause6").Count + 1
+        
+    ws.Range("a" & rowPtr).value = "Clause 7"
+    rowPtr = rowPtr + 1
+    
+    For Each outerKey In curentUpAsWriteFormatDict("upClause7").keys
+    
+        Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause7")(outerKey), True, True, True
+        rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause7")(outerKey).Count + 1
+        
+    Next outerKey
+    
+    ws.Range("a" & rowPtr).value = "Clause 8"
+    rowPtr = rowPtr + 1
+    
+    For Each outerKey In curentUpAsWriteFormatDict("upClause8").keys
+    
+        Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause8")(outerKey), True, True, True
+        rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause8")(outerKey).Count + 1
+        
+    Next outerKey
+    
+    ws.Range("a" & rowPtr).value = "Clause 9"
+    rowPtr = rowPtr + 1
+    
+    For Each outerKey In curentUpAsWriteFormatDict("upClause9").keys
+    
+        Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause9")(outerKey), True, True, True
+        rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause9")(outerKey).Count + 1
+        
+    Next outerKey
+    
+    ws.Range("a" & rowPtr).value = "Clause 11"
+    rowPtr = rowPtr + 1
+    
+    For Each outerKey In curentUpAsWriteFormatDict("upClause11").keys
+    
+        Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause11")(outerKey), True, True, True
+        rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause11")(outerKey).Count + 1
+        
+    Next outerKey
+    
+    ws.Range("a" & rowPtr).value = "Clause 12a"
+    rowPtr = rowPtr + 1
+    
+    For Each outerKey In curentUpAsWriteFormatDict("upClause12a").keys
+    
+        Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause12a")(outerKey), True, True, True
+        rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause12a")(outerKey).Count + 1
+        
+    Next outerKey
+    
+    ws.Range("a" & rowPtr).value = "Clause 12b Fabrics"
+    rowPtr = rowPtr + 1
+    
+    For Each outerKey In curentUpAsWriteFormatDict("upClause12bFabrics").keys
+    
+        Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause12bFabrics")(outerKey), True, True, True
+        rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause12bFabrics")(outerKey).Count
+        
+    Next outerKey
+    
+    rowPtr = rowPtr + 1
+    
+    ws.Range("a" & rowPtr).value = "Clause 12b Garments"
+    rowPtr = rowPtr + 1
+    
+    Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause12bGarments"), True, True, True
+    rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause12bGarments").Count + 1
+    
+    ws.Range("a" & rowPtr).value = "Clause 13"
+    rowPtr = rowPtr + 1
+    
+    Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause13"), True, True, True
+    rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause13").Count + 1
+        
+    ws.Range("a" & rowPtr).value = "Clause 14"
+    rowPtr = rowPtr + 1
+    
+    Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause14"), True, True, True
+
+End Sub
