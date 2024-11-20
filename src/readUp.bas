@@ -1238,6 +1238,12 @@ Sub loadUpDataFromJsonAndWriteToSheetAsUptoVerify()
     Dim rowPtr As Long
     rowPtr = 1
     
+    ws.Range("a" & rowPtr).value = "Clause 1"
+    rowPtr = rowPtr + 1
+    
+    Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause1"), True, True, True
+    rowPtr = rowPtr + curentUpAsWriteFormatDict("upClause1").Count + 1
+
     ws.Range("a" & rowPtr).value = "Clause 6"
     rowPtr = rowPtr + 1
     
