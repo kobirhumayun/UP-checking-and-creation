@@ -1207,6 +1207,18 @@ Private Function loadUpDataFromJsonAndFormatedAsWriteToSheetAsUp(jsonPath As Str
     
 End Function
 
+Sub saveUpDataAsJson()
+
+    Dim jsonPath As String
+    Dim initialUpPath As String
+    
+    jsonPath = "D:\Temp\UP Draft\Draft 2024\json-all-up-clause"
+    initialUpPath = "D:\Temp\UP Draft\Draft 2024"
+    
+    saveUpDataAsJsonFromSelectedUpFile jsonPath, initialUpPath
+
+End Sub
+
 Sub loadUpDataFromJsonAndWriteToSheetAsUptoVerify()
 
     Dim jsonPath As String
