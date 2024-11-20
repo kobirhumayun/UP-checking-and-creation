@@ -958,7 +958,7 @@ Private Function saveUpDataAsJsonFromSelectedUpFile(jsonPath As String, initialU
 
 End Function
 
-Private Function loadUpDataFromJsonAndWriteToSheetAsUp(jsonPath As String)
+Private Function loadUpDataFromJsonAndFormatedAsWriteToSheetAsUp(jsonPath As String, upNo As String) As Object
 
     Application.ScreenUpdating = False
 
@@ -967,9 +967,6 @@ Private Function loadUpDataFromJsonAndWriteToSheetAsUp(jsonPath As String)
     Dim curentUpDict As Object
     Dim curentUpAsWriteFormatDict As Object
     Set curentUpAsWriteFormatDict = CreateObject("Scripting.Dictionary")
-
-    Dim upNo As String
-    upNo = InputBox("Please enter UP Number", "UP Number", "UP No.")
 
     Dim jsonPathArr As Variant
 
@@ -1206,11 +1203,7 @@ Private Function loadUpDataFromJsonAndWriteToSheetAsUp(jsonPath As String)
 
     Next outerKey
 
-
-
-    ' Sheets.Add After:=Sheets(ActiveSheet.Name)
-
-    Debug.Print "end"
+    Set loadUpDataFromJsonAndFormatedAsWriteToSheetAsUp = curentUpAsWriteFormatDict
     
 End Function
 
