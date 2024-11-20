@@ -1182,6 +1182,24 @@ Private Function loadUpDataFromJsonAndWriteToSheetAsUp(jsonPath As String)
 
     Next outerKey
 
+    curentUpAsWriteFormatDict.Add "upClause13", CreateObject("Scripting.Dictionary")
+
+    For Each outerKey In curentUpDict("upClause13").keys
+
+        If TypeName(curentUpDict("upClause13")(outerKey)) = "Dictionary" Then
+            
+            For Each innerKey1 In curentUpDict("upClause13")(outerKey).keys
+
+                curentUpAsWriteFormatDict("upClause13").Add outerKey & "_" & innerKey1, curentUpDict("upClause13")(outerKey)(innerKey1)
+
+            Next innerKey1
+
+        End If
+
+    Next outerKey
+
+
+
 
     ' Sheets.Add After:=Sheets(ActiveSheet.Name)
 
