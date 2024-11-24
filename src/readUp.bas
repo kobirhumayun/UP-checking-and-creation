@@ -240,7 +240,7 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
 
         If isAfterCustomsAct2023Formate Then
 
-            If Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpLeftFieldVal, "ip", True, True, True) Then
+            If Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpLeftFieldVal, "ip\:", True, True, True) Then
                 ' EPZ
                 clause7AsDict(clause7AsDict.Count).Add "isExistIp", True
                 clause7AsDict(clause7AsDict.Count).Add "isExistExp", True
@@ -262,7 +262,7 @@ Private Function upClause7AsDict(upWs As Worksheet, isAfterCustomsAct2023Formate
                     MsgBox "#1001" & Chr(10) & clause7AsDict(clause7AsDict.Count)("lcNo") & Chr(10) & "EXP not found in UP clause 7"
                 End If
 
-            ElseIf Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpLeftFieldVal, "exp", True, True, True) Then
+            ElseIf Application.Run("general_utility_functions.isStrPatternExist", mlcExpIpLeftFieldVal, "exp\:", True, True, True) Then
                 ' direct
                 clause7AsDict(clause7AsDict.Count).Add "isExistIp", False
                 clause7AsDict(clause7AsDict.Count).Add "isExistExp", True
