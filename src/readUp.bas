@@ -1330,3 +1330,52 @@ Sub loadUpDataFromJsonAndWriteToSheetAsUptoVerify()
     Application.Run "dictionary_utility_functions.PutDictionaryValuesIntoWorksheet", ws.Range("a" & rowPtr), curentUpAsWriteFormatDict("upClause14"), True, True, True
 
 End Sub
+
+Sub upSummaryTemplete()
+
+    'just Value & qty. templete, to be modify as need
+    Dim allUpDic As Object
+    Dim jsonPathArr As Variant
+
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024\json-all-up-clause")  ' JSON file path
+
+    If Not UBound(jsonPathArr) = 1 Then
+        MsgBox "Please select only one JSON file"
+        Exit Sub
+    End If
+    
+    Set allUpDic = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
+    
+    Dim outerKey, innerKey1, innerKey2 As Variant
+    Dim sumOfFabricsQty, sumOfExportValue As Variant
+
+    sumOfFabricsQty = 0
+    sumOfExportValue = 0
+
+    For Each outerKey In allUpDic.keys
+
+        For Each innerKey1 In allUpDic(outerKey)("upClause7").keys
+        
+            If allUpDic(outerKey)("upClause7")(innerKey1)("isLcValueExistInEuro") Then
+            
+                sumOfExportValue = sumOfExportValue + allUpDic(outerKey)("upClause7")(innerKey1)("lcValueInEuro")
+            Else
+                sumOfExportValue = sumOfExportValue + allUpDic(outerKey)("upClause7")(innerKey1)("lcValueInUsd")
+            
+            End If
+            
+            If allUpDic(outerKey)("upClause7")(innerKey1)("isFabQtyExistInMtr") Then
+            
+                sumOfFabricsQty = sumOfFabricsQty + allUpDic(outerKey)("upClause7")(innerKey1)("fabricsQtyInMtr")
+            Else
+                sumOfFabricsQty = sumOfFabricsQty + allUpDic(outerKey)("upClause7")(innerKey1)("fabricsQtyInYds")
+            
+            End If
+            
+        Next innerKey1
+
+    Next outerKey
+    
+    Debug.Print sumOfExportValue, sumOfFabricsQty
+    
+End Sub
