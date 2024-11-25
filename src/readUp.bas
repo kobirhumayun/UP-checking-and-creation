@@ -1346,6 +1346,17 @@ Sub upSummaryTemplete()
     
     Set allUpDic = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
     
+    Dim calculateRange As Object
+    Dim i As Long
+    Dim upNo As String
+    
+    Set calculateRange = CreateObject("Scripting.Dictionary")
+    
+    For i = 111 To 680 'UP Range
+        upNo = i & "/2024"
+        calculateRange.Add upNo, upNo
+    Next i
+    
     Dim outerKey, innerKey1, innerKey2 As Variant
     Dim sumOfFabricsQty, sumOfExportValue As Variant
 
@@ -1353,29 +1364,29 @@ Sub upSummaryTemplete()
     sumOfExportValue = 0
 
     For Each outerKey In allUpDic.keys
-
-        For Each innerKey1 In allUpDic(outerKey)("upClause7").keys
-        
-            If allUpDic(outerKey)("upClause7")(innerKey1)("isLcValueExistInEuro") Then
-            
-                sumOfExportValue = sumOfExportValue + allUpDic(outerKey)("upClause7")(innerKey1)("lcValueInEuro")
-            Else
-                sumOfExportValue = sumOfExportValue + allUpDic(outerKey)("upClause7")(innerKey1)("lcValueInUsd")
-            
-            End If
-            
-            If allUpDic(outerKey)("upClause7")(innerKey1)("isFabQtyExistInMtr") Then
-            
-                sumOfFabricsQty = sumOfFabricsQty + allUpDic(outerKey)("upClause7")(innerKey1)("fabricsQtyInMtr")
-            Else
-                sumOfFabricsQty = sumOfFabricsQty + allUpDic(outerKey)("upClause7")(innerKey1)("fabricsQtyInYds")
-            
-            End If
-            
-        Next innerKey1
-
+        If calculateRange.Exists(outerKey) Then
+            For Each innerKey1 In allUpDic(outerKey)("upClause7").keys
+                If Not allUpDic(outerKey)("upClause7")(innerKey1)("isGarments") Then
+                    If allUpDic(outerKey)("upClause7")(innerKey1)("isLcValueExistInEuro") Then
+                    
+                        sumOfExportValue = sumOfExportValue + allUpDic(outerKey)("upClause7")(innerKey1)("lcValueInEuro")
+                    Else
+                        sumOfExportValue = sumOfExportValue + allUpDic(outerKey)("upClause7")(innerKey1)("lcValueInUsd")
+                    
+                    End If
+                
+                    If allUpDic(outerKey)("upClause7")(innerKey1)("isFabQtyExistInMtr") Then
+                    
+                        sumOfFabricsQty = sumOfFabricsQty + allUpDic(outerKey)("upClause7")(innerKey1)("fabricsQtyInMtr")
+                    Else
+                        sumOfFabricsQty = sumOfFabricsQty + allUpDic(outerKey)("upClause7")(innerKey1)("fabricsQtyInYds")
+                    
+                    End If
+                End If
+            Next innerKey1
+        End If
     Next outerKey
     
-    Debug.Print sumOfExportValue, sumOfFabricsQty
+    Debug.Print "value = " & WorksheetFunction.Text(sumOfExportValue, "#,##0.00"), "Qty = " & WorksheetFunction.Text(sumOfFabricsQty, "#,##0.00")
     
 End Sub
