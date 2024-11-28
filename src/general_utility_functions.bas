@@ -791,3 +791,114 @@ Private Function ExcludeElements(arr1 As Variant, arr2 As Variant) As Variant
         
 End Function
    
+Private Function upSequenceArrayFromUpRange()
+
+    Dim startingUp As String
+    Dim startingUpNoOnly As Long
+    Dim startingUpYearOnly As String
+    Dim startingYearLastUp As String
+    Dim startingYearLastUpNoOnly As Long
+    Dim endingUp As String
+    Dim endingUpNoOnly As Long
+    Dim endingUpYearOnly As String
+    Dim tempObj As Object
+    Dim isValidBondPeriod As Boolean
+    Dim upList As Object
+    
+    isValidBondPeriod = False
+    Set upList = CreateObject("Scripting.Dictionary")
+    
+    startingUp = InputBox("Please enter starting UP Number", "UP Number", "UP No.")
+    
+    Set tempObj = Application.Run("general_utility_functions.regExReturnedObj", startingUp, "^\d+", True, True, True)
+    startingUpNoOnly = tempObj(0)
+    
+    Set tempObj = Application.Run("general_utility_functions.regExReturnedObj", startingUp, "\d+$", True, True, True)
+    startingUpYearOnly = tempObj(0)
+    
+    endingUp = InputBox("Please enter ending UP Number", "UP Number", "UP No.")
+    
+    Set tempObj = Application.Run("general_utility_functions.regExReturnedObj", endingUp, "^\d+", True, True, True)
+    endingUpNoOnly = tempObj(0)
+    
+    Set tempObj = Application.Run("general_utility_functions.regExReturnedObj", endingUp, "\d+$", True, True, True)
+    endingUpYearOnly = tempObj(0)
+    
+    If CLng(endingUpYearOnly) - CLng(startingUpYearOnly) = 1 Then
+        
+        isValidBondPeriod = True
+        startingYearLastUp = InputBox("Please enter last UP Number of starting year", "UP Number", "UP No.")
+        
+        Set tempObj = Application.Run("general_utility_functions.regExReturnedObj", startingYearLastUp, "^\d+", True, True, True)
+        startingYearLastUpNoOnly = tempObj(0)
+        
+    Else
+    
+        If Not (CLng(endingUpYearOnly) = CLng(startingUpYearOnly)) Then
+            MsgBox "#1012" & Chr(10) & "Not possible to generate UP list" & Chr(10) & "Please enter valid bond period"
+            Exit Function
+        End If
+        
+    End If
+    
+    Dim generatedUpNo As String
+    Dim i As Long
+    
+    If isValidBondPeriod Then
+    
+        If startingUpNoOnly < startingYearLastUpNoOnly Then
+        
+            For i = startingUpNoOnly To startingYearLastUpNoOnly
+                If i < 10 Then
+                    generatedUpNo = "0" & i & "/" & startingUpYearOnly
+                Else
+                    generatedUpNo = i & "/" & startingUpYearOnly
+                End If
+                
+                upList.Add generatedUpNo, generatedUpNo
+                
+            Next i
+            
+        Else
+        
+            MsgBox "#1013" & Chr(10) & "Not possible to generate UP list" & Chr(10) & "Please enter starting UP smaller"
+            Exit Function
+            
+        End If
+        
+        For i = 1 To endingUpNoOnly
+
+            If i < 10 Then
+                generatedUpNo = "0" & i & "/" & endingUpYearOnly
+            Else
+                generatedUpNo = i & "/" & endingUpYearOnly
+            End If
+            
+            upList.Add generatedUpNo, generatedUpNo
+
+        Next i
+        
+    Else
+    
+        If startingUpNoOnly < endingUpNoOnly Then
+        
+            For i = startingUpNoOnly To endingUpNoOnly
+                If i < 10 Then
+                    generatedUpNo = "0" & i & "/" & startingUpYearOnly
+                Else
+                    generatedUpNo = i & "/" & startingUpYearOnly
+                End If
+                
+                upList.Add generatedUpNo, generatedUpNo
+                
+            Next i
+        Else
+            MsgBox "#1014" & Chr(10) & "Not possible to generate UP list" & Chr(10) & "Please enter starting UP smaller"
+            Exit Function
+        End If
+        
+    End If
+    
+    upSequenceArrayFromUpRange = upList.Keys
+    
+End Function
