@@ -1259,7 +1259,40 @@ Sub dealWithNote()
     MsgBox "UP " & newUp & " making done!"
 
 End Sub
-   
+
+Sub createExportImportPerformanceAsUp()
+
+    Dim totalUpListForReport As Variant
+    totalUpListForReport = Application.Run("general_utility_functions.upSequenceArrayFromUpRange")
+    
+    Dim jsonPathArr As Variant
+
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024\json-all-up-clause")  ' JSON file path
+
+    If Not UBound(jsonPathArr) = 1 Then
+        MsgBox "Please select only one JSON file"
+        Exit Sub
+    End If
+    
+    Dim allUpDicFromJson As Object
+    Set allUpDicFromJson = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
+    
+    Dim basePath As String
+    basePath = "D:\Temp\UP Draft\Draft 2024\Import & Export Performace 2024"
+    
+    Dim sampleUpFilePathDeem As String
+    Dim sampleUpFilePathDirect As String
+    
+    sampleUpFilePathDeem = basePath & Application.PathSeparator & "Import-Export-UP-Performance-Deem-Sample.xlsx"
+    sampleUpFilePathDirect = basePath & Application.PathSeparator & "Import-Export-UP-Performance-Direct-Sample.xlsx"
+
+    Dim newReportFilesPath As Object
+    Set newReportFilesPath = Application.Run("reportAsUp.copySmpleFileAsNewReportFileAndReturnAllPath", basePath, _
+        sampleUpFilePathDeem, sampleUpFilePathDirect, totalUpListForReport, allUpDicFromJson)
+    
+    
+End Sub
+
     Sub test()
         Dim test1, test2 As Variant
         Dim dict As Object
