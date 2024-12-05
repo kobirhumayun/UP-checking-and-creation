@@ -115,3 +115,136 @@ Private Function copySmpleFileAsNewReportFileAndReturnAllPath(basePath As String
     Set copySmpleFileAsNewReportFileAndReturnAllPath = returnDict
     
 End Function
+
+Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPathDict As Object)
+
+    Dim currentReportWb As Workbook
+    Dim currentReportWs As Worksheet
+    Dim currentReportRange As Range
+    
+    Dim outerKey As Variant
+    Dim rowTracker As Long
+    
+    For Each outerKey In deemUpFullPathDict.keys
+        
+        Set currentReportWb = Workbooks.Open(deemUpFullPathDict(outerKey))
+        Set currentReportWs = currentReportWb.Worksheets(1)
+        Set currentReportRange = currentReportWs.Range("A6:Q10")
+        
+        With currentReportRange
+            .HorizontalAlignment = xlCenter
+            .VerticalAlignment = xlCenter
+            .WrapText = False
+            .Orientation = 0
+            .AddIndent = False
+            .IndentLevel = 0
+            .ShrinkToFit = False
+            .ReadingOrder = xlContext
+            .MergeCells = False
+        End With
+        
+        Application.Run "reportAsUp.putValueToReportUpColumn", currentReportRange.Columns("a"), allUpDicFromJson(outerKey)("upClause1"), "25/12/2024" 'date to be dynamic
+        
+        Application.Run "reportAsUp.putValueToReportExportLcColumn", currentReportRange.Columns("b"), allUpDicFromJson(outerKey)("upClause7")
+        
+        currentReportWb.Close SaveChanges:=True
+    
+    Next outerKey
+    
+End Function
+
+Private Function putValueToReportUpColumn(upRange As Range, upClause1 As Object, upDate As Date)
+
+    Dim rowTracker As Long
+    rowTracker = 1
+    
+    upRange.Range("a" & rowTracker).NumberFormat = "@"
+    upRange.Range("a" & rowTracker).value = upClause1("upNo")
+    
+    rowTracker = rowTracker + 1
+    upRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
+    upRange.Range("a" & rowTracker).value = upDate
+        
+End Function
+
+Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause7 As Object)
+
+    Dim rowTracker As Long
+    rowTracker = 1
+        
+    Dim outerKey As Variant
+        
+    For Each outerKey In upClause7.keys
+        
+            'skip first row, then each iteration move two row, extra one row for blank
+        If rowTracker > 1 Then
+            rowTracker = rowTracker + 2
+        End If
+        
+            'insert two or one rows, due to rowTracker move two rows down
+        If ((exportLcRange.Rows.Count - rowTracker) <= 1) Then
+                'insert one or two rows
+            If ((exportLcRange.Rows.Count - rowTracker) = 1) Then
+                    'insert one row, if rowTracker point second from the end
+                    'insert above last two rows, to keep format according
+                exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+
+            Else
+                    'insert two rows, if rowTracker point last row
+                    'insert above last two rows, to keep format according
+                exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+                exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+            End If
+            
+        End If
+        
+        exportLcRange.Range("a" & rowTracker).NumberFormat = "@"
+        exportLcRange.Range("a" & rowTracker).value = upClause7(outerKey)("lcNo")
+        
+        rowTracker = rowTracker + 1
+                'insert one row, if rowTracker point second from the end
+            If ((exportLcRange.Rows.Count - rowTracker) = 1) Then
+                    'insert above last two rows, to keep format according
+                exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+
+            End If
+        
+        exportLcRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
+        exportLcRange.Range("a" & rowTracker).value = upClause7(outerKey)("lcDt")
+        
+        If upClause7(outerKey)("isLcAmndExist") Then
+            
+            rowTracker = rowTracker + 1
+            
+                'insert one row, if rowTracker point second from the end
+            If ((exportLcRange.Rows.Count - rowTracker) = 1) Then
+                    'insert above last two rows, to keep format according
+                exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+
+            End If
+        
+            exportLcRange.Range("a" & rowTracker).NumberFormat = "@"
+            
+            If upClause7(outerKey)("lcAmndNo") < 10 Then
+                exportLcRange.Range("a" & rowTracker).value = "Amnd-0" & upClause7(outerKey)("lcAmndNo")
+            Else
+                exportLcRange.Range("a" & rowTracker).value = "Amnd-" & upClause7(outerKey)("lcAmndNo")
+            End If
+            
+            rowTracker = rowTracker + 1
+            
+                'insert one row, if rowTracker point second from the end
+            If ((exportLcRange.Rows.Count - rowTracker) = 1) Then
+                    'insert above last two rows, to keep format according
+                exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+
+            End If
+            
+            exportLcRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
+            exportLcRange.Range("a" & rowTracker).value = upClause7(outerKey)("lcAmndDt")
+            
+        End If
+        
+    Next outerKey
+        
+End Function
