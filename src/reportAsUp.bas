@@ -147,6 +147,8 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
         
         Application.Run "reportAsUp.putValueToReportExportLcColumn", currentReportRange.Columns("b"), allUpDicFromJson(outerKey)("upClause7")
         
+        Application.Run "reportAsUp.putValueToReportRawMaterialsQtyColumn", currentReportRange.Columns("c"), allUpDicFromJson(outerKey)("upClause13")
+
         currentReportWb.Close SaveChanges:=True
     
     Next outerKey
@@ -247,4 +249,26 @@ Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause
         
     Next outerKey
         
+End Function
+
+Private Function putValueToReportRawMaterialsQtyColumn(upRange As Range, upClause13 As Object)
+
+    Dim rowTracker As Long
+    rowTracker = 1
+    
+    upRange.Range("a" & rowTracker).NumberFormat = "@"
+    upRange.Range("a" & rowTracker).value = "Yarn: " & WorksheetFunction.Text(upClause13("yarnImport")("qty") + upClause13("yarnLocal")("qty"), "#,##0.00") & " Kgs"
+    
+    rowTracker = rowTracker + 1
+    upRange.Range("a" & rowTracker).NumberFormat = "@"
+    upRange.Range("a" & rowTracker).value = "Dyes: " & WorksheetFunction.Text(upClause13("dyes")("qty"), "#,##0.00") & " Kgs"
+
+    rowTracker = rowTracker + 1
+    upRange.Range("a" & rowTracker).NumberFormat = "@"
+    upRange.Range("a" & rowTracker).value = "Chem.: " & WorksheetFunction.Text(upClause13("chemicalsImport")("qty") + upClause13("chemicalsLocal")("qty"), "#,##0.00") & " Kgs"
+
+    rowTracker = rowTracker + 1
+    upRange.Range("a" & rowTracker).NumberFormat = "@"
+    upRange.Range("a" & rowTracker).value = "Chem.: " & WorksheetFunction.Text(upClause13("stretchWrappingFilm")("qty"), "#,##0.00") & " Kgs"
+
 End Function
