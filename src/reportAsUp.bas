@@ -149,8 +149,8 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
         
         Application.Run "reportAsUp.putValueToReportRawMaterialsQtyColumn", currentReportRange.Columns("c"), allUpDicFromJson(outerKey)("upClause13")
 
-        Dim upClause8GroupByImportAndLocalLc As Object
-        Set upClause8GroupByImportAndLocalLc = Application.Run("reportAsUp.upClause8GroupByImportAndLocalLc", allUpDicFromJson(outerKey)("upClause8"))
+        Dim divideIntoImportAndLocalLc As Object
+        Set divideIntoImportAndLocalLc = Application.Run("reportAsUp.divideIntoImportAndLocalLc", allUpDicFromJson(outerKey)("upClause8"))
 
         currentReportWb.Close SaveChanges:=True
     
@@ -276,7 +276,7 @@ Private Function putValueToReportRawMaterialsQtyColumn(upRange As Range, upClaus
 
 End Function
 
-Private Function upClause8GroupByImportAndLocalLc(upClause8 As Object) As Object
+Private Function divideIntoImportAndLocalLc(upClause8 As Object) As Object
 
     Dim bothGroupLc As Object
     Set bothGroupLc = CreateObject("Scripting.Dictionary")
@@ -302,6 +302,6 @@ Private Function upClause8GroupByImportAndLocalLc(upClause8 As Object) As Object
     bothGroupLc.Add "groupByImportLc", groupByImportLc
     bothGroupLc.Add "groupByLocalLc", groupByLocalLc
     
-    Set upClause8GroupByImportAndLocalLc = bothGroupLc
+    Set divideIntoImportAndLocalLc = bothGroupLc
     
 End Function
