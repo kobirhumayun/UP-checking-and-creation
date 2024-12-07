@@ -305,3 +305,37 @@ Private Function divideIntoImportAndLocalLc(upClause8 As Object) As Object
     Set divideIntoImportAndLocalLc = bothImportAndLocalLc
     
 End Function
+
+Private Function groupByLcAndRawMaterials(upClause8 As Object) As Object
+    
+    Dim tempGroup As Object
+    Set tempGroup = CreateObject("Scripting.Dictionary")
+    
+    Dim outerKey As Variant
+    Dim tempDictKey As String
+    Dim lc As String
+    
+    For Each outerKey In upClause8.keys
+    
+        lc = Application.Run("general_utility_functions.ExtractFirstLineWithRegex", upClause8(outerKey)("lcNoAndDt"))
+        
+        tempDictKey = Application.Run("general_utility_functions.RemoveInvalidChars", lc) & "_" & Application.Run("general_utility_functions.RemoveInvalidChars", upClause8(outerKey)("nameOfGoods"))
+            
+        If Not tempGroup.Exists(tempDictKey) Then
+        
+            tempGroup.Add tempDictKey, CreateObject("Scripting.Dictionary")
+            tempGroup(tempDictKey)("lc") = lc
+            tempGroup(tempDictKey)("nameOfGoods") = upClause8(outerKey)("nameOfGoods")
+            tempGroup(tempDictKey)("qty") = 0
+            tempGroup(tempDictKey)("value") = 0
+            
+        End If
+        
+        tempGroup(tempDictKey)("qty") = tempGroup(tempDictKey)("qty") + upClause8(outerKey)("inThisUpUsedQtyOfGoods")
+        tempGroup(tempDictKey)("value") = tempGroup(tempDictKey)("value") + upClause8(outerKey)("inThisUpUsedValueOfGoods")
+    
+    Next outerKey
+    
+    Set groupByLcAndRawMaterials = tempGroup
+    
+End Function
