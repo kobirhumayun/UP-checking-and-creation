@@ -149,6 +149,9 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
         
         Application.Run "reportAsUp.putValueToReportRawMaterialsQtyColumn", currentReportRange.Columns("c"), allUpDicFromJson(outerKey)("upClause13")
 
+        Dim upClause8GroupByImportAndLocalLc As Object
+        Set upClause8GroupByImportAndLocalLc = Application.Run("reportAsUp.upClause8GroupByImportAndLocalLc", allUpDicFromJson(outerKey)("upClause8"))
+
         currentReportWb.Close SaveChanges:=True
     
     Next outerKey
@@ -271,4 +274,34 @@ Private Function putValueToReportRawMaterialsQtyColumn(upRange As Range, upClaus
     upRange.Range("a" & rowTracker).NumberFormat = "@"
     upRange.Range("a" & rowTracker).value = "Chem.: " & WorksheetFunction.Text(upClause13("stretchWrappingFilm")("qty"), "#,##0.00") & " Kgs"
 
+End Function
+
+Private Function upClause8GroupByImportAndLocalLc(upClause8 As Object) As Object
+
+    Dim bothGroupLc As Object
+    Set bothGroupLc = CreateObject("Scripting.Dictionary")
+    
+    Dim groupByImportLc As Object
+    Set groupByImportLc = CreateObject("Scripting.Dictionary")
+    
+    Dim groupByLocalLc As Object
+    Set groupByLocalLc = CreateObject("Scripting.Dictionary")
+    
+    Dim outerKey As Variant
+        
+    For Each outerKey In upClause8.keys
+    
+        If Application.Run("general_utility_functions.isStrPatternExist", upClause8(outerKey)("mushakOrBillOfEntryNoAndDt"), "^c-", True, True, True) Then
+            groupByImportLc.Add outerKey, upClause8(outerKey)
+        Else
+            groupByLocalLc.Add outerKey, upClause8(outerKey)
+        End If
+        
+    Next outerKey
+    
+    bothGroupLc.Add "groupByImportLc", groupByImportLc
+    bothGroupLc.Add "groupByLocalLc", groupByLocalLc
+    
+    Set upClause8GroupByImportAndLocalLc = bothGroupLc
+    
 End Function
