@@ -163,6 +163,8 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
         
         Application.Run "reportAsUp.putValueToReportFabricsQtyColumn", currentReportRange.Columns("l"), allUpDicFromJson(outerKey)("upClause7")
         Application.Run "reportAsUp.putValueToReportFabricsQtyColumn", currentReportRange.Columns("m"), allUpDicFromJson(outerKey)("upClause7")
+        
+        Application.Run "reportAsUp.putValueToReportBuyerNameColumn", currentReportRange.Columns("n"), allUpDicFromJson(outerKey)("upClause6")
 
         currentReportWb.Close SaveChanges:=True
     
@@ -416,6 +418,41 @@ Private Function putValueToReportLcValueQtyColumn(lcRange As Range, groupByLc As
         lcRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
         lcRange.Range("a" & rowTracker).value = groupByLc(outerKey)("lcDt")
         
+    Next outerKey
+        
+End Function
+
+Private Function putValueToReportBuyerNameColumn(buyerNameRange As Range, upClause6 As Object)
+
+    Dim rowTracker As Long
+    rowTracker = 1
+        
+    Dim outerKey As Variant
+    
+    For Each outerKey In upClause6.keys
+        
+        buyerNameRange.Range("a" & rowTracker).NumberFormat = "@"
+        buyerNameRange.Range("a" & rowTracker).value = upClause6(outerKey)
+
+        rowTracker = rowTracker + 2
+        
+            'insert two or one rows, due to rowTracker move two rows down
+        If ((buyerNameRange.Rows.Count - rowTracker) <= 1) Then
+                'insert one or two rows
+            If ((buyerNameRange.Rows.Count - rowTracker) = 1) Then
+                    'insert one row, if rowTracker point second from the end
+                    'insert above last two rows, to keep format according
+                buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+
+            Else
+                    'insert two rows, if rowTracker point last row
+                    'insert above last two rows, to keep format according
+                buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+                buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+            End If
+            
+        End If
+
     Next outerKey
         
 End Function
