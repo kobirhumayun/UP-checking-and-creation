@@ -162,6 +162,7 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
         Application.Run "reportAsUp.putValueToReportLcValueQtyColumn", currentReportRange.Columns("h:k"), groupByLcAndRawMaterialsLocal
         
         Application.Run "reportAsUp.putValueToReportFabricsQtyColumn", currentReportRange.Columns("l"), allUpDicFromJson(outerKey)("upClause7")
+        Application.Run "reportAsUp.putValueToReportFabricsQtyColumn", currentReportRange.Columns("m"), allUpDicFromJson(outerKey)("upClause7")
 
         currentReportWb.Close SaveChanges:=True
     
