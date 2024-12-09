@@ -278,7 +278,7 @@ Private Function putValueToReportRawMaterialsQtyColumn(upRange As Range, upClaus
 
     rowTracker = rowTracker + 1
     upRange.Range("a" & rowTracker).NumberFormat = "@"
-    upRange.Range("a" & rowTracker).value = "Chem.: " & WorksheetFunction.Text(upClause13("stretchWrappingFilm")("qty"), "#,##0.00") & " Kgs"
+    upRange.Range("a" & rowTracker).value = "St. Flim : " & WorksheetFunction.Text(upClause13("stretchWrappingFilm")("qty"), "#,##0.00") & " Kgs"
 
 End Function
 
