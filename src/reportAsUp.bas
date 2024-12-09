@@ -166,6 +166,8 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
         
         Application.Run "reportAsUp.putValueToReportBuyerNameColumn", currentReportRange.Columns("n"), allUpDicFromJson(outerKey)("upClause6")
 
+        Application.Run "reportAsUp.putValueToReportExportValueColumn", currentReportRange.Columns("o"), allUpDicFromJson(outerKey)("upClause7")
+
         currentReportWb.Close SaveChanges:=True
     
     Next outerKey
@@ -475,5 +477,26 @@ Private Function putValueToReportFabricsQtyColumn(fabricsQtyRange As Range, upCl
 
     fabricsQtyRange.Range("a" & rowTracker).Style = "Comma"
     fabricsQtyRange.Range("a" & rowTracker).value = fabricsQty
+        
+End Function
+
+Private Function putValueToReportExportValueColumn(exportValueRange As Range, upClause7 As Object)
+
+    Dim rowTracker As Long
+    rowTracker = 1
+        
+    Dim exportValue As Variant
+    exportValue = 0
+
+    Dim outerKey As Variant
+        
+    For Each outerKey In upClause7.keys
+        
+        exportValue = exportValue + upClause7(outerKey)("lcValueInUsd")
+        
+    Next outerKey
+
+    exportValueRange.Range("a" & rowTracker).NumberFormat = "$#,##0.00"
+    exportValueRange.Range("a" & rowTracker).value = exportValue
         
 End Function
