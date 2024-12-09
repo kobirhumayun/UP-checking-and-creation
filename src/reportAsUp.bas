@@ -160,6 +160,8 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
 
         Application.Run "reportAsUp.putValueToReportLcValueQtyColumn", currentReportRange.Columns("d:g"), groupByLcAndRawMaterialsImport
         Application.Run "reportAsUp.putValueToReportLcValueQtyColumn", currentReportRange.Columns("h:k"), groupByLcAndRawMaterialsLocal
+        
+        Application.Run "reportAsUp.putValueToReportFabricsQtyColumn", currentReportRange.Columns("l"), allUpDicFromJson(outerKey)("upClause7")
 
         currentReportWb.Close SaveChanges:=True
     
@@ -414,5 +416,26 @@ Private Function putValueToReportLcValueQtyColumn(lcRange As Range, groupByLc As
         lcRange.Range("a" & rowTracker).value = groupByLc(outerKey)("lcDt")
         
     Next outerKey
+        
+End Function
+
+Private Function putValueToReportFabricsQtyColumn(fabricsQtyRange As Range, upClause7 As Object)
+
+    Dim rowTracker As Long
+    rowTracker = 1
+        
+    Dim fabricsQty As Variant
+    fabricsQty = 0
+
+    Dim outerKey As Variant
+        
+    For Each outerKey In upClause7.keys
+        
+        fabricsQty = fabricsQty + upClause7(outerKey)("fabricsQtyInYds")
+        
+    Next outerKey
+
+    fabricsQtyRange.Range("a" & rowTracker).Style = "Comma"
+    fabricsQtyRange.Range("a" & rowTracker).value = fabricsQty
         
 End Function
