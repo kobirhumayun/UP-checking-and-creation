@@ -158,6 +158,8 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
         Dim groupByLcAndRawMaterialsImport As Object
         Set groupByLcAndRawMaterialsImport = Application.Run("reportAsUp.groupByLcAndRawMaterials", divideIntoImportAndLocalLc("importLc"))
 
+        Application.Run "reportAsUp.putValueToReportLcValueQtyColumn", currentReportRange.Columns("d:g"), groupByLcAndRawMaterialsImport
+
         currentReportWb.Close SaveChanges:=True
     
     Next outerKey
