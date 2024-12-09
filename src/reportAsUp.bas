@@ -319,18 +319,20 @@ Private Function groupByLcAndRawMaterials(upClause8 As Object) As Object
     
     Dim outerKey As Variant
     Dim tempDictKey As String
-    Dim lc As String
+    Dim lcNo As String
     
     For Each outerKey In upClause8.keys
     
-        lc = Application.Run("general_utility_functions.ExtractFirstLineWithRegex", upClause8(outerKey)("lcNoAndDt"))
-        
-        tempDictKey = Application.Run("general_utility_functions.RemoveInvalidChars", lc) & "_" & Application.Run("general_utility_functions.RemoveInvalidChars", upClause8(outerKey)("nameOfGoods"))
+        lcNo = Application.Run("general_utility_functions.ExtractFirstLineWithRegex", upClause8(outerKey)("lcNoAndDt"))
+        lcNo = Replace(lcNo, Chr(13), "")
+
+        tempDictKey = Application.Run("general_utility_functions.RemoveInvalidChars", lcNo) & "_" & Application.Run("general_utility_functions.RemoveInvalidChars", upClause8(outerKey)("nameOfGoods"))
             
         If Not tempGroup.Exists(tempDictKey) Then
         
             tempGroup.Add tempDictKey, CreateObject("Scripting.Dictionary")
-            tempGroup(tempDictKey)("lc") = lc
+            tempGroup(tempDictKey)("lcNo") = lcNo
+            tempGroup(tempDictKey)("lcDt") = Right(upClause8(outerKey)("lcNoAndDt"), 10)
             tempGroup(tempDictKey)("nameOfGoods") = upClause8(outerKey)("nameOfGoods")
             tempGroup(tempDictKey)("qty") = 0
             tempGroup(tempDictKey)("value") = 0
