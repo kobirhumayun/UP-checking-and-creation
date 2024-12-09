@@ -347,3 +347,69 @@ Private Function groupByLcAndRawMaterials(upClause8 As Object) As Object
     Set groupByLcAndRawMaterials = tempGroup
     
 End Function
+
+Private Function putValueToReportLcValueQtyColumn(lcRange As Range, groupByLc As Object)
+
+    Dim rowTracker As Long
+    rowTracker = 1
+        
+    Dim outerKey As Variant
+    
+    For Each outerKey In groupByLc.keys
+        
+        If groupByLc(outerKey)("qty") = 0 Then
+            groupByLc.Remove outerKey
+        End If
+    
+    Next outerKey
+    
+    For Each outerKey In groupByLc.keys
+        
+            'skip first row, then each iteration move two row, extra one row for blank
+        If rowTracker > 1 Then
+            rowTracker = rowTracker + 2
+        End If
+        
+            'insert two or one rows, due to rowTracker move two rows down
+        If ((lcRange.Rows.Count - rowTracker) <= 1) Then
+                'insert one or two rows
+            If ((lcRange.Rows.Count - rowTracker) = 1) Then
+                    'insert one row, if rowTracker point second from the end
+                    'insert above last two rows, to keep format according
+                lcRange.Rows(lcRange.Rows.Count - 1).EntireRow.Insert
+
+            Else
+                    'insert two rows, if rowTracker point last row
+                    'insert above last two rows, to keep format according
+                lcRange.Rows(lcRange.Rows.Count - 1).EntireRow.Insert
+                lcRange.Rows(lcRange.Rows.Count - 1).EntireRow.Insert
+            End If
+            
+        End If
+        
+        lcRange.Range("a" & rowTracker).NumberFormat = "@"
+        lcRange.Range("a" & rowTracker).value = groupByLc(outerKey)("lcNo")
+        
+        lcRange.Range("b" & rowTracker).NumberFormat = "@"
+        lcRange.Range("b" & rowTracker).value = groupByLc(outerKey)("nameOfGoods")
+        
+        lcRange.Range("c" & rowTracker).NumberFormat = "$#,##0.00"
+        lcRange.Range("c" & rowTracker).value = groupByLc(outerKey)("value")
+        
+        lcRange.Range("d" & rowTracker).Style = "Comma"
+        lcRange.Range("d" & rowTracker).value = groupByLc(outerKey)("qty")
+        
+        rowTracker = rowTracker + 1
+                'insert one row, if rowTracker point second from the end
+            If ((lcRange.Rows.Count - rowTracker) = 1) Then
+                    'insert above last two rows, to keep format according
+                lcRange.Rows(lcRange.Rows.Count - 1).EntireRow.Insert
+
+            End If
+        
+        lcRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
+        lcRange.Range("a" & rowTracker).value = groupByLc(outerKey)("lcDt")
+        
+    Next outerKey
+        
+End Function
