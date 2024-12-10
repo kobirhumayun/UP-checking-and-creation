@@ -183,8 +183,8 @@ Private Function putValueToReportUpColumn(upRange As Range, upClause1 As Object,
     upRange.Range("a" & rowTracker).value = upClause1("upNo")
     
     rowTracker = rowTracker + 1
-    upRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
-    upRange.Range("a" & rowTracker).value = upDate
+    upRange.Range("a" & rowTracker).NumberFormat = "dd/mm/yyyy"
+    upRange.Range("a" & rowTracker).value = CDate(upDate)
         
 End Function
 
@@ -230,8 +230,8 @@ Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause
 
             End If
         
-        exportLcRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
-        exportLcRange.Range("a" & rowTracker).value = upClause7(outerKey)("lcDt")
+        exportLcRange.Range("a" & rowTracker).NumberFormat = "dd/mm/yyyy"
+        exportLcRange.Range("a" & rowTracker).value = CDate(upClause7(outerKey)("lcDt"))
         
         If upClause7(outerKey)("isLcAmndExist") Then
             
@@ -261,8 +261,8 @@ Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause
 
             End If
             
-            exportLcRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
-            exportLcRange.Range("a" & rowTracker).value = upClause7(outerKey)("lcAmndDt")
+            exportLcRange.Range("a" & rowTracker).NumberFormat = "dd/mm/yyyy"
+            exportLcRange.Range("a" & rowTracker).value = CDate(upClause7(outerKey)("lcAmndDt"))
             
         End If
         
@@ -422,8 +422,8 @@ Private Function putValueToReportLcValueQtyColumn(lcRange As Range, groupByLc As
 
             End If
         
-        lcRange.Range("a" & rowTracker).NumberFormat = "m/d/yyyy"
-        lcRange.Range("a" & rowTracker).value = groupByLc(outerKey)("lcDt")
+        lcRange.Range("a" & rowTracker).NumberFormat = "dd/mm/yyyy"
+        lcRange.Range("a" & rowTracker).value = CDate(groupByLc(outerKey)("lcDt"))
         
     Next outerKey
         
