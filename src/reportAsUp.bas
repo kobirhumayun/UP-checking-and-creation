@@ -400,7 +400,12 @@ Private Function putValueToReportLcValueQtyColumn(lcRange As Range, groupByLc As
         lcRange.Range("a" & rowTracker).NumberFormat = "@"
         lcRange.Range("a" & rowTracker).value = groupByLc(outerKey)("lcNo")
         
-        lcRange.Range("b" & rowTracker).NumberFormat = "@"
+        With lcRange.Range("b" & rowTracker).Resize(2)
+            .VerticalAlignment = xlTop
+            .NumberFormat = "@"
+            .WrapText = True
+            .MergeCells = True
+        End With
         lcRange.Range("b" & rowTracker).value = groupByLc(outerKey)("nameOfGoods")
         
         lcRange.Range("c" & rowTracker).NumberFormat = "$#,##0.00"
