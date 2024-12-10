@@ -428,31 +428,48 @@ Private Function putValueToReportBuyerNameColumn(buyerNameRange As Range, upClau
 
     Dim rowTracker As Long
     rowTracker = 1
-        
-    Dim outerKey As Variant
     
+    Dim loopCounter As Long
+    loopCounter = 0
+    
+    Dim outerKey As Variant
+        
     For Each outerKey In upClause6.keys
         
-        buyerNameRange.Range("a" & rowTracker).NumberFormat = "@"
-        buyerNameRange.Range("a" & rowTracker).value = upClause6(outerKey)
-
-        rowTracker = rowTracker + 2
+        loopCounter = loopCounter + 1
         
-            'insert two or one rows, due to rowTracker move two rows down
-        If ((buyerNameRange.Rows.Count - rowTracker) <= 1) Then
-                'insert one or two rows
-            If ((buyerNameRange.Rows.Count - rowTracker) = 1) Then
-                    'insert one row, if rowTracker point second from the end
-                    'insert above last two rows, to keep format according
-                buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+        buyerNameRange.Range("a" & rowTracker).value = upClause6(outerKey)
+        
+        With buyerNameRange.Range("a" & rowTracker).Resize(3)
+            .NumberFormat = "@"
+            .WrapText = True
+            .Merge
+        End With
 
-            Else
-                    'insert two rows, if rowTracker point last row
-                    'insert above last two rows, to keep format according
-                buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
-                buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+        rowTracker = rowTracker + 4
+        
+        If loopCounter < upClause6.Count Then
+                'insert two or one rows, due to rowTracker move two rows down
+            If ((buyerNameRange.Rows.Count - rowTracker) <= 3) Then
+                    'insert one or two rows
+                If ((buyerNameRange.Rows.Count - rowTracker) = 3) Then
+                        'insert one row, if rowTracker point second from the end
+                        'insert above last two rows, to keep format according
+                    buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+                    buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+                    buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+    
+                Else
+                        'insert two rows, if rowTracker point last row
+                        'insert above last two rows, to keep format according
+                    buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+                    buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+                    buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+                    buyerNameRange.Rows(buyerNameRange.Rows.Count - 1).EntireRow.Insert
+                End If
+                
             End If
-            
+        
         End If
 
     Next outerKey
