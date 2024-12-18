@@ -203,9 +203,9 @@ Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause
         End If
         
             'insert two or one rows, due to rowTracker move two rows down
-        If ((exportLcRange.Rows.Count - rowTracker) <= 1) Then
+        If ((exportLcRange.Rows.Count - rowTracker) <= 3) Then
                 'insert one or two rows
-            If ((exportLcRange.Rows.Count - rowTracker) = 1) Then
+            If ((exportLcRange.Rows.Count - rowTracker) = 3) Then
                     'insert one row, if rowTracker point second from the end
                     'insert above last two rows, to keep format according
                 exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
@@ -224,7 +224,7 @@ Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause
         
         rowTracker = rowTracker + 1
                 'insert one row, if rowTracker point second from the end
-            If ((exportLcRange.Rows.Count - rowTracker) = 1) Then
+            If ((exportLcRange.Rows.Count - rowTracker) = 3) Then
                     'insert above last two rows, to keep format according
                 exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
 
@@ -238,7 +238,7 @@ Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause
             rowTracker = rowTracker + 1
             
                 'insert one row, if rowTracker point second from the end
-            If ((exportLcRange.Rows.Count - rowTracker) = 1) Then
+            If ((exportLcRange.Rows.Count - rowTracker) = 3) Then
                     'insert above last two rows, to keep format according
                 exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
 
@@ -255,7 +255,7 @@ Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause
             rowTracker = rowTracker + 1
             
                 'insert one row, if rowTracker point second from the end
-            If ((exportLcRange.Rows.Count - rowTracker) = 1) Then
+            If ((exportLcRange.Rows.Count - rowTracker) = 3) Then
                     'insert above last two rows, to keep format according
                 exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
 
@@ -381,9 +381,9 @@ Private Function putValueToReportLcValueQtyColumn(lcRange As Range, groupByLc As
         End If
         
             'insert two or one rows, due to rowTracker move two rows down
-        If ((lcRange.Rows.Count - rowTracker) <= 1) Then
+        If ((lcRange.Rows.Count - rowTracker) <= 3) Then
                 'insert one or two rows
-            If ((lcRange.Rows.Count - rowTracker) = 1) Then
+            If ((lcRange.Rows.Count - rowTracker) = 3) Then
                     'insert one row, if rowTracker point second from the end
                     'insert above last two rows, to keep format according
                 lcRange.Rows(lcRange.Rows.Count - 1).EntireRow.Insert
@@ -416,7 +416,7 @@ Private Function putValueToReportLcValueQtyColumn(lcRange As Range, groupByLc As
         
         rowTracker = rowTracker + 1
                 'insert one row, if rowTracker point second from the end
-            If ((lcRange.Rows.Count - rowTracker) = 1) Then
+            If ((lcRange.Rows.Count - rowTracker) = 3) Then
                     'insert above last two rows, to keep format according
                 lcRange.Rows(lcRange.Rows.Count - 1).EntireRow.Insert
 
