@@ -116,7 +116,7 @@ Private Function copySmpleFileAsNewReportFileAndReturnAllPath(basePath As String
     
 End Function
 
-Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPathDict As Object)
+Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPathDict As Object, upNoAndDtAsDict As Object)
 
     Dim currentReportWb As Workbook
     Dim currentReportWs As Worksheet
@@ -539,7 +539,7 @@ Private Function upNoAndDtAsDict(upNoAndDtFilePath As String) As Object
     rangeDataArr = upNoAndDtRange.value
     
     upNoAndDtWb.Close SaveChanges:=False
-    
+
     Application.ScreenUpdating = True
 
     Dim upNoAndDtDict As Object

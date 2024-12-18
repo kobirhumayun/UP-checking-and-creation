@@ -1296,7 +1296,7 @@ Sub createExportImportPerformanceAsUp()
     Set newReportFilesPath = Application.Run("reportAsUp.copySmpleFileAsNewReportFileAndReturnAllPath", basePath, _
         sampleUpFilePathDeem, sampleUpFilePathDirect, totalUpListForReport, allUpDicFromJson)
     
-    Application.Run "reportAsUp.putValueToReportDeemUp", allUpDicFromJson, newReportFilesPath("deemUpFullPathDict")
+    Application.Run "reportAsUp.putValueToReportDeemUp", allUpDicFromJson, newReportFilesPath("deemUpFullPathDict"), upNoAndDtAsDict
     
 End Sub
 
