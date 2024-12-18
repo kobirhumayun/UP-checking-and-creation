@@ -522,3 +522,47 @@ Private Function putValueToReportExportValueColumn(exportValueRange As Range, up
     exportValueRange.Range("a" & rowTracker).value = exportValue
         
 End Function
+
+Private Function upNoAndDtAsDict(upNoAndDtFilePath As String) As Object
+
+    Application.ScreenUpdating = False
+
+    Dim upNoAndDtWb As Workbook
+    Dim upNoAndDtWs As Worksheet
+    Dim upNoAndDtRange As Range
+    
+    Set upNoAndDtWb = Workbooks.Open(upNoAndDtFilePath)
+    Set upNoAndDtWs = upNoAndDtWb.Worksheets(1)
+    Set upNoAndDtRange = upNoAndDtWs.Range("A1:B" & upNoAndDtWs.Range("A1").End(xlDown).Row)
+    
+    Dim rangeDataArr As Variant
+    rangeDataArr = upNoAndDtRange.value
+    
+    upNoAndDtWb.Close SaveChanges:=False
+    
+    Application.ScreenUpdating = True
+
+    Dim upNoAndDtDict As Object
+    Set upNoAndDtDict = CreateObject("Scripting.Dictionary")
+    
+    Dim tempDictKey As Variant
+    
+    Dim i As Long
+    
+    For i = LBound(rangeDataArr) To UBound(rangeDataArr)
+        
+        tempDictKey = Trim(rangeDataArr(i, 1))
+        
+        If Not upNoAndDtDict.Exists(tempDictKey) Then
+        
+            upNoAndDtDict.Add tempDictKey, CreateObject("Scripting.Dictionary")
+            upNoAndDtDict(tempDictKey)("upNo") = rangeDataArr(i, 1)
+            upNoAndDtDict(tempDictKey)("upDt") = rangeDataArr(i, 2)
+        
+        End If
+        
+    Next i
+    
+    Set upNoAndDtAsDict = upNoAndDtDict
+      
+End Function
