@@ -143,7 +143,7 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
             .MergeCells = False
         End With
         
-        Application.Run "reportAsUp.putValueToReportUpColumn", currentReportRange.Columns("a"), allUpDicFromJson(outerKey)("upClause1"), "25/12/2024" 'date to be dynamic
+        Application.Run "reportAsUp.putValueToReportUpColumn", currentReportRange.Columns("a"), allUpDicFromJson(outerKey)("upClause1"), upNoAndDtAsDict(outerKey)("upDt")
         
         Application.Run "reportAsUp.putValueToReportExportLcColumn", currentReportRange.Columns("b"), allUpDicFromJson(outerKey)("upClause7")
         
