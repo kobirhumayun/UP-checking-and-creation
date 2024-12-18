@@ -1286,6 +1286,12 @@ Sub createExportImportPerformanceAsUp()
     sampleUpFilePathDeem = basePath & Application.PathSeparator & "Import-Export-UP-Performance-Deem-Sample.xlsx"
     sampleUpFilePathDirect = basePath & Application.PathSeparator & "Import-Export-UP-Performance-Direct-Sample.xlsx"
 
+    Dim upNoAndDtFilePath As String
+    upNoAndDtFilePath = basePath & Application.PathSeparator & "up-no-and-date.xlsx"
+
+    Dim upNoAndDtAsDict As Object
+    Set upNoAndDtAsDict = Application.Run("reportAsUp.upNoAndDtAsDict", upNoAndDtFilePath)
+
     Dim newReportFilesPath As Object
     Set newReportFilesPath = Application.Run("reportAsUp.copySmpleFileAsNewReportFileAndReturnAllPath", basePath, _
         sampleUpFilePathDeem, sampleUpFilePathDirect, totalUpListForReport, allUpDicFromJson)
