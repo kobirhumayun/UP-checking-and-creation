@@ -125,6 +125,8 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
     Dim outerKey As Variant
     Dim rowTracker As Long
     
+    Application.ScreenUpdating = False
+
     For Each outerKey In deemUpFullPathDict.keys
         
         Set currentReportWb = Workbooks.Open(deemUpFullPathDict(outerKey))
@@ -172,6 +174,8 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
     
     Next outerKey
     
+    Application.ScreenUpdating = True
+
 End Function
 
 Private Function putValueToReportUpColumn(upRange As Range, upClause1 As Object, upDate As Date)
