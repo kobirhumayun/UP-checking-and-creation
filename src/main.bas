@@ -1298,6 +1298,8 @@ Sub createExportImportPerformanceAsUp()
     
     Application.Run "reportAsUp.putValueToReportDeemUp", allUpDicFromJson, newReportFilesPath("deemUpFullPathDict"), upNoAndDtAsDict
     Application.Run "reportAsUp.putValueToReportDirectUp", allUpDicFromJson, newReportFilesPath("directUpFullPathDict"), upNoAndDtAsDict
+
+    MsgBox "Required UP created."
     
 End Sub
 
