@@ -178,6 +178,63 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
 
 End Function
 
+Private Function putValueToReportDirectUp(allUpDicFromJson As Object, directUpFullPathDict As Object, upNoAndDtAsDict As Object)
+
+    Dim currentReportWb As Workbook
+    Dim currentReportWs As Worksheet
+    Dim currentReportRange As Range
+    
+    Dim outerKey As Variant
+    Dim rowTracker As Long
+    
+    Application.ScreenUpdating = False
+
+    For Each outerKey In directUpFullPathDict.keys
+        
+        Set currentReportWb = Workbooks.Open(directUpFullPathDict(outerKey))
+        Set currentReportWs = currentReportWb.Worksheets(1)
+        Set currentReportRange = currentReportWs.Range("A6:Q10")
+        
+        With currentReportRange
+            .HorizontalAlignment = xlCenter
+            .VerticalAlignment = xlCenter
+            .WrapText = False
+            .Orientation = 0
+            .AddIndent = False
+            .IndentLevel = 0
+            .ShrinkToFit = False
+            .ReadingOrder = xlContext
+            .MergeCells = False
+        End With
+        
+        Application.Run "reportAsUp.putValueToReportExportLcColumn", currentReportRange.Columns("a"), allUpDicFromJson(outerKey)("upClause7")
+        
+        Application.Run "reportAsUp.putValueToReportUpColumn", currentReportRange.Columns("b"), allUpDicFromJson(outerKey)("upClause1"), upNoAndDtAsDict(outerKey)("upDt")
+        
+        Application.Run "reportAsUp.putValueToReportRawMaterialsQtyColumn", currentReportRange.Columns("c"), allUpDicFromJson(outerKey)("upClause13")
+
+        Dim divideIntoImportAndLocalLc As Object
+        Set divideIntoImportAndLocalLc = Application.Run("reportAsUp.divideIntoImportAndLocalLc", allUpDicFromJson(outerKey)("upClause8"))
+
+        Dim groupByLcAndRawMaterialsLocal As Object
+        Set groupByLcAndRawMaterialsLocal = Application.Run("reportAsUp.groupByLcAndRawMaterials", divideIntoImportAndLocalLc("localLc"))
+
+        Dim groupByLcAndRawMaterialsImport As Object
+        Set groupByLcAndRawMaterialsImport = Application.Run("reportAsUp.groupByLcAndRawMaterials", divideIntoImportAndLocalLc("importLc"))
+
+        Application.Run "reportAsUp.putValueToReportLcValueQtyColumn", currentReportRange.Columns("d:g"), groupByLcAndRawMaterialsImport
+        Application.Run "reportAsUp.putValueToReportLcValueQtyColumn", currentReportRange.Columns("h:k"), groupByLcAndRawMaterialsLocal
+
+        Application.Run "reportAsUp.putValueToReportExportValueColumn", currentReportRange.Columns("o"), allUpDicFromJson(outerKey)("upClause7")
+
+        currentReportWb.Close SaveChanges:=True
+    
+    Next outerKey
+    
+    Application.ScreenUpdating = True
+
+End Function
+
 Private Function putValueToReportUpColumn(upRange As Range, upClause1 As Object, upDate As Date)
 
     Dim rowTracker As Long
