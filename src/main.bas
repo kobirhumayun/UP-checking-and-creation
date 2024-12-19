@@ -1297,6 +1297,7 @@ Sub createExportImportPerformanceAsUp()
         sampleUpFilePathDeem, sampleUpFilePathDirect, totalUpListForReport, allUpDicFromJson)
     
     Application.Run "reportAsUp.putValueToReportDeemUp", allUpDicFromJson, newReportFilesPath("deemUpFullPathDict"), upNoAndDtAsDict
+    Application.Run "reportAsUp.putValueToReportDirectUp", allUpDicFromJson, newReportFilesPath("directUpFullPathDict"), upNoAndDtAsDict
     
 End Sub
 
