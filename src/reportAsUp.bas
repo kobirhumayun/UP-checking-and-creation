@@ -507,6 +507,7 @@ Private Function putValueToReportBuyerNameColumn(buyerNameRange As Range, upClau
         buyerNameRange.Range("a" & rowTracker).value = upClause6(outerKey)
         
         With buyerNameRange.Range("a" & rowTracker).Resize(3)
+            .VerticalAlignment = xlTop
             .NumberFormat = "@"
             .WrapText = True
             .Merge
