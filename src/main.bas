@@ -1287,7 +1287,7 @@ Sub createExportImportPerformanceAsUp()
     sampleUpFilePathDirect = basePath & Application.PathSeparator & "Import-Export-UP-Performance-Direct-Sample.xlsx"
 
     Dim upNoAndDtFilePath As String
-    upNoAndDtFilePath = basePath & Application.PathSeparator & "up-no-and-date.xlsx"
+    upNoAndDtFilePath = basePath & Application.PathSeparator & "_up-no-and-date.xlsx"
 
     Dim upNoAndDtAsDict As Object
     Set upNoAndDtAsDict = Application.Run("reportAsUp.upNoAndDtAsDict", upNoAndDtFilePath)
