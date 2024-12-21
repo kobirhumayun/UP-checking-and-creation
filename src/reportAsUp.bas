@@ -131,7 +131,7 @@ Private Function putValueToReportDeemUp(allUpDicFromJson As Object, deemUpFullPa
         
         Set currentReportWb = Workbooks.Open(deemUpFullPathDict(outerKey))
         Set currentReportWs = currentReportWb.Worksheets(1)
-        Set currentReportRange = currentReportWs.Range("A6:Q10")
+        Set currentReportRange = currentReportWs.Range("A6:Q20")
         
         With currentReportRange
             .HorizontalAlignment = xlCenter
