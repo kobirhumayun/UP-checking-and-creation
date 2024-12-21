@@ -193,7 +193,7 @@ Private Function putValueToReportDirectUp(allUpDicFromJson As Object, directUpFu
         
         Set currentReportWb = Workbooks.Open(directUpFullPathDict(outerKey))
         Set currentReportWs = currentReportWb.Worksheets(1)
-        Set currentReportRange = currentReportWs.Range("A6:Q10")
+        Set currentReportRange = currentReportWs.Range("A6:Q20")
         
         With currentReportRange
             .HorizontalAlignment = xlCenter
