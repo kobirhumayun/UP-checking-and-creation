@@ -328,7 +328,24 @@ Private Function putValueToReportExportLcColumn(exportLcRange As Range, upClause
         End If
         
     Next outerKey
-        
+      
+    exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+    exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+    exportLcRange.Rows(exportLcRange.Rows.Count - 1).EntireRow.Insert
+    
+    Dim exportQty, exportValue As Variant
+    
+    exportQty = Application.Run("dictionary_utility_functions.sumOfInnerDictOfProvidedKeys", upClause7, Array("fabricsQtyInYds"))
+    exportValue = Application.Run("dictionary_utility_functions.sumOfInnerDictOfProvidedKeys", upClause7, Array("lcValueInUsd"))
+    
+    rowTracker = rowTracker + 2
+    exportLcRange.Range("a" & rowTracker).NumberFormat = "#,##0.00 ""YDS"""
+    exportLcRange.Range("a" & rowTracker).value = exportQty
+    
+    rowTracker = rowTracker + 1
+    exportLcRange.Range("a" & rowTracker).NumberFormat = "$#,##0.00"
+    exportLcRange.Range("a" & rowTracker).value = exportValue
+    
 End Function
 
 Private Function putValueToReportRawMaterialsQtyColumn(upRange As Range, upClause13 As Object)
