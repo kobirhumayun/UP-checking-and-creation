@@ -645,3 +645,39 @@ Private Function upNoAndDtAsDict(upNoAndDtFilePath As String) As Object
     Set upNoAndDtAsDict = upNoAndDtDict
       
 End Function
+
+Private Function isExistRelatedUpDate(upNoAndDtAsDict As Object, totalUpListForReport As Variant) As Boolean
+
+    Dim upNotFoundInTotalUpListForReport As Object
+    Set upNotFoundInTotalUpListForReport = CreateObject("Scripting.Dictionary")
+    
+    Dim element As Variant
+    
+    For Each element In totalUpListForReport
+    
+        If Not upNoAndDtAsDict.Exists(element) Then
+        
+                'UP not found in totalUpListForReport
+            upNotFoundInTotalUpListForReport.Add element, element
+        
+        End If
+    
+    Next element
+    
+    Dim uPSequenceStr As String
+    
+        'if source data not found show msg. & stop process
+    If upNotFoundInTotalUpListForReport.Count > 0 Then
+    
+        uPSequenceStr = Application.Run("utilityFunction.upSequenceStrGenerator", upNotFoundInTotalUpListForReport.keys, " -to- ", 10)
+        
+        MsgBox "UP Date not found in source data" & Chr(10) & "Ensure below UP date in source data" & Chr(10) & uPSequenceStr
+        
+        isExistRelatedUpDate = False
+        Exit Function
+    
+    End If
+    
+    isExistRelatedUpDate = True
+    
+End Function
