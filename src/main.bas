@@ -771,6 +771,14 @@ Sub createExportImportPerformanceAsUp()
 
     Dim upNoAndDtAsDict As Object
     Set upNoAndDtAsDict = Application.Run("reportAsUp.upNoAndDtAsDict", upNoAndDtFilePath)
+    
+        'act like middlewareFunction
+    Dim isExistRelatedUpDate As Boolean
+    isExistRelatedUpDate = Application.Run("reportAsUp.isExistRelatedUpDate", upNoAndDtAsDict, totalUpListForReport)
+    
+    If Not isExistRelatedUpDate Then
+        Exit Sub
+    End If
 
     Dim newReportFilesPath As Object
     Set newReportFilesPath = Application.Run("reportAsUp.copySmpleFileAsNewReportFileAndReturnAllPath", basePath, _
