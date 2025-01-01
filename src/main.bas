@@ -376,7 +376,7 @@ Sub createNewUp()
     Dim newUpFromFile As String
     Dim newUpOnlyFromFile As String
     
-    If extractedUpAndUpYearFromFile("only_up_no") < 10 Then
+    If extractedUpAndUpYearFromFile("only_up_no") < 9 Then
         newUpOnlyFromFile = "0" & extractedUpAndUpYearFromFile("only_up_no") + 1
     Else
         newUpOnlyFromFile = extractedUpAndUpYearFromFile("only_up_no") + 1
@@ -406,7 +406,7 @@ Sub createNewUp()
     Dim newUp As String
     Dim newUpOnly As String
     
-    If extractedUpAndUpYear("only_up_no") < 10 Then
+    If extractedUpAndUpYear("only_up_no") < 9 Then
         newUpOnly = "0" & extractedUpAndUpYear("only_up_no") + 1
     Else
         newUpOnly = extractedUpAndUpYear("only_up_no") + 1
