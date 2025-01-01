@@ -315,11 +315,11 @@ Private Function sourceDataPreviousUp(currentUp As Variant, upClauseNo As Intege
     Set currentUpYear = regex.Execute(currentUp)
     currentUpYear = currentUpYear.Item(0)
     
-    
+    If previousUpOnlyNo < 10 Then
+        previousUpOnlyNo = "0" & previousUpOnlyNo
+    End If
     
     fileName = "UP-" & previousUpOnlyNo & "-" & currentUpYear & ".xlsx"
-    
-    
     
     If openFile Then
         Application.Run "utilityFunction.openFile", fileName ' provide filename
