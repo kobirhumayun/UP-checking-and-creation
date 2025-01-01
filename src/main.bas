@@ -353,8 +353,8 @@ Sub createNewUp()
     curentUpNoFromFileName = fso.GetBaseName(currentUpFilePath)
     
     'extract UP and year of UP from file name
-    Dim extractedUpAndUpYearFromFile As Variant
-    extractedUpAndUpYearFromFile = Application.Run("general_utility_functions.upNoAndYearExtrac", curentUpNoFromFileName)
+    Dim extractedUpAndUpYearFromFile As Object
+    Set extractedUpAndUpYearFromFile = Application.Run("general_utility_functions.upNoAndYearExtracAsDict", curentUpNoFromFileName)
 
     Dim importPerformanceFileName As String
     importPerformanceFileName = "Import Performance Statement of PDL-2024-2025.xlsx"
@@ -364,10 +364,11 @@ Sub createNewUp()
     sourceDataImportPerformanceDyes = Application.Run("helperFunctionGetData.sourceDataImportPerformanceWithUpColumn", upFolderPath & Application.PathSeparator & importPerformanceFileName, "Dyes", True, True)
 
     Dim isLastUpUsedUpdated As Boolean
-    isLastUpUsedUpdated = Application.Run("afterConsumption.isLastUpUsedUpdatedInImportPerformance", sourceDataImportPerformanceDyes, extractedUpAndUpYearFromFile(1) & "/" & extractedUpAndUpYearFromFile(2), 28)
+    isLastUpUsedUpdated = Application.Run("afterConsumption.isLastUpUsedUpdatedInImportPerformance", _
+        sourceDataImportPerformanceDyes, extractedUpAndUpYearFromFile("only_up_no") & "/" & extractedUpAndUpYearFromFile("only_up_year"), 28)
 
     If Not isLastUpUsedUpdated Then
-        MsgBox "Current UP-" & extractedUpAndUpYearFromFile(1) & "/" & extractedUpAndUpYearFromFile(2) & _
+        MsgBox "Current UP-" & extractedUpAndUpYearFromFile("only_up_no") & "/" & extractedUpAndUpYearFromFile("only_up_year") & _
         " not updated as last UP in import performance for used Bill of Entry or Mushak" & Chr(10) & "Update first!"
         Exit Sub
     End If
@@ -375,17 +376,17 @@ Sub createNewUp()
     Dim newUpFromFile As String
     Dim newUpOnlyFromFile As String
     
-    If extractedUpAndUpYearFromFile(1) < 10 Then
-        newUpOnlyFromFile = "0" & extractedUpAndUpYearFromFile(1) + 1
+    If extractedUpAndUpYearFromFile("only_up_no") < 10 Then
+        newUpOnlyFromFile = "0" & extractedUpAndUpYearFromFile("only_up_no") + 1
     Else
-        newUpOnlyFromFile = extractedUpAndUpYearFromFile(1) + 1
+        newUpOnlyFromFile = extractedUpAndUpYearFromFile("only_up_no") + 1
     End If
     
-    newUpFromFile = newUpOnlyFromFile & "/" & extractedUpAndUpYearFromFile(2)
+    newUpFromFile = newUpOnlyFromFile & "/" & extractedUpAndUpYearFromFile("only_up_year")
 
     'copy current UP as new UP file
     Dim newUpFullPath As String
-    newUpFullPath = upFolderPath & "\" & "UP-" & newUpOnlyFromFile & "-" & extractedUpAndUpYearFromFile(2) & ".xlsx"
+    newUpFullPath = upFolderPath & "\" & "UP-" & newUpOnlyFromFile & "-" & extractedUpAndUpYearFromFile("only_up_year") & ".xlsx"
     
     Application.Run "general_utility_functions.CopyFileAsNewFileFSO", currentUpFilePath, newUpFullPath, True
 
@@ -399,19 +400,19 @@ Sub createNewUp()
     curentUpNo = Application.Run("helperFunctionGetData.upNoFromProvidedWs", newUpWs)
     
     'extract UP and year of UP
-    Dim extractedUpAndUpYear As Variant
-    extractedUpAndUpYear = Application.Run("general_utility_functions.upNoAndYearExtrac", curentUpNo)
+    Dim extractedUpAndUpYear As Object
+    Set extractedUpAndUpYear = Application.Run("general_utility_functions.upNoAndYearExtracAsDict", curentUpNo)
     
     Dim newUp As String
     Dim newUpOnly As String
     
-    If extractedUpAndUpYear(1) < 10 Then
-        newUpOnly = "0" & extractedUpAndUpYear(1) + 1
+    If extractedUpAndUpYear("only_up_no") < 10 Then
+        newUpOnly = "0" & extractedUpAndUpYear("only_up_no") + 1
     Else
-        newUpOnly = extractedUpAndUpYear(1) + 1
+        newUpOnly = extractedUpAndUpYear("only_up_no") + 1
     End If
 
-    newUp = newUpOnly & "/" & extractedUpAndUpYear(2)
+    newUp = newUpOnly & "/" & extractedUpAndUpYear("only_up_year")
     
     If newUpFromFile <> newUp Then
         MsgBox "UP No. & UP File No. Mismatch"
@@ -420,7 +421,7 @@ Sub createNewUp()
     
     'change UP sheet name
     Dim newUpSheetName As String
-    newUpSheetName = "UP # " & newUpOnly & "-" & extractedUpAndUpYear(2)
+    newUpSheetName = "UP # " & newUpOnly & "-" & extractedUpAndUpYear("only_up_year")
     newUpWs.Name = newUpSheetName
     
     'take source data as dictionary from UP Issuing Status
@@ -429,7 +430,7 @@ Sub createNewUp()
     
     Dim upNoWithWordForPutToWs, upNoInWord, yearInWord As String
     upNoInWord = Application.Run("NumToBanglaWord.numberToBanglaWord", newUpOnly)
-    yearInWord = Application.Run("NumToBanglaWord.numberToBanglaWord", extractedUpAndUpYear(2))
+    yearInWord = Application.Run("NumToBanglaWord.numberToBanglaWord", extractedUpAndUpYear("only_up_year"))
     upNoWithWordForPutToWs = newUp & " (" & upNoInWord & "/" & yearInWord & ")"
     
     newUpWs.Range("N13").value = upNoWithWordForPutToWs
