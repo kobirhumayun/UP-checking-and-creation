@@ -373,11 +373,19 @@ Sub createNewUp()
     End If
     
     Dim newUpFromFile As String
-    newUpFromFile = extractedUpAndUpYearFromFile(1) + 1 & "/" & extractedUpAndUpYearFromFile(2)
+    Dim newUpOnlyFromFile As String
     
+    If extractedUpAndUpYearFromFile(1) < 10 Then
+        newUpOnlyFromFile = "0" & extractedUpAndUpYearFromFile(1) + 1
+    Else
+        newUpOnlyFromFile = extractedUpAndUpYearFromFile(1) + 1
+    End If
+    
+    newUpFromFile = newUpOnlyFromFile & "/" & extractedUpAndUpYearFromFile(2)
+
     'copy current UP as new UP file
     Dim newUpFullPath As String
-    newUpFullPath = upFolderPath & "\" & "UP-" & extractedUpAndUpYearFromFile(1) + 1 & "-" & extractedUpAndUpYearFromFile(2) & ".xlsx"
+    newUpFullPath = upFolderPath & "\" & "UP-" & newUpOnlyFromFile & "-" & extractedUpAndUpYearFromFile(2) & ".xlsx"
     
     Application.Run "general_utility_functions.CopyFileAsNewFileFSO", currentUpFilePath, newUpFullPath, True
 
@@ -395,7 +403,15 @@ Sub createNewUp()
     extractedUpAndUpYear = Application.Run("general_utility_functions.upNoAndYearExtrac", curentUpNo)
     
     Dim newUp As String
-    newUp = extractedUpAndUpYear(1) + 1 & "/" & extractedUpAndUpYear(2)
+    Dim newUpOnly As String
+    
+    If extractedUpAndUpYear(1) < 10 Then
+        newUpOnly = "0" & extractedUpAndUpYear(1) + 1
+    Else
+        newUpOnly = extractedUpAndUpYear(1) + 1
+    End If
+
+    newUp = newUpOnly & "/" & extractedUpAndUpYear(2)
     
     If newUpFromFile <> newUp Then
         MsgBox "UP No. & UP File No. Mismatch"
@@ -404,7 +420,7 @@ Sub createNewUp()
     
     'change UP sheet name
     Dim newUpSheetName As String
-    newUpSheetName = "UP # " & extractedUpAndUpYear(1) + 1 & "-" & extractedUpAndUpYear(2)
+    newUpSheetName = "UP # " & newUpOnly & "-" & extractedUpAndUpYear(2)
     newUpWs.Name = newUpSheetName
     
     'take source data as dictionary from UP Issuing Status
@@ -412,7 +428,7 @@ Sub createNewUp()
     Set sourceDataAsDicUpIssuingStatus = Application.Run("helperFunctionGetData.sourceDataAsDicUpIssuingStatus", newUp, "UP Issuing Status for the Period # 01-03-2024 to 28-02-2025.xlsx", "UP Issuing Status # 2024-2025")
     
     Dim upNoWithWordForPutToWs, upNoInWord, yearInWord As String
-    upNoInWord = Application.Run("NumToBanglaWord.numberToBanglaWord", extractedUpAndUpYear(1) + 1)
+    upNoInWord = Application.Run("NumToBanglaWord.numberToBanglaWord", newUpOnly)
     yearInWord = Application.Run("NumToBanglaWord.numberToBanglaWord", extractedUpAndUpYear(2))
     upNoWithWordForPutToWs = newUp & " (" & upNoInWord & "/" & yearInWord & ")"
     
