@@ -337,7 +337,7 @@ Sub createNewUp()
     'take UP file path
 
     Dim currentUpFilePathArr, currentUpFilePath As Variant
-    currentUpFilePathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024")  ' UP file path
+    currentUpFilePathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2025")  ' UP file path
     If UBound(currentUpFilePathArr) = 1 Then
         currentUpFilePath = currentUpFilePathArr(1)
     Else
@@ -747,7 +747,7 @@ Sub createExportImportPerformanceAsUp()
     
     Dim jsonPathArr As Variant
 
-    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024\json-all-up-clause")  ' JSON file path
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2025\json-all-up-clause")  ' JSON file path
 
     If Not UBound(jsonPathArr) = 1 Then
         MsgBox "Please select only one JSON file"
@@ -758,7 +758,7 @@ Sub createExportImportPerformanceAsUp()
     Set allUpDicFromJson = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
     
     Dim basePath As String
-    basePath = "D:\Temp\UP Draft\Draft 2024\Import & Export Performace 2024"
+    basePath = "D:\Temp\UP Draft\Draft 2025\Import & Export Performace 2024"
     
     Dim sampleUpFilePathDeem As String
     Dim sampleUpFilePathDirect As String
@@ -824,7 +824,7 @@ End Sub
 '        Next i
 '
 
-'        Set test1 = Application.Run("utilityFunction.CombinedAllSheetsMushakOrBillOfEntryDbDict", "D:\Temp\UP Draft\Draft 2024\Import Performance Statement of PDL-2024-2025.xlsx")
+'        Set test1 = Application.Run("utilityFunction.CombinedAllSheetsMushakOrBillOfEntryDbDict", "D:\Temp\UP Draft\Draft 2025\Import Performance Statement of PDL-2024-2025.xlsx")
 '
 '        Set ws = ActiveSheet
 '        ws.Cells.Clear
@@ -894,7 +894,7 @@ End Sub
 
         ' Set test2 = Application.Run("general_utility_functions.sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile")
 
-        ' Set dict = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", "D:\Temp\UP Draft\Draft 2024\json-used-up-clause8\file.json")
+        ' Set dict = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", "D:\Temp\UP Draft\Draft 2025\json-used-up-clause8\file.json")
         ' Set dict = Application.Run("Sorting_Algorithms.SplituPSequence", Array("2/2024", "3/2024", "5/2024"))
         
         ' test2 = Application.Run("utilityFunction.upSequenceStrGenerator", Array("2/2024", "3/2024", "5/2024"))

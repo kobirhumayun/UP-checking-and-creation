@@ -1212,8 +1212,8 @@ Sub saveUpDataAsJson()
     Dim jsonPath As String
     Dim initialUpPath As String
     
-    jsonPath = "D:\Temp\UP Draft\Draft 2024\json-all-up-clause"
-    initialUpPath = "D:\Temp\UP Draft\Draft 2024"
+    jsonPath = "D:\Temp\UP Draft\Draft 2025\json-all-up-clause"
+    initialUpPath = "D:\Temp\UP Draft\Draft 2025"
     
     saveUpDataAsJsonFromSelectedUpFile jsonPath, initialUpPath
 
@@ -1222,7 +1222,7 @@ End Sub
 Sub loadUpDataFromJsonAndWriteToSheetAsUptoVerify()
 
     Dim jsonPath As String
-    jsonPath = "D:\Temp\UP Draft\Draft 2024\json-all-up-clause"
+    jsonPath = "D:\Temp\UP Draft\Draft 2025\json-all-up-clause"
 
     Dim upNo As String
     upNo = InputBox("Please enter UP Number", "UP Number", "UP No.")
@@ -1337,7 +1337,7 @@ Sub upSummaryTemplete()
     Dim allUpDic As Object
     Dim jsonPathArr As Variant
 
-    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2024\json-all-up-clause")  ' JSON file path
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2025\json-all-up-clause")  ' JSON file path
 
     If Not UBound(jsonPathArr) = 1 Then
         MsgBox "Please select only one JSON file"
