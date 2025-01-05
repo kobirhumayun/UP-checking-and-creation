@@ -815,6 +815,44 @@ Sub createExportImportPerformanceAsUp()
     
 End Sub
 
+Sub ObjectJsonFileSaveAsArrayOfObjectJson()
+
+    Dim jsonPathArr As Variant
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2025\json-all-up-clause")  ' JSON file path
+
+    If Not UBound(jsonPathArr) = 1 Then
+        MsgBox "Please select only one JSON file"
+        Exit Sub
+    End If
+
+    Dim dicFromJson As Object
+    Set dicFromJson = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
+
+    Dim convertedArrOfDict As Variant
+    convertedArrOfDict = Application.Run("dictionary_utility_functions.ConvertDictToArrayOfDict", dicFromJson)
+
+    Dim fso As Object
+    Set fso = CreateObject("Scripting.FileSystemObject")
+
+    Dim folderPath, curentFileName As String
+    folderPath = fso.GetParentFolderName(jsonPathArr(1))
+    curentFileName = fso.GetFileName(jsonPathArr(1))
+
+    if Not fso.FolderExists(folderPath & Application.PathSeparator & "array-of-object") Then
+        fso.CreateFolder folderPath & Application.PathSeparator & "array-of-object"
+    End If
+
+    folderPath = folderPath & Application.PathSeparator & "array-of-object"
+
+    Dim newJsonPath As String
+    newJsonPath = folderPath & Application.PathSeparator & "array-of-object-" & curentFileName
+
+    Application.Run "JsonUtilityFunction.SaveArrayOfDictionaryToJsonTextFile", convertedArrOfDict, newJsonPath
+
+    MsgBox "Array of object JSON file created."
+
+End Sub
+
     Sub test()
         Dim test1, test2 As Variant
         Dim dict As Object
