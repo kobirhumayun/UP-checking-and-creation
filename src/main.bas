@@ -613,8 +613,15 @@ Sub updateAfterUpClause8()
     Dim extractedUpAndUpYear As Object
     Set extractedUpAndUpYear = Application.Run("general_utility_functions.upNoAndYearExtracAsDict", newUp)
 
+    Dim previousUpOnlyNo As String
+    previousUpOnlyNo = extractedUpAndUpYear("only_up_no") - 1
+    
+    If previousUpOnlyNo < 10 Then
+        previousUpOnlyNo = "0" & previousUpOnlyNo
+    End If
+    
     Dim previousUpfileName As String
-    previousUpfileName = "UP-" & extractedUpAndUpYear("only_up_no") - 1 & "-" & extractedUpAndUpYear("only_up_year") & ".xlsx"
+    previousUpfileName = "UP-" & previousUpOnlyNo & "-" & extractedUpAndUpYear("only_up_year") & ".xlsx"
 
     Dim previousUpClause9Info As Variant
     previousUpClause9Info = Application.Run("afterConsumption.upClause9InfoFromProvidedFile", previousUpfileName, True, True)
