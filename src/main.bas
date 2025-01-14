@@ -782,7 +782,7 @@ Sub createExportImportPerformanceAsUp()
     Set allUpDicFromJson = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
     
     Dim basePath As String
-    basePath = "D:\Temp\UP Draft\Draft 2025\Import & Export Performace 2024"
+    basePath = "D:\Temp\UP Draft\Draft 2025\Import & Export Performace 2024-2025"
     
     Dim sampleUpFilePathDeem As String
     Dim sampleUpFilePathDirect As String
