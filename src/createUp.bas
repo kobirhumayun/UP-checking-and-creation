@@ -367,7 +367,7 @@ End Function
 Private Function putIpExpMLcFieldAsLcInfoUpClause7(lcRangObj As Range, sourceDataAsDicUpIssuingStatus As Object, lcKey As Variant)
     'fill-up Ip or Exp or M.LC field as lc information
 
-    lcRangObj(1, 22).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(lcKey), 32, 10)
+    lcRangObj(1, 22).value = Application.Run("createUp.combinUdIpExpMlc", sourceDataAsDicUpIssuingStatus(lcKey), 10, 10)
     lcRangObj(1, 22).Resize(2, 6).Merge
 
 End Function
