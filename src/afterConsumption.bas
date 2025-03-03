@@ -1319,7 +1319,7 @@ Private Function dealWithUpClause11(ws As Worksheet, sourceDataAsDicUpIssuingSta
         upClause11UdExpIpinformationRangeObject.Range("c" & j + 1 & ":p" & j + 1).Merge
 
             'put UD IP EXP & Date
-        upClause11UdExpIpinformationRangeObject.Range("q" & j + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j)), 32, 10)
+        upClause11UdExpIpinformationRangeObject.Range("q" & j + 1).value = Application.Run("createUp.combinUdIpExpAndDt", sourceDataAsDicUpIssuingStatus(sourceDataAsDicUpIssuingStatus.keys()(j)), 10, 10)
         upClause11UdExpIpinformationRangeObject.Range("q" & j + 1 & ":s" & j + 1).Merge
 
         upClause11UdExpIpinformationRangeObject.Range("t" & j + 1).value = "Denim Garments"
