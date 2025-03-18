@@ -816,6 +816,45 @@ Sub createExportImportPerformanceAsUp()
     
 End Sub
 
+Sub CreateRawMaterialsGroupReportAsUp()
+
+    Dim jsonPathArr As Variant
+
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "C:\Users\Humayun\Downloads\UP-Report\json")  ' JSON file path
+
+    If Not UBound(jsonPathArr) = 1 Then
+        MsgBox "Please select only one JSON file"
+        Exit Sub
+    End If
+    
+    Dim allUpDicFromJson As Object
+    Set allUpDicFromJson = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
+    
+    Dim basePath As String
+    basePath = "C:\Users\Humayun\Downloads\UP-Report"
+
+    Dim groupBydictionaries As Object
+    Set groupBydictionaries = CreateObject("Scripting.Dictionary")
+
+     Dim currentKey As Variant
+    
+    ' Iterate through the input dictionary
+    For Each currentKey In allUpDicFromJson.keys
+
+        groupBydictionaries.Add currentKey, Application.Run("reportAsUp.GroupByKeyAndSum", allUpDicFromJson(currentKey)("upClause8"), "nameOfGoods", "inThisUpUsedQtyOfGoods")
+      
+    Next currentKey
+
+    Dim sortedAllCalculatedUp As Variant
+    sortedAllCalculatedUp = Application.Run("Sorting_Algorithms.upSort", groupBydictionaries.keys)
+
+    Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", groupBydictionaries, basePath & Application.PathSeparator & _
+        "UP-" & Replace(sortedAllCalculatedUp(LBound(sortedAllCalculatedUp)), "/", "-") & "-to-" & _
+        Replace(sortedAllCalculatedUp(UBound(sortedAllCalculatedUp)), "/", "-") & "-clause8-group-by-raw-materials-data" & ".json"
+
+
+End Sub
+
 Sub ObjectJsonFileSaveAsArrayOfObjectJson()
 
     Dim jsonPathArr As Variant
