@@ -681,3 +681,29 @@ Private Function isExistRelatedUpDate(upNoAndDtAsDict As Object, totalUpListForR
     isExistRelatedUpDate = True
     
 End Function
+
+Private Function GroupByKeyAndSum(inputDictionary As Object, groupingKey As String, summingKey As String) As Object
+    ' Create a dictionary to store grouped data
+    Dim groupedDictionary As Object
+    Set groupedDictionary = CreateObject("Scripting.Dictionary")
+    
+    Dim currentKey As Variant
+    Dim groupName As Variant
+    
+    ' Iterate through the input dictionary
+    For Each currentKey In inputDictionary.keys
+        ' Extract the grouping key and summing value
+        groupName = Application.Run("general_utility_functions.RemoveInvalidChars", inputDictionary(currentKey)(groupingKey))
+
+        ' If the group value doesn't exist in the result dictionary, initialize it
+        If Not groupedDictionary.Exists(groupName) Then
+            groupedDictionary.Add groupName, 0
+        End If
+        
+        ' Accumulate the value
+        groupedDictionary(groupName) = groupedDictionary(groupName) + inputDictionary(currentKey)(summingKey)
+    Next currentKey
+    
+    ' Return the grouped dictionary
+    Set GroupByKeyAndSum = groupedDictionary
+End Function
