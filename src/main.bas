@@ -820,7 +820,7 @@ Sub CreateRawMaterialsGroupReportAsUp()
 
     Dim jsonPathArr As Variant
 
-    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "C:\Users\Humayun\Downloads\UP-Report\json")  ' JSON file path
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2025\json-all-up-clause")  ' JSON file path
 
     If Not UBound(jsonPathArr) = 1 Then
         MsgBox "Please select only one JSON file"
@@ -831,7 +831,7 @@ Sub CreateRawMaterialsGroupReportAsUp()
     Set allUpDicFromJson = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
     
     Dim basePath As String
-    basePath = "C:\Users\Humayun\Downloads\UP-Report"
+    basePath = "D:\Temp\UP Draft\Draft 2025\up-raw-material-report"
 
     Dim groupBydictionaries As Object
     Set groupBydictionaries = CreateObject("Scripting.Dictionary")
