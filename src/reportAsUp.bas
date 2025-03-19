@@ -768,7 +768,7 @@ Private Function GroupedDictionaryFormateAsReportWs(groupedDictionary As Object)
         
     Next currentKey
 
-    ' formatedDataDictionary(currentKey).Add "header", headerArr
+    formatedDataDictionary.Add "header", headerArr
 
     Set GroupedDictionaryFormateAsReportWs = formatedDataDictionary
     
