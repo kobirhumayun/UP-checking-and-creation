@@ -707,3 +707,73 @@ Private Function GroupByKeyAndSum(inputDictionary As Object, groupingKey As Stri
     ' Return the grouped dictionary
     Set GroupByKeyAndSum = groupedDictionary
 End Function
+
+Private Function GroupedDictionaryFormateAsReportWs(groupedDictionary As Object) As Object
+    Dim formatedDataDictionary As Object
+    Set formatedDataDictionary = CreateObject("Scripting.Dictionary")
+    Dim headerArr As Variant
+    Dim trimedHeaderArr As Variant
+    Dim currentKey As Variant
+
+    headerArr = Array("Foreign Yarn (KGS)", "Local Yarn (KGS)", "Total Yarn", "Wetting Agent", "Modified Starch", "Caustic Soda", _
+        "Sulphuric Acid", "Reducing Agent", "Softener", "Binder", "Sequestering Agent", "Sodium Hydro Sulphate", "Wax", _
+        "Acetic Acid", "PVA", "Desizing Agent /  Enzyme", "Fixing Agent", "Dispersing Agent", "Hydroxylamine", "Water Decoloring Agent", _
+        "Hydrogen Peroxide", "Stabilizing Agent", "Detergent", "Sodium Hypochloride", "Bleaching Powder", "Pumice Stone", _
+        "Natural Garnet", "Resin", "Total Chemicals", "Vat Dyes  (Liquid)", "Vat Dyes (Indigo Granular)", "Sulphur Dyes (Liquid)", _
+        "Sulphur Dyes (Sulphur Granular)", "Stretch Wrapping Film")
+
+    Dim i As Long
+    ReDim trimedHeaderArr(LBound(headerArr) To UBound(headerArr))
+
+    for i = LBound(headerArr) to UBound(headerArr)
+        trimedHeaderArr(i) = Application.Run("general_utility_functions.RemoveInvalidChars", headerArr(i))
+    Next i
+
+    For Each currentKey In groupedDictionary.keys
+        formatedDataDictionary.Add currentKey, CreateObject("Scripting.Dictionary")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(0), 0
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(1), 0
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(2), groupedDictionary(currentKey)("Yarn")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(3), groupedDictionary(currentKey)("WettingAgent")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(4), groupedDictionary(currentKey)("ModifiedStarch")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(5), groupedDictionary(currentKey)("CausticSoda")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(6), groupedDictionary(currentKey)("SulphuricAcid")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(7), groupedDictionary(currentKey)("ReducingAgent")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(8), groupedDictionary(currentKey)("Softener")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(9), groupedDictionary(currentKey)("Binder")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(10), groupedDictionary(currentKey)("SequesteringAgent")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(11), groupedDictionary(currentKey)("SodiumHydroSulphate")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(12), groupedDictionary(currentKey)("Wax")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(13), groupedDictionary(currentKey)("AceticAcid")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(14), groupedDictionary(currentKey)("PVA")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(15), groupedDictionary(currentKey)("DesizingAgentEnzyme")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(16), groupedDictionary(currentKey)("FixingAgent")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(17), groupedDictionary(currentKey)("DispersingAgent")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(18), groupedDictionary(currentKey)("Hydroxylamine")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(19), groupedDictionary(currentKey)("WaterDecoloringAgent")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(20), groupedDictionary(currentKey)("HydrogenPeroxide")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(21), groupedDictionary(currentKey)("StabilizingAgentEstabilizadorFE")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(22), groupedDictionary(currentKey)("Detergent")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(23), groupedDictionary(currentKey)("SodiumHypochloride")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(24), groupedDictionary(currentKey)("BleachingPowder")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(25), groupedDictionary(currentKey)("PumiceStone")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(26), groupedDictionary(currentKey)("NaturalGarnet")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(27), groupedDictionary(currentKey)("Resin")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(28), 0
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(29), groupedDictionary(currentKey)("VatDyes")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(30), 0
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(31), groupedDictionary(currentKey)("SulphurDyes")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(32), 0
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(33), groupedDictionary(currentKey)("StretchWrappingFilm")
+        
+    Next currentKey
+
+    ' formatedDataDictionary(currentKey).Add "header", headerArr
+
+    Set GroupedDictionaryFormateAsReportWs = formatedDataDictionary
+    
+End Function
+
+' Private Function PutRawMaterialsGroupDataToWs(formatedDataDictionary As Object, ws As Worksheet) As Object
+    
+' End Function
