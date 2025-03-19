@@ -791,3 +791,40 @@ Private Function PutRawMaterialsGroupDataToWs(formatedDataDictionary As Object, 
     Next cell
     
 End Function
+
+Private Function PutQuantityOfGoodsUsedInProductionDataToWs(allUpDicFromJson As Object, ws As Worksheet)
+
+    Dim headerArr As Variant
+    headerArr = Array("Total Yarn", "Black", "Mercharize", "Indigo", "Mercharize", "Toping & Bottoming", "Mercharize", _ 
+        "Over Dye", "Mercharize", "PFD (Fabrics)", "Ecru", "Coating (Fabrics)", "ETP &  WTP", "Rolling (YDS)")
+
+    ws.Range("D3").Resize(1, UBound(headerArr, 1) + 1) = headerArr
+
+    Dim cell As Range
+    Dim tempCell As Range
+    Dim tempArr As Variant
+
+    For Each cell In ws.Range("B4:B" & ws.Range("B4").End(xlDown).Row - 1)
+
+        ReDim tempArr(LBound(headerArr) To UBound(headerArr))
+        tempArr(0) = allUpDicFromJson(cell.value)("upClause12bFabrics")("grandTotalYarn")
+        tempArr(1) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("ropeDenimFabricsDyedBlack")
+        tempArr(2) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("ropeDenimFabricsDyedBlackMercerization")
+        tempArr(3) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("ropeDenimFabricsDyedIndigo")
+        tempArr(4) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("ropeDenimFabricsDyedIndigoMercerization")
+        tempArr(5) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("ropeDenimFabricsDyed")
+        tempArr(6) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("ropeDenimFabricsDyedMercerization")
+        tempArr(7) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("denimFabricsOverDyedSolidDyed")
+        tempArr(8) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("denimFabricsOverDyedSolidDyedMercerization")
+        tempArr(9) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("denimFabricsPFDFinished")
+        tempArr(10) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("denimFabricsEcruFinished")
+        tempArr(11) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("denimFabricsCoatedAndPigment")
+        tempArr(12) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("denimFabricDyed")
+        tempArr(13) = allUpDicFromJson(cell.value)("upClause12bFabrics")("quantityOfGoodsUsedInProduction")("denimFabricPacking")
+
+        Set tempCell = cell.Offset(0, 2)
+        tempCell.Resize(1, UBound(tempArr) + 1) = tempArr
+
+    Next cell
+    
+End Function
