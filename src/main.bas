@@ -836,17 +836,35 @@ Sub CreateRawMaterialsGroupReportAsUp()
     Dim groupBydictionaries As Object
     Set groupBydictionaries = CreateObject("Scripting.Dictionary")
 
+    Dim totalUniqueGroupName As Object
+    Set totalUniqueGroupName = CreateObject("Scripting.Dictionary")
+
+    Dim temp As Object
+
      Dim currentKey As Variant
     
     ' Iterate through the input dictionary
     For Each currentKey In allUpDicFromJson.keys
 
-        groupBydictionaries.Add currentKey, Application.Run("reportAsUp.GroupByKeyAndSum", allUpDicFromJson(currentKey)("upClause8"), "nameOfGoods", "inThisUpUsedQtyOfGoods")
-      
+      Set temp = Application.Run("reportAsUp.GroupByKeyAndSum", allUpDicFromJson(currentKey)("upClause8"), "nameOfGoods", "inThisUpUsedQtyOfGoods")
+
+        If Not groupBydictionaries.Exists(currentKey) Then
+            groupBydictionaries.Add currentKey, temp
+        End If
+
+        Dim currentKeyTemp As Variant
+        For Each currentKeyTemp In temp.keys
+            If Not totalUniqueGroupName.Exists(currentKeyTemp) Then
+                totalUniqueGroupName.Add currentKeyTemp, currentKeyTemp
+            End If
+        Next currentKeyTemp
+        
     Next currentKey
 
     Dim sortedAllCalculatedUp As Variant
     sortedAllCalculatedUp = Application.Run("Sorting_Algorithms.upSort", groupBydictionaries.keys)
+
+    groupBydictionaries.Add "totalUniqueGroupName", totalUniqueGroupName
 
     Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", groupBydictionaries, basePath & Application.PathSeparator & _
         "UP-" & Replace(sortedAllCalculatedUp(LBound(sortedAllCalculatedUp)), "/", "-") & "-to-" & _
