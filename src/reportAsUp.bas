@@ -775,28 +775,19 @@ Private Function GroupedDictionaryFormateAsReportWs(groupedDictionary As Object)
 End Function
 
 Private Function PutRawMaterialsGroupDataToWs(formatedDataDictionary As Object, ws As Worksheet)
-    Dim headerArr As Variant
-    Dim currentKey As Variant
-    Dim currentHeader As Variant
-    Dim currentData As Variant
-    Dim rowTracker As Long
-    Dim columnTracker As Long
 
+    Dim headerArr As Variant
     headerArr = formatedDataDictionary("header")
 
-    ActiveSheet.Range("B3").Resize(UBound(headerArr, 1) + 1, UBound(headerArr, 1) + 1) = headerArr
+    ws.Range("B3").Resize(1, UBound(headerArr, 1) + 1) = headerArr
 
-    Dim cell as Range
-    Dim tempCell as Range
-    For Each cell In Range("A4:A" & ActiveSheet.Range("A4").End(xlUp).Row)
+    Dim cell As Range
+    Dim tempCell As Range
+    For Each cell In ws.Range("A4:A" & ws.Range("A4").End(xlDown).Row)
 
-        set tempCell = cell.Offset(0, 1)
-        tempCell.Resize(1, UBound(formatedDataDictionary(cell.Value).keys) + 1) = formatedDataDictionary(cell.Value).items
+        Set tempCell = cell.Offset(0, 1)
+        tempCell.Resize(1, UBound(formatedDataDictionary(cell.value).keys) + 1) = formatedDataDictionary(cell.value).items
 
     Next cell
-   
-
-   
-
     
 End Function
