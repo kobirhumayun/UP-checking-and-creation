@@ -870,6 +870,11 @@ Sub CreateRawMaterialsGroupReportAsUp()
         "UP-" & Replace(sortedAllCalculatedUp(LBound(sortedAllCalculatedUp)), "/", "-") & "-to-" & _
         Replace(sortedAllCalculatedUp(UBound(sortedAllCalculatedUp)), "/", "-") & "-clause8-group-by-raw-materials-data" & ".json"
 
+    Dim formatedGroupedDictionaryAsReportWs As Object
+    Set formatedGroupedDictionaryAsReportWs = Application.Run("reportAsUp.GroupedDictionaryFormateAsReportWs", groupBydictionaries)
+
+    Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", formatedGroupedDictionaryAsReportWs, basePath & Application.PathSeparator & _
+       "-formatedGroupedDictionaryAsReportWs" & ".json"
 
 End Sub
 
