@@ -783,7 +783,7 @@ Private Function PutRawMaterialsGroupDataToWs(formatedDataDictionary As Object, 
 
     Dim cell As Range
     Dim tempCell As Range
-    For Each cell In ws.Range("A4:A" & ws.Range("A4").End(xlDown).Row)
+    For Each cell In ws.Range("A4:A" & ws.Range("A4").End(xlDown).Row - 1)
 
         Set tempCell = cell.Offset(0, 1)
         tempCell.Resize(1, UBound(formatedDataDictionary(cell.value).keys) + 1) = formatedDataDictionary(cell.value).items
