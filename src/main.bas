@@ -875,6 +875,9 @@ Sub CreateRawMaterialsGroupReportAsUp()
 
     Application.Run "JsonUtilityFunction.SaveDictionaryToJsonTextFile", formatedGroupedDictionaryAsReportWs, basePath & Application.PathSeparator & _
        "-formatedGroupedDictionaryAsReportWs" & ".json"
+    
+    Dim reportWs As Worksheet
+    Set reportWs = Application.Run("reportAsUp.PutRawMaterialsGroupDataToWs", formatedGroupedDictionaryAsReportWs, ActiveSheet)
 
 End Sub
 
