@@ -141,8 +141,17 @@ Private Function createUseGroupDic() As Object
     Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Finishing Agent", _
     Array("Finishing Agent"))
 
+    Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Antistain", _
+    Array("Antistain"))
+
+    Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Reactive Dyes", _
+    Array("Reactive Dyes"))
+
+    Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Polymer", _
+    Array("Polymer"))
+
     Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Decision Pending Group", _
-    Array("Activated Carbon", "Polymers"))
+    Array("Activated Carbon"))
 
     useGroupDict.Add "nonYarnUseGroupDict", nonYarnUseGroupDict
 
