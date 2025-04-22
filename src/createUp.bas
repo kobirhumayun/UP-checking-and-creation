@@ -330,9 +330,21 @@ Private Function putProductQtyFieldAsLcInfoUpClause7(lcRangObj As Range, sourceD
 
         lcRangObj(1, 18).value = sourceDataAsDicUpIssuingStatus(lcKey)("GarmentsQty")
         lcRangObj(1, 18).Resize(1, 2).Merge
-        lcRangObj(2, 18).value = sourceDataAsDicUpIssuingStatus(lcKey)("QuantityofFabricsYdsMtr")
-        lcRangObj(2, 18).Resize(1, 2).Merge
 
+        If Right(sourceDataAsDicUpIssuingStatus(lcKey)("qtyNumberFormat"), 5) = """Mtr""" Then
+
+            lcRangObj(2, 18).value = WorksheetFunction.Text(sourceDataAsDicUpIssuingStatus(lcKey)("QuantityofFabricsYdsMtr"), "#,##0.00") & " Mtr" & Chr(10) _
+                & WorksheetFunction.Text(Round(sourceDataAsDicUpIssuingStatus(lcKey)("QuantityofFabricsYdsMtr") * 1.0936132983), "#,##0.00") & " Yds"
+            lcRangObj(2, 18).Resize(1, 2).Merge
+            lcRangObj(2, 18).HorizontalAlignment = xlRight
+
+        Else
+
+            lcRangObj(2, 18).value = sourceDataAsDicUpIssuingStatus(lcKey)("QuantityofFabricsYdsMtr")
+            lcRangObj(2, 18).Resize(1, 2).Merge
+
+        End If
+        
     End If
 
 End Function
