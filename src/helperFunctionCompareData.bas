@@ -345,7 +345,31 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
 
         filteredLcForQtyFromSourceDataGarments = Application.Run("utilityFunction.towDimensionalArrayFilter", sourceData, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 4)
 
-        filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp = Application.Run("utilityFunction.addSpecificColumnValueOneRowUpTo2DArrayOnLastColumn", clause7OddFiltered, 17)
+        filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp = Application.Run("utilityFunction.addSpecificColumnValueOneRowUpTo2DArrayOnLastColumn", arrUpClause7, 17)
+
+        Dim k As Integer
+        Dim tempMtrQty As Object
+        Dim regExObj As Object
+        Dim isFabQtyExistInMtr As Boolean
+        isFabQtyExistInMtr = False
+
+        Dim isMtrAndYdsBothCorrected As Boolean
+        isMtrAndYdsBothCorrected = False
+
+        For k = 1 To UBound(filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp, 1)
+
+            If Application.Run("general_utility_functions.isStrPatternExist", filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp(k, UBound(filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp, 2)), "mtr", True, True, True) Then
+
+                isFabQtyExistInMtr = True
+                Set regExObj = Application.Run("general_utility_functions.createRegExObj", "mtr|yds", True, True, True)
+                Set tempMtrQty = Application.Run("general_utility_functions.regExReturnedObj", regExObj.Replace(filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp(k, UBound(filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp, 2)), ""), ".+", True, True, True)
+
+                filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp(k, UBound(filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp, 2)) = tempMtrQty(0)     ' Store Mtr Qty. only, for the next use
+                filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp(k, UBound(filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp, 2) - 1) = tempMtrQty(1) ' Store Yds Qty. in a non-used empty column for the next use
+
+            End If
+
+        Next k
 
         filteredLcForQtyFromUpClause7Garments = Application.Run("utilityFunction.towDimensionalArrayFilter", filteredLcForQtyFromUpClause7GarmentsFabricQtyOneRowUp, Application.Run("utilityFunction.replaceRegExSpecialCharacterWithEscapeCharacter", lcNoFromUpClause7), 2)
 
@@ -391,21 +415,49 @@ Private Function upClause6And7CompareWithSource(arrUpClause6Range As Variant, ar
         fabricsQtyByLCFromUpClause7Garments = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromUpClause7Garments, UBound(filteredLcForQtyFromUpClause7Garments, 2) - 1)
         
         Result = fabricsQtyByLCFromSourceDataGarments = fabricsQtyByLCFromUpClause7Garments
-
+        
         If Result Then
             Result = "OK"
+            isMtrAndYdsBothCorrected = True ' also check for converted Yds next section
         Else
             Result = "Mismatch = " & fabricsQtyByLCFromSourceDataGarments - fabricsQtyByLCFromUpClause7Garments
         End If
         
-        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("q" & i * 2), Result
-
         emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
 
         intialReturnArr(emptyIndex, 1) = "Sum of Garments Fabrics Qty. by LC"
         intialReturnArr(emptyIndex, 2) = fabricsQtyByLCFromUpClause7Garments & " (Sum of Same LC)"
         intialReturnArr(emptyIndex, 3) = fabricsQtyByLCFromSourceDataGarments & " (Sum of Same LC)"
         intialReturnArr(emptyIndex, 4) = Result
+
+        If isFabQtyExistInMtr Then
+
+            Dim convertedToYdsFabricsQtyByLCFromSourceDataGarments, convertedToYdsFabricsQtyByLCFromUpClause7Garments As String
+            
+            convertedToYdsFabricsQtyByLCFromSourceDataGarments = Round(Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromSourceDataGarments, 9) * 1.0936132983)
+            
+            convertedToYdsFabricsQtyByLCFromUpClause7Garments = Application.Run("utilityFunction.sumArrColumn", filteredLcForQtyFromUpClause7Garments, UBound(filteredLcForQtyFromUpClause7Garments, 2) - 2)
+            
+            Result = convertedToYdsFabricsQtyByLCFromSourceDataGarments = convertedToYdsFabricsQtyByLCFromUpClause7Garments
+
+            If Result Then
+                Result = "OK"
+                isMtrAndYdsBothCorrected = IIf(isMtrAndYdsBothCorrected, True, False)
+            Else
+                Result = "Mismatch = " & convertedToYdsFabricsQtyByLCFromSourceDataGarments - convertedToYdsFabricsQtyByLCFromUpClause7Garments
+                isMtrAndYdsBothCorrected = False
+            End If
+
+            emptyIndex = Application.Run("utilityFunction.indexOf", intialReturnArr, "^$", 1, 1, UBound(intialReturnArr, 1)) ' find empty string pattern = "^$"
+
+            intialReturnArr(emptyIndex, 1) = "Sum of Converted Mtr to Yds Garments Fabrics Qty. by LC"
+            intialReturnArr(emptyIndex, 2) = convertedToYdsFabricsQtyByLCFromUpClause7Garments & " (Sum of Same LC)"
+            intialReturnArr(emptyIndex, 3) = convertedToYdsFabricsQtyByLCFromSourceDataGarments & " (Sum of Same LC)"
+            intialReturnArr(emptyIndex, 4) = Result
+            
+        End If
+        
+        Application.Run "utilityFunction.errorMarkingForValue", arrUpClause7Range.Range("q" & i * 2), IIf(isMtrAndYdsBothCorrected, "OK", "Mismatch")
 
     End If
 
