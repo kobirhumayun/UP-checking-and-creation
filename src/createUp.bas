@@ -137,11 +137,16 @@ Private Function combinLcAndAmnd(lcDict As Object) As String
     
     If lcDict("LCAmndNo") <> "-" Then
         Dim amndNo As Variant
-        amndNo = Application.Run("general_utility_functions.ExtractRightDigitFromEnd", lcDict("LCAmndNo"))   'take right digits from end
+        amndNo = Split(lcDict("LCAmndNo"), Chr(10))
+        amndNo = amndNo(UBound(amndNo, 1))
+
         If amndNo < 10 Then
             amndNo = "0" & amndNo
         End If
-        temp = temp & Chr(10) & "Amnd-" & amndNo & " Dt." & lcDict("LCAmndDate")
+        Dim amndDt As Variant
+        amndDt = Split(lcDict("LCAmndDate"), Chr(10))
+        amndDt = amndDt(UBound(amndDt, 1))
+        temp = temp & Chr(10) & "Amnd-" & amndNo & " Dt." & amndDt
     End If
 
     combinLcAndAmnd = temp
