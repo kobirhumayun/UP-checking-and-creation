@@ -2745,21 +2745,27 @@ Private Function CombinedAllSheetsMushakOrBillOfEntryDbDict(importPerformanceFil
     
     Dim yarnImportWs As Worksheet
     Set yarnImportWs = importPerformanceWb.Worksheets("Yarn (Import)")
+    yarnImportWs.AutoFilterMode = False
     
     Dim yarnLocalWs As Worksheet
     Set yarnLocalWs = importPerformanceWb.Worksheets("Yarn (Local)")
+    yarnLocalWs.AutoFilterMode = False
     
     Dim dyesWs As Worksheet
     Set dyesWs = importPerformanceWb.Worksheets("Dyes")
+    dyesWs.AutoFilterMode = False
     
     Dim chemicalsImportWs As Worksheet
     Set chemicalsImportWs = importPerformanceWb.Worksheets("Chemicals (Import)")
+    chemicalsImportWs.AutoFilterMode = False
     
     Dim chemicalsLocalWs As Worksheet
     Set chemicalsLocalWs = importPerformanceWb.Worksheets("Chemicals (Local)")
+    chemicalsLocalWs.AutoFilterMode = False
     
     Dim stretchWrappingFilmWs As Worksheet
     Set stretchWrappingFilmWs = importPerformanceWb.Worksheets("St.Wrap.Film (Import)")
+    stretchWrappingFilmWs.AutoFilterMode = False
     
     Dim sourceDataImportPerformanceYarnImport As Variant
 
