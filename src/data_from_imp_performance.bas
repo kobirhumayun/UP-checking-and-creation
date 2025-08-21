@@ -29,6 +29,7 @@ Private Function createUseGroupDic() As Object
     "COTTON YARN", _
     "LYOCELL YARN", _
     "TENCEL YARN", _
+    "Tencel Yarn", _
     "Hemp Yarn", _
     "True Hemp Yarn"))
 
