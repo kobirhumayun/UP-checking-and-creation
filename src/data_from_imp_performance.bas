@@ -51,8 +51,11 @@ Private Function createUseGroupDic() As Object
     Set isYarn = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", isYarn, "yarn", yarnUseGroupDict.keys) 'dynamic array elements
     useGroupDict.Add "isYarn", isYarn
 
-    Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Desizing Agent / Enzyme", _
-    Array("Desizing Agent", "Enzyme"))
+    Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Desizing Agent", _
+    Array("Desizing Agent"))
+
+    Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Enzyme", _
+    Array("Enzyme"))
 
     Set nonYarnUseGroupDict = Application.Run("dictionary_utility_functions.AddKeysWithPrimary", nonYarnUseGroupDict, "Acetic Acid", _
     Array("Acetic Acid"))

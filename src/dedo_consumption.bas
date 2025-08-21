@@ -846,7 +846,7 @@ Private Function finalRawMaterialsQtyCalculatedAsGroup( _
     ))
 
     Set qtyAsGroupDic = Application.Run("dedo_consumption.sumRawMaterialsAsGroupAndAddToDic", qtyAsGroupDic, allDedoConDicAfterAppliedUsedPercentageSpecificRawMaterials, _
-    "Desizing Agent / Enzyme", _
+    "Desizing Agent", _
     Array( _
     "1. Desizing agent_Sl_15", _
     "1. Desizing agent_Sl_35", _
