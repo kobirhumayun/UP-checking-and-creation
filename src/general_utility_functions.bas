@@ -293,6 +293,13 @@ Private Function ExtractRightDigitOfMuOrBillWithRegex(mushakOrBillOfEntry As Var
     Dim numberString As String
     numberString = CStr(mushakOrBillOfEntry)
 
+    If Application.Run("general_utility_functions.isStrPatternExist", numberString, "m\-6\.3", True, True, True) Then
+        'handle online mushak
+        numberString = Replace(numberString, "/", "")
+        numberString = Replace(numberString, "-", "")
+    
+    End If
+
     ' Define the regular expression pattern to match the right digits
     pattern = "\d+$"
 
