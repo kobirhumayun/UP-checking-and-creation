@@ -776,7 +776,7 @@ Sub createExportImportPerformanceAsUp()
     
     Dim jsonPathArr As Variant
 
-    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2025\json-all-up-clause")  ' JSON file path
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2026\json-all-up-clause")  ' JSON file path
 
     If Not UBound(jsonPathArr) = 1 Then
         MsgBox "Please select only one JSON file"
@@ -787,7 +787,7 @@ Sub createExportImportPerformanceAsUp()
     Set allUpDicFromJson = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
     
     Dim basePath As String
-    basePath = "D:\Temp\UP Draft\Draft 2025\Import & Export Performace 2024-2025"
+    basePath = "D:\Temp\UP Draft\Draft 2026\Import & Export Performace 2025-2026"
     
     Dim sampleUpFilePathDeem As String
     Dim sampleUpFilePathDirect As String
