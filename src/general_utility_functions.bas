@@ -616,7 +616,7 @@ Private Function sumUsedQtyAndValueAsMushakOrBillOfEntryFromSelectedUpFile() As 
     jsonPath = ActiveWorkbook.path & Application.PathSeparator & "json-used-up-clause8"
 
     Dim initialUpPath As String
-    initialUpPath = ActiveWorkbook.path & Application.PathSeparator & "UP-period-2024-2025"
+    initialUpPath = ActiveWorkbook.path & Application.PathSeparator & "UP-period-2025-2026"
 
     Dim upPathArr As Variant
     Dim jsonPathArr As Variant
