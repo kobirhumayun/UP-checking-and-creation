@@ -719,7 +719,8 @@ Private Function GroupedDictionaryFormateAsReportWs(groupedDictionary As Object)
         "Sulphuric Acid", "Reducing Agent", "Softener", "Binder", "Sequestering Agent", "Sodium Hydro Sulphate", "Wax", _
         "Acetic Acid", "PVA", "Desizing Agent /  Enzyme", "Fixing Agent", "Dispersing Agent", "Hydroxylamine", "Water Decoloring Agent", _
         "Hydrogen Peroxide", "Stabilizing Agent", "Detergent", "Sodium Hypochloride", "Bleaching Powder", "Pumice Stone", _
-        "Natural Garnet", "Resin", "Total Chemicals", "Vat Dyes  (Liquid)", "Vat Dyes (Indigo Granular)", "Sulphur Dyes (Liquid)", _
+        "Natural Garnet", "Resin", "Reactive Dyes", "Finishing Agent", "Antistain", "Polymer", "Soda Ash", "Total Chemicals", _
+        "Vat Dyes  (Liquid)", "Vat Dyes (Indigo Granular)", "Sulphur Dyes (Liquid)", _
         "Sulphur Dyes (Sulphur Granular)", "Stretch Wrapping Film")
 
     Dim i As Long
@@ -746,7 +747,7 @@ Private Function GroupedDictionaryFormateAsReportWs(groupedDictionary As Object)
         formatedDataDictionary(currentKey).Add trimedHeaderArr(12), groupedDictionary(currentKey)("Wax")
         formatedDataDictionary(currentKey).Add trimedHeaderArr(13), groupedDictionary(currentKey)("AceticAcid")
         formatedDataDictionary(currentKey).Add trimedHeaderArr(14), groupedDictionary(currentKey)("PVA")
-        formatedDataDictionary(currentKey).Add trimedHeaderArr(15), groupedDictionary(currentKey)("DesizingAgentEnzyme")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(15), groupedDictionary(currentKey)("DesizingAgentEnzyme") + groupedDictionary(currentKey)("DesizingAgent") + groupedDictionary(currentKey)("Enzyme")
         formatedDataDictionary(currentKey).Add trimedHeaderArr(16), groupedDictionary(currentKey)("FixingAgent")
         formatedDataDictionary(currentKey).Add trimedHeaderArr(17), groupedDictionary(currentKey)("DispersingAgent")
         formatedDataDictionary(currentKey).Add trimedHeaderArr(18), groupedDictionary(currentKey)("Hydroxylamine")
@@ -759,12 +760,17 @@ Private Function GroupedDictionaryFormateAsReportWs(groupedDictionary As Object)
         formatedDataDictionary(currentKey).Add trimedHeaderArr(25), groupedDictionary(currentKey)("PumiceStone")
         formatedDataDictionary(currentKey).Add trimedHeaderArr(26), groupedDictionary(currentKey)("NaturalGarnet")
         formatedDataDictionary(currentKey).Add trimedHeaderArr(27), groupedDictionary(currentKey)("Resin")
-        formatedDataDictionary(currentKey).Add trimedHeaderArr(28), 0
-        formatedDataDictionary(currentKey).Add trimedHeaderArr(29), groupedDictionary(currentKey)("VatDyes")
-        formatedDataDictionary(currentKey).Add trimedHeaderArr(30), 0
-        formatedDataDictionary(currentKey).Add trimedHeaderArr(31), groupedDictionary(currentKey)("SulphurDyes")
-        formatedDataDictionary(currentKey).Add trimedHeaderArr(32), 0
-        formatedDataDictionary(currentKey).Add trimedHeaderArr(33), groupedDictionary(currentKey)("StretchWrappingFilm")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(28), groupedDictionary(currentKey)("ReactiveDyes")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(29), groupedDictionary(currentKey)("FinishingAgent")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(30), groupedDictionary(currentKey)("Antistain")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(31), groupedDictionary(currentKey)("Polymer")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(32), groupedDictionary(currentKey)("SodaAsh")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(33), 0
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(34), groupedDictionary(currentKey)("VatDyes")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(35), 0
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(36), groupedDictionary(currentKey)("SulphurDyes")
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(37), 0
+        formatedDataDictionary(currentKey).Add trimedHeaderArr(38), groupedDictionary(currentKey)("StretchWrappingFilm")
         
     Next currentKey
 
