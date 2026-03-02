@@ -834,3 +834,74 @@ Private Function PutQuantityOfGoodsUsedInProductionDataToWs(allUpDicFromJson As 
     Next cell
     
 End Function
+
+Private Function SumDictionaryValues(dict As Object) As Double
+    Dim total As Double
+    total = 0
+    
+    Dim key As Variant
+    If Not dict Is Nothing Then
+        For Each key In dict.keys
+            If IsNumeric(dict(key)) Then
+                total = total + CDbl(dict(key))
+            End If
+        Next key
+    End If
+    
+    SumDictionaryValues = total
+End Function
+
+Private Function PutQuantityOfGarmentsUsedInProductionDataToWs(allUpDicFromJson As Object, ws As Worksheet)
+
+    Dim headerArr As Variant
+    headerArr = Array("Total Garments", "Enzyme Rain Wash/ Monkey wash", "Double Enzyme Wash", "Enzyme With Bleach Wash", "Bleach Wash", "Stone Wash (Pumic Stone)", "Stone Wash (Natural Garnet)", "Double Stone Wash (Pumic Stone)", "Double Stone Wash (Natural Garnet)", "Sand & Slicon Wash", "Pigment Wash", "Caustic Wash", "Enzyme with Silicon Wash", "Normal Wash/ Garments Wash", "Resin Deep Wash", "Garments Tint Dyeing & Finishing", "Garments Over Dyeing with Wash & Finished")
+
+    ws.Range("D3").Resize(1, UBound(headerArr, 1) + 1) = headerArr
+
+    Dim cell As Range
+    Dim tempCell As Range
+    Dim tempArr As Variant
+
+    For Each cell In ws.Range("B4:B" & ws.Range("B4").End(xlDown).Row - 1)
+
+        ReDim tempArr(LBound(headerArr) To UBound(headerArr))
+        
+        Dim totalGarments As Double
+        totalGarments = 0
+        
+        If allUpDicFromJson(cell.value)("upClause14").Exists("isGarments") Then
+            If allUpDicFromJson(cell.value)("upClause14")("isGarments") = True Then
+                If allUpDicFromJson(cell.value)("upClause14").Exists("garmentsQty") Then
+                    totalGarments = allUpDicFromJson(cell.value)("upClause14")("garmentsQty")
+                End If
+            End If
+        End If
+        
+        tempArr(0) = totalGarments
+        
+        Dim garmentsWashes As Object
+        Set garmentsWashes = allUpDicFromJson(cell.value)("upClause12bGarments")
+        
+        If garmentsWashes.Exists("EnzymeRainWashMonkeywash") Then tempArr(1) = SumDictionaryValues(garmentsWashes("EnzymeRainWashMonkeywash")) Else tempArr(1) = 0
+        If garmentsWashes.Exists("DoubleEnzymeWash") Then tempArr(2) = SumDictionaryValues(garmentsWashes("DoubleEnzymeWash")) Else tempArr(2) = 0
+        If garmentsWashes.Exists("EnzymeWithBleachWash") Then tempArr(3) = SumDictionaryValues(garmentsWashes("EnzymeWithBleachWash")) Else tempArr(3) = 0
+        If garmentsWashes.Exists("BleachWash") Then tempArr(4) = SumDictionaryValues(garmentsWashes("BleachWash")) Else tempArr(4) = 0
+        If garmentsWashes.Exists("StoneWashPumicStone") Then tempArr(5) = SumDictionaryValues(garmentsWashes("StoneWashPumicStone")) Else tempArr(5) = 0
+        If garmentsWashes.Exists("StoneWashNaturalGarnet") Then tempArr(6) = SumDictionaryValues(garmentsWashes("StoneWashNaturalGarnet")) Else tempArr(6) = 0
+        If garmentsWashes.Exists("DoubleStoneWashPumicStone") Then tempArr(7) = SumDictionaryValues(garmentsWashes("DoubleStoneWashPumicStone")) Else tempArr(7) = 0
+        If garmentsWashes.Exists("DoubleStoneWashNaturalGarnet") Then tempArr(8) = SumDictionaryValues(garmentsWashes("DoubleStoneWashNaturalGarnet")) Else tempArr(8) = 0
+        If garmentsWashes.Exists("SandSliconWash") Then tempArr(9) = SumDictionaryValues(garmentsWashes("SandSliconWash")) Else tempArr(9) = 0
+        If garmentsWashes.Exists("PigmentWash") Then tempArr(10) = SumDictionaryValues(garmentsWashes("PigmentWash")) Else tempArr(10) = 0
+        If garmentsWashes.Exists("CausticWash") Then tempArr(11) = SumDictionaryValues(garmentsWashes("CausticWash")) Else tempArr(11) = 0
+        If garmentsWashes.Exists("EnzymewithSiliconWash") Then tempArr(12) = SumDictionaryValues(garmentsWashes("EnzymewithSiliconWash")) Else tempArr(12) = 0
+        If garmentsWashes.Exists("NormalWashGarmentsWash") Then tempArr(13) = SumDictionaryValues(garmentsWashes("NormalWashGarmentsWash")) Else tempArr(13) = 0
+        If garmentsWashes.Exists("ResinDeepWash") Then tempArr(14) = SumDictionaryValues(garmentsWashes("ResinDeepWash")) Else tempArr(14) = 0
+        If garmentsWashes.Exists("GarmentsTintDyeingFinishing") Then tempArr(15) = SumDictionaryValues(garmentsWashes("GarmentsTintDyeingFinishing")) Else tempArr(15) = 0
+        If garmentsWashes.Exists("GarmentsOverDyeingwithWashFinished") Then tempArr(16) = SumDictionaryValues(garmentsWashes("GarmentsOverDyeingwithWashFinished")) Else tempArr(16) = 0
+        
+        Set tempCell = cell.Offset(0, 2)
+        tempCell.Resize(1, UBound(tempArr) + 1) = tempArr
+
+    Next cell
+    
+End Function
