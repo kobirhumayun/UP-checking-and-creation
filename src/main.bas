@@ -903,6 +903,24 @@ Sub CreateQuantityOfGoodsUsedInProductionReportAsUp()
 
 End Sub
 
+Sub CreateQuantityOfGarmentsUsedInProductionReportAsUp()
+
+    Dim jsonPathArr As Variant
+
+    jsonPathArr = Application.Run("general_utility_functions.returnSelectedFilesFullPathArr", "D:\Temp\UP Draft\Draft 2026\json-all-up-clause")  ' JSON file path
+
+    If Not UBound(jsonPathArr) = 1 Then
+        MsgBox "Please select only one JSON file"
+        Exit Sub
+    End If
+    
+    Dim allUpDicFromJson As Object
+    Set allUpDicFromJson = Application.Run("JsonUtilityFunction.LoadDictionaryFromJsonTextFile", jsonPathArr(1))
+    
+    Application.Run "reportAsUp.PutQuantityOfGarmentsUsedInProductionDataToWs", allUpDicFromJson, ActiveSheet
+
+End Sub
+
 Sub ObjectJsonFileSaveAsArrayOfObjectJson()
 
     Dim jsonPathArr As Variant
