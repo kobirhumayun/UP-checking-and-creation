@@ -537,6 +537,7 @@ Sub afterYarnConsumption()
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Soda Ash", 0) ' Qty. be dynamic
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Anti Creasing Agent", 0) ' Qty. be dynamic
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Sodium Metabisulfite", 0) ' Qty. be dynamic
+    Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Soaping Agent", 0) ' Qty. be dynamic
     Set finalRawMaterialsQtyDicAsGroup = Application.Run("dictionary_utility_functions.addKeysAndValueToDic", finalRawMaterialsQtyDicAsGroup, "Enzyme", 0) ' Qty. be dynamic
     
     Dim impPerformanceDataDic As Object
