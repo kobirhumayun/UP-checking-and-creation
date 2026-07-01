@@ -720,7 +720,7 @@ Private Function GroupedDictionaryFormateAsReportWs(groupedDictionary As Object)
         "Acetic Acid", "PVA", "Desizing Agent /  Enzyme", "Fixing Agent", "Dispersing Agent", "Hydroxylamine", "Water Decoloring Agent", _
         "Hydrogen Peroxide", "Stabilizing Agent", "Detergent", "Sodium Hypochloride", "Bleaching Powder", "Pumice Stone", _
         "Natural Garnet", "Resin", "Reactive Dyes", "Finishing Agent", "Antistain", "Polymer", "Soda Ash", "Anti Creasing Agent", _
-        "Sodium Metabisulfite", "Total Chemicals", _
+        "Sodium Metabisulfite", "Soaping Agent", "Total Chemicals", _
         "Vat Dyes  (Liquid)", "Vat Dyes (Indigo Granular)", "Sulphur Dyes (Liquid)", _
         "Sulphur Dyes (Sulphur Granular)", "Stretch Wrapping Film")
 
